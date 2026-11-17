@@ -11,12 +11,16 @@
 <meta property="og:image" content="https://aurabin.github.io/easy-read/og-image.png">
 <meta property="og:url" content="https://aurabin.github.io/easy-read/">
 <style>
-/* Amiga 1000 — cremiges Gehaeuse, brauner Monitor, blauer Hintergrund */
+/* Amiga Workbench 1.3 — "Old Blue": 4 Farben, belegt.
+ * Blau #4044A8 (Hintergrund), Weiß #FFFFFF, Schwarz #000000, Orange #FF5010 (Akzent).
+ * Quelle: shot97retro.blogspot.com "Amiga 8 Color Workbench 1.3" —
+ * "Blue was the first color ... the background ... rounded out by white, black, and orange."
+ * 4-Bit Amiga-Palette auf Hex umgerechnet. */
 :root{
-  --desk:#1f3a6e; --win:#e8e2d0; --win2:#d8d0b8; --title:#6b5d4f;
-  --text:#2a2620; --muted:#5c5346; --blue:#2a4a8a; --light:#fffaf0; --dark:#8a7f6a;
-  --r:#c0392b; --o:#d35400; --y:#b7950b; --g:#2e7d32; --b:#2a4a8a; --p:#6c3483;
-  --accent:#2a4a8a;
+  --desk:#4044a8; --win:#ffffff; --win2:#e6e6e6; --title:#000000;
+  --text:#000000; --muted:#333333; --blue:#2a2a8c; --light:#ffffff; --dark:#000000;
+  --r:#c0392b; --o:#ff5010; --y:#f2d000; --g:#2e7d32; --b:#4044a8; --p:#6c3483;
+  --accent:#ff5010;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--desk);color:var(--text);
@@ -80,6 +84,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:14px}
   transition:transform .15s ease,border-color .15s ease}
 .dock a:hover{transform:translateY(-2px);border-color:var(--accent)}
 /* Weitere Oberflächen */
+/* Workbench 1.3 — Old Blue, die Basis (explizit als Theme auswählbar) */
+body[data-theme="wb13"]{--desk:#4044a8;--win:#ffffff;--win2:#e6e6e6;--title:#000000;
+ --text:#000000;--muted:#333333;--blue:#2a2a8c;--light:#ffffff;--dark:#000000;--accent:#ff5010}
 /* C64 — echte VIC-II-Farben, aus dem Emulator-Canvas gemessen */
 body[data-theme="c64"]{--desk:#352879;--win:#6c5eb5;--win2:#5a4da0;
  --title:#241a5e;--text:#f8f8d8;--muted:#d9d0ff;--blue:#f8f8d8;
@@ -155,17 +162,23 @@ body{
     repeating-linear-gradient(-45deg,rgba(0,0,0,.05) 0 2px,transparent 2px 4px),
     radial-gradient(circle at 30% 20%,rgba(255,255,255,.12),transparent 60%);
 }
-.window{background:var(--win);border:2px solid var(--dark);border-radius:3px;
-  box-shadow:inset 2px 2px 0 var(--light),inset -2px -2px 0 #8f8a80,3px 4px 0 rgba(0,0,0,.35)}
-.titlebar{background:linear-gradient(180deg,#7a6b5a,var(--title));color:var(--light);
-  text-transform:none;letter-spacing:.04em;border-bottom:2px solid var(--dark)}
+/* Workbench 1.3: flach, hart, keine runden Ecken, keine Schatten */
+.window{background:var(--win);border:2px solid var(--dark);border-radius:0;
+  box-shadow:3px 3px 0 rgba(0,0,0,.45)}
+.titlebar{background:var(--title);color:#ffffff;
+  text-transform:none;letter-spacing:.04em;border-bottom:2px solid var(--dark);
+  border-radius:0}
 .titlebar .name::before{content:""}
-.card{background:var(--win2);border:1px solid var(--dark);border-radius:4px;
-  box-shadow:inset 1px 1px 0 var(--light),inset -1px -1px 0 #bdb29a}
-.btn{background:var(--blue);color:#fff;border-radius:3px;border:1px solid #14284f;
-  box-shadow:inset 1px 1px 0 rgba(255,255,255,.25)}
-.btn:hover{filter:brightness(1.1)}
-.illu{border:1px solid var(--dark);border-radius:4px}
+.titlebar .gadget{background:#ffffff;border:1px solid #000000;border-radius:0}
+.card{background:var(--win2);border:2px solid var(--dark);border-radius:0;
+  box-shadow:none}
+.btn{background:#ffffff;color:#000000;border-radius:0;border:2px solid #000000;
+  box-shadow:2px 2px 0 #000000}
+.btn:hover{background:var(--accent);color:#000000}
+.illu{border:2px solid var(--dark);border-radius:0}
+.appearance button{border-radius:0;border:2px solid #000000}
+.appearance button[aria-pressed="true"]{background:var(--accent);color:#000000}
+.chip{border-radius:0;border:1px solid #000000}
 body::before{display:none}
 /* Spiel: Boing Fangen */
 #game{background:var(--desk);border:3px solid var(--dark);height:220px;position:relative;
@@ -198,7 +211,7 @@ body::before{display:none}
 
 .wrap{position:relative;z-index:1}
 /* Animierter Hero — die Retro→Neuzeit-Reise sichtbar */
-#hero{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+#hero{position:relative;background:var(--desk);border:2px solid #000000;border-radius:0;
  overflow:hidden;margin-bottom:22px;box-shadow:0 18px 40px rgba(0,0,0,.5)}
 #hero canvas{width:100%;height:200px;display:block}
 #hero .hero-text{position:absolute;left:0;right:0;bottom:0;padding:24px 22px;
@@ -307,7 +320,8 @@ body::before{display:none}
     <div class="inner appearance">
       <strong id="appearance">Oberfläche:</strong>
       <div class="rows" role="group" aria-label="Appearance">
-        <button type="button" data-theme-btn="c64" aria-pressed="true">C64</button>
+        <button type="button" data-theme-btn="wb13" aria-pressed="true">Workbench 1.3</button>
+        <button type="button" data-theme-btn="c64" aria-pressed="false">C64</button>
         <button type="button" data-theme-btn="amiga1000" aria-pressed="false">Amiga 1000</button>
         <button type="button" data-theme-btn="nachtgitter" aria-pressed="false">Nachtgitter</button>
         <button type="button" data-theme-btn="pimiga" aria-pressed="false">Pimiga</button>
@@ -845,8 +859,8 @@ body::before{display:none}
 </nav>
 <script>
 (function(){
-  var t="c64";
-  try{ t=localStorage.getItem("er-theme")||"c64"; }catch(e){}
+  var t="wb13";
+  try{ t=localStorage.getItem("er-theme")||"wb13"; }catch(e){}
   var q=new URLSearchParams(location.search).get("theme");
   if(q) t=q;
   function apply(){
