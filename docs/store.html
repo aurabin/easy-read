@@ -108,6 +108,17 @@ body[data-theme="pet"] h1{text-shadow:1px 1px 0 #bcd48a}
 body[data-theme="pet"] .lead{color:#3f5a2a}
 body[data-theme="pet"] .appearance button[aria-pressed="true"]{
   background:#2f6b1f;color:#f4f8dc}
+/* Pimiga — Amiga Workbench auf dem Raspberry Pi */
+body[data-theme="pimiga"]{--desk:#3a4a6a;--win:#d8d8d8;--win2:#c4c4c4;
+ --title:#2a4a8a;--text:#1a1a1a;--muted:#404040;--blue:#204090;
+ --light:#ffffff;--dark:#707070}
+body[data-theme="pimiga"] .titlebar{
+  background:linear-gradient(180deg,#3a6ab0,#2a4a8a);color:#fff}
+body[data-theme="pimiga"] .window{
+  border-top-color:#ffffff;border-left-color:#ffffff;
+  border-right-color:#707070;border-bottom-color:#707070;box-shadow:3px 3px 0 #2a4a8a}
+body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
+  background:#2a4a8a;color:#fff}
 .appearance{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .appearance .rows{display:flex;gap:6px;flex-wrap:wrap}
 .appearance button{font:inherit;font-size:12px;padding:4px 9px;color:var(--text);
@@ -150,7 +161,8 @@ body[data-theme="pet"] .appearance button[aria-pressed="true"]{
     <div class="inner appearance">
       <strong id="appearance">Oberfläche:</strong>
       <div class="rows" role="group" aria-label="Appearance">
-        <button type="button" data-theme-btn="pet" aria-pressed="true">PET 2001</button>
+        <button type="button" data-theme-btn="pimiga" aria-pressed="true">Pimiga</button>
+        <button type="button" data-theme-btn="pet" aria-pressed="false">PET 2001</button>
         <button type="button" data-theme-btn="os41" aria-pressed="false">OS 4.1</button>
         <button type="button" data-theme-btn="night" aria-pressed="false">Nacht</button>
         <button type="button" data-theme-btn="light" aria-pressed="false">Hell</button>
