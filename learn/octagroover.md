@@ -46,8 +46,10 @@ Es gibt auch eine Datei namens `standalone.html`.
 Sie ist ein Bild und eine Seite in einer Datei.
 Sie zeigt das Feld und startet die Demo.
 Sie spielt Ton ab.
-Der Ton ist meine Deutung des Moduls.
-Er ist nicht der originale Sound.
+Im Browser läuft ein Paula-Emulator.
+Er liest die echten Samples aus dem Modul.
+Der Ton entsteht erst beim Abspielen.
+Es ist meine eigene Umsetzung, kein fertiger Player.
 
 Die Datei `all-in-one.png` ist Bild und Seite zugleich.
 Ziehe sie in den Browser.
