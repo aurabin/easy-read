@@ -197,6 +197,22 @@ body::before{display:none}
 .joke .inner{background:var(--win2);text-align:center;font-size:16px}
 
 .wrap{position:relative;z-index:1}
+/* Animierter Hero — die Retro→Neuzeit-Reise sichtbar */
+#hero{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+ overflow:hidden;margin-bottom:22px;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+#hero canvas{width:100%;height:200px;display:block}
+#hero .hero-text{position:absolute;left:0;right:0;bottom:0;padding:24px 22px;
+ background:linear-gradient(0deg,rgba(7,11,20,.97),rgba(7,11,20,.85) 65%,rgba(7,11,20,.2));
+ pointer-events:none}
+#hero .hero-text h2{margin:0 0 4px;font-size:clamp(20px,3vw,28px);color:#eaf2ff;
+ text-shadow:0 2px 8px rgba(0,0,0,.9)}
+#hero .hero-text p{margin:0;color:#c9d8ef;font-size:13px;max-width:60ch;
+ text-shadow:0 1px 6px rgba(0,0,0,.9)}
+#hero .reise{position:absolute;top:12px;right:14px;display:flex;gap:5px;align-items:center;
+ font:10px ui-monospace,monospace;color:var(--muted)}
+#hero .reise i{width:7px;height:7px;border-radius:50%;background:var(--line);display:inline-block}
+#hero .reise i.aktiv{background:var(--sky);box-shadow:0 0 8px var(--sky)}
+@media(max-width:640px){#hero canvas{height:160px}}
 
 .cards{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .cards .card:first-child{grid-column:span 2;grid-row:span 2}
@@ -223,6 +239,18 @@ body::before{display:none}
 </div>
 <div class="wrap">
   <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <div id="hero">
+    <canvas data-retro-neuzeit aria-hidden="true"></canvas>
+    <div class="reise" aria-hidden="true">
+      <span>RETRO</span><i class="aktiv"></i><i></i><i></i><i></i><span>NEUZEIT</span>
+    </div>
+    <div class="hero-text">
+      <h2>Vom ersten Flüstern bis zum großen Atmen</h2>
+      <p>Zehn Welten in einem Feld. Retro wird Neuzeit — Schritt für Schritt.
+        Scroll weiter und entdecke die Lektionen, Demos und Spiele.</p>
+    </div>
+  </div>
 
   <section class="window" aria-labelledby="support">
     <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Kostenlos</span><span class="gadget" aria-hidden="true"></span></div>
@@ -824,6 +852,17 @@ body::before{display:none}
     apply();
   });
   apply();
+})();
+
+/* Hero-Reise: Phasen-Punkte mitlaufen lassen */
+(function(){
+  var punkte=document.querySelectorAll("#hero .reise i");
+  if(!punkte.length||!window.RetroNeuzeit)return;
+  setInterval(function(){
+    // Durch die vier Phasen rotieren — RETRO → WENDE → FLUSS → NEUZEIT
+    var aktiv=Math.floor(Date.now()/4000)%punkte.length;
+    punkte.forEach(function(p,i){p.classList.toggle("aktiv",i===aktiv)});
+  },500);
 })();
 
 /* Spiel: Boing fangen */
