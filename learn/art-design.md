@@ -114,6 +114,52 @@ Unsere Bilder haben klare Umrisse.
 Unsere Schrift hat eine Hierarchie.
 Die Demo nutzt ein Raster.
 
+## Ein Bild ansehen
+
+Hier ist ein buntes Bild.
+Drei Menschen sitzen darin.
+Hinter ihnen ist der Himmel voller Sterne.
+Über ihnen leuchten Farben wie ein Feuerwerk.
+
+### Was ich sehe
+
+Die drei Menschen sitzen in einer Reihe.
+Links, Mitte, rechts.
+Das wirkt ausgewogen.
+Die Mitte ist am hellsten.
+Dort geht ein Lichtstrahl auf.
+Das zieht den Blick an.
+
+Die Farben sind kräftig.
+Blau, Grün, Rot, Gelb.
+Viele kleine Herzen schweben umher.
+Sie kommen wieder und wieder vor.
+Das ist Wiederholung.
+
+Die Kleider haben klare Formen.
+Dunkle Anzüge. Helle Stoffe.
+Der Kontrast macht sie sichtbar.
+
+Blumen und Lichter liegen unten.
+Sie füllen den leeren Raum.
+Der Blick bleibt im Bild.
+
+### Was das zeigt
+
+Ein extremes Bild kann man lernen.
+Hier ist vieles auf einmal.
+Zu viel für eine Anleitung.
+
+Für unsere Seiten heißt das:
+
+- Weniger Farben.
+- Mehr Freiraum.
+- Eine Akzentfarbe pro Stelle.
+- Wiederholung ja. Chaos nein.
+
+Das Bild zeigt, was möglich ist.
+Es zeigt auch, warum wir Maß halten.
+
 ## Ehrlich
 
 Das ist ein kurzer Überblick.
