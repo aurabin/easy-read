@@ -9,12 +9,15 @@ const ratio=(a,b)=>{const [x,y]=[lum(a),lum(b)].sort((p,q)=>q-p);return (x+0.05)
 const desk="#33378a", win="#ffffff", akzent="#ff5010";
 const colors={text:"#000000",muted:"#555555",mutedDesk:"#e8e8f0",
   blue:"#2a2a8c",red:"#c0392b",orange:"#ff5010",line:"#000000"};
-console.log("== Desktop #2a2e7a ==");
-for(const [n,c] of Object.entries(colors))
-  console.log(n.padEnd(10), c, "on desk:", ratio(c,desk).toFixed(2));
-console.log("== Fenster #ffffff ==");
-for(const [n,c] of Object.entries(colors))
-  console.log(n.padEnd(10), c, "on win:", ratio(c,win).toFixed(2));
+console.log("== Desktop #33378a (Text: --muted-desk) ==");
+console.log("mutedDesk", colors.mutedDesk, "on desk:", ratio(colors.mutedDesk,desk).toFixed(2));
+console.log("== Fenster #ffffff (Text: --text) ==");
+console.log("text   ", colors.text, "on win:", ratio(colors.text,win).toFixed(2));
+console.log("muted  ", colors.muted, "on win:", ratio(colors.muted,win).toFixed(2));
+console.log("blue   ", colors.blue, "on win:", ratio(colors.blue,win).toFixed(2));
+console.log("red    ", colors.red, "on win:", ratio(colors.red,win).toFixed(2));
+console.log("orange ", colors.orange, "on win:", ratio(colors.orange,win).toFixed(2));
+console.log("== Akzent #ff5010 ==");
 console.log("text on accent:", ratio(colors.text,akzent).toFixed(2));
 console.log("white on accent:", ratio("#ffffff",akzent).toFixed(2));
-console.log("mutedDesk on desk:", ratio(colors.mutedDesk,desk).toFixed(2));
+console.log("== Alle >= 4.5 ? ==", ratio(colors.mutedDesk,desk)>=4.5 && ratio(colors.text,win)>=4.5 && ratio(colors.muted,win)>=4.5);
