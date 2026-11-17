@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGA Quiz — Retro für Kids</title>
+<style>
+/* AGA-Palette: 64 Farben, 12 Bit. Hier die klassischen 16 Grundfarben. */
+:root{
+ --c00:#000000;--c01:#ffffff;--c02:#8b2e2e;--c03:#5ac8fa;
+ --c04:#3a7d44;--c05:#f7d51d;--c06:#e0703c;--c07:#6a4a9c;
+ --c08:#b03030;--c09:#5ac8fa;--c10:#7fe08a;--c11:#ffe98a;
+ --c12:#c0c0c0;--c13:#808080;--c14:#404040;--c15:#202020;
+}
+*{box-sizing:border-box}
+body{margin:0;background:
+  repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 1px,transparent 1px 3px),
+  var(--c00);
+  color:var(--c01);font:15px/1.5 "Courier New",Courier,monospace}
+.wrap{max-width:860px;margin:0 auto;padding:18px 14px 60px}
+/* AGA-Bildschirm: 320x200 Logik, skaliert */
+.screen{background:var(--c02);border:6px solid var(--c14);
+ box-shadow:inset 0 0 0 2px var(--c15),inset 0 0 40px #000,0 0 0 3px var(--c12),8px 8px 0 #000;
+ position:relative;aspect-ratio:16/10;overflow:hidden}
+.screen::before{content:"";position:absolute;inset:0;pointer-events:none;
+ background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px)}
+.hud{position:absolute;top:0;left:0;right:0;height:9%;background:var(--c04);
+ display:flex;align-items:center;justify-content:space-between;padding:0 10px;
+ font-weight:bold;color:var(--c15);border-bottom:3px solid var(--c12)}
+.hud .chip{color:var(--c05)}
+.body{position:absolute;top:9%;bottom:0;left:0;right:0;padding:3% 4%;display:flex;flex-direction:column}
+.frage{font-size:clamp(14px,2.4vw,20px);font-weight:bold;color:var(--c05);
+ text-shadow:2px 2px 0 var(--c00);margin:0 0 3%}
+.antworten{display:flex;flex-direction:column;gap:2%}
+.antworten button{font:inherit;font-weight:bold;text-align:left;cursor:pointer;
+ padding:2% 3%;background:var(--c07);color:var(--c01);
+ border:3px solid var(--c12);box-shadow:inset 2px 2px 0 var(--c09),inset -2px -2px 0 var(--c15)}
+.antworten button:hover{background:var(--c08)}
+.antworten button:active{box-shadow:inset 2px 2px 0 var(--c15)}
+.antworten button.right{background:var(--c04);color:var(--c15)}
+.antworten button.wrong{background:var(--c02);color:var(--c01)}
+.erklaerung{margin-top:3%;padding:2%;background:var(--c15);border-left:5px solid var(--c05);
+ color:var(--c10);font-size:clamp(12px,1.8vw,15px)}
+.erklaerung[hidden]{display:none}
+.bottom{position:absolute;bottom:2%;left:4%;right:4%;display:flex;justify-content:space-between;align-items:center}
+.btn{font:inherit;font-weight:bold;padding:4px 10px;cursor:pointer;
+ background:var(--c05);color:var(--c00);border:3px solid var(--c12);box-shadow:2px 2px 0 var(--c15)}
+.btn[hidden]{display:none}
+/* Info-Leiste unter dem Bildschirm */
+.info{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.badge{padding:4px 10px;border:2px solid var(--c12);color:var(--c01);font-size:12px}
+.badge.got{background:var(--c05);color:var(--c00);font-weight:bold}
+.chipset{margin-top:8px;color:var(--c13);font-size:11px;letter-spacing:.05em}
+/* Startbildschirm */
+#start{position:absolute;inset:0;background:var(--c00);display:flex;flex-direction:column;
+ align-items:center;justify-content:center;gap:14px;text-align:center;z-index:5}
+#start h1{font-size:clamp(20px,4vw,34px);color:var(--c05);text-shadow:3px 3px 0 var(--c08);margin:0}
+#start p{color:var(--c03);max-width:80%}
+#start .eye{font-size:40px}
+footer{text-align:center;color:var(--c13);font-size:12px;padding:14px}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="screen">
+    <div class="hud"><span>AGA Quiz</span><span class="chip">CHIP: AGA · 64 FARBEN</span></div>
+    <div class="body">
+      <p class="frage" id="frage">Frage lädt …</p>
+      <div class="antworten" id="antworten"></div>
+      <div class="erklaerung" id="erklaerung" hidden></div>
+      <div class="bottom">
+        <span id="stand">Frage 1 / 8</span>
+        <button class="btn" id="weiter" hidden>Nächste</button>
+      </div>
+    </div>
+    <div id="start">
+      <div class="eye">◉ ◉</div>
+      <h1>AGA QUIK</h1>
+      <p>Ein Spiel über die alte Computer-Zeit.<br>8 Fragen. Klick auf eine Antwort.</p>
+      <button class="btn" id="go">START</button>
+    </div>
+  </div>
+
+  <div class="info">
+    <span class="badge" id="b5">5 Treffer</span>
+    <span class="badge" id="b10">10 Treffer</span>
+    <span class="badge" id="b20">20 Treffer</span>
+  </div>
+  <p class="chipset">AGA — ADVANCED GRAPHICS ARCHITECTURE · 12-BIT FARben · HAM-8 · 8 CHANNEL AUDIO</p>
+  <p><small>Eigene Nachbildung im Amiga-AGA-Look. Keine ROMs. Kein WAV.
+    Nicht mit echten Kindern getestet.</small></p>
+
+  <section class="window joke" aria-labelledby="witz">
+    <div class="titlebar" style="background:#2a2a2a;color:#f7d51d;padding:6px 10px">EIN WITZ</div>
+    <div class="inner" id="witz" style="padding:10px">
+      <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
+    </div>
+  </section>
+
+  <footer>Kostenlos. Offen. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<script>
+(function(){
+"use strict";
+var fragen=[
+ {f:"Was ist ein Computer?",a:["Eine Maschine, die Anweisungen folgt","Ein Tier","Ein Essen"],r:0,
+  e:"Ein Computer ist eine Maschine. Er folgt Anweisungen. Er denkt nicht selbst."},
+ {f:"Welcher Computer kam zuerst?",a:["C64","PET 2001","Amiga"],r:1,
+  e:"Der PET 2001 kam 1977. Der C64 kam 1982. Der Amiga kam 1985."},
+ {f:"Wie hieß der Amiga-Tonchip?",a:["Paula","Sid","Soundblaster"],r:0,
+  e:"Paula spielte Samples. Vier Kanäle gleichzeitig. Das klang toll."},
+ {f:"Was war der Boing Ball?",a:["Ein Ball im Amiga","Ein Spielzeug","Ein Ballon"],r:0,
+  e:"Der karierte Ball sprang 1984 auf dem Amiga. Er wurde zum Logo."},
+ {f:"Was bedeutet AGA?",a:["Advanced Graphics Architecture","Ein Spiel","Ein Kabel"],r:0,
+  e:"AGA hieß Advanced Graphics Architecture. Der Amiga 1200 hatte es. Es brachte mehr Farben."},
+ {f:"Wie viele Farben hatte AGA?",a:["64","16","4"],r:0,
+  e:"AGA zeigte 64 Farben aus einer Palette von 16 Millionen. Mit HAM sogar mehr."},
+ {f:"Welcher Amiga hatte AGA?",a:["Amiga 1200","Amiga 500","Amiga 1000"],r:0,
+  e:"Der Amiga 1200 von 1992 hatte AGA. Der A500 war älter und hatte ECS."},
+ {f:"Was war HAM?",a:["Hold And Modify","Ein Fehler","Eine taste"],r:0,
+  e:"HAM hieß Hold And Modify. Es zeigte 4096 Farben. Jay behielt es. Das war richtig."}
+];
+var i=0,punkte=0,aktiv=false;
+var fEl=document.getElementById("frage"),aEl=document.getElementById("antworten");
+var eEl=document.getElementById("erklaerung"),sEl=document.getElementById("stand");
+var wEl=document.getElementById("weiter"),gEl=document.getElementById("start");
+function badge(n,id){var el=document.getElementById(id);if(punkte>=n)el.classList.add("got");}
+function zeige(){
+ var q=fragen[i];
+ fEl.textContent=q.f;aEl.innerHTML="";eEl.hidden=true;wEl.hidden=true;
+ sEl.textContent="Frage "+(i+1)+" / "+fragen.length+" · Punkte "+punkte;
+ q.a.forEach(function(txt,n){
+  var b=document.createElement("button");b.type="button";b.textContent=txt;
+  b.onclick=function(){
+   if(!aktiv)return;aktiv=false;
+   if(n===q.r){b.classList.add("right");punkte++;}
+   else{b.classList.add("wrong");aEl.children[q.r].classList.add("right");}
+   badge(5,"b5");badge(10,"b10");badge(20,"b20");
+   eEl.textContent=q.e;eEl.hidden=false;wEl.hidden=false;
+   if(i===fragen.length-1)wEl.textContent="NOCHMAL";
+  };
+  aEl.appendChild(b);
+ });
+}
+document.getElementById("go").onclick=function(){
+ gEl.style.display="none";i=0;punkte=0;zeige();
+};
+wEl.onclick=function(){
+ i=(i+1)%fragen.length;if(i===0)punkte=0;
+ wEl.textContent="Nächste";zeige();
+};
+})();
+</script>
+</body>
+</html>
