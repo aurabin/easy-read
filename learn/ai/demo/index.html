@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boing Ball Field Lab</title>
+<style>
+  :root {
+    --ink: #eaf2ff;
+    --muted: #9fb3d1;
+    --panel: #101a2e;
+    --line: #24344f;
+    --red: #e8382f;
+    --cream: #f5f0e6;
+    --blue: #6fd3ff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: radial-gradient(circle at 50% 0%, #16233d 0%, #070b14 60%);
+    color: var(--ink);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 24px;
+  }
+  main { max-width: 1000px; margin: 0 auto; }
+  .kicker {
+    margin: 0 0 4px;
+    color: var(--blue);
+    font-size: 13px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  h1 { margin: 0 0 6px; font-size: clamp(24px, 4vw, 38px); }
+  .lede { margin: 0 0 18px; color: var(--muted); }
+  .stage {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    background: #070b14;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+  }
+  canvas { display: block; width: 100%; height: auto; }
+  .start {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 10px;
+    padding: 24px;
+    text-align: center;
+    background: rgba(7, 11, 20, .74);
+  }
+  .start.hidden { display: none; }
+  .start-title { margin: 0; font-size: clamp(20px, 3vw, 30px); font-weight: 700; }
+  .start-hint { margin: 0; max-width: 38ch; color: var(--muted); }
+  #startButton { font-size: 18px; padding: 12px 26px; }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    margin: 14px 0 18px;
+  }
+  button {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: #17253d;
+    color: var(--ink);
+    border-radius: 10px;
+    padding: 9px 16px;
+    font: inherit;
+    cursor: pointer;
+  }
+  button:hover { background: #1e3050; }
+  button:focus-visible, input:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+  }
+  label { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+  input[type="range"] { width: 140px; accent-color: var(--blue); }
+  .check input { accent-color: var(--blue); }
+  details {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 16px;
+    background: rgba(16, 26, 46, .6);
+  }
+  summary { cursor: pointer; color: var(--ink); }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 14px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .note { color: var(--muted); font-size: 14px; margin-top: 16px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="kicker">AI Coding Course · kids and adults</p>
+    <h1>Boing Ball Field Lab</h1>
+    <p class="lede">A virtual field generator with a Commodore Amiga Boing Ball.</p>
+  </header>
+
+  <section class="stage">
+    <canvas id="scene" width="960" height="640" role="img"
+      aria-label="A red and white checkered ball bounces inside a box. Blue arrows and small dots show a swirling field around it."></canvas>
+    <div class="start" id="startScreen">
+      <p class="start-title">Press Enter to start</p>
+      <button id="startButton" type="button">Start</button>
+      <p class="start-hint">A red and white ball will bounce. Blue arrows show the field.</p>
+    </div>
+  </section>
+
+  <section class="controls" aria-label="Controls">
+    <button id="toggle" type="button" aria-pressed="false">Pause</button>
+    <button id="reset" type="button">Reset</button>
+    <label for="strength">Field strength
+      <input id="strength" type="range" min="0" max="2" step="0.1" value="1">
+    </label>
+    <label class="check" for="calm">
+      <input id="calm" type="checkbox"> Less motion
+    </label>
+  </section>
+
+  <details>
+    <summary>The prompt, in six languages</summary>
+    <table>
+      <thead><tr><th>Language</th><th>Prompt</th></tr></thead>
+      <tbody>
+        <tr><td>Deutsch</td><td>Erzeuge einen virtuellen Feldgenerator mit eine Commodore Amiga Boing Ball Demo.</td></tr>
+        <tr><td>English</td><td>Create a virtual field generator with a Commodore Amiga Boing Ball demo.</td></tr>
+        <tr><td>Español</td><td>Crea un generador virtual de campos con una demo de la Boing Ball del Commodore Amiga.</td></tr>
+        <tr><td>Français</td><td>Crée un générateur de champs virtuel avec une démo Boing Ball du Commodore Amiga.</td></tr>
+        <tr><td>Português</td><td>Cria um gerador virtual de campos com uma demo da Boing Ball do Commodore Amiga.</td></tr>
+        <tr><td>Italiano</td><td>Crea un generatore virtuale di campi con una demo della Boing Ball del Commodore Amiga.</td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <p class="note">AI wrote a first draft from the prompt. A person checked the code. This is a demo, not a physics lesson. It is not tested with young learners.</p>
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  const canvas = document.getElementById("scene");
+  const ctx = canvas.getContext("2d");
+  const W = 960;
+  const H = 640;
+  const DPR = Math.min(2, window.devicePixelRatio || 1);
+
+  canvas.width = W * DPR;
+  canvas.height = H * DPR;
+  ctx.scale(DPR, DPR);
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const toggle = document.getElementById("toggle");
+  const resetButton = document.getElementById("reset");
+  const strengthInput = document.getElementById("strength");
+  const calmInput = document.getElementById("calm");
+  const startScreen = document.getElementById("startScreen");
+  const startButton = document.getElementById("startButton");
+
+  let started = false;
+  let paused = true;
+  let calm = reduceMotion.matches;
+  let strength = 1;
+  let t = 0;
+
+  const ball = {
+    x: W * 0.34,
+    y: H * 0.3,
+    vx: 4.4,
+    vy: 0,
+    r: 62,
+    angleX: 0.35,
+    angleY: 0.2,
+    squash: 0,
+  };
+
+  const particles = [];
+  const PARTICLE_COUNT = 240;
+
+  function randomParticle() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      px: Math.random() * W,
+      py: Math.random() * H,
+      speed: 0.6 + Math.random() * 0.9,
+      alpha: 0.25 + Math.random() * 0.55,
+    };
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i += 1) particles.push(randomParticle());
+
+  function fieldAngle(x, y) {
+    const dx = x - W / 2;
+    const dy = y - H / 2;
+    const dist = Math.hypot(dx, dy) || 1;
+    const swirl = Math.atan2(dy, dx) + Math.PI / 2;
+    const wave = Math.sin(dist * 0.012 - t * 0.9) * 0.9;
+    return swirl + wave;
+  }
+
+  function reset() {
+    ball.x = W * 0.34;
+    ball.y = H * 0.3;
+    ball.vx = 4.4;
+    ball.vy = 0;
+    ball.angleX = 0.35;
+    ball.angleY = 0.2;
+    ball.squash = 0;
+    t = 0;
+    for (const p of particles) Object.assign(p, randomParticle());
+  }
+
+  function step(dt) {
+    t += dt * 0.016;
+
+    for (const p of particles) {
+      const angle = fieldAngle(p.x, p.y);
+      const speed = p.speed * strength * (calm ? 0.35 : 1);
+      p.px = p.x;
+      p.py = p.y;
+      p.x += Math.cos(angle) * speed * dt * 1.4;
+      p.y += Math.sin(angle) * speed * dt * 1.4;
+      if (p.x < -20) p.x = W + 20;
+      if (p.x > W + 20) p.x = -20;
+      if (p.y < -20) p.y = H + 20;
+      if (p.y > H + 20) p.y = -20;
+    }
+
+    ball.vy += 0.62 * dt;
+    ball.x += ball.vx * dt;
+    ball.y += ball.vy * dt;
+
+    if (ball.x - ball.r < 0) {
+      ball.x = ball.r;
+      ball.vx = Math.abs(ball.vx) * 0.92;
+      ball.squash = Math.max(ball.squash, 0.4);
+    } else if (ball.x + ball.r > W) {
+      ball.x = W - ball.r;
+      ball.vx = -Math.abs(ball.vx) * 0.92;
+      ball.squash = Math.max(ball.squash, 0.4);
+    }
+
+    if (ball.y + ball.r > H) {
+      ball.y = H - ball.r;
+      if (ball.vy > 1) ball.squash = 1;
+      ball.vy = -Math.abs(ball.vy) * 0.9;
+      ball.vx *= 0.995;
+    } else if (ball.y - ball.r < 0) {
+      ball.y = ball.r;
+      ball.vy = Math.abs(ball.vy) * 0.9;
+    }
+
+    if (Math.abs(ball.vx) < 1.1) ball.vx += ball.vx >= 0 ? 0.25 : -0.25;
+
+    ball.angleY += ball.vx * 0.013 * (calm ? 0.4 : 1);
+    ball.angleX += ball.vy * 0.0035 * (calm ? 0.4 : 1);
+    ball.squash *= 0.86;
+  }
+
+  function drawBackground() {
+    const g = ctx.createRadialGradient(W * 0.5, H * 0.1, 40, W * 0.5, H * 0.4, W * 0.8);
+    g.addColorStop(0, "#14213a");
+    g.addColorStop(1, "#070b14");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawField() {
+    const cols = 22;
+    const rows = 15;
+    const stepX = W / cols;
+    const stepY = H / rows;
+    ctx.lineWidth = 1.4;
+    ctx.strokeStyle = "rgba(111, 211, 255, " + (0.08 + strength * 0.07) + ")";
+    ctx.fillStyle = ctx.strokeStyle;
+
+    for (let row = 0; row < rows; row += 1) {
+      for (let col = 0; col < cols; col += 1) {
+        const x = (col + 0.5) * stepX;
+        const y = (row + 0.5) * stepY;
+        const a = fieldAngle(x, y);
+        const len = 11 + Math.sin(t * 1.4 + col * 0.4 + row * 0.3) * 4;
+        const x2 = x + Math.cos(a) * len;
+        const y2 = y + Math.sin(a) * len;
+        ctx.beginPath();
+        ctx.moveTo(x - Math.cos(a) * len * 0.4, y - Math.sin(a) * len * 0.4);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x2, y2, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  function drawParticles() {
+    const fade = calm ? 0.35 : 1;
+    for (const p of particles) {
+      const a = p.alpha * (0.25 + strength * 0.55) * fade;
+      if (a <= 0.01) continue;
+      ctx.strokeStyle = "rgba(111, 211, 255, " + a + ")";
+      ctx.lineWidth = 1.3;
+      ctx.beginPath();
+      ctx.moveTo(p.px, p.py);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+    }
+  }
+
+  function rotatePoint(x, y, z, ax, ay) {
+    const cy = Math.cos(ay);
+    const sy = Math.sin(ay);
+    const cx = Math.cos(ax);
+    const sx = Math.sin(ax);
+    const x1 = x * cy + z * sy;
+    const z1 = -x * sy + z * cy;
+    const y1 = y * cx - z1 * sx;
+    const z2 = y * sx + z1 * cx;
+    return { x: x1, y: y1, z: z2 };
+  }
+
+  function drawBall() {
+    const floorGap = H - ball.y - ball.r;
+    const shadowAlpha = Math.max(0.05, 0.42 - floorGap / (H * 1.2));
+    ctx.beginPath();
+    ctx.ellipse(ball.x, H - 7, ball.r * 1.05, ball.r * 0.2, 0, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(0, 0, 0, " + shadowAlpha + ")";
+    ctx.fill();
+
+    ctx.save();
+    ctx.translate(ball.x, ball.y);
+    ctx.scale(1 + ball.squash * 0.16, 1 - ball.squash * 0.16);
+
+    const R = ball.r;
+    const latBands = 12;
+    const lonBands = 16;
+
+    for (let i = 0; i < latBands; i += 1) {
+      const lat1 = -Math.PI / 2 + (i * Math.PI) / latBands;
+      const lat2 = -Math.PI / 2 + ((i + 1) * Math.PI) / latBands;
+      for (let j = 0; j < lonBands; j += 1) {
+        const lon1 = (j * Math.PI * 2) / lonBands;
+        const lon2 = ((j + 1) * Math.PI * 2) / lonBands;
+        const corners = [
+          [lat1, lon1],
+          [lat1, lon2],
+          [lat2, lon2],
+          [lat2, lon1],
+        ];
+        let depth = 0;
+        const points = corners.map(([lat, lon]) => {
+          const cp = Math.cos(lat);
+          const p = rotatePoint(
+            cp * Math.cos(lon),
+            Math.sin(lat),
+            cp * Math.sin(lon),
+            ball.angleX,
+            ball.angleY
+          );
+          depth += p.z;
+          return { x: p.x * R, y: -p.y * R };
+        });
+        depth /= 4;
+        if (depth <= 0.02) continue;
+
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let k = 1; k < points.length; k += 1) ctx.lineTo(points[k].x, points[k].y);
+        ctx.closePath();
+        ctx.fillStyle = (i + j) % 2 === 0 ? "#e8382f" : "#f5f0e6";
+        ctx.fill();
+      }
+    }
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(0, 0, R, 0, Math.PI * 2);
+    ctx.clip();
+    const shade = ctx.createRadialGradient(-R * 0.35, -R * 0.4, R * 0.1, 0, 0, R * 1.15);
+    shade.addColorStop(0, "rgba(255, 255, 255, 0.5)");
+    shade.addColorStop(0.42, "rgba(255, 255, 255, 0)");
+    shade.addColorStop(1, "rgba(0, 0, 0, 0.55)");
+    ctx.fillStyle = shade;
+    ctx.fillRect(-R, -R, R * 2, R * 2);
+    ctx.restore();
+
+    ctx.beginPath();
+    ctx.arc(0, 0, R, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.35)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.ellipse(-R * 0.36, -R * 0.42, R * 0.2, R * 0.11, -0.6, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  function draw() {
+    drawBackground();
+    drawField();
+    drawParticles();
+    drawBall();
+  }
+
+  let last = performance.now();
+  function frame(now) {
+    const dt = Math.min(2.2, (now - last) / 16.667);
+    last = now;
+    if (!paused) step(dt);
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  function setPaused(value) {
+    paused = value;
+    toggle.textContent = paused ? "Play" : "Pause";
+    toggle.setAttribute("aria-pressed", String(paused));
+  }
+
+  function start() {
+    started = true;
+    startScreen.classList.add("hidden");
+    setPaused(false);
+  }
+
+  toggle.addEventListener("click", () => setPaused(!paused));
+  resetButton.addEventListener("click", reset);
+  startButton.addEventListener("click", start);
+  strengthInput.addEventListener("input", () => {
+    strength = Number(strengthInput.value);
+  });
+  calmInput.addEventListener("change", () => {
+    calm = calmInput.checked;
+  });
+  reduceMotion.addEventListener("change", (event) => {
+    calm = event.matches;
+    calmInput.checked = calm;
+  });
+  window.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    if (!started) start();
+    else setPaused(false);
+  });
+
+  calmInput.checked = calm;
+  setPaused(true);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

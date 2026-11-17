@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="A timeline from 1969 to 1971: contract, architecture, first silicon, launch.">
+  <defs>
+    <linearGradient id="timeline-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16233d" /><stop offset="1" stop-color="#070b14" /></linearGradient>
+    <radialGradient id="timeline-vig" cx=".5" cy=".45" r=".8"><stop offset="0.55" stop-color="#000" stop-opacity='0'/><stop offset="1" stop-color="#000" stop-opacity='.5'/></radialGradient>
+    <radialGradient id="timeline-gold" cx=".35" cy=".3" r=".95"><stop offset="0" stop-color="#fff3c4" /><stop offset="0.55" stop-color="#d9a441" /><stop offset="1" stop-color="#8a6622" /></radialGradient>
+    <filter id="timeline-gl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="timeline-gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="400" height="260" fill="url(#timeline-sky)"/>
+  
+  <path d="M40 150 h320" stroke="#6fd3ff" stroke-width="3"/>
+  <g fill="#6fd3ff"><circle cx="40" cy="150" r="7" filter="url(#timeline-gl)"/><circle cx="140" cy="150" r="7" filter="url(#timeline-gl)"/><circle cx="240" cy="150" r="7" filter="url(#timeline-gl)"/><circle cx="340" cy="150" r="7" filter="url(#timeline-gl)"/></g>
+  <g fill="#eaf2ff" font-family="system-ui" font-size="15" text-anchor="middle">
+    <text x="40" y="130">1969</text><text x="140" y="130">1970</text><text x="240" y="130">1971</text><text x="340" y="130">Nov 1971</text>
+  </g>
+  <g fill="#9fb3d1" font-family="system-ui" font-size="12" text-anchor="middle">
+    <text x="40" y="180">Auftrag</text><text x="140" y="180">Entwurf</text><text x="240" y="180">Silizium</text><text x="340" y="180">Start</text>
+  </g>
+  <rect width="400" height="260" filter="url(#timeline-gr)"/>
+  <rect width="400" height="260" fill="url(#timeline-vig)"/>
+  </svg>

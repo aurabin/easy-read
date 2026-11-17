@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run the generator from a JPG</title>
+<style>
+  body{background:#070b14;color:#eaf2ff;font:16px/1.5 system-ui,sans-serif;margin:0;padding:20px}
+  h1{font-size:22px;margin:0 0 6px}p{color:#9fb3d1;max-width:70ch}
+  button{font:inherit;cursor:pointer;border:1px solid #24344f;background:#17253d;color:#eaf2ff;border-radius:9px;padding:9px 14px;margin:4px 4px 4px 0}
+  button:hover{border-color:#6fd3ff}
+  button:focus-visible{outline:2px solid #6fd3ff;outline-offset:2px}
+  img{max-width:min(520px,100%);border:1px solid #24344f;border-radius:10px;display:block;margin:16px 0}
+  iframe{width:100%;height:min(80vh,900px);border:1px solid #24344f;border-radius:10px;background:#070b14;margin-top:16px}
+  .msg{font-family:monospace;font-size:13px;color:#6fd3ff}
+</style>
+</head>
+<body>
+<h1>A demo hidden in a picture</h1>
+<p>Die Datei <code>field-demo.jpg</code> ist ein echtes JPEG. Nach den Bilddaten trägt sie den kompletten Virtual Field Generator, inklusive kariertem Boing Ball. Diese Seite liest die Daten beim Öffnen und startet den Generator sofort — kein Klick nötig.</p>
+<img id="preview" src="field-demo.jpg" alt="The virtual field with a checkered Boing Ball, stored as a JPEG.">
+<div>
+  <button id="run" type="button">Restart the generator</button>
+  <button id="save" type="button">Download the source</button>
+</div>
+<p class="msg" id="msg">Source not loaded yet.</p>
+<iframe id="frame" title="Embedded virtual field generator"></iframe>
+
+<script>
+(() => {
+  const START = "%%FIELDGEN_START%%", END = "%%FIELDGEN_END%%";
+  let source = null;
+  async function load(){
+    const buf = await (await fetch("field-demo.jpg")).arrayBuffer();
+    const text = new TextDecoder("utf-8").decode(buf);
+    const a = text.indexOf(START), b = text.indexOf(END);
+    if(a < 0 || b < 0) throw new Error("No embedded source found");
+    return text.slice(a + START.length, b).replace(/^\n+|\n+$/g, "");
+  }
+  function download(text, name){
+    const url = URL.createObjectURL(new Blob([text], {type:"text/html"}));
+    const a = document.createElement("a"); a.href = url; a.download = name; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  async function run(){
+    try{
+      if(!source) source = await load();
+      const runSource = source.replace(/\}\)\(\);(\s*<\/script>)/, "start();\n})();$1");
+      document.getElementById("msg").textContent = "Loaded " + source.length + " characters. Starting…";
+      const url = URL.createObjectURL(new Blob([runSource], {type:"text/html"}));
+      document.getElementById("frame").src = url;
+    }catch(e){ document.getElementById("msg").textContent = "Error: " + e.message; }
+  }
+  document.getElementById("run").addEventListener("click", run);
+  document.getElementById("save").addEventListener("click", async () => {
+    try{ if(!source) source = await load(); download(source, "field-generator.html"); }
+    catch(e){ document.getElementById("msg").textContent = "Error: " + e.message; }
+  });
+  run();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<svg viewBox="0 0 400 240" role="img" aria-label="The 1971 microprocessor: a white ceramic 16-pin chip with a gold lid, on a board with copper traces.">
+  <defs>
+    <linearGradient id="m-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c2b26"/><stop offset="1" stop-color="#04100e"/></linearGradient>
+    <radialGradient id="m-vig" cx=".5" cy=".42" r=".8"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>
+    <radialGradient id="m-scr" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="m-bezel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4150"/><stop offset="1" stop-color="#161a22"/></linearGradient>
+    <pattern id="m-scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="#000" opacity=".16"/></pattern>
+    <filter id="m-gl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="m-bl"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="m-gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="400" height="240" fill="url(#m-sky)"/>
+  <ellipse cx="200" cy="195" rx="120" ry="20" fill="#000" opacity="0.35" filter="url(#ID-bl)"/>
+  <polygon points="42.1,165 180.6,245 180.6,257 42.1,177" fill="#0a352f" /><polygon points="258.6,200 180.6,245 180.6,257 258.6,212" fill="#072823" /><polygon points="120,120 258.6,200 180.6,245 42.1,165" fill="#0f4a42" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <g stroke="#e0a458" stroke-width="2" fill="none" opacity=".75"><path d="M180 130 h-40 v-20 M240 130 h40 v-20 M180 150 h-40 v20 M240 150 h40 v20"/></g>
+  <g fill="#d9a441">
+    <rect x="168" y="120" width="8" height="5"/><rect x="168" y="132" width="8" height="5"/><rect x="168" y="144" width="8" height="5"/><rect x="168" y="156" width="8" height="5"/>
+    <rect x="244" y="120" width="8" height="5"/><rect x="244" y="132" width="8" height="5"/><rect x="244" y="144" width="8" height="5"/><rect x="244" y="156" width="8" height="5"/>
+  </g>
+  <polygon points="147.4,136 195.9,164 195.9,176 147.4,148" fill="#c9c2b2" /><polygon points="230.5,144 195.9,164 195.9,176 230.5,156" fill="#a89f8d" /><polygon points="182,116 230.5,144 195.9,164 147.4,136" fill="#e8e2d4" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <polygon points="173.2,134 200.9,150 200.9,153 173.2,137" fill="#b3852f" /><polygon points="221.7,138 200.9,150 200.9,153 221.7,141" fill="#8a6622" /><polygon points="194,122 221.7,138 200.9,150 173.2,134" fill="#d9a441" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <rect x="198" y="120" width="24" height="14" fill="#ffd98a" opacity=".5" filter="url(#m-gl)" class="glow"/>
+  <rect width="400" height="240" filter="url(#m-gr)"/>
+  <rect width="400" height="240" fill="url(#m-vig)"/>
+  </svg>

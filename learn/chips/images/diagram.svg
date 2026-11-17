@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="The MCS-4 chip set: the 4004 CPU with ROM, RAM and I/O chips around it.">
+  <defs>
+    <linearGradient id="diagram-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16233d" /><stop offset="1" stop-color="#070b14" /></linearGradient>
+    <radialGradient id="diagram-vig" cx=".5" cy=".45" r=".8"><stop offset="0.55" stop-color="#000" stop-opacity='0'/><stop offset="1" stop-color="#000" stop-opacity='.5'/></radialGradient>
+    <radialGradient id="diagram-gold" cx=".35" cy=".3" r=".95"><stop offset="0" stop-color="#fff3c4" /><stop offset="0.55" stop-color="#d9a441" /><stop offset="1" stop-color="#8a6622" /></radialGradient>
+    <filter id="diagram-gl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="diagram-gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="400" height="260" fill="url(#diagram-sky)"/>
+  
+  <g stroke="#6fd3ff" stroke-width="2" opacity=".7" fill="none">
+    <path d="M200 104 v-26 h-70 v-8 M200 104 v-26 h70 v-8 M200 156 v26 h-70 v8 M200 156 v26 h70 v8"/>
+  </g>
+  <rect x="60" y="40" width="140" height="38" rx="6" fill="#1d3a6b" stroke="#6fd3ff"/>
+  <text x="130" y="64" font-size="14" fill="#eaf2ff" font-family="monospace" text-anchor="middle">4001 · ROM</text>
+  <rect x="200" y="40" width="140" height="38" rx="6" fill="#1d3a6b" stroke="#6fd3ff"/>
+  <text x="270" y="64" font-size="14" fill="#eaf2ff" font-family="monospace" text-anchor="middle">4002 · RAM</text>
+  <rect x="150" y="104" width="100" height="52" rx="6" fill="url(#diagram-gold)" filter="url(#diagram-gl)"/>
+  <text x="200" y="128" font-size="17" fill="#8a6622" font-family="monospace" text-anchor="middle">4004</text>
+  <text x="200" y="146" font-size="12" fill="#8a6622" font-family="monospace" text-anchor="middle">CPU</text>
+  <rect x="60" y="182" width="140" height="38" rx="6" fill="#1d3a6b" stroke="#6fd3ff"/>
+  <text x="130" y="206" font-size="14" fill="#eaf2ff" font-family="monospace" text-anchor="middle">4003 · I/O</text>
+  <rect x="200" y="182" width="140" height="38" rx="6" fill="#1d3a6b" stroke="#6fd3ff"/>
+  <text x="270" y="206" font-size="14" fill="#eaf2ff" font-family="monospace" text-anchor="middle">Tastatur</text>
+  <rect width="400" height="260" filter="url(#diagram-gr)"/>
+  <rect width="400" height="260" fill="url(#diagram-vig)"/>
+  </svg>

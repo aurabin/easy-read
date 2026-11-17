@@ -1,0 +1,26 @@
+<svg viewBox="0 0 400 240" role="img" aria-label="A 1960s dual-in-line integrated circuit: black body, two rows of metal pins, and a pin-1 dot, on a board.">
+  <defs>
+    <linearGradient id="c-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f1a33"/><stop offset="1" stop-color="#060a14"/></linearGradient>
+    <radialGradient id="c-vig" cx=".5" cy=".42" r=".8"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>
+    <radialGradient id="c-scr" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="c-bezel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4150"/><stop offset="1" stop-color="#161a22"/></linearGradient>
+    <pattern id="c-scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="#000" opacity=".16"/></pattern>
+    <filter id="c-gl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="c-bl"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="c-gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="400" height="240" fill="url(#c-sky)"/>
+  <g stroke="#1d2c4a" stroke-width="1"><path d="M0 60 h400 M0 120 h400 M0 180 h400 M80 0 v240 M200 0 v240 M320 0 v240"/></g>
+  <ellipse cx="200" cy="190" rx="110" ry="20" fill="#000" opacity="0.35" filter="url(#ID-bl)"/>
+  <polygon points="88,160 192,220 192,230 88,170" fill="#1c2432" /><polygon points="243.9,190 192,220 192,230 243.9,200" fill="#141b26" /><polygon points="140,130 243.9,190 192,220 88,160" fill="#2a3446" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <g fill="#c9cdd4">
+    <rect x="128" y="136" width="12" height="5"/><rect x="128" y="150" width="12" height="5"/><rect x="128" y="164" width="12" height="5"/><rect x="128" y="178" width="12" height="5"/>
+    <rect x="262" y="136" width="12" height="5"/><rect x="262" y="150" width="12" height="5"/><rect x="262" y="164" width="12" height="5"/><rect x="262" y="178" width="12" height="5"/>
+  </g>
+  <polygon points="113.9,140 197,188 197,202 113.9,154" fill="#161a22" /><polygon points="235.1,166 197,188 197,202 235.1,180" fill="#0e1218" /><polygon points="152,118 235.1,166 197,188 113.9,140" fill="#20242c" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <circle cx="166" cy="126" r="4" fill="#3a4150"/>
+  <g stroke="#3a4150" stroke-width="1.4" opacity=".8"><path d="M176 128 h60 M176 138 h60"/></g>
+  <circle cx="180" cy="124" r="4" fill="#ff6b4a" filter="url(#c-gl)" class="signal"/>
+  <rect width="400" height="240" filter="url(#c-gr)"/>
+  <rect width="400" height="240" fill="url(#c-vig)"/>
+  </svg>

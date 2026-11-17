@@ -1,0 +1,34 @@
+<svg viewBox="0 0 400 240" role="img" aria-label="A 1940s ENIAC-style machine: tall black panels with rows of switches and lamps, patch cables, and two engineers.">
+  <defs>
+    <linearGradient id="r-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1526"/><stop offset="0.6" stop-color="#1d2436"/><stop offset="1" stop-color="#2b2a33"/></linearGradient>
+    <radialGradient id="r-vig" cx=".5" cy=".42" r=".8"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>
+    <radialGradient id="r-scr" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="r-bezel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4150"/><stop offset="1" stop-color="#161a22"/></linearGradient>
+    <pattern id="r-scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="#000" opacity=".16"/></pattern>
+    <filter id="r-gl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="r-bl"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="r-gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="400" height="240" fill="url(#r-sky)"/>
+  <path d="M200 0 L150 96 L250 96 Z" fill="#ffd98a" opacity=".10"/><circle cx="200" cy="14" r="7" fill="#ffd98a" filter="url(#r-gl)"/>
+  <polygon points="40.6,167 92.5,197 92.5,293 40.6,263" fill="#1b2028" /><polygon points="122,180 92.5,197 92.5,293 122,276" fill="#12161d" /><polygon points="70,150 122,180 92.5,197 40.6,167" fill="#2a2f38" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <polygon points="130.6,182 182.5,212 182.5,308 130.6,278" fill="#1b2028" /><polygon points="212,195 182.5,212 182.5,308 212,291" fill="#12161d" /><polygon points="160,165 212,195 182.5,212 130.6,182" fill="#2a2f38" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <polygon points="220.6,167 272.5,197 272.5,293 220.6,263" fill="#1b2028" /><polygon points="302,180 272.5,197 272.5,293 302,276" fill="#12161d" /><polygon points="250,150 302,180 272.5,197 220.6,167" fill="#2a2f38" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <g fill="#0d1117"><rect x="52" y="70" width="34" height="60" rx="2"/><rect x="142" y="85" width="34" height="60" rx="2"/><rect x="232" y="70" width="34" height="60" rx="2"/></g>
+  <g filter="url(#r-gl)">
+    <circle cx="60" cy="80" r="3" fill="#ffb347" class="glow"/><circle cx="72" cy="80" r="3" fill="#ff6b4a" class="glow"/><circle cx="60" cy="94" r="3" fill="#ffb347" class="glow"/><circle cx="72" cy="94" r="3" fill="#ff6b4a" class="glow"/>
+    <circle cx="150" cy="95" r="3" fill="#ffb347" class="glow"/><circle cx="162" cy="95" r="3" fill="#ff6b4a" class="glow"/><circle cx="150" cy="109" r="3" fill="#ffb347" class="glow"/><circle cx="162" cy="109" r="3" fill="#ff6b4a" class="glow"/>
+    <circle cx="240" cy="80" r="3" fill="#ffb347" class="glow"/><circle cx="252" cy="80" r="3" fill="#ff6b4a" class="glow"/><circle cx="240" cy="94" r="3" fill="#ffb347" class="glow"/><circle cx="252" cy="94" r="3" fill="#ff6b4a" class="glow"/>
+  </g>
+  <g stroke="#0a0f1a" stroke-width="3" fill="none" opacity=".9"><path d="M86 120 q24 30 56 16 M176 135 q24 30 56 16 M60 130 q40 40 120 20"/></g>
+  <g><ellipse cx="330" cy="196" rx="16" ry="5" fill="#000" opacity=".3"/>
+  <path d="M321 162 q9 -6 18 0 l2 30 q-11 6 -22 0 z" fill="#0f766e"/>
+  <circle cx="330" cy="150" r="8" fill="#e8b48a"/>
+  <path d="M338 166 q10 4 12 12" stroke="#0f766e" stroke-width="5" fill="none" stroke-linecap="round"/></g><g><ellipse cx="362" cy="203.4" rx="14.4" ry="4.5" fill="#000" opacity=".3"/>
+  <path d="M353.9 172.8 q8.1 -5.4 16.2 0 l1.8 27 q-9.9 5.4 -19.8 0 z" fill="#3a465c"/>
+  <circle cx="362" cy="162" r="7.2" fill="#c98d63"/>
+  <path d="M369.2 176.4 q9 3.6 10.8 10.8" stroke="#3a465c" stroke-width="4.5" fill="none" stroke-linecap="round"/></g>
+  <rect x="0" y="200" width="400" height="40" fill="#12151d"/>
+  <rect width="400" height="240" filter="url(#r-gr)"/>
+  <rect width="400" height="240" fill="url(#r-vig)"/>
+  </svg>

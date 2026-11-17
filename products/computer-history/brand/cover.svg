@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Cover: Computer History, an interactive course. A flow field with seven era nodes and a checkered ball.">
+  <defs>
+    <radialGradient id="cv-bg" cx=".5" cy=".2" r="1">
+      <stop offset="0" stop-color="#16233d"/><stop offset="1" stop-color="#070b14"/>
+    </radialGradient>
+    <radialGradient id="cv-node" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#6fd3ff"/><stop offset="1" stop-color="#6fd3ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cv-ball" cx=".35" cy=".3" r=".95">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#e8382f"/><stop offset="1" stop-color="#8a1d16"/>
+    </radialGradient>
+    <linearGradient id="cv-title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f5f0e6"/><stop offset="1" stop-color="#6fd3ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#cv-bg)"/>
+  <g stroke="#6fd3ff" stroke-opacity=".18" stroke-width="2">
+    <path d="M0 470 h1200 M0 520 h1200 M0 570 h1200"/>
+    <path d="M150 440 v190 M350 440 v190 M550 440 v190 M750 440 v190 M950 440 v190 M1150 440 v190"/>
+  </g>
+  <g>
+    <circle cx="120" cy="480" r="40" fill="url(#cv-node)"/><circle cx="120" cy="480" r="12" fill="#6fd3ff"/>
+    <circle cx="290" cy="520" r="40" fill="url(#cv-node)"/><circle cx="290" cy="520" r="12" fill="#6fd3ff"/>
+    <circle cx="460" cy="470" r="40" fill="url(#cv-node)"/><circle cx="460" cy="470" r="12" fill="#6fd3ff"/>
+    <circle cx="630" cy="515" r="40" fill="url(#cv-node)"/><circle cx="630" cy="515" r="12" fill="#6fd3ff"/>
+    <circle cx="800" cy="475" r="40" fill="url(#cv-node)"/><circle cx="800" cy="475" r="12" fill="#6fd3ff"/>
+    <circle cx="970" cy="520" r="40" fill="url(#cv-node)"/><circle cx="970" cy="520" r="12" fill="#2f9e44"/>
+    <circle cx="1120" cy="478" r="40" fill="url(#cv-node)"/><circle cx="1120" cy="478" r="12" fill="#6fd3ff"/>
+  </g>
+  <g fill="#9fb3d1" font-family="system-ui,Segoe UI,sans-serif" font-size="22" text-anchor="middle">
+    <text x="120" y="545">1940s</text><text x="290" y="585">1947</text><text x="460" y="535">1960s</text>
+    <text x="630" y="580">1971</text><text x="800" y="540">1977</text><text x="970" y="585">1982</text><text x="1120" y="543">1985</text>
+  </g>
+  <circle cx="880" cy="250" r="70" fill="url(#cv-ball)"/>
+  <g fill="#f5f0e6" opacity=".92">
+    <path d="M880 180 a70 70 0 0 1 70 70 l-70 0 z"/>
+    <path d="M880 320 a70 70 0 0 1 -70 -70 l70 0 z"/>
+  </g>
+  <circle cx="880" cy="250" r="70" fill="none" stroke="#0b1220" stroke-opacity=".4" stroke-width="3"/>
+  <text x="80" y="150" font-family="system-ui,Segoe UI,sans-serif" font-size="76" font-weight="800" fill="url(#cv-title)">Computer History</text>
+  <text x="82" y="205" font-family="system-ui,Segoe UI,sans-serif" font-size="30" fill="#9fb3d1">Learn the story. Then run the real machines.</text>
+  <text x="82" y="250" font-family="system-ui,Segoe UI,sans-serif" font-size="22" fill="#6fd3ff">An interactive course · original artwork, narration &amp; music</text>
+  <text x="82" y="300" font-family="system-ui,Segoe UI,sans-serif" font-size="20" fill="#5b6472">C64 · Amiga · virtual fields · AI tutor · 0+ plain language</text>
+</svg>

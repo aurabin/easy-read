@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="The chip die: a small square of silicon with circuits and the initials F.F.">
+  <defs>
+    <linearGradient id="die-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16233d" /><stop offset="1" stop-color="#070b14" /></linearGradient>
+    <radialGradient id="die-vig" cx=".5" cy=".45" r=".8"><stop offset="0.55" stop-color="#000" stop-opacity='0'/><stop offset="1" stop-color="#000" stop-opacity='.5'/></radialGradient>
+    <radialGradient id="die-gold" cx=".35" cy=".3" r=".95"><stop offset="0" stop-color="#fff3c4" /><stop offset="0.55" stop-color="#d9a441" /><stop offset="1" stop-color="#8a6622" /></radialGradient>
+    <filter id="die-gl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="die-gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="400" height="260" fill="url(#die-sky)"/>
+  
+  <rect x="120" y="46" width="160" height="168" rx="6" fill="#c9cdd4"/>
+  <rect x="130" y="56" width="140" height="148" fill="#2a3446"/>
+  <g stroke="#6fd3ff" stroke-width="1" opacity=".6"><path d="M136 64 h128"/><path d="M136 80 h128"/><path d="M136 96 h128"/><path d="M136 112 h128"/><path d="M136 128 h128"/><path d="M136 144 h128"/><path d="M136 160 h128"/><path d="M136 176 h128"/><path d="M136 192 h128"/><path d="M144 60 v140"/><path d="M162 60 v140"/><path d="M180 60 v140"/><path d="M198 60 v140"/><path d="M216 60 v140"/><path d="M234 60 v140"/><path d="M252 60 v140"/></g>
+  <rect x="150" y="88" width="100" height="84" rx="4" fill="url(#die-gold)"/>
+  <text x="200" y="124" font-size="24" fill="#8a6622" font-family="monospace" text-anchor="middle">F.F</text>
+  <text x="200" y="148" font-size="12" fill="#8a6622" font-family="monospace" text-anchor="middle">1971</text>
+  <text x="200" y="238" font-size="13" fill="#6fd3ff" font-family="system-ui" text-anchor="middle">12 mm² · 10 µm · 740 kHz</text>
+  <rect width="400" height="260" filter="url(#die-gr)"/>
+  <rect width="400" height="260" fill="url(#die-vig)"/>
+  </svg>

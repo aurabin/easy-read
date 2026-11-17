@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="A Busicom 141-PF printing calculator with keyboard and paper roll.">
+  <defs>
+    <linearGradient id="calc-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16233d" /><stop offset="1" stop-color="#070b14" /></linearGradient>
+    <radialGradient id="calc-vig" cx=".5" cy=".45" r=".8"><stop offset="0.55" stop-color="#000" stop-opacity='0'/><stop offset="1" stop-color="#000" stop-opacity='.5'/></radialGradient>
+    <radialGradient id="calc-gold" cx=".35" cy=".3" r=".95"><stop offset="0" stop-color="#fff3c4" /><stop offset="0.55" stop-color="#d9a441" /><stop offset="1" stop-color="#8a6622" /></radialGradient>
+    <filter id="calc-gl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="calc-gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="400" height="260" fill="url(#calc-sky)"/>
+  
+  <ellipse cx="200" cy="220" rx="150" ry="14" fill="#000" opacity=".35"/>
+  <path d="M96 104 l26 -34 h156 l26 34 v96 q-104 18 -208 0 z" fill="#b3a688"/>
+  <path d="M96 104 l26 -34 h156 l26 34 z" fill="#cfc4ac"/>
+  <rect x="150" y="84" width="100" height="26" rx="3" fill="#3a3f47"/>
+  <rect x="156" y="90" width="88" height="14" fill="#f5f0e6"/>
+  <rect x="158" y="70" width="84" height="12" rx="2" fill="#e8e2d4"/>
+  <g fill="#4a4f58"><rect x="118" y="132" width="16" height="12" rx="2"/><rect x="140" y="132" width="16" height="12" rx="2"/><rect x="162" y="132" width="16" height="12" rx="2"/><rect x="184" y="132" width="16" height="12" rx="2"/><rect x="206" y="132" width="16" height="12" rx="2"/><rect x="228" y="132" width="16" height="12" rx="2"/><rect x="250" y="132" width="16" height="12" rx="2"/><rect x="272" y="132" width="16" height="12" rx="2"/><rect x="118" y="150" width="16" height="12" rx="2"/><rect x="140" y="150" width="16" height="12" rx="2"/><rect x="162" y="150" width="16" height="12" rx="2"/><rect x="184" y="150" width="16" height="12" rx="2"/><rect x="206" y="150" width="16" height="12" rx="2"/><rect x="228" y="150" width="16" height="12" rx="2"/><rect x="250" y="150" width="16" height="12" rx="2"/><rect x="272" y="150" width="16" height="12" rx="2"/><rect x="118" y="168" width="16" height="12" rx="2"/><rect x="140" y="168" width="16" height="12" rx="2"/><rect x="162" y="168" width="16" height="12" rx="2"/><rect x="184" y="168" width="16" height="12" rx="2"/><rect x="206" y="168" width="16" height="12" rx="2"/><rect x="228" y="168" width="16" height="12" rx="2"/><rect x="250" y="168" width="16" height="12" rx="2"/><rect x="272" y="168" width="16" height="12" rx="2"/><rect x="118" y="186" width="16" height="12" rx="2"/><rect x="140" y="186" width="16" height="12" rx="2"/><rect x="162" y="186" width="16" height="12" rx="2"/><rect x="184" y="186" width="16" height="12" rx="2"/><rect x="206" y="186" width="16" height="12" rx="2"/><rect x="228" y="186" width="16" height="12" rx="2"/><rect x="250" y="186" width="16" height="12" rx="2"/><rect x="272" y="186" width="16" height="12" rx="2"/></g>
+  <text x="200" y="214" font-size="12" fill="#57493a" font-family="system-ui" text-anchor="middle">BUSICOM 141-PF</text>
+  <rect width="400" height="260" filter="url(#calc-gr)"/>
+  <rect width="400" height="260" fill="url(#calc-vig)"/>
+  </svg>

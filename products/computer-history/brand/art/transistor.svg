@@ -1,0 +1,28 @@
+<svg viewBox="0 0 400 240" role="img" aria-label="The 1947 point-contact transistor: a germanium block with a triangular wedge and two gold contact wires, beside a vacuum tube for scale.">
+  <defs>
+    <linearGradient id="t-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2740"/><stop offset="1" stop-color="#0c1220"/></linearGradient>
+    <radialGradient id="t-vig" cx=".5" cy=".42" r=".8"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>
+    <radialGradient id="t-scr" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="t-bezel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4150"/><stop offset="1" stop-color="#161a22"/></linearGradient>
+    <pattern id="t-scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="#000" opacity=".16"/></pattern>
+    <filter id="t-gl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="t-bl"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="t-gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="400" height="240" fill="url(#t-sky)"/>
+  <ellipse cx="110" cy="200" rx="60" ry="12" fill="#000" opacity="0.35" filter="url(#ID-bl)"/> <ellipse cx="280" cy="200" rx="44" ry="10" fill="#000" opacity="0.35" filter="url(#ID-bl)"/>
+  <polygon points="35.4,196 104.6,236 104.6,252 35.4,212" fill="#2a3446" /><polygon points="139.3,216 104.6,236 104.6,252 139.3,232" fill="#1c2432" /><polygon points="70,176 139.3,216 104.6,236 35.4,196" fill="#3a465c" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <rect x="82" y="60" width="56" height="116" rx="28" fill="url(#t-glass)" stroke="#bfe3ff" stroke-opacity=".5"/>
+  <circle cx="110" cy="116" r="17" fill="#ff8c42" filter="url(#t-gl)" class="glow"/>
+  <path d="M103 104 v24 M117 104 v24" stroke="#ffd9a8" stroke-width="2" opacity=".8"/>
+  <path d="M150 116 h84" stroke="#6fd3ff" stroke-width="3" stroke-dasharray="5 6" class="signal"/>
+  <polygon points="214.8,194 275.4,229 275.4,243 214.8,208" fill="#2a3446" /><polygon points="306.6,211 275.4,229 275.4,243 306.6,225" fill="#1c2432" /><polygon points="246,176 306.6,211 275.4,229 214.8,194" fill="#3a465c" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <polygon points="244.7,166 274.1,183 274.1,193 244.7,176" fill="#7a8492" /><polygon points="291.4,173 274.1,183 274.1,193 291.4,183" fill="#5f6875" /><polygon points="262,156 291.4,173 274.1,183 244.7,166" fill="#9aa4b2" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <polygon points="270,150 288,150 279,162" fill="#d9a441"/>
+  <path d="M274 150 q-4 -12 -10 -14 M284 150 q4 -12 10 -14" stroke="#d9a441" stroke-width="2" fill="none"/>
+  <text x="110" y="224" font-size="14" fill="#9fb3d1" text-anchor="middle">vacuum tube</text>
+  <text x="281" y="224" font-size="14" fill="#9fb3d1" text-anchor="middle">1947 transistor</text>
+  <defs><linearGradient id="t-glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9fd4ff" stop-opacity=".3"/><stop offset=".5" stop-color="#e8f6ff" stop-opacity=".55"/><stop offset="1" stop-color="#9fd4ff" stop-opacity=".2"/></linearGradient></defs>
+  <rect width="400" height="240" filter="url(#t-gr)"/>
+  <rect width="400" height="240" fill="url(#t-vig)"/>
+  </svg>
