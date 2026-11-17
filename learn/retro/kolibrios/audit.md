@@ -5,7 +5,7 @@ oder ausführen kann. Stand: alle Dateien im Projekt.
 
 | Ergebnis | Anzahl |
 | --- | --- |
-| JA | 98 |
+| JA | 101 |
 | TEILWEISE | 29 |
 | NEIN | 27 |
 | UNKLAR | 0 |
@@ -80,9 +80,12 @@ oder ausführen kann. Stand: alle Dateien im Projekt.
 - `learn/retro/kolibrios/audit.md` — Text
 - `learn/retro/kolibrios/boing-kolibri` — natives Programm (FASM, MENUET01)
 - `learn/retro/kolibrios/boing-kolibri.asm` — FASM-Quelle für KolibriOS
+- `learn/retro/kolibrios/field-kolibri` — natives Programm (FASM, MENUET01)
+- `learn/retro/kolibrios/field-kolibri.asm` — FASM-Quelle für KolibriOS
 - `learn/retro/kolibrios/package/BOING` — natives Programm (FASM, MENUET01)
 - `learn/retro/kolibrios/package/BOING.PNG` — Bild
 - `learn/retro/kolibrios/package/COMPUTER.TXT` — Text
+- `learn/retro/kolibrios/package/FIELD` — natives Programm (FASM, MENUET01)
 - `learn/retro/kolibrios/package/JOKE.TXT` — Text
 - `learn/retro/kolibrios/package/KEYS.TXT` — Text
 - `learn/retro/kolibrios/package/PROGRAM.TXT` — Text

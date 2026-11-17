@@ -51,6 +51,17 @@ Im Ordner `package/` liegt alles Nutzbare:
 - `.TXT`-Dateien — die ersten Lektionen
 - `README.TXT` — die Anleitung
 
+## Zwei native Programme für KolibriOS
+
+Im Paket liegen zwei echte Programme für KolibriOS:
+
+- `BOING` — 400 Byte, karierte Kugel im Fenster.
+- `FIELD` — 656 Byte, virtueller Feldgenerator mit Wirbelpunkten
+  und Kugel. Eine Taste bewegt die Kugel und zeichnet neu.
+
+Beide sind mit FASM 1.73.32 assembliert und haben den `MENUET01`-Kopf.
+Sie laufen auf reinem KolibriOS ohne zusätzliche Dateien.
+
 ## Prüfung aller Dateien
 
 Alle 154 Dateien wurden einzeln geprüft:

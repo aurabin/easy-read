@@ -6,6 +6,10 @@ This folder works on KolibriOS (x86, FASM).
 BOING       - native program, 400 bytes, assembled with FASM 1.73.32
               Copy it to KolibriOS and start it. It opens a window with
               a checkered Boing Ball drawn from single pixels.
+FIELD       - virtual field generator, 656 bytes, native FASM program.
+              Shows a swirl field of points and a checkered ball.
+              Press any key to move the ball one step and redraw.
+              Both programs use MENUET01 and int 0x40.
 BOING.PNG   - preview picture
 JOKE.TXT    - the project joke
 COMPUTER.TXT, KEYS.TXT, PROGRAM.TXT - first lessons, plain text
