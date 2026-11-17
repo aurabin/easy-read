@@ -43,6 +43,7 @@ files.push(["outreach/apps/spiel-felder.js", "apps/spiel-felder.js"]);
 files.push(["outreach/apps/kosmos-felder.js", "apps/kosmos-felder.js"]);
 files.push(["outreach/apps/system-felder.js", "apps/system-felder.js"]);
 files.push(["outreach/apps/retro-neuzeit.js", "apps/retro-neuzeit.js"]);
+files.push(["outreach/apps/boing-hintergrund.js", "apps/boing-hintergrund.js"]);
 
 for (const [from, to] of files) {
   mkdirSync(dirname(join(dst, to)), { recursive: true });
