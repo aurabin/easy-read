@@ -64,7 +64,7 @@ function create(canvas){
   function donnern(c){
     if(!c)return;
     try{
-      if(c.state==="suspended") c.resume();
+      if(c.state!=="running"){ c.resume(); return; }
       var t2=c.currentTime;
       // 1) Knall (Crack) — kurzer, heller Impuls
       var buf1=c.createBuffer(1,Math.floor(c.sampleRate*.08),c.sampleRate);
@@ -228,20 +228,6 @@ function create(canvas){
       }
     }
 
-    // Blitz-Flash + Blitz-Linie
-    if(blitzDauer>0){
-      ctx.fillStyle="rgba(255,255,255,"+(blitzDauer*2.5)+")";
-      ctx.fillRect(0,0,LW,LH);
-      if(blitzDauer>0.05){
-        ctx.strokeStyle="rgba(255,255,255,"+(blitzDauer*4)+")";ctx.lineWidth=3;
-        ctx.beginPath();
-        var bx=blitzX, by=0;
-        ctx.moveTo(bx,by);
-        while(by<LH*.8){bx+=(Math.random()-.5)*24;by+=12+Math.random()*18;ctx.lineTo(bx,by);}
-        ctx.stroke();
-      }
-    }
-
     // Schatten
     var sq=ball.squash*0.20;
     var hoehe=Math.max(0,(FLOOR-R-ball.by)/(FLOOR-R-40));
@@ -279,9 +265,15 @@ function create(canvas){
   });
 
   // Ton-Toggle per Tastatur (S)
+  function entsperren(){
+    try{
+      if(!audio)audio=new (window.AudioContext||window.webkitAudioContext)();
+      if(audio.state==="suspended")audio.resume();
+    }catch(e){}
+  }
+  window.addEventListener("pointerdown",entsperren);
   window.addEventListener("keydown",function(e){
-    if(!audio)audio=new (window.AudioContext||window.webkitAudioContext)();
-    if(audio.state==="suspended")audio.resume();
+    entsperren();
     if(e.key==="s"||e.key==="S"){sound=!sound;}
   });
 
