@@ -179,10 +179,20 @@ function create(canvas){
     }
   });
 
-  // Ton-Toggle per Tastatur (S) — Default: an
+  // Ton ist an. Browser brauchen eine Geste, um Audio zu starten.
+  function entsperren(){
+    try{
+      if(!audio)audio=new (window.AudioContext||window.webkitAudioContext)();
+      if(audio.state==="suspended")audio.resume();
+    }catch(e){}
+  }
+  window.addEventListener("click",entsperren,{once:true});
   window.addEventListener("keydown",function(e){
+    entsperren();
     if(e.key==="s"||e.key==="S"){sound=!sound;}
   });
+  // Klick auf den Ball entsperrt und spielt ab
+  canvas.addEventListener("click",function(){entsperren();});
 
   groesse();window.addEventListener("resize",groesse);frame();
   return {stop:function(){if(raf)cancelAnimationFrame(raf);window.removeEventListener("resize",groesse);}};
