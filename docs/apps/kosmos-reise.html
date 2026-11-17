@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kosmos-Reise — vom Mikrokosmos zum Makrokosmos</title>
+<title>Das große Atmen — eine Reise vom Kleinsten zum Größten</title>
 <style>
 :root{--bg:#070b14;--panel:#0e1626;--ink:#eaf2ff;--muted:#9fb3d1;
  --line:#24344f;--teal:#0f766e;--sky:#6fd3ff;--violet:#7a20d0;
@@ -75,28 +75,31 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:16px}
 <body>
 <div class="wrap">
   <div class="stripe" aria-hidden="true"></div>
-  <h1>KOSMOS-REISE <span>SCHRITT FÜR SCHRITT</span></h1>
-  <p class="lead">Zehn Schritte vom Kleinsten zum Größten. Jeder Schritt ist ein
-    eigener Feldgenerator. Du kannst eigene Dinge hinzufügen.</p>
+  <h1>DAS GROSSE ATMEN <span>eine Reise durch die Größen</span></h1>
+  <p class="lead">Vom ersten Flüstern bis zum großen Atmen. Zehn Stufen,
+    zehn Lieder, ein Strom. Wissenschaft als Staunen: Du darfst fragen,
+    du darfst ändern, du darfst selbst etwas hineinsingen.</p>
 
   <div class="stufen" id="stufen"></div>
 
   <div class="feld-wrap">
     <canvas id="feld"></canvas>
-    <div class="feld-top"><b id="stufename">QUARKS</b><span id="groesse">10⁻¹⁸ m</span></div>
-    <div class="feld-bottom" id="feldinfo">Schritt 1 von 10</div>
+    <div class="feld-top"><b id="stufename">Das erste Flüstern</b><span id="groesse">10⁻¹⁸ m</span></div>
+    <div class="feld-bottom"><span id="feldinfo">Schritt 1 von 10</span> · <span id="energie">~ 1 GeV</span></div>
   </div>
 
   <div class="erklaerung">
     <h2 id="erk-titel">Was du siehst</h2>
     <p id="erk-text"></p>
     <ul class="lerne" id="erk-lerne"></ul>
+    <p id="waswenn-text" style="color:var(--yellow);font-size:13px;margin-top:10px"></p>
   </div>
 
   <div class="nav">
     <button id="zurueck" disabled>← Zurück</button>
     <button id="weiter" class="weiter">Weiter →</button>
     <button id="hoeren">Ton an</button>
+    <button id="waswenn" style="border-color:var(--yellow);color:var(--yellow)">Was wäre wenn?</button>
     <span id="fortschritt" style="color:var(--muted);font:12px ui-monospace,monospace"></span>
   </div>
 
@@ -118,6 +121,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:16px}
     <div class="objekte" id="objekte"></div>
     <p style="color:var(--muted);font-size:12px;margin:8px 0 0">
       Deine Dinge erscheinen im Feld und bleiben auf diesem Gerät.</p>
+    <div id="abzeichen" style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap"></div>
+    <p id="rangtext" style="color:var(--yellow);font-size:13px"></p>
   </div>
 
   <footer>Kostenlos. Offen. Eigene Nachbildung im Boing-Ball-Stil. Kein WAV.
@@ -129,7 +134,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:16px}
 "use strict";
 var $=function(s){return document.querySelector(s)};
 var STUFEN=window.KosmosFelder?KosmosFelder.STUFEN:[];
-var idx=0, feld=null, eigene={}, tonAn=false, actx=null;
+var idx=0, feld=null, eigene={}, tonAn=false, actx=null, wasWennAn=false;
 try{eigene=JSON.parse(localStorage.getItem("er-kosmos")||"{}")||{};}catch(e){eigene={}}
 
 /* Stufen-Leiste */
@@ -159,10 +164,12 @@ function konfetti(){var f=["#6fd3ff","#f2d000","#7a20d0","#e8382f","#f5f0e6"];
 function zeige(){
   var s=STUFEN[idx];
   if(feld)feld.stop();
-  feld=KosmosFelder.create($("#feld"),idx,meine());
+  feld=KosmosFelder.create($("#feld"),idx,meine(),wasWennAn);
   $("#stufename").textContent=s.name;
   $("#stufename").style.color=s.farbe;
   $("#groesse").textContent=s.groesse;
+  $("#energie").textContent=s.energie||"";
+  $("#waswenn-text").textContent="✦ Was wäre, wenn du "+s.wasWenn+"? — Klick auf den Knopf.";
   $("#feldinfo").textContent="Schritt "+(idx+1)+" von "+STUFEN.length+" · "+s.mod;
   $("#erk-titel").textContent=s.name+" — "+s.groesse;
   $("#erk-text").textContent=s.text;
@@ -182,6 +189,17 @@ function gehe(i){idx=i;ton();konfetti();zeige();}
 $("#weiter").onclick=function(){gehe((idx+1)%STUFEN.length)};
 $("#zurueck").onclick=function(){if(idx>0)gehe(idx-1)};
 $("#hoeren").onclick=function(){tonAn=!tonAn;this.textContent=tonAn?"Ton aus":"Ton an"};
+$("#waswenn").onclick=function(){
+  wasWennAn=!wasWennAn;
+  if(feld)feld.wasWenn(wasWennAn);
+  this.textContent=wasWennAn?"✦ Zurück zur Welt":"Was wäre wenn?";
+  this.style.background=wasWennAn?"var(--yellow)":"";
+  this.style.color=wasWennAn?"#070b14":"var(--yellow)";
+  $("#waswenn-text").textContent=wasWennAn
+    ? "✦ Die Welt hat sich verändert. Schau hin. Was ist anders?"
+    : "✦ Was wäre, wenn du "+STUFEN[idx].wasWenn+"? — Klick auf den Knopf.";
+  konfetti();
+};
 
 function objekteZeigen(){
   var box=$("#objekte");box.innerHTML="";

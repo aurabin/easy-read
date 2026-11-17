@@ -69,7 +69,7 @@
         (local.set $y (f32.sub (local.get $floor) (local.get $r)))
         (local.set $vy
           (f32.neg
-            (f32.max (f32.const 3.2) (f32.mul (f32.abs (local.get $vy)) (f32.const 0.9)))))
+            (f32.max (f32.const 6.8) (f32.mul (f32.abs (local.get $vy)) (f32.const 0.9)))))
         (f32.store (i32.const 6152) (f32.const 1))
         (local.set $hit (i32.const 1))))
 

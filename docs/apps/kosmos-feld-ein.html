@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Das große Ganze — ein Feld, ein Spiel</title>
+<style>
+:root{--bg:#070b14;--panel:#0e1626;--ink:#eaf2ff;--muted:#9fb3d1;
+ --line:#24344f;--teal:#0f766e;--sky:#6fd3ff;--violet:#7a20d0;
+ --red:#e8382f;--cream:#f5f0e6;--yellow:#f2d000}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto 0;height:440px;pointer-events:none;
+ background-image:linear-gradient(rgba(122,32,208,.16) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(122,32,208,.16) 1px,transparent 1px);
+ background-size:32px 32px;-webkit-mask-image:linear-gradient(180deg,#000,transparent);
+ mask-image:linear-gradient(180deg,#000,transparent)}
+.wrap{position:relative;max-width:900px;margin:0 auto;padding:18px 14px 60px}
+.stripe{width:104px;height:4px;border-radius:2px;margin-bottom:14px;
+ background:repeating-linear-gradient(90deg,var(--red) 0 12px,var(--cream) 12px 24px)}
+h1{font-size:clamp(22px,4vw,34px);margin:0 0 4px;line-height:1.15}
+h1 span{color:var(--sky)}
+.lead{color:var(--muted);margin:0 0 14px;max-width:64ch}
+/* Das EINE Feld */
+#feld-wrap{position:relative;width:100%;aspect-ratio:16/11;border:2px solid var(--line);
+ border-radius:10px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.6);cursor:crosshair}
+#feld{width:100%;height:100%;display:block;image-rendering:pixelated}
+.overlay{position:absolute;pointer-events:none}
+.oben{top:10px;left:12px;right:12px;display:flex;justify-content:space-between}
+.oben b{font:600 13px ui-monospace,monospace;color:var(--sky);text-shadow:0 2px 4px #000}
+.unten{bottom:10px;left:12px;right:12px;display:flex;justify-content:space-between;
+ color:var(--muted);font:11px ui-monospace,monospace;text-shadow:0 2px 4px #000}
+/* Wunder-Popups */
+.wunder{position:absolute;pointer-events:auto;cursor:pointer;transition:transform .12s}
+.wunder:hover{transform:scale(1.25)}
+.wunder .ring{width:30px;height:30px;border-radius:50%;border:2px solid currentColor;
+ box-shadow:0 0 16px currentColor,inset 0 0 10px currentColor;animation:atmen 1.8s ease-in-out infinite}
+@keyframes atmen{0%,100%{opacity:.55;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+.wunder .kern{position:absolute;inset:9px;border-radius:50%;background:currentColor}
+/* Hud */
+.hud{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+button{cursor:pointer;font:inherit;color:var(--ink);background:var(--panel);
+ border:1px solid var(--line);border-radius:8px;padding:8px 14px}
+button:hover{border-color:var(--sky)}
+button:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+.zaehler{font:600 14px ui-monospace,monospace;color:var(--yellow)}
+.karte{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--sky);
+ border-radius:6px;padding:14px;margin-top:12px;min-height:96px}
+.karte h2{margin:0 0 6px;color:var(--cream);font-size:18px}
+.karte p{margin:5px 0}
+.karte .fakt{color:var(--muted);font-size:13px}
+.sammlung{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.perle{padding:5px 10px;border:1px solid var(--line);border-radius:99px;font-size:12px;
+ background:#0a1220;display:flex;gap:6px;align-items:center}
+.perle i{width:9px;height:9px;border-radius:50%}
+.perle.gefunden{border-color:var(--yellow);color:var(--yellow)}
+.add{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px}
+.add form{display:flex;gap:8px;flex-wrap:wrap;align-items:end}
+.add label{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+input,select{font:inherit;padding:7px;background:#0a1220;color:var(--ink);
+ border:1px solid var(--line);border-radius:5px}
+.konfetti{position:fixed;width:8px;height:8px;pointer-events:none;z-index:99;animation:fall 1.1s forwards}
+@keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:16px}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stripe" aria-hidden="true"></div>
+  <h1>DAS GROSSE GANZE <span>ein Feld · ein Spiel</span></h1>
+  <p class="lead">Zehn Welten in einem Feld. Vom ersten Flüstern bis zum großen
+    Atmen. Klick auf die leuchtenden Wunder — jedes erzählt dir, was es ist.
+    Und du darfst dein eigenes Wunder hineinsetzen.</p>
+
+  <div id="feld-wrap">
+    <canvas id="feld"></canvas>
+    <div class="overlay oben"><b id="titel">DAS GROSSE GANZE</b><span id="skala">10⁻¹⁸ m — 10²⁷ m</span></div>
+    <div class="overlay unten"><span id="hinweis">Klick auf ein Wunder ✦</span><span id="zaehler">0 / 10 Wunder</span></div>
+  </div>
+
+  <div class="hud">
+    <button id="start" class="weiter" style="background:var(--teal);border-color:var(--teal);color:#fff">Wunder erwecken ✦</button>
+    <button id="ton">Ton an</button>
+    <button id="neu">Neues Wunder</button>
+    <button id="alles">Alle zeigen</button>
+    <span class="zaehler" id="rang">Noch kein Rang</span>
+  </div>
+
+  <div class="karte" id="karte">
+    <h2 id="k-titel">Willkommen im großen Ganzen</h2>
+    <p id="k-text">Ein Feld, zehn Welten. Drück „Wunder erwecken" und klick auf die Lichter, die erscheinen.</p>
+    <p class="fakt" id="k-fakt">Wissenschaft ist Staunen mit einem Namen.</p>
+  </div>
+
+  <div class="sammlung" id="sammlung"></div>
+
+  <div class="add" id="addpanel" style="display:none">
+    <h3>+ DEIN EIGENES WUNDER</h3>
+    <form id="addform">
+      <label>Name <input id="w-name" maxlength="18" placeholder="z. B. Omas Stern" required></label>
+      <label>Farbe <select id="w-farbe">
+        <option value="#6fd3ff">Sky</option><option value="#f2d000">Gelb</option>
+        <option value="#e8382f">Rot</option><option value="#3fa04a">Grün</option>
+        <option value="#7a20d0">Violett</option><option value="#f5f0e6">Creme</option>
+      </select></label>
+      <label>Erzählung <input id="w-text" maxlength="60" placeholder="ein kleiner Satz"></label>
+      <button type="submit">Setzen ✦</button>
+    </form>
+  </div>
+
+  <footer>Kostenlos. Offen. Ein Feld, ein Spiel. Kein WAV. Nicht mit echten Kindern getestet.</footer>
+</div>
+<script src="kosmos-felder.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var canvas=$("#feld"),ctx=canvas.getContext("2d"),W,H,raf=null,tick=0;
+var STUFEN=window.KosmosFelder?KosmosFelder.STUFEN:[];
+var gefunden={}, eigene=[], aktiv=false, tonAn=false, actx=null;
+try{gefunden=JSON.parse(localStorage.getItem("er-grosse-ganze")||"{}")||{};}catch(e){}
+try{eigene=JSON.parse(localStorage.getItem("er-eigene-wunder")||"[]")||[];}catch(e){}
+var lichter=[];
+
+function speichern(){
+ try{localStorage.setItem("er-grosse-ganze",JSON.stringify(gefunden));
+ localStorage.setItem("er-eigene-wunder",JSON.stringify(eigene));}catch(e){}
+}
+function resize(){
+ var r=canvas.getBoundingClientRect();
+ W=canvas.width=Math.max(320,Math.floor(r.width));
+ H=canvas.height=Math.max(240,Math.floor(r.height));
+}
+function ton(f){if(!tonAn)return;try{
+ if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();
+ if(actx.state==="suspended")actx.resume();
+ var o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime;
+ o.type="sine";o.frequency.setValueAtTime(f?520:300,t);
+ o.frequency.exponentialRampToValueAtTime(f?900:180,t+.2);
+ g.gain.setValueAtTime(.1,t);g.gain.exponentialRampToValueAtTime(.001,t+.3);
+ o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+.32);
+}catch(e){}}
+function konfetti(x,y){
+ var f=["#6fd3ff","#f2d000","#7a20d0","#e8382f","#f5f0e6"];
+ for(var i=0;i<20;i++){var k=document.createElement("div");k.className="konfetti";
+  k.style.left=((x||window.innerWidth/2)+(Math.random()-.5)*160)+"px";
+  k.style.top=((y||0)+(Math.random()-.5)*40)+"px";
+  k.style.background=f[i%f.length];document.body.appendChild(k);
+  setTimeout((function(el){return function(){el.remove()}})(k),1200);}
+}
+
+/* Das EINE Feld: zehn konzentrische Welten, alle gleichzeitig */
+function maleFeld(){
+ tick++;
+ var cx=W/2,cy=H/2,t=tick*.01;
+ var lg=ctx.createLinearGradient(0,0,0,H);
+ lg.addColorStop(0,"#060814");lg.addColorStop(.45,"#0a1024");lg.addColorStop(1,"#0d1a20");
+ ctx.fillStyle=lg;ctx.fillRect(0,0,W,H);
+ for(var i=0;i<50;i++){
+  var sx=(i*97%W),sy=(i*53%(H*.5)),tw=.4+.6*Math.abs(Math.sin(t+i));
+  ctx.fillStyle="rgba(234,242,255,"+(tw*.5)+")";ctx.fillRect(sx,sy,1.4,1.4);
+ }
+ ctx.save();ctx.translate(W*.78,H*.22);ctx.rotate(t*.08);
+ for(var a=0;a<3;a++){
+  ctx.strokeStyle="rgba(224,112,60,"+(gefunden.galaxie?.45:.15)+")";ctx.lineWidth=2;
+  ctx.beginPath();
+  for(var q=0;q<60;q++){
+   var ang=q*.16+a*2.1,rad=q*.42;
+   var gx=Math.cos(ang)*rad,gy=Math.sin(ang)*rad*.38;
+   q?ctx.lineTo(gx,gy):ctx.moveTo(gx,gy);
+  }
+  ctx.stroke();
+ }
+ ctx.fillStyle="#f2d000";ctx.beginPath();ctx.arc(0,0,3,0,7);ctx.fill();ctx.restore();
+ var px=W*.16,py=H*.2;
+ ctx.fillStyle="#6fd3ff";ctx.beginPath();ctx.arc(px,py,16,0,7);ctx.fill();
+ ctx.fillStyle="#3fa04a";ctx.beginPath();ctx.arc(px-4,py-3,6,0,7);ctx.fill();
+ ctx.strokeStyle="rgba(242,208,0,.5)";ctx.lineWidth=2;
+ ctx.beginPath();ctx.ellipse(px,py,26,7,-.3,0,7);ctx.stroke();
+ ctx.fillStyle="#0e2a24";ctx.beginPath();ctx.moveTo(0,H);
+ for(var x=0;x<=W;x+=12)ctx.lineTo(x,H*.72+Math.sin(x*.012+t*.2)*14+Math.sin(x*.03)*6);
+ ctx.lineTo(W,H);ctx.fill();
+ ctx.fillStyle="#123a2e";ctx.beginPath();ctx.moveTo(0,H);
+ for(var x=0;x<=W;x+=12)ctx.lineTo(x,H*.82+Math.sin(x*.008+t*.15)*10);
+ ctx.lineTo(W,H);ctx.fill();
+ ctx.fillStyle="rgba(90,200,250,.18)";ctx.fillRect(0,H*.88,W,H*.12);
+ for(var b=0;b<6;b++){
+  var bx=40+b*(W-80)/5,by=H*.74+Math.sin(bx*.012+t*.2)*14;
+  ctx.strokeStyle="#6b4a2a";ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx,by-18);ctx.stroke();
+  ctx.fillStyle="#3fa04a";
+  ctx.beginPath();ctx.arc(bx,by-24,9,0,7);ctx.fill();
+  ctx.beginPath();ctx.arc(bx-6,by-19,6,0,7);ctx.fill();
+  ctx.beginPath();ctx.arc(bx+6,by-19,6,0,7);ctx.fill();
+ }
+ for(var f=0;f<4;f++){
+  var fx=(f*90+t*14)%(W+40)-20,fy=H*.92+Math.sin(t+f)*6;
+  ctx.fillStyle="#6fd3ff";ctx.beginPath();ctx.ellipse(fx,fy,7,3.5,0,0,7);ctx.fill();
+  ctx.beginPath();ctx.moveTo(fx+7,fy);ctx.lineTo(fx+12,fy-4);ctx.lineTo(fx+12,fy+4);ctx.fill();
+ }
+ for(var m=0;m<3;m++){
+  var mx=50+m*46,my=H*.34+Math.sin(t+m)*8;
+  ctx.strokeStyle="rgba(111,211,255,.5)";ctx.lineWidth=1;
+  for(var e=0;e<3;e++){
+   var ea=t*2+e*2.1;
+   ctx.beginPath();ctx.ellipse(mx,my,14,6,ea,0,7);ctx.stroke();
+   ctx.fillStyle="#e8382f";ctx.beginPath();
+   ctx.arc(mx+Math.cos(ea)*14,my+Math.sin(ea)*6,2.5,0,7);ctx.fill();
+  }
+  ctx.fillStyle="#f2d000";ctx.beginPath();ctx.arc(mx,my,3,0,7);ctx.fill();
+ }
+ eigene.forEach(function(o,i){
+  var a=t*.3+i*2.1,rr=40+(i%5)*24;
+  var ex=cx+Math.cos(a)*rr,ey=cy+Math.sin(a)*rr*.5;
+  ctx.fillStyle=o.farbe||"#f5f0e6";ctx.shadowColor=o.farbe;ctx.shadowBlur=8;
+  ctx.beginPath();ctx.arc(ex,ey,4,0,7);ctx.fill();ctx.shadowBlur=0;
+ });
+ ctx.strokeStyle="rgba(176,48,48,"+(.2+.15*Math.sin(t*.5))+")";
+ ctx.lineWidth=2;ctx.beginPath();
+ for(var x=0;x<=W;x+=8)ctx.lineTo(x,H*.5+Math.sin(x*.01+t*.5)*4);
+ ctx.stroke();
+ raf=requestAnimationFrame(maleFeld);
+}
+/* Wunder erscheinen als klickbare Lichter */
+function wunderErzeugen(){
+ lichter.forEach(function(l){l.el.remove()});lichter=[];
+ var offen=STUFEN.filter(function(s){return !gefunden[s.id]});
+ if(!offen.length)offen=STUFEN;
+ offen.slice(0,4).forEach(function(st,i){
+  var el=document.createElement("div");el.className="wunder";
+  el.style.color=st.farbe||"#f5f0e6";
+  el.innerHTML='<div class="ring"></div><div class="kern"></div>';
+  var a=Math.random()*6.28, rr=Math.min(W,H)*(.15+Math.random()*.28);
+  var x=W/2+Math.cos(a)*rr-15, y=H/2+Math.sin(a)*rr*.62-15;
+  el.style.left=x+"px";el.style.top=y+"px";
+  el.title=st.name;
+  el.onclick=function(e){fange(st,e)};
+  $("#feld-wrap").appendChild(el);
+  lichter.push({el:el,st:st});
+ });
+}
+function fange(st,e){
+ gefunden[st.id]=true;speichern();
+ ton(true);konfetti(e.clientX,e.clientY);
+ $("#k-titel").textContent=st.name;
+ $("#k-text").textContent=st.text;
+ $("#k-fakt").textContent=st.lerne.join(" · ")+"  ✦  "+st.energie+"  ✦  "+
+  (st.groesse||"");
+ $("#zaehler").textContent=Object.keys(gefunden).length+" / "+STUFEN.length+" Wunder";
+ $("#rang").textContent=rangText();
+ sammlungZeigen();
+ lichter.forEach(function(l){l.el.remove()});lichter=[];
+ setTimeout(wunderErzeugen,350);
+}
+function rangText(){
+ var n=Object.keys(gefunden).length;
+ if(n>=10)return"✦ Kosmos-Hüter";
+ if(n>=7)return"✦ Sternenwanderer";
+ if(n>=4)return"✦ Weltenbummler";
+ if(n>=1)return"✦ Wunderfinder";
+ return"Noch kein Rang";
+}
+function sammlungZeigen(){
+ var box=$("#sammlung");box.innerHTML="";
+ STUFEN.forEach(function(st){
+  var p=document.createElement("div");p.className="perle"+(gefunden[st.id]?" gefunden":"");
+  p.innerHTML='<i style="background:'+st.farbe+'"></i><span>'+
+   (gefunden[st.id]?st.name:"?")+'</span>';
+  box.appendChild(p);
+ });
+ eigene.forEach(function(o,i){
+  var p=document.createElement("div");p.className="perle gefunden";
+  p.innerHTML='<i style="background:'+o.farbe+'"></i><span>'+o.name+'</span>';
+  var b=document.createElement("button");b.textContent="×";b.style.cssText=
+   "border:0;background:none;color:#e8382f;cursor:pointer";
+  b.onclick=function(){eigene.splice(i,1);speichern();sammlungZeigen()};
+  p.appendChild(b);box.appendChild(p);
+ });
+}
+
+$("#start").onclick=function(){aktiv=true;wunderErzeugen();this.textContent="Wunder suchen …"};
+$("#ton").onclick=function(){tonAn=!tonAn;this.textContent=tonAn?"Ton aus":"Ton an"};
+$("#neu").onclick=function(){$("#addpanel").style.display="block";$("#w-name").focus()};
+$("#alles").onclick=function(){
+ STUFEN.forEach(function(s){gefunden[s.id]=true});speichern();
+ sammlungZeigen();$("#zaehler").textContent=STUFEN.length+" / "+STUFEN.length+" Wunder";
+ $("#rang").textContent=rangText();konfetti();
+ $("#k-titel").textContent="Das ganze Universum";
+ $("#k-text").textContent="Alle zehn Welten sind jetzt gefunden. Und deine eigenen Wunder auch.";
+ $("#k-fakt").textContent="Vom ersten Flüstern bis zum großen Atmen — alles ist eins.";
+};
+$("#addform").onsubmit=function(e){
+ e.preventDefault();
+ var n=$("#w-name").value.trim();if(!n)return;
+ eigene.push({name:n,farbe:$("#w-farbe").value,text:$("#w-text").value.trim()});
+ speichern();$("#w-name").value="";$("#w-text").value="";
+ sammlungZeigen();ton(true);konfetti();
+ $("#k-titel").textContent=n;
+ $("#k-text").textContent=$("#w-text").value||"Dein Wunder ist jetzt im Feld.";
+ $("#k-fakt").textContent="Du hast etwas Neues in das große Ganze gesetzt.";
+};
+resize();window.addEventListener("resize",function(){resize()});
+maleFeld();sammlungZeigen();
+$("#zaehler").textContent=Object.keys(gefunden).length+" / "+STUFEN.length+" Wunder";
+$("#rang").textContent=rangText();
+})();
+</script>
+</body>
+</html>
