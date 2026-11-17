@@ -52,7 +52,7 @@ Du kannst:
 - eine Prüfung ergänzen.
 
 Regeln:
-- kein WAV im Build,
+- WAV ist erlaubt; jede Sample-Lizenz muss klar sein,
 - `docs/` nie direkt bearbeiten,
 - nach Änderungen `node field-generator/build-docs.mjs` laufen lassen,
 - `node tools/self-engineer.mjs` muss OK sagen.

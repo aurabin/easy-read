@@ -90,7 +90,8 @@ Dies sind alle Regeln und Wünsche des Projektinhabers.
 
 - `docs/` ist generiert. Nie direkt bearbeiten.
   Nach Änderungen: `node field-generator/build-docs.mjs`.
-- Kein WAV in irgendeinem Build. Audio als FLAC/PCM → ffmpeg → MP4/AAC.
+- WAV ist global erlaubt (Entscheidung des Besitzers, 17.11.2026).
+  Jede Sample-Lizenz muss klar sein: eigene Aufnahme, CC0 oder CC BY.
 - WASM-Kern mit JavaScript-Rückfall.
 - KolibriOS: native FASM, nicht Browser-Demos.
 - Boing Ball: echte Physik, `6.8` Bounce, Ton bei Aufprall,

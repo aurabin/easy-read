@@ -144,9 +144,10 @@ from the 100/100 rule.
 
 ## Build constraints
 
-- **No WAV in any build.** Do not create `.wav` files as an intermediate or a
-  final format. Render module audio to FLAC or raw PCM and pipe it straight into
-  ffmpeg; encode the final result as MP4 with AAC.
+- **WAV is allowed globally** (owner decision, 17 Nov 2026). `.wav` files may
+  be used in builds and in the browser. Keep the licence of every sample clear
+  (own recording, CC0 or CC BY). Module audio may still be rendered to FLAC or
+  raw PCM and encoded to MP4/AAC with ffmpeg where that helps.
 
 ## Style of work
 

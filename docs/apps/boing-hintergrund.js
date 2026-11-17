@@ -25,6 +25,17 @@ function create(canvas){
   var blitzTimer=0, blitzNext=10+Math.random()*10, blitzDauer=0, blitzX=0;
   var donnerAktiv=0, donnerVerzoegerung=0, donnerGeplant=false;
   var laeuft=false, imBild=true, tabAktiv=true;
+  // Optionales Donner-Sample (WAV). Fehlt die Datei, klingt der synthetische Donner.
+  var donnerDatei=canvas.getAttribute("data-donner")||"media/donner.wav";
+  var donnerPuffer=null, donnerLaedt=false;
+  function ladeDonner(c){
+    if(donnerPuffer||donnerLaedt||!c||!window.fetch)return;
+    donnerLaedt=true;
+    fetch(donnerDatei).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();})
+      .then(function(b){return c.decodeAudioData(b);})
+      .then(function(p){donnerPuffer=p;})
+      .catch(function(){donnerLaedt=false;});
+  }
 
   function groesse(){
     var r=canvas.getBoundingClientRect();
@@ -66,6 +77,12 @@ function create(canvas){
     if(!c)return;
     try{
       if(c.state!=="running"){ c.resume(); return; }
+      if(donnerPuffer){
+        var q=c.createBufferSource(), qg=c.createGain();
+        q.buffer=donnerPuffer; qg.gain.value=.8;
+        q.connect(qg); qg.connect(c.destination); q.start();
+        return;
+      }
       var t2=c.currentTime;
       // 1) Knall (Crack) — kurzer, heller Impuls
       var buf1=c.createBuffer(1,Math.floor(c.sampleRate*.08),c.sampleRate);
@@ -103,6 +120,7 @@ function create(canvas){
       if(!AC)return;
       if(!audio)audio=new AC();
       var c=audio;
+      ladeDonner(c);
       var play=function(){ donnern(c); };
       if(c.state==="suspended"){
         boingPending=true;
@@ -271,6 +289,7 @@ function create(canvas){
     try{
       if(!audio)audio=new (window.AudioContext||window.webkitAudioContext)();
       if(audio.state==="suspended")audio.resume();
+      ladeDonner(audio);
     }catch(e){}
   }
   window.addEventListener("pointerdown",entsperren);
