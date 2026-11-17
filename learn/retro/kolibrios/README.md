@@ -34,19 +34,22 @@ Das passt gut zu Code, nah an der Hardware.
 
 ## Der Entwurf
 
-Die Datei `boing-kolibri.asm` ist ein Entwurf.
-Sie öffnet ein Fenster.
-Sie zeichnet eine karierte Kugel aus Punkten.
+Die Datei `boing-kolibri.asm` ist jetzt assembliert.
+FASM 1.73.32 meldet: 2 Durchläufe, 400 Byte, 0 Fehler.
+Das Programm öffnet ein Fenster.
+Es zeichnet eine karierte Kugel aus Punkten.
 
-Wichtig: Hier ist kein FASM installiert.
-Der Text ist nicht getestet.
-Prüfe die Nummern der Systemrufe in `syscalls.txt`.
+Es ist **nicht** in KolibriOS gestartet worden.
+Prüfe die Systemrufe trotzdem gegen `syscalls.txt`.
 
-## Was ich noch machen kann
+## Das Paket
 
-- Texte als `.txt` für KolibriOS paketieren.
-- Das Bild als PNG speichern.
-- Den Entwurf ausbauen, wenn er testbar ist.
+Im Ordner `package/` liegt alles Nutzbare:
+
+- `BOING` — das Programm, 400 Byte
+- `BOING.PNG` — das Vorschaubild
+- `.TXT`-Dateien — die ersten Lektionen
+- `README.TXT` — die Anleitung
 
 ## Quellen
 
