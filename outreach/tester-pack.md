@@ -66,8 +66,9 @@ Antworte so, wie es für dich am besten passt:
 Du musst nichts unterschreiben.
 Ein "Ja, ich mache mit" per E-Mail reicht.
 
-## Geld
+## Geld — Entwurf
 
+**Noch offen.** Der Betrag steht nicht fest.
 Du bekommst [Betrag] für deine Zeit.
 Sag mir, wie du das Geld bekommen möchtest.
 Wenn Geld problematisch ist, finden wir eine andere Lösung.

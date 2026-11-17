@@ -69,6 +69,9 @@ Es trägt nur seinen Namen.
 Wir haben das Modul nicht neu komponiert.
 Wir haben keine echten Nutzer gefragt.
 Das Video ist nicht mit ihnen getestet.
+Die Lizenz des Moduls ist nicht belegt.
+Wir nennen Quelle und Autoren.
+Mehr steht in der Datei mit den fremden Werken im Projekt.
 
 ## Quellen
 

@@ -73,7 +73,8 @@ ${note ? `<p><strong>${esc(note)}</strong></p>` : ""}
 <label>Nachricht<textarea name="message" rows="4" maxlength="500" required></textarea></label>
 <button type="submit">Senden</button>
 </form>
-<p><small>Keine Namen von anderen. Keine Fotos. Nicht mit echten Nutzern getestet.</small></p>
+<p><small>Deine Nachricht wird lokal auf diesem Rechner gespeichert.
+Keine Namen von anderen. Keine Fotos. Nicht mit echten Nutzern getestet.</small></p>
 </div>` + recent());
 }
 

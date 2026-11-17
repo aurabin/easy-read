@@ -29,7 +29,7 @@ Das ist eine lange Geschichte mit Wendungen.
 | 2023 | Activision Blizzard für 68,7 Milliarden Dollar. |
 | 2023 | Große Investition in OpenAI. Copilot kommt. |
 | 2025 | Stellenabbau wegen KI-Ausgaben. |
-| 2026 | Eigene Chips: Maia und Cobalt. |
+| 2026 | Eigene Chips: Maia und Cobalt. Nicht belegt. |
 
 ## Die Anfänge
 

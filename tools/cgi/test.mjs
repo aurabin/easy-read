@@ -35,6 +35,7 @@ const get = call("GET");
 check("GET liefert Formular", /Content-Type: text\/html/.test(get.stdout) &&
   /<form/.test(get.stdout) && /\r\n\r\n/.test(get.stdout));
 check("kein Fachwort im Formular", !/Gästebuch/.test(get.stdout));
+check("Datenschutzhinweis im Formular", /lokal auf diesem Rechner/.test(get.stdout));
 
 const post = call("POST", "name=Anna&message=Hallo+Welt");
 check("POST speichert Nachricht", /Danke/.test(post.stdout) &&

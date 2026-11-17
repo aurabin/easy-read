@@ -66,5 +66,9 @@ require? I will not use anything until I have your written yes.
 ## Status
 - Bundled third-party assets: none.
 - Proprietary ROMs or Workbench: none.
+- The Boing Ball we show is drawn from scratch. It is not a copied asset.
+  See `brand/design-tokens.md`. The original demo would require a written yes.
 - Everything we made: open under MIT / CC0 / CC BY.
+- See `THIRD-PARTY-NOTICES.md` in the project root for derived code
+  and unclear licences.
 - Nothing to negotiate today.

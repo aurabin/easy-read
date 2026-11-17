@@ -192,7 +192,9 @@ Es gibt viele Projekte. Hier sind einige:
 
 BOINC ist freie Software.
 Der Code steht unter der LGPL-Lizenz.
-Das Guinness-Buch nennt BOINC das größte Rechennetz der Welt.
+Ein Eintrag im Guinness-Buch wird berichtet.
+Dort ist er an dieser Stelle nicht belegt.
+Wir nennen ihn trotzdem nicht als gesicherten Fakt.
 
 Noch nicht mit echten Nutzern getestet. Das sagen wir ehrlich.
 

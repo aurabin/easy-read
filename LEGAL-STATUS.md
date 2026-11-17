@@ -2,6 +2,13 @@
 
 Stand: 17. November 2026.
 
+**Update:** Ein Teil ist jetzt abgesichert. Neu angelegt wurden
+`LICENSE.md`, `THIRD-PARTY-NOTICES.md`, `IMPRESSUM.md` und `DATENSCHUTZ.md`.
+Der Markenhinweis steht auf der Startseite. Das Gästebuch weist auf die
+lokale Speicherung hin. Die Punkte 1, 5, 6, 7, 9 und 10 sind damit
+dokumentiert. Die Punkte 2, 3, 4 und 8 brauchen weiterhin deine Entscheidung
+oder eine Beratung. Impressum und Datenschutz haben Platzhalter.
+
 **Wichtig zuerst:** Das ist keine Rechtsberatung.
 Ich bin kein Anwalt.
 Für echte Entscheidungen frag eine Anwältin oder einen Anwalt.
