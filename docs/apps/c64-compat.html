@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C64 Kompatibilität — BASIC 2.0 im Browser</title>
+<style>
+/* Echte VIC-II-Farben, aus dem TAWS/C64-Emulator-Canvas gemessen */
+:root{
+ --blue:#352879; --lblue:#6c5eb5; --cream:#f8f8d8; --black:#000000;
+ --white:#ffffff; --red:#68372b; --cyan:#70b4c2; --purple:#6f3d86;
+ --green:#588d43; --brown:#352879; --orange:#b06730; --grey:#6c5eb5;
+ --win:#6c5eb5; --win2:#5a4da0; --dark:#1a1248; --light:#8a7cc8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--blue);color:var(--cream);
+ font:15px/1.5 "Courier New",Courier,monospace}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+ background:repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 1px,transparent 1px 8px),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 8px)}
+.wrap{max-width:920px;margin:0 auto;padding:20px 16px 70px;position:relative;z-index:1}
+.window{background:var(--win);border:2px solid var(--dark);border-radius:0;
+ box-shadow:4px 4px 0 var(--dark),inset 2px 2px 0 var(--light);margin-bottom:20px}
+.titlebar{background:var(--dark);color:var(--cream);padding:8px 12px;
+ font-weight:bold;letter-spacing:.08em;border-bottom:2px solid var(--black)}
+.inner{padding:16px}
+h1{font-size:24px;margin:0 0 8px}h2{font-size:17px;margin:0 0 10px}
+p{margin:6px 0;max-width:64ch}
+.lead{color:#d9d0ff}
+.warn{background:var(--cream);color:var(--dark);border:2px solid var(--dark);padding:10px;font-weight:bold}
+/* Der C64-Bildschirm: 40 Spalten, 25 Zeilen */
+#screen{background:var(--blue);color:var(--lblue);width:100%;min-height:300px;
+ padding:14px;font:16px/1.15 "Courier New",Courier,monospace;
+ border:3px solid var(--dark);box-shadow:inset 0 0 40px rgba(0,0,0,.35);
+ white-space:pre-wrap;word-break:break-all;max-width:680px}
+#screen .c{color:var(--cream)}#screen .g{color:#5a9e4f}#screen .r{color:#c96b5a}
+textarea{width:100%;min-height:120px;background:var(--dark);color:var(--cream);
+ border:2px solid var(--black);font:14px/1.4 "Courier New",Courier,monospace;padding:10px}
+button{font:inherit;font-weight:bold;padding:8px 16px;background:var(--cream);
+ color:var(--dark);border:2px solid var(--dark);box-shadow:inset 1px 1px 0 #fff,
+ inset -2px -2px 0 #a89a50;cursor:pointer}
+button:active{box-shadow:inset 2px 2px 0 #a89a50;transform:translate(1px,1px)}
+.rows{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border:1px solid var(--dark);padding:5px 7px;text-align:left}
+th{background:var(--dark);color:var(--cream)}
+.sw{display:inline-block;width:14px;height:14px;border:1px solid var(--dark);vertical-align:middle}
+.out{background:var(--dark);color:#9fe08a;font:12px/1.5 monospace;padding:10px;height:80px;overflow:auto}
+footer{text-align:center;color:#d9d0ff;font-size:12px;padding:10px}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="window"><div class="titlebar">C64 KOMPATIBILITÄT — BASIC 2.0</div>
+  <div class="inner">
+    <h1>Der C64 in deinem Browser</h1>
+    <p class="lead">Echte VIC-II-Farben. 40 Zeichen pro Zeile. BASIC 2.0 zum Ausprobieren.</p>
+    <p class="warn"><strong>Ehrlich:</strong> Kein vollständiger Emulator.
+      Keine 6510-CPU, kein VIC-II-Chip, kein SID-Sound, keine ROMs.
+      Das ist ein Lernwerkzeug.Für echte Spiele: Link unten.</p>
+  </div></div>
+
+  <div class="window"><div class="titlebar">BILDSCHIRM — 40 × 25</div>
+  <div class="inner">
+    <div id="screen"></div>
+    <div class="rows">
+      <button id="run" type="button">RUN</button>
+      <button id="list" type="button">LIST</button>
+      <button id="clr" type="button">CLR / NEW</button>
+      <button id="demo" type="button">Beispiel laden</button>
+    </div>
+    <textarea id="code" spellcheck="false">10 PRINT "HALLO C64"
+20 PRINT "ICH BIN DA"
+30 GOTO 10</textarea>
+    <div class="out" id="log">Bereit. RUN drücken.</div>
+  </div></div>
+
+  <div class="window"><div class="titlebar">BASIC 2.0 — BEFEHLE</div>
+  <div class="inner">
+    <table>
+      <tr><th>Befehl</th><th>Bedeutung</th></tr>
+      <tr><td>PRINT</td><td>Schreibt Text auf den Bildschirm</td></tr>
+      <tr><td>GOTO</td><td>Springt zu einer Zeilennummer</td></tr>
+      <tr><td>LET</td><td>Gibt einer Variablen einen Wert</td></tr>
+      <tr><td>IF ... THEN</td><td>Entscheidung</td></tr>
+      <tr><td>FOR ... NEXT</td><td>Wiederholung</td></tr>
+      <tr><td>INPUT</td><td>Fragt nach einer Eingabe</td></tr>
+      <tr><td>CLR</td><td>Löscht Variablen</td></tr>
+      <tr><td>NEW</td><td>Löscht das Programm</td></tr>
+      <tr><td>END</td><td>Hält das Programm an</td></tr>
+    </table>
+    <p><small>Diese kleine BASIC-Umsetzung unterstützt PRINT, GOTO, LET, IF/THEN,
+      FOR/NEXT und END. Teletext-Farben gehen mit dem Zeichen <code>{c}</code>
+      (cyan), <code>{r}</code> (rot), <code>{g}</code> (grün), <code>{w}</code> (weiß).</small></p>
+  </div></div>
+
+  <div class="window"><div class="titlebar">ECHTE C64-FARBEN — GEMESSEN</div>
+  <div class="inner">
+    <table>
+      <tr><th>Farbe</th><th>Hex</th><th>Woher</th></tr>
+      <tr><td><span class="sw" style="background:#352879"></span> Blau</td><td>#352879</td><td>Hintergrund (gemessen)</td></tr>
+      <tr><td><span class="sw" style="background:#6c5eb5"></span> Hellblau</td><td>#6c5eb5</td><td>Text (gemessen)</td></tr>
+      <tr><td><span class="sw" style="background:#f8f8d8"></span> Creme</td><td>#f8f8d8</td><td>BASIC-Text</td></tr>
+      <tr><td><span class="sw" style="background:#70b4c2"></span> Cyan</td><td>#70b4c2</td><td>VIC-II-Farbe 3</td></tr>
+      <tr><td><span class="sw" style="background:#c96b5a"></span> Rot</td><td>#c96b5a</td><td>VIC-II-Farbe 2</td></tr>
+    </table>
+    <p><small>Gemessen aus dem Canvas des C64-Emulators auf
+      c64emulator.111mb.de. Referenz in `AGENTS.md`.</small></p>
+  </div></div>
+
+  <div class="window"><div class="titlebar">ECHTER EMULATOR — FÜR SPIELE</div>
+  <div class="inner">
+    <p>Für echte C64-Spiele und originales BASIC 2.0 nutze den Emulator
+      von Thomas Hochgoetz. Er läuft im Browser und braucht keine Installation.</p>
+    <div class="rows">
+      <a class="btn" href="https://c64emulator.111mb.de/index.php?site=pp_javascript&group=c64">Zum C64-Emulator</a>
+      <a class="btn" href="https://taws.ch/WB.html">Amiga Workbench (TAWS)</a>
+    </div>
+    <p><small>Beide sind fremde Projekte. Wir nennen sie als Quelle.
+      Der C64-Emulator ist nur für nicht-kommerzielle Nutzung.</small></p>
+  </div></div>
+
+  <div class="window joke" aria-labelledby="witz"><div class="titlebar">EIN WITZ</div>
+    <div class="inner" id="witz">
+      <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
+    </div></div>
+
+  <footer>Kostenlos. Offen. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const screen=$("#screen"), code=$("#code"), log=$("#log");
+function out(s,cls){const sp=document.createElement("span");if(cls)sp.className=cls;
+ sp.textContent=s;screen.appendChild(sp);screen.appendChild(document.createElement("\n"));}
+function logm(s){log.textContent+=("\n"+s);log.scrollTop=log.scrollHeight;}
+
+// Einfacher BASIC-2.0-Interpreter. Zeilen mit Nummern, Anweisungen mit : getrennt.
+function colorize(s){
+  return s.replace(/\{c\}/g,"<span class='c'>").replace(/\{r\}/g,"<span class='r'>")
+    .replace(/\{g\}/g,"<span class='g'>").replace(/\{w\}/g,"<span class='c'>");
+}
+function run(){
+  screen.innerHTML="";
+  const lines=code.value.split("\n").map(l=>l.trim()).filter(Boolean)
+    .map(l=>{const m=l.match(/^(\d+)\s+(.*)$/);return m?{n:+m[1],c:m[2]}:null})
+    .filter(Boolean).sort((a,b)=>a.n-b.n);
+  if(!lines.length){logm("Kein Programm.");return;}
+  const prog=new Map(lines.map(l=>[l.n,l.c]));
+  const vars={}; let idx=0, steps=0, forStack={};
+  const limit=3000;
+  function val(tok){
+    tok=String(tok).trim();
+    if(/^".*"$/.test(tok))return tok.slice(1,-1);
+    if(/^-?\d+(\.\d+)?$/.test(tok))return parseFloat(tok);
+    if(tok in vars)return vars[tok];
+    return 0;
+  }
+  function cond(expr){
+    const m=expr.match(/^(.+?)(=|<>|<|>|<=|>=)(.+)$/);
+    if(!m)return val(expr)?true:false;
+    const a=val(m[1]),b=val(m[3]);
+    switch(m[2]){case "=":return a==b;case "<>":return a!=b;case "<":return a<b;
+      case ">":return a>b;case "<=":return a<=b;case ">=":return a>=b;}
+    return false;
+  }
+  while(idx<lines.length && steps++<limit){
+    const line=lines[idx], stmts=line.c.split(":");
+    let jump=null;
+    for(const raw of stmts){
+      const s=raw.trim();
+      const m=s.match(/^(\w+)\s*(.*)$/i);
+      if(!m)continue;
+      const cmd=m[1].toUpperCase(), arg=m[2].trim();
+      switch(cmd){
+        case "PRINT":{
+          const parts=arg.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/);
+          let text="";
+          for(const p of parts){const p2=p.trim();
+            text+=p2.startsWith('"')?val(p2):String(val(p2));}
+          screen.insertAdjacentHTML("beforeend",colorize(text)+"\n");
+          break;}
+        case "LET":{
+          const a=arg.match(/^(\w+)\s*=\s*(.+)$/);
+          if(a)vars[a[1]]=val(a[2]); break;}
+        case "GOTO": jump=val(arg); break;
+        case "IF":{
+          const a=arg.match(/^(.+?)\s+THEN\s+(.+)$/i);
+          if(a&&cond(a[1]))jump=val(a[2]); break;}
+        case "FOR":{
+          const a=arg.match(/^(\w+)\s*=\s*(.+?)\s+TO\s+(.+)$/i);
+          if(a){vars[a[1]]=val(a[2]);
+            forStack[a[1]]={to:val(a[3]),body:idx+1};}
+          break;}
+        case "NEXT":{
+          const v=arg.trim(), f=forStack[v];
+          if(f){vars[v]=(vars[v]||0)+1;
+            if(vars[v]<=f.to){jump=lines[f.body]?lines[f.body].n:lines[0].n;}}
+          break;}
+        case "END": case "STOP": idx=lines.length; break;
+        case "NEW": case "CLR": for(const k in vars)delete vars[k];break;
+        default: break;
+      }
+    }
+    if(steps>=limit){screen.insertAdjacentHTML("beforeend","<span class='r'>Zu viele Schritte — gestoppt.</span>\n");break;}
+    if(jump!==null){const j=lines.findIndex(l=>l.n===jump);
+      if(j<0){screen.insertAdjacentHTML("beforeend","<span class='r'>?UNDEF'D STATEMENT</span>\n");break;}
+      idx=j;
+    }else idx++;
+  }
+  logm("Programm beendet ("+steps+" Schritte).");
+}
+
+$("#run").onclick=run;
+$("#list").onclick=()=>{screen.innerHTML="";
+ lines().forEach(l=>screen.insertAdjacentHTML("beforeend",l.n+" "+l.c+"\n"));
+ logm("LIST — Programm angezeigt.");};
+$("#clr").onclick=()=>{screen.innerHTML="";code.value="";logm("NEW — Bildschirm und Programm gelöscht.");};
+$("#demo").onclick=()=>{
+ code.value='10 PRINT "{c}**** COMMODORE 64 BASIC V2 ****"\n'+
+  '20 PRINT "64K RAM SYSTEM  38911 BASIC BYTES FREE"\n'+
+  '30 PRINT ""\n'+
+  '40 FOR I = 1 TO 5\n'+
+  '50 PRINT "ZEILE ";I\n'+
+  '60 NEXT I\n'+
+  '70 PRINT "{g}READY."\n'+
+  '80 END';
+ screen.innerHTML=""; logm("Beispiel geladen. RUN drücken.");
+};
+function lines(){return code.value.split("\n").map(l=>l.trim()).filter(Boolean)
+ .map(l=>{const m=l.match(/^(\d+)\s+(.*)$/);return m?{n:+m[1],c:m[2]}:null}).filter(Boolean)
+ .sort((a,b)=>a.n-b.n);}
+
+// Startbildschirm wie im echten Emulator
+screen.insertAdjacentHTML("beforeend",
+ '<span class="c">**** COMMODORE 64 BASIC V2 ****</span>\n'+
+ '64K RAM SYSTEM  38911 BASIC BYTES FREE\n\n'+
+ '<span class="c">READY.</span>\n');
+})();
+</script>
+</body>
+</html>

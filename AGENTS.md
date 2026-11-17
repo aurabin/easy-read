@@ -34,6 +34,22 @@ Read this at the start of every session. This is the durable memory of earlier w
 
 - One `/learn` teaching mode with packs, not disconnected tools.
 - Teach **C64 first, then Amiga**. Include assembly in Easy Read.
+- Design reference for the Workbench look: `https://taws.ch/WB.html` — TAWS,
+  The Amiga Workbench Simulation by Michael Rupp. Grey woven texture,
+  beveled 3D icons, classic Workbench 3.1 feel. We credit it, we do not copy
+  its assets.
+- Design reference for the C64 look: `https://c64emulator.111mb.de/` — the
+  C64 JavaScript Emulator by Thomas Hochgoetz, V1.0.4.8/5283, Emscripten
+  cross-compile, non-commercial licence. Measured from its canvas: C64 blue
+  `#352879` and light blue/violet `#6c5eb5`, cream BASIC text `#f8f8d8`.
+  Beveled grey UI, monospace screen. We credit it; we copy neither its assets
+  nor its code.
+- Web emulator family: `https://vamigaweb.github.io/doc/` — vAmigaWeb by
+  mithrendal (WASM Amiga emulator, AGA, RetroShell). Its sister project
+  `https://vc64web.github.io/` is a C64 emulator with csdb.dk demo database.
+  Both are real browsers emulators. We credit them; we do not copy assets or
+  code. Our own C64 page (`outreach/apps/c64-compat.html`) is a teaching tool,
+  not a full emulator (no 6510/VIC-II/SID/ROMs).
 - `docs/` is **generated**. Never edit it directly. After any change in
   `field-generator/` or `site/`, run `node field-generator/build-docs.mjs`.
 - WASM particle kernel (`field.wasm`) with a JavaScript fallback.

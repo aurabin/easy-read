@@ -214,6 +214,14 @@ sent yet. It is written so that contact stays in writing: no calls, no camera.
 If you are in Germany, the doc lists first contacts with current addresses.
 The names and addresses are in `co-design.md`.
 
+## Freedom status
+
+[`FREIHEIT.md`](FREIHEIT.md) states honestly how free the app is at the system
+level. No external scripts, no CDNs, no trackers, no account required, works
+offline, self-hostable. It also names the real limits: a browser is needed,
+no copyrighted ROMs, login tasks need an account, the guestbook needs a local
+server. Free means open, costless, offline-capable — not free of all limits.
+
 ## Amiga music
 
 A small browser player for Amiga music. It plays 4-channel MOD and 8SVX with
