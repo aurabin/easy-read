@@ -43,8 +43,8 @@ Das sieht aus, als ob der Ball näher oder weiter weg ist.
 ## Der Ton
 
 Der Ton kommt beim Aufprall.
-Ein Boing ertönt, wenn der Ball den Boden trifft.
-Ein Donner kommt manchmal dazu. Vor dem Donner blitzt es.
+Wenn der Ball den Boden trifft, hörst du einen Donner.
+Manchmal blitzt es vorher. Dann kommt der Donner später nach.
 
 Der Browser verlangt zuerst einen Klick oder einen Tastendruck.
 Dann darf der Ton spielen.
