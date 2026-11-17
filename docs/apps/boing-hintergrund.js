@@ -21,9 +21,10 @@ function create(canvas){
   var trail=[];   // Partikel-Schwanz
   var burst=[];    // Partikel-Burst bei Aufprall
   var capTimer=null;
-  // Donner + Blitze
-  var donnerTimer=0, donnerNext=4+Math.random()*6, donnerAktiv=0;
-  var blitzTimer=0, blitzNext=6+Math.random()*8, blitzDauer=0, blitzX=0;
+  // Blitz zuerst, Donner folgt nach kurzer Verzoegerung (Licht schneller als Schall)
+  var blitzTimer=0, blitzNext=10+Math.random()*10, blitzDauer=0, blitzX=0;
+  var donnerAktiv=0, donnerVerzoegerung=0, donnerGeplant=false;
+  var laeuft=false, imBild=true, tabAktiv=true;
 
   function groesse(){
     var r=canvas.getBoundingClientRect();
@@ -242,7 +243,14 @@ function create(canvas){
       cap-=0.05;if(cap<0)cap=0;
     }
     ctx.restore();
-    raf=requestAnimationFrame(frame);
+    if(laeuft)raf=requestAnimationFrame(frame);
+  }
+
+  // Nur rechnen, wenn der Ball sichtbar ist und der Tab im Vordergrund liegt
+  function pruefen(){
+    var an=imBild&&tabAktiv;
+    if(an&&!laeuft){laeuft=true;raf=requestAnimationFrame(frame);}
+    else if(!an&&laeuft){laeuft=false;if(raf)cancelAnimationFrame(raf);raf=null;}
   }
 
   // Klick auf den Ball: extra Bounce + Sound + Partikel
@@ -277,8 +285,15 @@ function create(canvas){
     if(e.key==="s"||e.key==="S"){sound=!sound;}
   });
 
-  groesse();window.addEventListener("resize",groesse);frame();
-  return {stop:function(){if(raf)cancelAnimationFrame(raf);window.removeEventListener("resize",groesse);}};
+  groesse();window.addEventListener("resize",groesse);
+  tabAktiv=!document.hidden;
+  document.addEventListener("visibilitychange",function(){tabAktiv=!document.hidden;pruefen();});
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){imBild=es[0].isIntersecting;pruefen();}).observe(canvas);
+  }
+  laeuft=true;frame();
+  if(!(tabAktiv&&imBild))pruefen();
+  return {stop:function(){laeuft=false;if(raf)cancelAnimationFrame(raf);window.removeEventListener("resize",groesse);}};
 }
 
 function autoStart(){
