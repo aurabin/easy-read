@@ -95,6 +95,19 @@ body[data-theme="win31"] .btn,body[data-theme="win31"] button{
 body[data-theme="win31"] .window{
  border-top-color:#ffffff;border-left-color:#ffffff;
  border-right-color:#000000;border-bottom-color:#000000;box-shadow:2px 2px 0 #000}
+/* Commodore PET 2001 — gelbes Gehaeuse, gruene Schrift */
+body[data-theme="pet"]{--desk:#c9b83c;--win:#eee8bc;--win2:#ded69e;
+ --title:#4a4a3c;--text:#22331a;--muted:#4a5a35;--blue:#2f6b1f;
+ --light:#fffbe0;--dark:#8a824f;
+ font-family:"Courier New",Courier,monospace;font-size:13px}
+body[data-theme="pet"] .titlebar{background:#4a4a3c;color:#e8e8b0}
+body[data-theme="pet"] .window{
+  border-top-color:#fffbe0;border-left-color:#fffbe0;
+  border-right-color:#8a824f;border-bottom-color:#8a824f;box-shadow:3px 3px 0 #8a824f}
+body[data-theme="pet"] h1{text-shadow:1px 1px 0 #bcd48a}
+body[data-theme="pet"] .lead{color:#3f5a2a}
+body[data-theme="pet"] .appearance button[aria-pressed="true"]{
+  background:#2f6b1f;color:#f4f8dc}
 .appearance{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .appearance .rows{display:flex;gap:6px;flex-wrap:wrap}
 .appearance button{font:inherit;font-size:12px;padding:4px 9px;color:var(--text);
@@ -137,7 +150,8 @@ body[data-theme="win31"] .window{
     <div class="inner appearance">
       <strong id="appearance">Oberfläche:</strong>
       <div class="rows" role="group" aria-label="Appearance">
-        <button type="button" data-theme-btn="os41" aria-pressed="true">OS 4.1</button>
+        <button type="button" data-theme-btn="pet" aria-pressed="true">PET 2001</button>
+        <button type="button" data-theme-btn="os41" aria-pressed="false">OS 4.1</button>
         <button type="button" data-theme-btn="night" aria-pressed="false">Nacht</button>
         <button type="button" data-theme-btn="light" aria-pressed="false">Hell</button>
         <button type="button" data-theme-btn="classic" aria-pressed="false">Klassisch</button>
@@ -281,7 +295,7 @@ body[data-theme="win31"] .window{
 </nav>
 <script>
 (function(){
-  var t="os41";
+  var t="pet";
   try{ t=localStorage.getItem("er-theme")||"os41"; }catch(e){}
   var q=new URLSearchParams(location.search).get("theme");
   if(q) t=q;
