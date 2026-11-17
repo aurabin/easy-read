@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Universum verstehen — Mathe & Physik für Kids</title>
+<style>
+:root{--bg:#070b14;--panel:#0e1626;--ink:#eaf2ff;--muted:#9fb3d1;
+ --line:#24344f;--teal:#0f766e;--sky:#6fd3ff;--violet:#7a20d0;
+ --red:#e8382f;--cream:#f5f0e6;--yellow:#f2d000}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto 0;height:460px;pointer-events:none;
+ background-image:linear-gradient(rgba(122,32,208,.18) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(122,32,208,.18) 1px,transparent 1px);
+ background-size:32px 32px;-webkit-mask-image:linear-gradient(180deg,#000,transparent);
+ mask-image:linear-gradient(180deg,#000,transparent)}
+.wrap{position:relative;max-width:1000px;margin:0 auto;padding:20px 16px 70px}
+.stripe{width:104px;height:4px;border-radius:2px;margin-bottom:16px;
+ background:repeating-linear-gradient(90deg,var(--red) 0 12px,var(--cream) 12px 24px)}
+h1{font-size:clamp(24px,4vw,36px);margin:0 0 4px;line-height:1.15}
+h1 span{color:var(--sky)}
+.lead{color:var(--muted);margin:0 0 16px;max-width:64ch}
+button,.btn{cursor:pointer;font:inherit;color:var(--ink);background:var(--panel);
+ border:1px solid var(--line);border-radius:8px;padding:9px 16px;transition:border-color .15s,transform .15s}
+button:hover,.btn:hover{border-color:var(--sky);transform:translateY(-2px)}
+button:focus-visible,.btn:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+.cap{min-height:26px;color:var(--sky);font:600 16px ui-monospace,Consolas,monospace;letter-spacing:.1em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.karte{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;cursor:pointer;
+ transition:border-color .15s,transform .15s}
+.karte:hover{border-color:var(--sky);transform:translateY(-3px)}
+.karte .tag{font:11px ui-monospace,Consolas,monospace;color:var(--teal);text-transform:uppercase;letter-spacing:.1em}
+.karte h3{margin:6px 0 4px;font-size:16px}
+.karte p{margin:0;color:var(--muted);font-size:13px}
+.karte:nth-child(even) .tag{color:var(--violet)}
+#spiel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;
+ box-shadow:0 18px 40px rgba(0,0,0,.5);margin-top:20px;overflow:hidden}
+#spiel.offen{display:block}
+.spkopf{background:var(--panel);border-bottom:1px solid var(--line);padding:10px 14px;
+ display:flex;justify-content:space-between;align-items:center}
+.spkopf b{color:var(--sky);font:600 14px ui-monospace,Consolas,monospace}
+.feld-wrap{position:relative;height:160px;border-bottom:1px solid var(--line);overflow:hidden}
+.feld-wrap canvas{width:100%;height:100%;display:block;image-rendering:pixelated}
+.feld-label{position:absolute;top:6px;left:8px;color:var(--sky);font:10px ui-monospace,monospace;letter-spacing:.1em}
+.spinhalt{padding:18px;min-height:230px}
+.frage{font-size:18px;color:var(--cream);margin:0 0 14px}
+.antworten{display:flex;flex-direction:column;gap:8px}
+.antworten button{text-align:left;background:#131f36;border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.antworten button:hover{border-color:var(--sky)}
+.antworten button.right{background:var(--teal);border-color:var(--teal);color:#fff}
+.antworten button.wrong{background:#7a2020;border-color:var(--red)}
+.erk{margin-top:12px;padding:10px;background:#0a1220;border-left:3px solid var(--sky);color:var(--muted)}
+.erk[hidden]{display:none}
+.stand{margin-top:10px;color:var(--muted);font:12px ui-monospace,monospace}
+.high{color:var(--sky)}.rang{color:var(--cream)}
+.konfetti{position:fixed;width:8px;height:8px;pointer-events:none;z-index:99;animation:fall 1s forwards}
+@keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.ziel{background:linear-gradient(135deg,#0d1a2e,#160d2e);border:1px solid var(--line);
+ border-left:3px solid var(--yellow);padding:12px;border-radius:6px;margin-top:16px}
+.ziel b{color:var(--yellow)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:16px}
+a{color:var(--sky)}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stripe" aria-hidden="true"></div>
+  <h1>DAS UNIVERSUM <span>VERSTEHEN</span></h1>
+  <p class="lead">Mathematik und Physik als Spiel. Acht kleine Spiele führen dich
+    vom Atom bis zur Galaxie. Jede richtige Antwort erklärt etwas.</p>
+  <div class="kap" style="color:var(--muted);font:11px ui-monospace,monospace;letter-spacing:.1em;margin-bottom:8px">ZIEL: DAS UNIVERSUM VERSTEHEN</div>
+  <div class="cap" id="cap">DRÜCK AUF START.</div>
+  <div class="grid" id="grid" style="display:none;margin-top:16px"></div>
+
+  <div id="spiel">
+    <div class="spkopf"><b id="sptitel">Spiel</b><button id="zurueck">← ZURÜCK</button></div>
+    <div class="feld-wrap"><canvas id="feld"></canvas><div class="feld-label" id="feldlabel">FELD</div></div>
+    <div class="spinhalt" id="spinhalt"></div>
+  </div>
+
+  <div class="ziel">
+    <b>UNSER ZIEL:</b> Du lernst, wie Zahlen und Naturgesetze zusammenpassen.
+    Am Ende verstehst du, warum der Ball fällt, warum Planeten kreisen
+    und warum das Universum so groß ist.
+  </div>
+
+  <footer>Kostenlos. Offen. Eigene Nachbildung im Boing-Ball-Stil. Kein WAV.
+    Nicht mit echten Kindern getestet.</footer>
+</div>
+<script src="spiel-felder.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var grid=$("#grid"),spiel=$("#spiel"),halt=$("#spinhalt"),titel=$("#sptitel"),cap=$("#cap");
+
+/* Sound, Konfetti, Punkte — browser-local */
+var actx=null;
+function ton(ok){try{
+ if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();
+ if(actx.state==="suspended")actx.resume();
+ var o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime;
+ o.type=ok?"sine":"sawtooth";o.frequency.setValueAtTime(ok?520:160,t);
+ if(ok)o.frequency.exponentialRampToValueAtTime(880,t+.12);
+ else o.frequency.exponentialRampToValueAtTime(80,t+.2);
+ g.gain.setValueAtTime(.12,t);g.gain.exponentialRampToValueAtTime(.001,t+.25);
+ o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+.26);
+}catch(e){}}
+function konfetti(){var f=["#6fd3ff","#f2d000","#7a20d0","#e8382f","#f5f0e6"];
+ for(var i=0;i<24;i++){var k=document.createElement("div");k.className="konfetti";
+  k.style.left=(Math.random()*100)+"vw";k.style.top="-12px";k.style.background=f[i%f.length];
+  document.body.appendChild(k);setTimeout((function(el){return function(){el.remove()}})(k),1300);}}
+function high(key,p){try{var a=parseInt(localStorage.getItem("er-uni-"+key)||"0",10)||0;
+ if(p>a)localStorage.setItem("er-uni-"+key,String(p));return Math.max(a,p)}catch(e){return p}}
+function rang(p){return p>=20?"GOLD ★":p>=10?"SILBER ★":p>=5?"BRONZE ★":"NOCH ÜBEN"}
+
+/* Acht Lernspiele: Mathematik und Physik, vom Kleinen zum Großen */
+var spiele=[
+ {titel:"Zahlen Rakete",tag:"MATHEMATIK",beschr:"Rechnen bringt die Rakete hoch",
+  fragen:[
+   {f:"2 + 3 = ?",a:["5","4","6"],r:0,e:"2 und 3 sind 5. Zahlen helfen uns, Dinge zu zählen."},
+   {f:"10 - 4 = ?",a:["6","5","7"],r:0,e:"10 minus 4 ist 6. Rechnen ist wie ein Spiel mit Zahlen."},
+   {f:"Welche Zahl ist größer?",a:["100","10","1"],r:0,e:"100 ist am größten. Große Zahlen brauchen wir für das Universum."},
+   {f:"Wie viele Nullen hat 1000?",a:["3","2","4"],r:0,e:"1000 hat drei Nullen. Das ist eine Tausend."}]},
+ {titel:"Schwerkraft Ball",tag:"PHYSIK",beschr:"Warum fällt der Ball nach unten?",
+  fragen:[
+   {f:"Warum fällt ein Ball nach unten?",a:["Die Schwerkraft zieht ihn","Er ist schwer","Der Wind drückt ihn"],r:0,e:"Die Erde zieht alles zu sich. Das heißt Schwerkraft."},
+   {f:"Was passiert beim Aufprall?",a:["Er springt hoch","Er verschwindet","Er wird größer"],r:0,e:"Der Ball springt. Die Energie vom Fallen hilft ihm beim Springen."},
+   {f:"Wo ist die Schwerkraft überall?",a:["Überall im Universum","Nur auf der Erde","Nur im Wasser"],r:0,e:"Überall gibt es Schwerkraft. Sie hält Planeten und Sterne zusammen."}]},
+ {titel:"Planeten Kreis",tag:"PHYSIK",beschr:"Wie kreisen Planeten um die Sonne?",
+  fragen:[
+   {f:"Was macht die Erde um die Sonne?",a:["Sie kreist darum","Sie steht still","Sie fällt hinein"],r:0,e:"Die Erde kreist um die Sonne. Einmal dauert ein Jahr."},
+   {f:"Was hält die Planeten in der Bahn?",a:["Schwerkraft","Wind","Magnete"],r:0,e:"Die Schwerkraft der Sonne hält die Planeten fest. Wie an einer unsichtbaren Schnur."},
+   {f:"Welcher Planet ist am nächsten?",a:["Merkur","Neptun","Mars"],r:0,e:"Merkur ist am nächsten an der Sonne. Er braucht nur 88 Tage für eine Runde."}]},
+ {titel:"Licht Blitz",tag:"PHYSIK",beschr:"Wie schnell ist das Licht?",
+  fragen:[
+   {f:"Wie schnell ist das Licht?",a:["Sehr schnell","Langsam","Wie ein Auto"],r:0,e:"Licht ist am schnellsten im Universum. Nichts ist schneller."},
+   {f:"Wie lange braucht Sonnenlicht zu uns?",a:["Etwa 8 Minuten","1 Sekunde","1 Tag"],r:0,e:"Das Licht der Sonne braucht etwa 8 Minuten bis zur Erde."},
+   {f:"Was ist ein Lichtjahr?",a:["Eine Strecke","Eine Zeit","Ein Jahr"],r:0,e:"Ein Lichtjahr ist eine Strecke. So weit läuft Licht in einem Jahr."}]},
+ {titel:"Atom Bauen",tag:"PHYSIK",beschr:"Woraus ist alles gemacht?",
+  fragen:[
+   {f:"Was ist in der Mitte eines Atoms?",a:["Der Kern","Ein Loch","Wasser"],r:0,e:"In der Mitte ist der Kern. Darum kreisen die Elektronen."},
+   {f:"Was kreist um den Kern?",a:["Elektronen","Steine","Planeten"],r:0,e:"Elektronen kreisen um den Kern. Sie sind sehr, sehr klein."},
+   {f:"Woraus sind Atome gemacht?",a:["Protonen, Neutronen, Elektronen","Nur Wasser","Luft"],r:0,e:"Atome haben Protonen, Neutronen und Elektronen. Sie sind die Bausteine von allem."}]},
+ {titel:"Sterne Zählen",tag:"MATHEMATIK",beschr:"Große Zahlen im All",
+  fragen:[
+   {f:"Sind mehr Sterne als Sandkörner?",a:["Ja, viel mehr","Nein","Genau gleich"],r:0,e:"Es gibt mehr Sterne im Universum als Sandkörner an allen Stränden. Unglaublich!"},
+   {f:"Was ist eine Milliarde?",a:["1000 mal 1000 mal 1000","1000","10"],r:0,e:"Eine Milliarde ist eine 1 mit neun Nullen. Für Sterne brauchen wir große Zahlen."},
+   {f:"Wie heißt unsere Galaxie?",a:["Milchstraße","Sonnensystem","Erdkreis"],r:0,e:"Wir leben in der Milchstraße. Sie hat sehr viele Sterne."}]},
+ {titel:"Muster Spirale",tag:"MATHEMATIK",beschr:"Muster in der Natur",
+  fragen:[
+   {f:"Wo siehst du Spiralen?",a:["In Muscheln und Galaxien","Nur im Buch","Nirgends"],r:0,e:"Spiralen gibt es in Muscheln, Blumen und Galaxien. Die Natur liebt Muster."},
+   {f:"Was ist ein Muster?",a:["Etwas, das sich wiederholt","Ein Fehler","Eine Farbe"],r:0,e:"Ein Muster wiederholt sich. Zahlen und Formen machen Muster."},
+   {f:"Welche Form hat eine Galaxie oft?",a:["Spirale","Dreieck","Quadrat"],r:0,e:"Viele Galaxien sind Spiralen. Unsere Milchstraße auch."}]},
+ {titel:"Größen Ordnung",tag:"MATHEMATIK + PHYSIK",beschr:"Vom Atom bis zum All",
+  fragen:[
+   {f:"Was ist am kleinsten?",a:["Das Atom","Die Erde","Die Galaxie"],r:0,e:"Das Atom ist winzig. Alles ist aus Atomen gemacht."},
+   {f:"Was ist am größten?",a:["Das Universum","Die Sonne","Der Ball"],r:0,e:"Das Universum ist alles. Es ist größer als wir uns vorstellen können."},
+   {f:"Was liegt zwischen Atom und Universum?",a:["Sterne, Planeten, Galaxien","Nichts","Nur Wasser"],r:0,e:"Zwischen Atom und Universum liegen viele Stufen: Sterne, Planeten, Galaxien."}]}
+];
+
+function startknopf(s){return s;}
+var startBtn=document.createElement("button");
+startBtn.textContent="UNIVERSUM STARTEN";
+$(".cap").parentNode.insertBefore(startBtn,$(".cap"));
+startBtn.onclick=function(){
+ grid.style.display="grid";cap.textContent="8 SPIELE BEREIT.";startBtn.style.display="none";
+ window.scrollTo({top:grid.offsetTop-20,behavior:"smooth"});
+};
+
+spiele.forEach(function(s){
+ var k=document.createElement("div");k.className="karte";
+ k.innerHTML='<div class="tag">'+s.tag+'</div><h3>'+s.titel+'</h3><p>'+s.beschr+'</p>';
+ k.onclick=function(){oeffne(s)};grid.appendChild(k);
+});
+
+var aktivesFeld=null;
+function oeffne(s){
+ if(aktivesFeld){aktivesFeld.stop();aktivesFeld=null;}
+ titel.textContent=s.titel;halt.innerHTML="";spiel.classList.add("offen");
+ cap.textContent="★ "+s.titel.toUpperCase()+" ★";
+ $("#feldlabel").textContent="FELD: "+s.titel.toUpperCase();
+ if(window.SpielFelder)aktivesFeld=SpielFelder.create($("#feld"),s.titel);
+ window.scrollTo({top:spiel.offsetTop-20,behavior:"smooth"});
+ quiz(s.fragen,s.titel);
+}
+$("#zurueck").onclick=function(){
+ if(aktivesFeld){aktivesFeld.stop();aktivesFeld=null;}
+ spiel.classList.remove("offen");halt.innerHTML="";cap.textContent="ZURÜCK ZUR AUSWAHL.";
+ window.scrollTo({top:grid.offsetTop-20,behavior:"smooth"});
+};
+function quiz(fragen,key){
+ var i=0,punkte=0,aktiv=true;
+ var f=document.createElement("p");f.className="frage";
+ var a=document.createElement("div");a.className="antworten";
+ var e=document.createElement("div");e.className="erk";e.hidden=true;
+ var st=document.createElement("div");st.className="stand";
+ var w=document.createElement("button");w.textContent="NÄCHSTE";w.hidden=true;
+ halt.appendChild(f);halt.appendChild(a);halt.appendChild(e);halt.appendChild(st);halt.appendChild(w);
+ function zeige(){
+  var q=fragen[i];f.textContent=q.f;a.innerHTML="";e.hidden=true;w.hidden=true;aktiv=true;
+  st.innerHTML="Frage "+(i+1)+" / "+fragen.length+" · <span class='high'>Punkte "+punkte+
+   "</span> · <span class='rang'>"+rang(punkte)+"</span> · Rekord "+high(key,punkte);
+  q.a.forEach(function(txt,n){
+   var b=document.createElement("button");b.type="button";b.textContent=txt;
+   b.onclick=function(){
+    if(!aktiv)return;aktiv=false;
+    if(n===q.r){b.classList.add("right");punkte++;ton(true);konfetti();}
+    else{b.classList.add("wrong");a.children[q.r].classList.add("right");ton(false);}
+    e.textContent=q.e;e.hidden=false;w.hidden=false;
+    st.innerHTML="Frage "+(i+1)+" / "+fragen.length+" · <span class='high'>Punkte "+punkte+
+     "</span> · <span class='rang'>"+rang(punkte)+"</span> · Rekord "+high(key,punkte);
+    if(i===fragen.length-1)w.textContent="NOCHMAL";
+   };a.appendChild(b);
+  });
+ }
+ w.onclick=function(){i=(i+1)%fragen.length;if(i===0)punkte=0;w.textContent="NÄCHSTE";zeige()};
+ zeige();
+}
+})();
+</script>
+</body>
+</html>

@@ -38,6 +38,7 @@ for (const f of readdirSync(appDir)) {
 for (const f of liveApps) files.push([`outreach/apps/${f}`, `apps/${f}`]);
 // Der GPL-2.0-MusicLine-Player liegt neben der Amiga-App (eigene Lizenz).
 files.push(["outreach/apps/paula-ml.js", "apps/paula-ml.js"]);
+files.push(["outreach/apps/spiel-felder.js", "apps/spiel-felder.js"]);
 
 for (const [from, to] of files) {
   mkdirSync(dirname(join(dst, to)), { recursive: true });
