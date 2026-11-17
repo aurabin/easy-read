@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microsoft — die Geschichte</title>
+<style>
+:root{--desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+ --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a;
+ --r:#e8382f;--o:#f08c00;--y:#f2d000;--g:#3fa04a;--b:#2f60b0;--p:#7a3fa0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:14px/1.5 Arial,Helvetica,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:18px 16px 60px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
+.stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
+.stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:18px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+ background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:16px}
+h1{font-size:26px;margin:0 0 8px}
+.year{font:bold 13px monospace;color:var(--blue);min-width:48px}
+.item{background:var(--win2);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);padding:8px;margin-bottom:6px;
+ display:flex;gap:10px;cursor:pointer}
+.item.active{background:var(--title);color:#fff}
+.item.active .year{color:#fff}
+.detail{min-height:60px;background:var(--win2);border:2px solid var(--dark);padding:10px}
+footer{text-align:center;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body><div class="wrap">
+<div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<section class="window"><div class="titlebar"><span class="gadget"></span><span class="name">Microsoft — die Geschichte</span><span class="gadget"></span></div>
+<div class="inner">
+<h1>Von BASIC zu Cloud und KI</h1>
+<p>Wähle ein Jahr. Unten steht, was damals geschah.</p>
+<div id="list"></div>
+<p class="detail" id="detail">Bitte ein Jahr wählen.</p>
+</div></section>
+<footer>Quellen: Wikipedia, Microsoft News. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<script>
+var data=[
+ ["1975","Gates und Allen gründen Microsoft. Altair BASIC ist das erste Produkt."],
+ ["1981","MS-DOS wird die Basis für den IBM PC."],
+ ["1985","Windows 1.0 erscheint. Es läuft auf DOS."],
+ ["1986","Microsoft geht an die Börse."],
+ ["1990","Windows 3.0 wird ein großer Erfolg."],
+ ["1995","Windows 95 bringt das Start-Menü. Internet Explorer kommt."],
+ ["1998","Die Justiz in den USA klagt wegen Marktmacht."],
+ ["2000","Steve Ballmer wird Chef. Gates gründet die Stiftung."],
+ ["2001","Windows XP und die Xbox erscheinen."],
+ ["2008","Azure startet. Die Cloud-Zeit beginnt."],
+ ["2014","Satya Nadella wird Chef. Fokus auf Cloud und offene Werkzeuge."],
+ ["2018","Microsoft kauft GitHub für 7,5 Milliarden Dollar."],
+ ["2023","OpenAI, Copilot und Activision Blizzard prägen das Jahr."],
+ ["2026","Eigene Chips: Maia und Cobalt."]
+];
+var list=document.getElementById("list"), detail=document.getElementById("detail");
+data.forEach(function(row,i){
+  var d=document.createElement("div");
+  d.className="item";d.tabIndex=0;
+  d.innerHTML='<span class="year">'+row[0]+'</span><span>'+row[1]+'</span>';
+  function show(){detail.textContent=row[0]+": "+row[1];
+    [].forEach.call(list.children,function(c){c.classList.remove("active")});
+    d.classList.add("active");}
+  d.onclick=show;d.onkeydown=function(e){if(e.key==="Enter"||e.key===" ")show()};
+  list.appendChild(d);
+});
+</script>
+</body></html>
