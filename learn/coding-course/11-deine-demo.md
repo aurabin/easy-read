@@ -60,5 +60,7 @@ Verbessere eine Sache.
 ---
 Lizenz dieses Kurses: AGPL-3.0 — siehe [LICENSE.md](LICENSE.md).
 
+Weiter: [Die anderen Sprachen](12-die-sprachen.md).
+
 Du bist am Ende des Kurses.
 Damit ist er noch nicht mit echten Lernenden geprüft.

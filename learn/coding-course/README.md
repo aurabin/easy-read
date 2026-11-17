@@ -32,6 +32,10 @@ Meine Freunde gehen rutschen!"
 | 09 | [Web Assembly](09-web-assembly.md) | Schnelle Rechnung im Browser |
 | 10 | [Alte Geräte](10-alte-geraete.md) | Ein Fallback |
 | 11 | [Deine Demo](11-deine-demo.md) | Dein eigenes kleines Programm |
+| 12 | [Die anderen Sprachen](12-die-sprachen.md) | Überblick über viele Sprachen |
+| 13 | [Python](13-python.md) | Kurz und lesbar |
+| 14 | [C](14-c.md) | Nah an der Maschine |
+| 15 | [Lua](15-lua.md) | Regeln für Spiele |
 
 ## So arbeitest du
 
