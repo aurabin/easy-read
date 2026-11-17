@@ -214,6 +214,22 @@ sent yet. It is written so that contact stays in writing: no calls, no camera.
 If you are in Germany, the doc lists first contacts with current addresses.
 The names and addresses are in `co-design.md`.
 
+## Chinese
+
+The checker now supports `zh` as a seventh language. It counts characters and
+splits on `。！？`. It is a plain-language check, not an official Easy Read
+method for Chinese.
+
+- [`learn/china-computer-history.md`](learn/china-computer-history.md) — a long
+  history of computing in simple Chinese.
+- [`learn/chinesisch-lernen.md`](learn/chinesisch-lernen.md) — short practice
+  lessons in simple Chinese.
+- [`outreach/china-sales.md`](outreach/china-sales.md) — an honest draft for a
+  China market plan with prices. Nothing is sold. No buyer. No contract.
+
+Publishing in China needs a licensed Chinese publisher and government review.
+No sale is planned until a partner and a written contract exist.
+
 ## Beta and paperwork
 
 The Microsoft Store draft is **paused**. The project names other operating

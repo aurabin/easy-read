@@ -48,8 +48,18 @@ check("privater Ordner", idx === "" && local, `im Index: ${idx?idx.split("\n").l
 const allMd = readdirSync("learn").filter(f=>f.endsWith(".md"));
 const lessons = allMd.filter(f=>!/^readme\.md$/i.test(f));
 let low = [];
+// Die meisten Dateien erkennen ihre Sprache selbst.
+// Mehrsprachige oder chinesische Dateien brauchen eine feste Zuordnung.
+const fixedLang = {
+  "joke.md": "de",
+  "china-computer-history.md": "zh",
+  "chinesisch-lernen.md": "zh",
+};
 for(const f of lessons){
-  const r = run([".opencode/skills/easy-read/scripts/readability.mjs","--lang","de",join("learn",f)]);
+  const args = [".opencode/skills/easy-read/scripts/readability.mjs"];
+  if(fixedLang[f]) args.push("--lang", fixedLang[f]);
+  args.push(join("learn",f));
+  const r = run(args);
   const score = Number(/(\d+)\/100/.exec(r)?.[1] ?? 0);
   if(score < 100) low.push(`${f}:${score}`);
 }

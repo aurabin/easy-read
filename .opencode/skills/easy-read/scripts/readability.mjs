@@ -482,6 +482,58 @@ const LANGUAGES = {
       longWord: 'Parola lunga: "{word}". C\'è una parola più corta?',
     },
   },
+  zh: {
+    name: "中文",
+    cjk: true,
+    sentenceLimit: 18,
+    longWord: 12,
+    grades: ["容易读", "差不多容易", "需要修改", "难读"],
+    hints: ["的", "了", "是", "在", "我们", "这个"],
+    stopwords: [
+      "的", "了", "是", "在", "我", "你", "他", "我们", "你们", "他们",
+      "这", "那", "这个", "那个", "和", "也", "有", "不", "没", "很",
+      "都", "就", "还", "把", "被", "给", "对", "从", "到", "在",
+    ],
+    hardWords: [
+      ["使用", "用"],
+      ["需要", "要"],
+      ["帮助", "帮"],
+      ["信息", "消息"],
+      ["决定", "定"],
+      ["改变", "改"],
+      ["通常", "一般"],
+      ["此外", "还有"],
+      ["因此", "所以"],
+      ["然而", "但是"],
+      ["必须", "一定要"],
+      ["提供", "给"],
+      ["获得", "得到"],
+      ["要求", "要"],
+      ["注册", "登记"],
+    ],
+    idioms: [
+      "画蛇添足",
+      "对牛弹琴",
+      "井底之蛙",
+      "一举两得",
+      "亡羊补牢",
+    ],
+    abbreviations: [],
+    passive: "(?!x)x",
+    messages: {
+      title: "简明中文检查：{score}/100（{grade}）",
+      stats: "句子：{sentences} | 字数：{words} | 平均：{avg} 字每句",
+      fixThese: "请修改这些：",
+      allGood: "没有问题。读起来很清楚。",
+      more: "...还有 {n} 个。",
+      aim: "目标：每句不超过 {limit} 个字。现在是 {avg}。",
+      longSentence: '句子太长（{count} 个字）。请分开："{quote}"',
+      hardWord: '难词："{word}"。可以说："{easy}"。',
+      idiom: '成语："{word}"。请用简单的话说。',
+      passive: "被动句：{word}。请说清楚谁做这件事。",
+      longWord: '长词："{word}"。有更短的说法吗？',
+    },
+  },
 };
 
 export const LANGUAGE_CODES = Object.keys(LANGUAGES);
@@ -499,7 +551,8 @@ function escapeRegExp(value) {
 }
 
 // Unicode-safe word boundary: JS \b only knows ASCII letters.
-function phrasePattern(phrase) {
+function phrasePattern(phrase, cjk = false) {
+  if (cjk) return new RegExp(escapeRegExp(phrase), "iu");
   return new RegExp(
     `(?<![\\p{L}\\p{M}])${escapeRegExp(phrase)}(?![\\p{L}\\p{M}])`,
     "iu",
@@ -586,7 +639,10 @@ function textBlocks(text) {
   return blocks;
 }
 
-function splitSentences(text, abbreviations) {
+const CJK = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;
+const CJK_CHAR = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/gu;
+
+function splitSentences(text, abbreviations, cjk = false) {
   const sentences = [];
   for (const block of textBlocks(text)) {
     let safe = block.replace(/\s+/g, " ").trim();
@@ -594,16 +650,20 @@ function splitSentences(text, abbreviations) {
     for (const [from, to] of abbreviations) {
       safe = safe.split(from).join(to);
     }
-    const parts = safe
-      .split(/(?<=[.!?])\s+(?=[A-ZÀ-Þ0-9"“'(«¡¿])/u)
-      .map((sentence) => sentence.trim())
-      .filter(Boolean);
-    sentences.push(...parts);
+    const parts = cjk
+      ? safe.split(/(?<=[。！？；!?])/u)
+      : safe.split(/(?<=[.!?])\s+(?=[A-ZÀ-Þ0-9"“'(«¡¿])/u);
+    sentences.push(...parts.map((s) => s.trim()).filter(Boolean));
   }
   return sentences;
 }
 
-function countWords(text) {
+function countWords(text, cjk = false) {
+  if (cjk) {
+    const chars = text.match(CJK_CHAR)?.length ?? 0;
+    const latin = (text.match(WORD) ?? []).filter((w) => !CJK.test(w)).length;
+    return chars + latin;
+  }
   return text.match(WORD)?.length ?? 0;
 }
 
@@ -628,9 +688,10 @@ export function checkText(text, options = {}) {
   const maxWordLength = profile.longWord;
   const m = profile.messages;
 
+  const cjk = !!profile.cjk;
   const prose = textBlocks(source).join(" ");
-  const sentences = splitSentences(source, profile.abbreviations);
-  const words = countWords(prose);
+  const sentences = splitSentences(source, profile.abbreviations, cjk);
+  const words = countWords(prose, cjk);
   const avgSentence = sentences.length ? words / sentences.length : 0;
   const lower = source.toLowerCase();
 
@@ -638,13 +699,13 @@ export function checkText(text, options = {}) {
   let score = 100;
 
   const longSentences = sentences.filter(
-    (sentence) => countWords(sentence) > maxWords,
+    (sentence) => countWords(sentence, cjk) > maxWords,
   );
   for (const sentence of longSentences) {
     issues.push({
       type: "long-sentence",
       message: format(m.longSentence, {
-        count: countWords(sentence),
+        count: countWords(sentence, cjk),
         quote: shortQuote(sentence),
       }),
     });
@@ -655,7 +716,7 @@ export function checkText(text, options = {}) {
   const seenPhrases = [];
   for (const [hard, easy] of profile.hardList) {
     if (seenWords.has(hard)) continue;
-    if (!phrasePattern(hard).test(lower)) continue;
+    if (!phrasePattern(hard, cjk).test(lower)) continue;
 
     const insidePhrase = seenPhrases.some((phrase) => phrase.includes(hard));
     if (insidePhrase) continue;
@@ -672,7 +733,7 @@ export function checkText(text, options = {}) {
 
   const seenIdioms = new Set();
   for (const idiom of profile.idioms) {
-    if (!phrasePattern(idiom).test(lower)) continue;
+    if (!phrasePattern(idiom, cjk).test(lower)) continue;
     seenIdioms.add(idiom);
     issues.push({
       type: "idiom",
@@ -691,7 +752,8 @@ export function checkText(text, options = {}) {
   score -= Math.min(18, passive.length * 6);
 
   const longWords = new Set();
-  for (const word of source.match(WORD) ?? []) {
+  // Chinese has no spaces between words, so a "long word" is not meaningful.
+  if (!cjk) for (const word of source.match(WORD) ?? []) {
     if (word.length <= maxWordLength) continue;
     const key = word.toLowerCase();
     if (LANGUAGES[language].hardWords.some(([hard]) => hard === key)) continue;

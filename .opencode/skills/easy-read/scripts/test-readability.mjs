@@ -17,7 +17,7 @@ function test(name, fn) {
 }
 
 test("supported languages", () => {
-  assert.deepEqual(LANGUAGE_CODES, ["en", "de", "es", "fr", "pt", "it"]);
+  assert.deepEqual(LANGUAGE_CODES, ["en", "de", "es", "fr", "pt", "it", "zh"]);
 });
 
 test("detects English", () => {
@@ -62,6 +62,24 @@ test("detects Italian", () => {
     detectLanguage("Il gatto è in casa. La porta è chiusa. Non c'è nessuno."),
     "it",
   );
+});
+
+test("detects Chinese", () => {
+  assert.equal(detectLanguage("我们在家里。这是一个好日子。你怎么看？"), "zh");
+});
+
+test("Chinese uses full stops and counts characters", () => {
+  const result = checkText("我们在家里。这是一个好日子。你怎么看？", {
+    language: "zh",
+  });
+  assert.equal(result.language, "zh");
+  assert.ok(result.stats.words > 0);
+  assert.ok(result.stats.sentences === 3);
+});
+
+test("Chinese hard word is flagged", () => {
+  const result = checkText("请使用这个系统。", { language: "zh" });
+  assert.ok(result.issues.some((issue) => issue.type === "hard-word"));
 });
 
 test("English hard word is flagged", () => {

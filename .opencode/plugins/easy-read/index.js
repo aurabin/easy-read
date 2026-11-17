@@ -36,7 +36,7 @@ export default Plugin.define({
       editor.add({
         name: "check",
         description:
-          "Run a deterministic Easy Read check on text. Returns a score, long sentences, hard words, passive voice, idioms, and long words. Supports en, de, es, fr, pt, it. Use it on your own answer before sending.",
+          "Run a deterministic Easy Read check on text. Returns a score, long sentences, hard words, passive voice, idioms, and long words. Supports en, de, es, fr, pt, it, zh. Use it on your own answer before sending.",
         input: {
           type: "object",
           properties: {
@@ -47,7 +47,7 @@ export default Plugin.define({
             language: {
               type: "string",
               description:
-                "Language code: en, de, es, fr, pt, it. Omit to detect the language.",
+                "Language code: en, de, es, fr, pt, it, zh. Omit to detect the language.",
             },
           },
           required: ["text"],

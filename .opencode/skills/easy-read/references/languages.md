@@ -11,8 +11,9 @@ rules.
 | French | FALC (facile à lire et à comprendre) |
 | Portuguese | leitura fácil |
 | Italian | linguaggio facile da leggere |
+| Chinese | 简明中文 — not an established Easy Read method; a plain-language check |
 
-The checker supports these six codes:
+The checker supports these seven codes:
 
 | Code | Language | Sentence limit | Long-word limit |
 | --- | --- | --- | --- |
