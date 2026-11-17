@@ -105,6 +105,12 @@ Last commit: `4bd8011 Add image analysis section to art and design lesson`.
 If the session tools (FASM, Node) live under `%TEMP%/opencode`, they may disappear
 after a reset — reinstall or check before relying on them.
 
+## Build constraints
+
+- **No WAV in any build.** Do not create `.wav` files as an intermediate or a
+  final format. Render module audio to FLAC or raw PCM and pipe it straight into
+  ffmpeg; encode the final result as MP4 with AAC.
+
 ## Style of work
 
 - Short sentences, everyday words, active voice, one idea per section.
