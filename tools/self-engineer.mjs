@@ -75,6 +75,16 @@ const cgi = run(["tools/cgi/test.mjs"]);
 check("CGI-Programm", /CGI OK/.test(cgi) && !/FAIL/.test(cgi),
   cgi.trim().split("\n").pop());
 
+// 10. Google-Login-Nebentask
+const login = run(["tools/google/test.mjs"]);
+check("Google-Login", /GOOGLE-LOGIN OK/.test(login) && !/FAIL/.test(login),
+  login.trim().split("\n").pop());
+
+// 11. GitHub-Login
+const gh = run(["tools/github/test.mjs"]);
+check("GitHub-Login", /GITHUB-LOGIN OK/.test(gh) && !/FAIL/.test(gh),
+  gh.trim().split("\n").pop());
+
 console.log(out.join("\n"));
 console.log(fails===0 ? "\nSELF-ENGINEERING OK" : `\nSELF-ENGINEERING: ${fails} Problem(e)`);
 process.exit(fails===0?0:1);

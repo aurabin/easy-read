@@ -1,2 +1,6 @@
 # Private / local-only files — never publish
 virtual_field_generator/
+
+# OAuth — tokens and state are local only, never commit
+tools/google/runtime/
+tools/github/runtime/

@@ -214,6 +214,37 @@ sent yet. It is written so that contact stays in writing: no calls, no camera.
 If you are in Germany, the doc lists first contacts with current addresses.
 The names and addresses are in `co-design.md`.
 
+## Beta and paperwork
+
+The Microsoft Store draft is **paused**. The project names other operating
+systems, so a Store version would be a different project. The current focus is
+the WIP beta for Peri Fractic:
+
+- [`outreach/peri-fractic-beta.md`](outreach/peri-fractic-beta.md) — the offer.
+- [`outreach/email-peri-fractic.json`](outreach/email-peri-fractic.json) — the
+  message for the mailer. The address is a placeholder.
+
+The mailer is a side task (subagent):
+
+- `.opencode/agents/mailer.md` — sends only after confirmation.
+- `.opencode/commands/email.md` — `/email` command.
+- `tools/email/send.mjs` — dry run by default, no secrets in code.
+- `learn/google-login.md` — how the Google login works.
+- `tools/google/` — local OAuth with PKCE. Token stays in
+  `tools/google/runtime/`, which is in `.gitignore`.
+- `learn/github-login.md` — free access with a GitHub login. No paywall.
+- `tools/github/` — local GitHub OAuth. Token stays in
+  `tools/github/runtime/`, which is in `.gitignore`.
+
+Legal files are at the project root:
+
+- [`LICENSE.md`](LICENSE.md) — MIT, CC0/CC BY, AGPL for the course, GPL for
+  derived player code.
+- [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md) — borrowed works.
+- [`LEGAL-STATUS.md`](LEGAL-STATUS.md) — open questions. Not legal advice.
+- [`IMPRESSUM.md`](IMPRESSUM.md) and [`DATENSCHUTZ.md`](DATENSCHUTZ.md) —
+  drafts with placeholders. Fill them in before publishing.
+
 ## Tune it
 
 - Change the 12-word limit in `checkText` (`MAX_SENTENCE_WORDS`) and in the
