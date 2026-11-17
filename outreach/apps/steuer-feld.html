@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steuer-Feld — Online-Hilfe</title>
+<style>
+:root{--desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+ --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a;
+ --r:#e8382f;--o:#f08c00;--y:#f2d000;--g:#3fa04a;--b:#2f60b0;--p:#7a3fa0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:14px/1.5 Arial,Helvetica,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:18px 16px 60px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
+.stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
+.stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:18px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+ background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:16px}
+h1{font-size:26px;margin:0 0 8px}
+.field{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:14px 0}
+.cell{padding:12px;text-align:center;background:var(--win2);cursor:pointer;
+ border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark)}
+.cell.on{background:var(--title);color:#fff}
+.result{min-height:90px;background:var(--win2);border:2px solid var(--dark);padding:12px}
+a{color:var(--blue)}
+.warn{background:#f2d000;border:2px solid var(--dark);padding:10px}
+footer{text-align:center;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body><div class="wrap">
+<div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<section class="window"><div class="titlebar"><span class="gadget"></span><span class="name">Steuer-Feld</span><span class="gadget"></span></div>
+<div class="inner">
+<h1>Mein Steuer-Feld</h1>
+<p class="warn"><strong>Keine Steuerberatung.</strong> Dieses Feld ordnet nur ein.
+Bei Fragen frag das Finanzamt oder eine Steuerberaterin.</p>
+<p>Wähle, was auf dich zutrifft. Das Feld zeigt dir, was du sammeln und wen du fragen sollst.</p>
+<div class="field" id="field">
+ <div class="cell" data-k="job">Arbeit</div>
+ <div class="cell" data-k="self">Selbstständig</div>
+ <div class="cell" data-k="side">Nebenjob</div>
+ <div class="cell" data-k="rent">Wohnen</div>
+ <div class="cell" data-k="family">Familie</div>
+ <div class="cell" data-k="letter">Brief vom Amt</div>
+</div>
+<div class="result" id="result">Noch kein Feld gewählt.</div>
+</div></section>
+<section class="window"><div class="titlebar"><span class="gadget"></span><span class="name">Offizielle Stellen</span><span class="gadget"></span></div>
+<div class="inner">
+<p><a href="https://www.elster.de/eportal/start" target="_blank" rel="noopener">ELSTER — Mein Online-Finanzamt</a></p>
+<p><a href="https://www.finanzamt.de/" target="_blank" rel="noopener">Finanzamt — Kontakt und Formulare</a></p>
+<p><a href="https://www.bstbk.de/" target="_blank" rel="noopener">Bundessteuerberaterkammer — Beratung finden</a></p>
+<p><a href="https://www.verbraucherzentrale.de/" target="_blank" rel="noopener">Verbraucherzentrale — unabhängige Hilfe</a></p>
+</div></section>
+<footer>Offen. Keine Daten werden gesendet. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<script>
+var data={
+ job:{t:"Arbeit",s:["Lohnabrechnungen sammeln","Arbeitsvertrag bereithalten","Pendlerkosten notieren"],w:"Frag dein Finanzamt, welche Angaben du brauchst."},
+ self:{t:"Selbstständig",s:["Einnahmen und Ausgaben sammeln","Rechnungen ordnen","Gewinn vorab notieren"],w:"Frag eine Steuerberaterin oder einen Steuerberater."},
+ side:{t:"Nebenjob",s:["Alle Lohnzettel sammeln","Minijob oder Werkvertrag prüfen","Steuerklasse notieren"],w:"Frag dein Finanzamt zur Steuerklasse."},
+ rent:{t:"Wohnen",s:["Mietvertrag bereithalten","Nebenkostenabrechnung sammeln","Umzugskosten notieren"],w:"Frag das Finanzamt, was abzugsfähig ist."},
+ family:{t:"Familie",s:["Kosten für Kinder sammeln","Betreuungskosten notieren","Familienstand prüfen"],w:"Frag das Finanzamt zu Kindern und Betreuung."},
+ letter:{t:"Brief vom Amt",s:["Brief nicht wegwerfen","Datum notieren","Fragen aufschreiben"],w:"Antworte schriftlich. Frag um eine Frist, wenn du Zeit brauchst."}
+};
+var r=document.getElementById("result");
+document.querySelectorAll(".cell").forEach(function(c){
+  function pick(){
+    document.querySelectorAll(".cell").forEach(function(x){x.classList.remove("on")});
+    c.classList.add("on");
+    var d=data[c.dataset.k];
+    r.innerHTML="<strong>"+d.t+"</strong><ul><li>"+d.s.join("</li><li>")+"</li></ul><p>"+d.w+"</p>";
+  }
+  c.onclick=pick;
+  c.tabIndex=0;
+  c.onkeydown=function(e){if(e.key==="Enter"||e.key===" ")pick()};
+});
+</script>
+</body></html>

@@ -6,9 +6,13 @@ Status: **Entwurf. Nicht eingereicht.**
 
 Easy Read Coding Course
 
+## Preis
+
+**Kostenlos.** Keine Abos. Keine In-App-Käufe. Keine Werbung.
+
 ## Kurze Beschreibung
 
-Ein Lernkurs in klarer Sprache. Von der ersten Codezeile bis zu AROS. Mit viel Geschichte über Microsoft.
+Ein kostenloser Lernkurs in klarer Sprache. Von der ersten Codezeile bis zu AROS. Mit viel Geschichte über Microsoft.
 
 ## Lange Beschreibung
 
@@ -53,6 +57,25 @@ Bill Gates, Amiga, AROS, KolibriOS, Lernen.
 - Der Rest des Projekts bleibt MIT / CC0 / CC BY.
 - Screenshots: Startseite, Timeline, Lektion 1, Lektion 23.
 - Die Timeline ist unter `apps/microsoft-history.html` erreichbar.
+
+## Unterstützung / Monetarisierung
+
+Falls der Microsoft Store diese Version akzeptiert:
+
+- Freiwillige Unterstützung: https://bunq.me/JMLealRuivo
+- Keine Werbung im Lernkurs.
+- Keine Datenverkäufe. Die App läuft offline.
+- Der Betrag liegt bei den Geldgebern. Es gibt keine Abos und keine Pflicht.
+
+Hinweis im Store-Text: „Wenn dir der Kurs hilft, kannst du ihn hier
+freiwillig unterstützen: https://bunq.me/JMLealRuivo"
+
+## Online-Steuer-Feld
+
+Für den Store liegt eine zweite interne App bei:
+`apps/steuer-feld.html`. Sie ordnet Steuer-Themen ein und verweist
+auf offizielle Stellen (ELSTER, Finanzamt, Steuerberaterkammer,
+Verbraucherzentrale). Sie gibt **keine Steuerberatung**.
 
 ## Ehrlich
 
