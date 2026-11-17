@@ -87,12 +87,26 @@
     capTimer = setTimeout(()=>{ c.textContent = ""; }, 420);
   }
   const $ = s => document.querySelector(s);
-  const cv = $("#cv"), g = cv.getContext("2d");
-  const W = 320, H = 200, FLOOR = 168, R = 22;
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  const cv = $("#cv");
+  const g = cv && cv.getContext ? cv.getContext("2d") : null;
+  // Alte Systeme: ohne Canvas bleibt eine statische Seite, kein Absturz.
+  if(!g){ $("#start").innerHTML = "<h1>Boing Ball</h1><p>Dieser Browser zeigt kein Canvas.</p>"; return; }
+  const W = 320, H = 200, FLOOR = 168, R = 22, BALL = 6144;
+  const reduce = window.matchMedia ? matchMedia("(prefers-reduced-motion: reduce)")
+    : { matches:false, addEventListener:function(){} };
   const S = { t:0, started:false, paused:false, calm:reduce.matches, sound:false, audio:null, raf:null };
   const ball = { ay:0.35, ax:0.2, squash:0, bx:160, by:FLOOR-R, vx:1.7, vy:-7.5 };
-  let boingPending = false;
+  let boingPending = false, WASM = null;
+  // WebAssembly ist optional. Ohne WASM rechnet JavaScript weiter.
+  if(typeof WebAssembly === "object" && typeof fetch === "function"){
+    fetch("field.wasm").then(r=>r.ok?r.arrayBuffer():null).then(b=>{
+      if(!b) return null;
+      return WebAssembly.instantiate(b,{});
+    }).then(res=>{
+      if(!res) return;
+      WASM = { ex:res.instance.exports, m:new Float32Array(res.instance.exports.mem.buffer) };
+    }).catch(()=>{ WASM = null; });
+  }
 
   function boing(){
     if(!S.sound) return;
@@ -159,14 +173,23 @@
   function loop(){
     if(S.paused)return;
     S.t+=.016; ball.ay+=.03; ball.ax=.25; ball.squash*=.86;
-    ball.vy+=.42; ball.by+=ball.vy; ball.bx+=ball.vx;
+    ball.bx+=ball.vx;
     if(ball.bx<26){ball.bx=26;ball.vx=Math.abs(ball.vx);}
     if(ball.bx>W-26){ball.bx=W-26;ball.vx=-Math.abs(ball.vx);}
-    if(ball.by+R>=FLOOR){
-      ball.by=FLOOR-R;
-      ball.vy=-Math.max(6.8,Math.abs(ball.vy)*.9);
-      ball.squash=1; showCap(); boing();
+    let hit=0;
+    if(WASM && WASM.ex.bounce){
+      WASM.m[BALL/4]=ball.by; WASM.m[BALL/4+1]=ball.vy;
+      hit=WASM.ex.bounce(.016, FLOOR, .42, R);
+      ball.by=WASM.m[BALL/4]; ball.vy=WASM.m[BALL/4+1]; ball.squash=WASM.m[BALL/4+2];
+    } else {
+      ball.vy+=.42; ball.by+=ball.vy;
+      if(ball.by+R>=FLOOR){
+        ball.by=FLOOR-R;
+        ball.vy=-Math.max(6.8,Math.abs(ball.vy)*.9);
+        ball.squash=1; hit=1;
+      }
     }
+    if(hit){ ball.squash=1; showCap(); boing(); }
     draw();
     S.raf=requestAnimationFrame(loop);
   }
@@ -186,7 +209,8 @@
 <script>
 /* Anzeige-Modi: eine Wahl für alle Seiten */
 (function(){
-  var m = localStorage.getItem("er-mode") || "";
+  var m = "";
+  try{ m = localStorage.getItem("er-mode") || ""; }catch(e){}
   function apply(){
     document.body.dataset.mode = m;
     var bs = document.querySelectorAll("[data-mode-btn]");
@@ -198,7 +222,7 @@
     if(!b) return;
     var v = b.getAttribute("data-mode-btn");
     m = (m===v) ? "" : v;
-    localStorage.setItem("er-mode", m);
+    try{ localStorage.setItem("er-mode", m); }catch(e){}
     apply();
   });
   apply();

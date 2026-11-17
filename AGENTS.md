@@ -23,6 +23,9 @@ Read this at the start of every session. This is the durable memory of earlier w
   also exists.
 - "0+" means no prior knowledge. It does not mean a children's book.
 - Licences: code MIT, art/text CC0 or CC BY. Project stays open.
+- Exception: `learn/coding-course/` is AGPL-3.0 by the user's choice. The full
+  text is `learn/coding-course/AGPL-3.0.txt`, the notice is `LICENSE.md`.
+  Always mark this difference when you touch the course.
 - `virtual_field_generator/` is **secret and local only**. Never delete it, never
   publish it. Root `.gitignore` keeps it out of git. It has contained Python and
   QEMU/KolibriOS work; do not touch it unless asked.

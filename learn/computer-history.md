@@ -3,7 +3,7 @@
 Hier ist ein Überblick. Er geht vom Anfang bis heute.
 Ich habe viele Quellen gelesen und Daten geprüft.
 Ich kann nicht alles Wissen der Welt aufführen.
-Aber die großen Schritte fehlen nicht.
+Die großen Schritte sind dabei. Es sind nicht alle.
 
 **So habe ich gearbeitet:**
 
@@ -21,7 +21,9 @@ Aber die großen Schritte fehlen nicht.
 | --- | --- |
 | 1843 | Ada Lovelace schreibt ein Programm für Babbages Maschine. |
 | 1854 | George Boole erfindet eine Logik aus Null und Eins. |
+| 1890 | Hollerith zählt mit Lochkarten die Menschen in den USA. |
 | 1936 | Alan Turing beschreibt eine universelle Rechenmaschine. |
+| 1945 | Von Neumann beschreibt den Aufbau mit gespeichertem Programm. |
 
 Babbage hatte die Maschine nur geplant. Sie wurde nie ganz gebaut.
 Ada Lovelace erkannte: Eine Maschine kann mehr als rechnen.
@@ -61,7 +63,9 @@ Das liegt an Krieg, Zerstörung und späterer Forschung.
 | 1948 | Mataré und Welker bauen einen eigenen in Frankreich. |
 | 1958 | Kilby zeigt den ersten integrierten Schaltkreis. |
 | 1959 | Noyce entwickelt den planaren Chip. |
+| 1964 | IBM bringt die System/360 — eine Familie von Computern. |
 | 1965 | Moore formuliert sein Gesetz. |
+| 1970 | Der Baustein 1103 speichert Daten in vielen Bits. |
 
 Der Transistor kam im Dezember 1947. Er war klein und kühl.
 Er ersetzte die heiße Röhre. Das war der Anfang von allem.
@@ -81,7 +85,7 @@ Das galt jahrzehntelang. Heute wird es schwieriger.
 | 1974 | Intel bringt den 8080. |
 
 Der 4004 war für einen Taschenrechner gedacht.
-Er hatte rund 2.250 Transistoren und vier Bit.
+Er hatte rund 2.300 Transistoren und vier Bit.
 Er schaffte bis zu 90.000 Operationen in der Sekunde.
 Faggin führte den Entwurf. Hoff prägte die Architektur.
 
@@ -94,6 +98,7 @@ Ein illustrierter Kurs über diesen Chip steht im Ordner `chips/`.
 | Jahr | Was war? |
 | --- | --- |
 | 1971 | Die erste Diskette erscheint. |
+| 1973 | Der Alto von Xerox zeigt Maus und Fenster. |
 | 1975 | Der Altair 8800 kommt auf das Heft. |
 | 1976 | Der Apple I erscheint. |
 | 1977 | Apple II, PET und TRS-80 kommen. |
@@ -117,7 +122,8 @@ IBM erlaubte Nachbauten. Darum wurde er ein Standard.
 
 1982 nannte das Time Magazine das Jahr der Computer.
 Den C64 kauften sehr viele Menschen.
-1984 brachte der Macintosh Maus und Fenster zu vielen Menschen.
+Schon 1973 zeigte der Alto Maus und Fenster.
+1984 brachte der Macintosh das vielen Menschen.
 1985 folgte der Amiga mit Grafik und Sound.
 
 **Unsere Kurse bauen genau hier auf.** C64 zuerst, dann Amiga.
@@ -179,7 +185,8 @@ Unser Projekt ist offen. Das steht in `LICENSE.md`.
 Pong machte Spiele populär. Space Invaders löste einen Run aus.
 1984 zeigte der Boing Ball, was die Amiga konnte.
 1992 gewann State of the Art einen Wettbewerb.
-Finnland nahm die Demoscene 2020 in seine UNESCO-Liste auf.
+Finnland nahm die Demoscene 2020 in seine nationale Liste auf.
+Das ist die Liste für immaterielles Kulturerbe bei UNESCO.
 
 Die Gestaltung dahinter steht in `design-history.md`.
 Dort sind Bilder analysiert und Designregeln erklärt.
@@ -215,10 +222,12 @@ Demoszene heißt: teilen, Handwerk, Kredit, keine fremden Werke.
 
 Wir machen es heute so:
 
-- Alles bei uns ist selbst gemacht und offen.
-- Keine ROMs, keine fremden Bilder, keine geheimen Lizenzen.
+- Der Code ist selbst gemacht und offen.
+- Keine ROMs. Keine fremden Bilder in den Lektionen.
+- Das Modul `Ml.OctaGroover` ist von John Carehag.
+  Es liegt offen auf Aminet. Wir nennen die Quelle.
 - Quellen nennen. Nachfragen. `PERMISSIONS.md` erklärt es.
-- Klare Wörter, große Ziele, weniger Bewegung auf Wunsch.
+- Klare Wörter, weniger Bewegung auf Wunsch.
 - Noch nicht mit echten Nutzern getestet. Das sagen wir ehrlich.
 
 ---
@@ -230,7 +239,18 @@ Wir machen es heute so:
 3. **Der Boing Ball verbindet Technik und Kunst.** Er ist unser Logo.
 4. **Grenzen erzeugen Kreativität.** Das lernt man in der Scene.
 5. **Offenheit ist die moderne Antwort.** Auf Piraterie und Sperren.
-6. **Zugänglichkeit ist unsere Pflicht.** Easy Read für alle.
+6. **Klare Wörter sind unser Ziel.** Ob es gelingt, prüfen echte Leser.
+   Das steht noch aus.
+
+## Wo diese Zeittafel Lücken hat
+
+- Die Zeit vor 1843 ist nur kurz genannt.
+- Viele Erfinder und Länder fehlen.
+- Ich habe wenig aus Asien und Südamerika beschrieben.
+- Nach 2022 ist die Geschichte noch offen.
+- Viele kleine Schritte fehlen. Wir nennen die großen.
+
+Das ist kein Fehler. Es ist der Stand dieses Überblicks.
 
 ## Was ich nicht leisten kann
 
@@ -245,6 +265,7 @@ Dieser Überblick ist ein Anfang, kein Schlusspunkt.
 ```text
 Computer History Museum (Zeittafel Computer)
 Computer History Museum (Silicon Engine)
+Computer History Museum (Alto, Hollerith, System/360)
 Britannica (Z3, Personal Computer)
 Deutsches Museum / Google Arts (Zuse)
 IBM (Geschichte des PC)

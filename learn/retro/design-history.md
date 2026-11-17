@@ -125,8 +125,9 @@ Sie bedeuten: alles abschalten und das Original sehen.
 
 ## 8. Oberflächen
 
-- Der Workbench erfand den Desktop für alle: Icons, Fenster, Menüs, Requester.
-  Alles ging mit der Maus.
+- Der Workbench brachte den Desktop auf einen Heimcomputer.
+  Vorher gab es ihn schon beim Alto und beim Macintosh.
+  Icons, Fenster, Menüs, Requester. Alles ging mit der Maus.
 - Sehr niedrige Auflösung. Darum große, klare Ziele und kurze Labels.
 - Der Requester ist eine eigene Kunstform. Knapp, höflich, eine Frage pro Dialog.
 
@@ -165,9 +166,11 @@ Nachfragen, wenn wir fremde Arbeit nutzen.
 3. **Regeln statt Assets.** Das Feld erzeugt Bewegung aus wenigen Zeilen Code.
 4. **Ein Motiv pro Epoche.** Kurze Loops, getaktet zur Bewegung.
 5. **CRT als Option.** Scanlines sind schön. Aber abschaltbar.
-6. **Kredit und Erlaubnis.** Alles original. Keine ROMs. Keine fremden Bilder.
+6. **Kredit und Erlaubnis.** Eigene Bilder. Keine ROMs.
+   Das Modul `Ml.OctaGroover` ist offen. Wir nennen die Quelle.
    Das steht in `PERMISSIONS.md` und im Lehrtext zur Piraterie.
-7. **Zugänglichkeit zuerst.** Klare Kontraste. Große Ziele. Ein Gedanke pro Dialog.
+7. **Klare Wörter zuerst.** Kontraste, große Ziele, ein Gedanke pro Dialog.
+   Ob es wirklich gut ist, prüfen echte Leser.
    Reduced motion ist unsere Version von „alles abschalten".
 
 ## Quellen
