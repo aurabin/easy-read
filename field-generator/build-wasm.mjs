@@ -19,7 +19,7 @@ const FLOAD = [0x2a,0x02,0x00], FSTORE=[0x38,0x02,0x00];
 
 // --- function body -----------------------------------------
 const body = [
-  2, 0x7f,        // 2 local groups
+  2,              // 2 local groups
   1, 0x7f,        // 1 x i32  -> local 4 (i)
   2, 0x7d,        // 2 x f32  -> locals 5 (nx), 6 (ny)
 

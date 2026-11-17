@@ -27,6 +27,14 @@ original, and needs no server and no sign-in.
   remove nodes; pause, reset; export PNG.
 - **Keys:** Enter start, Space pause, R reset, arrow keys move the selected node.
 
+## Machine-code core
+
+`field.wasm` is a real WebAssembly module (309 bytes) built by
+`build-wasm.mjs`. It advects all particle arrays in one loop — JavaScript
+computes the angles (trig), WASM does the hot movement and wrap-around.
+It is loaded at startup; if loading fails (for example via `file://`),
+JavaScript takes over automatically. The badge shows `WASM` or `JS`.
+
 ## Rebuild the packaged versions
 
 From the project folder:
