@@ -19,6 +19,8 @@ const files = [
   ["field-generator/field-demo-standalone.html", "field-demo-standalone.html"],
   ["field-generator/jpg-loader.html", "jpg-loader.html"],
   ["site/index.html", "index.html"],
+  ["outreach/media/AROS-One-RAM.img", "media/AROS-One-RAM.img"],
+  ["outreach/media/AROS-One-RAM.qcow2", "media/AROS-One-RAM.qcow2"],
 ];
 // Alle Apps aus outreach/apps/ automatisch mitnehmen.
 for (const f of readdirSync(join(root,"outreach/apps"))) {

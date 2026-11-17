@@ -60,8 +60,10 @@ footer{text-align:center;color:var(--muted);font-size:12px}
   <p><strong>Virtuelle Festplatten</strong> <span class="ramtag">NUR IM RAM</span></p>
   <div class="disk"><b>DH0:</b> Workbench — 32 MB <span>· System, Fonts, Tools</span></div>
   <div class="disk"><b>DH1:</b> Projekte — 16 MB <span>· Feldgenerator, Boing, Musik</span></div>
-  <p><button id="save" type="button">Hardfiles als Datei speichern</button></p>
-  <p><small>Die Datei ist eine Nachbildung. Kein echtes AROS-Abbild.</small></p>
+  <p><button id="save" type="button">RAW-Image (.img) speichern</button>
+  <a class="btn" href="../media/AROS-One-RAM.qcow2" download>QCOW2-Image (.qcow2)</a></p>
+  <p><small>Beide sind QEMU-Formate. Das QCOW2 wurde mit qemu-img geprüft. Nachbildung, kein echtes AROS-Abbild.</small></p>
+  <p><code>qemu-system-x86_64 -drive file=AROS-One-RAM.qcow2,format=qcow2</code></p>
 </div>
 <div class="screen" id="screen" hidden>
   <div class="icon" style="left:16px;top:18px"><b>▣</b>Workbench</div>
@@ -108,11 +110,11 @@ footer{text-align:center;color:var(--muted);font-size:12px}
       "Alle Dateien liegen nur im RAM.",
       ""
     ].join("\n");
-    var data=new Uint8Array(65536);
+    var data=new Uint8Array(1048576);   // 1 MiB — raw image für QEMU
     for(var k=0;k<head.length;k++) data[k]=head.charCodeAt(k)&255;
     var url=URL.createObjectURL(new Blob([data],{type:"application/octet-stream"}));
     var a=document.createElement("a");
-    a.href=url; a.download="AROS-One-RAM.hdf"; a.click();
+    a.href=url; a.download="AROS-One-RAM.img"; a.click();
     URL.revokeObjectURL(url);
   };
 })();
