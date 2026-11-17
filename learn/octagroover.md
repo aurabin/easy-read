@@ -49,6 +49,11 @@ Sie spielt Ton ab.
 Der Ton ist meine Deutung des Moduls.
 Er ist nicht der originale Sound.
 
+Die Datei `all-in-one.png` ist Bild und Seite zugleich.
+Ziehe sie in den Browser.
+Dann laufen Bild, Demo, Modul und Ton.
+Ein Doppelklick öffnet nur den Bildbetrachter.
+
 Der Ton ist aus.
 Das Video hat keine Tonspur.
 Wir konnten das `.ml`-Modul hier nicht abspielen.
