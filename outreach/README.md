@@ -17,6 +17,8 @@ line until a real person from the target group has answered.
 | `tester-pack.md` | Send this after someone says yes. |
 | `facebook-groups.md` | Groups on your account, with rules and a shortlist. |
 | `facebook-post.md` | Admin message and post text. Not published yet. |
+| `facebook-boing-de.md` | German post: the ball bounces now. Draft. |
+| `facebook-boing-en.md` | English post: the ball bounces now. Draft. |
 | `ideas.md` | Ten small projects to start, plus one example that began small. |
 
 ## Before you send
