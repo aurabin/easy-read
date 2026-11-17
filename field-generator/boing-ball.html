@@ -5,29 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Boing Ball — die reine Amiga-Demo</title>
 <style>
-  html,body{height:100%;margin:0;background:#050810;color:#eaf2ff;font:15px system-ui,sans-serif}
-  #start{position:fixed;inset:0;z-index:5;display:grid;place-content:center;justify-items:center;gap:12px;text-align:center;background:#070b14}
-  #start h1{font-size:clamp(20px,4vw,32px);margin:0}
-  #start p{color:#9fb3d1;max-width:40ch}
-  button{cursor:pointer;font:inherit;border:1px solid #24344f;background:#17253d;color:#eaf2ff;border-radius:9px;padding:9px 16px}
+  :root{--bg:#070b14;--panel:#0e1626;--ink:#eaf2ff;--muted:#9fb3d1;
+    --line:#24344f;--teal:#0f766e;--sky:#6fd3ff;--violet:#7a20d0;
+    --red:#e8382f;--cream:#f5f0e6}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+  #start{position:fixed;inset:0;z-index:5;display:grid;place-content:center;
+    justify-items:center;gap:12px;text-align:center;background:var(--bg);overflow:hidden}
+  #start .grid{position:absolute;inset:0 0 auto 0;height:340px;pointer-events:none;
+    background-image:linear-gradient(rgba(122,32,208,.22) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(122,32,208,.22) 1px,transparent 1px);
+    background-size:32px 32px;-webkit-mask-image:linear-gradient(180deg,#000,transparent);
+    mask-image:linear-gradient(180deg,#000,transparent)}
+  #start .stripe{position:relative;width:104px;height:4px;border-radius:2px;
+    background:repeating-linear-gradient(90deg,var(--red) 0 12px,var(--cream) 12px 24px)}
+  #start h1{position:relative;margin:0;font-size:clamp(22px,4vw,34px);line-height:1.15}
+  #start p,#start small{position:relative;color:var(--muted);max-width:42ch}
+  button{cursor:pointer;font:inherit;color:var(--ink);background:var(--panel);
+    border:1px solid var(--line);border-radius:8px;padding:9px 16px;
+    transition:border-color .15s,transform .15s}
+  button:hover{border-color:var(--sky);transform:translateY(-2px)}
+  button:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+  #go{position:relative;background:var(--teal);border-color:var(--teal);color:#fff}
   .hidden{display:none!important}
   #wrap{height:100%;display:grid;place-content:center;justify-items:center;gap:10px}
-  canvas{width:min(96vw,960px);height:auto;image-rendering:pixelated;border:1px solid #24344f;border-radius:6px}
+  canvas{width:min(96vw,960px);height:auto;image-rendering:pixelated;
+    border:1px solid var(--line);border-radius:8px;box-shadow:0 18px 40px rgba(0,0,0,.5)}
   .bar{display:flex;gap:8px}
-  small{color:#5b6472}
+  small{color:var(--muted)}
+  a{color:var(--sky)}
+  a:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+  @media(prefers-reduced-motion:reduce){button{transition:none}}
 </style>
 </head>
 <body>
 <div id="start">
+  <div class="grid" aria-hidden="true"></div>
+  <div class="stripe" aria-hidden="true"></div>
   <h1>Boing Ball</h1>
   <p>Die reine Amiga-Demo. 320×200, violettes Gitter, karierte Kugel.</p>
   <button id="go" type="button" autofocus>Press Enter to start</button>
-  <small>Offen · selbst gezeichnet · nicht mit echten Nutzern getestet</small>
+  <small><a href="index.html">Startseite</a> · Offen · selbst gezeichnet · nicht mit echten Nutzern getestet</small>
 </div>
 <div id="wrap" class="hidden">
   <canvas id="cv" width="320" height="200" role="img" aria-label="Ein karierter Ball auf einer Acht-Bahn vor einem violetten Drahtgitter."></canvas>
   <div class="bar"><button id="sound" type="button" aria-pressed="false">Sound: off</button><button id="pause" type="button">Pause</button></div>
-  <small>1984-Stil-Hommage · Acht-Loop · Enter = Pause</small>
+  <small><a href="index.html">Startseite</a> · 1984-Stil-Hommage · Acht-Loop · Enter = Pause</small>
 </div>
 
 <script>

@@ -28,6 +28,7 @@ Three ways to use this folder.
 | Kontext verstehen | 1 | [`kontext.md`](kontext.md) |
 | Kunst und Design | 1 | [`art-design.md`](art-design.md) |
 | Musik — das Wichtigste | 1 | [`musik.md`](musik.md) |
+| Unser Plan: Nachtgitter | 1 | [`art-direction.md`](art-direction.md) |
 | Haiku OS (Verbindung zur Retro-Scene) | 1 | [`haiku.md`](haiku.md) |
 | Der erste Mikrochip (illustriert) | 3 | [`chips/README.md`](chips/README.md) |
 | AI Coding Course (kids and adults) | 6 | [`ai/README.md`](ai/README.md) |

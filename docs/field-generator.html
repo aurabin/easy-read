@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Virtual Field Generator — Art Edition</title>
 <style>
-  :root{--bg:#050810;--panel:rgba(16,26,46,.82);--ink:#eaf2ff;--muted:#9fb3d1;--line:#24344f;--teal:#0f766e;--sky:#6fd3ff}
+  :root{--bg:#070b14;--panel:#0e1626;--ink:#eaf2ff;--muted:#9fb3d1;--line:#24344f;--teal:#0f766e;--sky:#6fd3ff;--violet:#7a20d0;--red:#e8382f;--cream:#f5f0e6}
   *{box-sizing:border-box}
   html,body{margin:0;min-height:100%;background:radial-gradient(circle at 50% 0%,#16233d 0%,var(--bg) 60%);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
   button,select,input{font:inherit}
   button{cursor:pointer;border:1px solid var(--line);background:rgba(23,37,61,.85);color:var(--ink);border-radius:9px;padding:8px 12px;transition:border-color .2s,background .2s,transform .2s}
   button:hover{border-color:var(--sky);transform:translateY(-1px)}
   button.on{background:linear-gradient(180deg,#12877c,#0b5f58);border-color:var(--teal);color:#fff}
-  button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+  button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+  a{color:var(--sky)}
   .hidden{display:none!important}
 
   /* ---- poetic start screen ---- */
@@ -23,8 +24,10 @@
     radial-gradient(1px 1px at 34% 70%,#9fb3d1 50%,transparent),radial-gradient(1px 1px at 88% 62%,#eaf2ff 50%,transparent),
     radial-gradient(1px 1px at 60% 82%,#9fb3d1 50%,transparent);opacity:.55}
   .hero-ball{width:112px;height:112px;filter:drop-shadow(0 0 26px rgba(232,56,47,.55))}
-  #start h1{font-size:clamp(26px,5vw,44px);margin:6px 0 0;letter-spacing:.04em;
-    background:linear-gradient(90deg,#f5f0e6,#6fd3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  #start .stripe{position:relative;width:104px;height:4px;border-radius:2px;
+    background:repeating-linear-gradient(90deg,var(--red) 0 12px,var(--cream) 12px 24px)}
+  #start h1{position:relative;font-size:clamp(26px,5vw,44px);margin:6px 0 0;
+    letter-spacing:-.01em;color:var(--ink)}
   #start .sub{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--sky);margin:0}
   #start p{color:var(--muted);max-width:46ch;margin:0}
   #start .quote{font-family:Georgia,serif;font-style:italic;font-size:13px;color:#7d8ba3}
@@ -65,6 +68,7 @@
 <body>
 
 <div id="start">
+  <div class="stripe" aria-hidden="true"></div>
   <svg class="hero-ball" viewBox="0 0 120 120" role="img" aria-label="A red and white checkered Boing Ball.">
     <defs>
       <pattern id="chk" width="24" height="24" patternUnits="userSpaceOnUse">
@@ -82,7 +86,7 @@
   <p>A flow field you can shape. Seven eras, one bouncing ball, and no rules except the ones you set.</p>
   <button id="startBtn" class="pulse" type="button">Press Enter to start</button>
   <p class="quote">„The Amiga, Born a Champion" · „Still a Champion"</p>
-  <p style="font-size:11px">Offline. No camera. No sign-in.</p>
+  <p style="font-size:11px"><a href="index.html">Home</a> · Offline. No camera. No sign-in.</p>
 </div>
 
 <header id="hdr" class="hidden">
