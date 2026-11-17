@@ -36,6 +36,12 @@ Es ist 1920 mal 1080 Pixel groß.
 PNG speichert Bilder ohne Verlust.
 PNG kann aber keinen Ton speichern.
 
+In dem PNG stecken zwei Dateien.
+Die Boing-Ball-Demo läuft daraus.
+Das Modul kann man speichern.
+Der Loader liegt neben dem Bild.
+Er heißt `field-loader.html`.
+
 Der Ton ist aus.
 Das Video hat keine Tonspur.
 Wir konnten das `.ml`-Modul hier nicht abspielen.
