@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenCode — das Werkzeug hinter diesem Projekt</title>
+<style>
+:root{--desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+ --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a;
+ --r:#e8382f;--o:#f08c00;--y:#f2d000;--g:#3fa04a;--b:#2f60b0;--p:#7a3fa0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:14px/1.55 Arial,Helvetica,sans-serif}
+body[data-theme="win31"]{--desk:#008080;--win:#c0c0c0;--title:#000080;--text:#000;
+ --muted:#000;--blue:#000080;--light:#fff;--dark:#808080;
+ font-family:"MS Sans Serif",Tahoma,Arial,sans-serif}
+body[data-theme="win31"] .titlebar{background:linear-gradient(180deg,#000080,#1084d0)}
+body[data-theme="win31"] .window,body[data-theme="win31"] .btn,body[data-theme="win31"] button,
+body[data-theme="win31"] .banner{border-top-color:#fff;border-left-color:#fff;
+ border-right-color:#000;border-bottom-color:#000}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible{outline:2px dotted var(--blue);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:18px 16px 60px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
+.stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
+.stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:16px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+ background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:16px}
+h1{font-size:clamp(22px,4vw,32px);margin:0 0 8px;line-height:1.15}
+h2{font-size:18px;margin:0 0 10px}
+p{margin:7px 0;max-width:64ch}
+.lead{color:var(--muted)}
+.btn,button{font:inherit;padding:6px 13px;color:var(--text);background:var(--win);
+ border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ cursor:pointer;text-decoration:none;display:inline-block}
+.rows{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.banner{background:linear-gradient(90deg,#0e1626,#16233a);color:#eaf2ff;
+ border-top:2px solid #6fd3ff;border-left:2px solid #6fd3ff;
+ border-right:2px solid #070b14;border-bottom:2px solid #070b14;padding:18px}
+.banner h2{color:#6fd3ff;margin:0 0 6px}
+.banner a{color:#6fd3ff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.card{background:var(--win2);border:2px solid var(--dark);padding:13px}
+.card h3{margin:0 0 6px;font-size:15px}
+.card p{margin:0;color:var(--muted);font-size:13px}
+.warn{background:var(--y);border:2px solid var(--dark);padding:10px;color:#000}
+footer{text-align:center;color:var(--muted);font-size:12px}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section class="window" aria-labelledby="top">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">OpenCode</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <div class="banner">
+        <h2>Gemacht mit OpenCode</h2>
+        <p>Dieses Projekt entstand mit OpenCode — dem offenen Werkzeug zum Coden.</p>
+        <p>Frei. Offen. Für alle. Kostenlos.</p>
+        <div class="rows">
+          <a class="btn" href="https://opencode.ai/">Zu opencode.ai</a>
+          <a class="btn" href="https://github.com/anomalyco/opencode">Zum Quelltext</a>
+        </div>
+      </div>
+      <div class="rows" role="group" aria-label="Oberfläche">
+        <button type="button" data-theme-btn="os41">OS 4.1</button>
+        <button type="button" data-theme-btn="win31">Win 3.1</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="was">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Was ist OpenCode?</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="was">Ein offener Helfer beim Schreiben von Code</h2>
+      <p>OpenCode hilft beim Programmieren.
+        Es läuft im Terminal. Es ist open source.
+        Der Quelltext liegt auf GitHub. Die Lizenz ist MIT.</p>
+      <p>Ich habe es benutzt, um diesen Kurs zu bauen.
+        Es schrieb mit. Ich prüfte alles.</p>
+      <p><small>Quellen: opencode.ai und github.com/anomalyco/opencode.</small></p>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="warum">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Warum ich es empfehle</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <div class="grid">
+        <div class="card"><h3>Offen</h3><p>Der Code liegt frei. Jeder darf ihn lesen.</p></div>
+        <div class="card"><h3>Kostenlos</h3><p>Kein Abo nötig. Keine Werbung in unserem Kurs.</p></div>
+        <div class="card"><h3>Für alle</h3><p>Läuft auf Windows, Mac und Linux.</p></div>
+        <div class="card"><h3>Ehrlich</h3><p>Ein Werkzeug. Kein Zauber. Ich prüfe, was es schreibt.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="dank">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Mein Dank</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <p id="dank"><strong>Diese App habe ich auf Windows gebaut.</strong></p>
+      <p>Ich danke OpenCode. Ich danke Microsoft.</p>
+      <p>OpenCode half beim Schreiben. Windows war mein Platz zum Bauen.</p>
+      <p class="warn"><strong>Ehrlich:</strong> OpenCode hat dieses Projekt nicht offiziell
+        unterstützt. Ich empfehle es aus eigener Nutzung. Nicht mit echten Nutzern getestet.</p>
+    </div>
+  </section>
+
+  <section class="window joke" aria-labelledby="witz">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Ein Witz</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner" id="witz">
+      <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
+    </div>
+  </section>
+
+  <footer>Kostenlos. Offen. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<script>
+document.querySelectorAll("[data-theme-btn]").forEach(function(b){
+  b.onclick=function(){
+    document.body.dataset.theme=b.dataset.themeBtn;
+    [].forEach.call(document.querySelectorAll("[data-theme-btn]"),function(x){x.classList.remove("on");});
+    b.classList.add("on");
+  };
+});
+document.querySelector('[data-theme-btn="os41"]').classList.add("on");
+</script>
+</body>
+</html>

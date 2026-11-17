@@ -77,6 +77,18 @@ Für den Store liegt eine zweite interne App bei:
 auf offizielle Stellen (ELSTER, Finanzamt, Steuerberaterkammer,
 Verbraucherzentrale). Sie gibt **keine Steuerberatung**.
 
+## Gemacht mit OpenCode
+
+Dieses Projekt entstand mit OpenCode, dem offenen Werkzeug zum Coden.
+
+- Website: https://opencode.ai/
+- Quelltext: https://github.com/anomalyco/opencode
+- Lizenz: MIT. Open source.
+
+Die App ist kostenlos. Es gibt keine Werbung im Lernkurs.
+OpenCode hat dieses Projekt nicht offiziell unterstützt.
+Der Hinweis ist mein Dank aus eigener Nutzung.
+
 ## Ehrlich
 
 Noch nicht eingereicht. Kein Store-Test. Kein Test mit echten Nutzern.
