@@ -220,7 +220,7 @@ function mandelAngle(x,y){
 // ---- Boing 1984: authentic 320x200 look ----
 const lowCv=document.createElement("canvas");lowCv.width=320;lowCv.height=200;
 const lowCtx=lowCv.getContext("2d");
-let boingAudio=null;
+let boingAudio=null, boingPending=false;
 function boingSound(){
   if(!S.sound)return;
   try{
@@ -231,8 +231,11 @@ function boingSound(){
       o.type="sine";o.frequency.setValueAtTime(220,t);o.frequency.exponentialRampToValueAtTime(70,t+.28);
       g.gain.setValueAtTime(.35,t);g.gain.exponentialRampToValueAtTime(.001,t+.32);
       o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.34);};
-    if(c.state==="suspended")c.resume().then(play).catch(()=>{});
-    else play();
+    if(c.state==="suspended"){
+      if(boingPending)return;
+      boingPending=true;
+      c.resume().then(()=>{boingPending=false;play();}).catch(()=>{boingPending=false;});
+    } else play();
   }catch(e){}
 }
 function retroSphere(g,x,y,r,cycle){

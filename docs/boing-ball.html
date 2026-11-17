@@ -39,6 +39,7 @@
   const reduce = matchMedia("(prefers-reduced-motion: reduce)");
   const S = { t:0, started:false, paused:false, calm:reduce.matches, sound:false, audio:null, raf:null, by:0, prevBy:null, prevDir:0 };
   const ball = { ay:0.35, ax:0.2, squash:0 };
+  let boingPending = false;
 
   function boing(){
     if(!S.sound) return;
@@ -53,8 +54,11 @@
         gn.gain.setValueAtTime(.35,t); gn.gain.exponentialRampToValueAtTime(.001,t+.32);
         o.connect(gn); gn.connect(c.destination); o.start(t); o.stop(t+.34);
       };
-      if(c.state === "suspended") c.resume().then(play).catch(()=>{});
-      else play();
+      if(c.state === "suspended"){
+        if(boingPending) return;
+        boingPending = true;
+        c.resume().then(()=>{ boingPending=false; play(); }).catch(()=>{ boingPending=false; });
+      } else play();
     }catch(e){}
   }
 
