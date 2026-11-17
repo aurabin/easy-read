@@ -14,6 +14,17 @@
   button.on{background:linear-gradient(180deg,#12877c,#0b5f58);border-color:var(--teal);color:#fff}
   button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
   a{color:var(--sky)}
+  .modes{display:flex;gap:6px;flex-wrap:wrap}
+  .modes button{font:11px ui-monospace,Consolas,monospace;padding:5px 9px;border-radius:99px}
+  .modes button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+  .cap{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:5;
+    pointer-events:none;color:var(--sky);font:600 16px ui-monospace,Consolas,monospace;
+    letter-spacing:.1em;text-shadow:0 2px 8px #000}
+  body[data-mode="cb"]{--red:#1d6fb8;--cream:#f7fbff;--violet:#3b5bdb;--sky:#ffd166}
+  body[data-mode="low"]{font-size:19px;--muted:#d6e4f7;--line:#7186a5}
+  body[data-mode="low"] #start:before{display:none}
+  body[data-mode="low"] .stage{border-width:2px}
+  body[data-mode="deaf"] .cap{font-size:28px;color:#fff}
   .hidden{display:none!important}
 
   /* ---- poetic start screen ---- */
@@ -72,8 +83,8 @@
   <svg class="hero-ball" viewBox="0 0 120 120" role="img" aria-label="A red and white checkered Boing Ball.">
     <defs>
       <pattern id="chk" width="24" height="24" patternUnits="userSpaceOnUse">
-        <rect width="24" height="24" fill="#f5f0e6"/>
-        <rect width="12" height="12" fill="#e8382f"/><rect x="12" y="12" width="12" height="12" fill="#e8382f"/>
+        <rect width="24" height="24" style="fill:var(--cream)"/>
+        <rect width="12" height="12" style="fill:var(--red)"/><rect x="12" y="12" width="12" height="12" style="fill:var(--red)"/>
       </pattern>
       <radialGradient id="shd" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>
     </defs>
@@ -94,12 +105,18 @@
   <button id="motionBtn" type="button" aria-pressed="false">Less motion</button>
   <button id="soundBtn" type="button" aria-pressed="false">Sound: off</button>
   <button id="exportBtn" type="button">Export PNG</button>
+  <div class="modes" role="group" aria-label="Anzeige-Modi">
+    <button type="button" data-mode-btn="cb" aria-pressed="false">Farbenblind</button>
+    <button type="button" data-mode-btn="low" aria-pressed="false">Sehbehindert</button>
+    <button type="button" data-mode-btn="deaf" aria-pressed="false">Gehörlos</button>
+  </div>
 </header>
 
 <main id="app" class="wrap hidden">
   <section class="stage">
     <canvas id="cv" width="960" height="600" role="img" aria-label="A luminous virtual flow field with glowing era nodes and a bouncing checkered ball."></canvas>
     <span class="badge" id="badge">AMIGA · SWIRL</span>
+    <div id="cap" class="cap" aria-live="polite"></div>
   </section>
   <aside>
     <div>
@@ -225,6 +242,15 @@ function mandelAngle(x,y){
 const lowCv=document.createElement("canvas");lowCv.width=320;lowCv.height=200;
 const lowCtx=lowCv.getContext("2d");
 let boingAudio=null, boingPending=false;
+const isCB = () => document.body.dataset.mode === "cb";
+let capTimer = null;
+function showCap(){
+  const c = document.getElementById("cap"); if(!c) return;
+  c.textContent = "BOING!";
+  clearTimeout(capTimer);
+  capTimer = setTimeout(()=>{ c.textContent = ""; }, 420);
+}
+function pal(){const p=PAL[S.palette];return isCB()?{...p,a:"#1d6fb8",b:"#f7fbff",accent:"#3b5bdb"}:p;}
 function boingSound(){
   if(!S.sound)return;
   try{
@@ -257,13 +283,13 @@ function retroSphere(g,x,y,r,cycle){
   g.save();g.translate(x,y);
   for(const q of quads){
     g.beginPath();g.moveTo(q.pts[0].x,q.pts[0].y);for(let k=1;k<4;k++)g.lineTo(q.pts[k].x,q.pts[k].y);g.closePath();
-    g.fillStyle=((q.i+q.j+cycle)%2===0)?"#e8382f":"#f5f0e6";g.fill();}
+    g.fillStyle=((q.i+q.j+cycle)%2===0)?(isCB()?"#1d6fb8":"#e8382f"):(isCB()?"#f7fbff":"#f5f0e6");g.fill();}
   g.restore();
 }
 function drawRetro(){
   const g=lowCtx,LW=320,LH=200,b=S.ballObj;
   g.fillStyle="#9a9a9a";g.fillRect(0,0,LW,LH);
-  g.strokeStyle="#7a20d0";g.lineWidth=1;g.globalAlpha=.9;
+  g.strokeStyle=isCB()?"#3b5bdb":"#7a20d0";g.lineWidth=1;g.globalAlpha=.9;
   for(let y=12;y<104;y+=13){g.beginPath();g.moveTo(0,y);g.lineTo(LW,y);g.stroke();}
   for(let x=0;x<=LW;x+=26){g.beginPath();g.moveTo(x,0);g.lineTo(x,104);g.stroke();}
   for(let k=1;k<=9;k++){const y=104+Math.pow(k/9,1.8)*96;g.beginPath();g.moveTo(0,y);g.lineTo(LW,y);g.stroke();}
@@ -321,7 +347,7 @@ function angleAt(x,y){
 function retroStep(){
   const b=S.ballObj,F=312;
   b.vh-=.55;b.h+=b.vh;
-  if(b.h<0){b.h=0;b.vh=Math.abs(b.vh)*.9;b.squash=1;boingSound();}
+  if(b.h<0){b.h=0;b.vh=Math.abs(b.vh)*.9;b.squash=1;showCap();boingSound();}
   if(b.h>210){b.h=210;b.vh=-Math.abs(b.vh)*.5;}
   b.x+=b.vx;
   if(b.x-b.r<0){b.x=b.r;b.vx=Math.abs(b.vx);}
@@ -370,14 +396,14 @@ function step(){
     const b=S.ballObj;b.vy+=.5;b.x+=b.vx;b.y+=b.vy;b.ay+=b.vx*.016;b.ax+=b.vy*.003;
     if(b.x-b.r<0){b.x=b.r;b.vx=Math.abs(b.vx);b.squash=.7;}
     if(b.x+b.r>W){b.x=W-b.r;b.vx=-Math.abs(b.vx);b.squash=.7;}
-    if(b.y+b.r>H){b.y=H-b.r;b.vy=-Math.abs(b.vy)*.9;b.squash=1;boingSound();}
+    if(b.y+b.r>H){b.y=H-b.r;b.vy=-Math.abs(b.vy)*.9;b.squash=1;showCap();boingSound();}
     if(b.y-b.r<0){b.y=b.r;b.vy=Math.abs(b.vy);}
     if(Math.abs(b.vx)<1.2)b.vx+=b.vx>=0?.2:-.2;
     b.squash*=.86;
   }
 }
 function sphere(x,y,r){
-  const b=S.ballObj,c=PAL[S.palette],lat=9,lon=12;
+  const b=S.ballObj,c=pal(),lat=9,lon=12;
   const rot=(px,py,pz)=>{const cy=Math.cos(b.ay),sy=Math.sin(b.ay),cx=Math.cos(b.ax),sx=Math.sin(b.ax);
     const x1=px*cy+pz*sy,z1=-px*sy+pz*cy;return{x:x1,y:py*cx-z1*sx,z:py*sx+z1*cx};};
   ctx.save();ctx.translate(x,y);
@@ -543,6 +569,27 @@ cv.addEventListener("wheel",e=>{
 loadWasm();
 updateLabels();
 if(S.calm){const mb=$("#motionBtn");mb.textContent="More motion";mb.setAttribute("aria-pressed","true");}
+})();
+</script>
+<script>
+/* Anzeige-Modi: eine Wahl für alle Seiten */
+(function(){
+  var m = localStorage.getItem("er-mode") || "";
+  function apply(){
+    document.body.dataset.mode = m;
+    var bs = document.querySelectorAll("[data-mode-btn]");
+    for(var i=0;i<bs.length;i++)
+      bs[i].setAttribute("aria-pressed", String(bs[i].getAttribute("data-mode-btn")===m));
+  }
+  document.addEventListener("click", function(e){
+    var b = e.target.closest && e.target.closest("[data-mode-btn]");
+    if(!b) return;
+    var v = b.getAttribute("data-mode-btn");
+    m = (m===v) ? "" : v;
+    localStorage.setItem("er-mode", m);
+    apply();
+  });
+  apply();
 })();
 </script>
 </body>

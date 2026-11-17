@@ -36,6 +36,16 @@
   small{color:var(--muted)}
   a{color:var(--sky)}
   a:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+  .modes{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;position:relative}
+  .modes button{font:11px ui-monospace,Consolas,monospace;padding:5px 9px;border-radius:99px}
+  .modes button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+  .cap{position:relative;min-height:26px;color:var(--sky);
+    font:600 16px ui-monospace,Consolas,monospace;letter-spacing:.1em}
+  body[data-mode="cb"]{--red:#1d6fb8;--cream:#f7fbff;--violet:#3b5bdb;--sky:#ffd166}
+  body[data-mode="low"]{font-size:19px;--muted:#d6e4f7;--line:#7186a5}
+  body[data-mode="low"] #start .grid{display:none}
+  body[data-mode="low"] canvas{border-width:2px}
+  body[data-mode="deaf"] .cap{font-size:26px;color:#fff}
   @media(prefers-reduced-motion:reduce){button{transition:none}}
 </style>
 </head>
@@ -46,17 +56,36 @@
   <h1>Boing Ball</h1>
   <p>Die reine Amiga-Demo. 320×200, violettes Gitter, karierte Kugel.</p>
   <button id="go" type="button" autofocus>Press Enter to start</button>
+  <div class="modes" role="group" aria-label="Anzeige-Modi">
+    <button type="button" data-mode-btn="cb" aria-pressed="false">Farbenblind</button>
+    <button type="button" data-mode-btn="low" aria-pressed="false">Sehbehindert</button>
+    <button type="button" data-mode-btn="deaf" aria-pressed="false">Gehörlos</button>
+  </div>
   <small><a href="index.html">Startseite</a> · Offen · selbst gezeichnet · nicht mit echten Nutzern getestet</small>
 </div>
 <div id="wrap" class="hidden">
   <canvas id="cv" width="320" height="200" role="img" aria-label="Ein karierter Ball auf einer Acht-Bahn vor einem violetten Drahtgitter."></canvas>
+  <div id="cap" class="cap" aria-live="polite"></div>
   <div class="bar"><button id="sound" type="button" aria-pressed="false">Sound: off</button><button id="pause" type="button">Pause</button></div>
+  <div class="modes" role="group" aria-label="Anzeige-Modi">
+    <button type="button" data-mode-btn="cb" aria-pressed="false">Farbenblind</button>
+    <button type="button" data-mode-btn="low" aria-pressed="false">Sehbehindert</button>
+    <button type="button" data-mode-btn="deaf" aria-pressed="false">Gehörlos</button>
+  </div>
   <small><a href="index.html">Startseite</a> · 1984-Stil-Hommage · Acht-Loop · Enter = Pause</small>
 </div>
 
 <script>
 (() => {
   "use strict";
+  const isCB = () => document.body.dataset.mode === "cb";
+  let capTimer = null;
+  function showCap(){
+    const c = document.getElementById("cap"); if(!c) return;
+    c.textContent = "BOING!";
+    clearTimeout(capTimer);
+    capTimer = setTimeout(()=>{ c.textContent = ""; }, 420);
+  }
   const $ = s => document.querySelector(s);
   const cv = $("#cv"), g = cv.getContext("2d");
   const W = 320, H = 200;
@@ -100,13 +129,13 @@
     g.save();g.translate(x,y);
     for(const q of quads){
       g.beginPath();g.moveTo(q.pts[0].x,q.pts[0].y);for(let k=1;k<4;k++)g.lineTo(q.pts[k].x,q.pts[k].y);g.closePath();
-      g.fillStyle=((q.i+q.j+cycle)%2===0)?"#e8382f":"#f5f0e6";g.fill();}
+      g.fillStyle=((q.i+q.j+cycle)%2===0)?(isCB()?"#1d6fb8":"#e8382f"):(isCB()?"#f7fbff":"#f5f0e6");g.fill();}
     g.restore();
   }
 
   function draw(){
     g.fillStyle="#9a9a9a";g.fillRect(0,0,W,H);
-    g.strokeStyle="#7a20d0";g.lineWidth=1;g.globalAlpha=.9;
+    g.strokeStyle=isCB()?"#3b5bdb":"#7a20d0";g.lineWidth=1;g.globalAlpha=.9;
     for(let y=12;y<104;y+=13){g.beginPath();g.moveTo(0,y);g.lineTo(W,y);g.stroke();}
     for(let x=0;x<=W;x+=26){g.beginPath();g.moveTo(x,0);g.lineTo(x,104);g.stroke();}
     for(let k=1;k<=9;k++){const y=104+Math.pow(k/9,1.8)*96;g.beginPath();g.moveTo(0,y);g.lineTo(W,y);g.stroke();}
@@ -136,7 +165,7 @@
     draw();
     if(S.prevBy!==null){
       const dir=S.by-S.prevBy;
-      if(S.prevDir>0 && dir<=0){ ball.squash=1; boing(); }
+      if(S.prevDir>0 && dir<=0){ ball.squash=1; showCap(); boing(); }
       S.prevDir=dir;
     }
     S.prevBy=S.by;
@@ -153,6 +182,27 @@
   reduce.addEventListener("change",e=>{S.calm=e.matches;if(S.calm)cancelAnimationFrame(S.raf);else if(S.started&&!S.paused)loop();});
   draw();
   $("#go").focus();
+})();
+</script>
+<script>
+/* Anzeige-Modi: eine Wahl für alle Seiten */
+(function(){
+  var m = localStorage.getItem("er-mode") || "";
+  function apply(){
+    document.body.dataset.mode = m;
+    var bs = document.querySelectorAll("[data-mode-btn]");
+    for(var i=0;i<bs.length;i++)
+      bs[i].setAttribute("aria-pressed", String(bs[i].getAttribute("data-mode-btn")===m));
+  }
+  document.addEventListener("click", function(e){
+    var b = e.target.closest && e.target.closest("[data-mode-btn]");
+    if(!b) return;
+    var v = b.getAttribute("data-mode-btn");
+    m = (m===v) ? "" : v;
+    localStorage.setItem("er-mode", m);
+    apply();
+  });
+  apply();
 })();
 </script>
 </body>

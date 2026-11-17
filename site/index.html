@@ -95,6 +95,25 @@ footer p{margin:6px 0}
     linear-gradient(45deg,var(--red) 25%,transparent 25%,transparent 75%,var(--red) 75%),
     linear-gradient(45deg,var(--red) 25%,transparent 25%,transparent 75%,var(--red) 75%);
   background-size:8px 8px;background-position:0 0,4px 4px}
+/* Anzeige-Modi */
+.modes{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.modes button{cursor:pointer;padding:6px 11px;color:var(--muted);background:transparent;
+  border:1px solid var(--line);border-radius:99px;
+  font:12px ui-monospace,SFMono-Regular,Consolas,monospace}
+.modes button:hover{border-color:var(--sky)}
+.modes button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+.modes button:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+.sound-note{display:none;color:var(--sky);max-width:60ch;margin:16px 0 0}
+
+body[data-mode="cb"]{--red:#1d6fb8;--cream:#f7fbff;--violet:#3b5bdb;--sky:#ffd166;--teal:#0b7285;--teal2:#0b7285}
+body[data-mode="low"]{font-size:20px;--muted:#d6e4f7;--line:#7186a5;--sky:#bfe9ff}
+body[data-mode="low"] .grid{display:none}
+body[data-mode="low"] .card,body[data-mode="low"] .chip,body[data-mode="low"] .tag{border-width:2px}
+body[data-mode="low"] h1{font-size:clamp(34px,6vw,56px)}
+body[data-mode="low"] *:focus-visible{outline-width:4px}
+body[data-mode="deaf"] .sound-note{display:block}
+body[data-mode="deaf"] .ball{box-shadow:0 0 0 3px var(--cream),0 0 42px rgba(122,32,208,.5)}
+
 /* Detail: ruhige Typografie, klare Zustände */
 ::selection{background:var(--violet);color:#fff}
 h1,h2,h3{text-wrap:balance}
@@ -133,6 +152,11 @@ p{hyphens:auto}
       <h1>Einfach lesen. Retro verstehen.</h1>
       <p class="lead">Kurze Sätze. Klare Schritte. Du kannst hier spielen und lernen.</p>
       <span class="chip">Noch nicht mit echten Nutzern getestet.</span>
+      <div class="modes" role="group" aria-label="Anzeige-Modi">
+        <button type="button" data-mode-btn="cb" aria-pressed="false">Farbenblind</button>
+        <button type="button" data-mode-btn="low" aria-pressed="false">Sehbehindert</button>
+        <button type="button" data-mode-btn="deaf" aria-pressed="false">Gehörlos</button>
+      </div>
     </div>
   </div>
 </header>
@@ -169,6 +193,13 @@ p{hyphens:auto}
     <div class="sec-head"><span class="sec-num">02</span><h2 id="lernen">Lernen</h2></div>
     <div class="cards">
       <article class="card work">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        <span class="tag">Prüfen</span>
+        <h3>Gesundheit</h3>
+        <p>Wie prüfe ich einen Text über Medikamente? Sieben Schritte.</p>
+        <a class="btn ghost" href="https://github.com/aurabin/easy-read/blob/master/learn/gesundheit-pruefen.md">Lesen</a>
+      </article>
+      <article class="card work">
         <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-2-5-2-8-1v13c3-1 6-1 8 1 2-2 5-2 8-1V5c-3-1-6-1-8 1z"/><path d="M12 6v13"/></svg>
         <span class="tag">Start</span>
         <h3>Ohne Wissen</h3>
@@ -199,13 +230,36 @@ p{hyphens:auto}
     </div>
   </section>
 
+  <section aria-labelledby="modi">
+    <div class="sec-head"><span class="sec-num">03</span><h2 id="modi">Anzeige-Modi</h2></div>
+    <div class="cards">
+      <article class="card work"><span class="tag">Farben</span><h3>Farbenblind</h3>
+        <p>Wir nutzen Muster und Form. Nicht nur Farbe. Rot wird Blau.</p></article>
+      <article class="card work"><span class="tag">Sehen</span><h3>Sehbehindert</h3>
+        <p>Größerer Text. Stärkere Linien. Weniger Dekoration.</p></article>
+      <article class="card work"><span class="tag">Hören</span><h3>Gehörlos</h3>
+        <p>Wichtiges steht auch als Text. Der Ton ist nur Extra.</p></article>
+    </div>
+    <p class="sound-note">Der Ton ist nur Extra. Alle Infos stehen auch hier als Text.</p>
+  </section>
+
   <section class="joke" aria-labelledby="witz">
     <div class="grid" aria-hidden="true"></div>
-    <span class="sec-num">03</span>
+    <span class="sec-num">04</span>
     <h2 id="witz">Ein Witz</h2>
     <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!“</p>
     <p class="small">Der Witz ist auf Deutsch. In sechs Sprachen:
       <a href="https://github.com/aurabin/easy-read/blob/master/learn/joke.md">joke.md</a>.</p>
+  </section>
+
+  <section class="joke" aria-labelledby="respekt">
+    <span class="sec-num">05</span>
+    <h2 id="respekt">Wörter mit Respekt</h2>
+    <p>Manche sagen „taubstumm". Das Wort ist alt.</p>
+    <p>Es klingt, als könnten gehörlose Menschen nicht sprechen. Das stimmt meistens nicht.</p>
+    <p>Viele sprechen. Viele nutzen Gebärden. Das ist ihre Sprache. Sie ist reich und lebendig.</p>
+    <p>Sag lieber „gehörlose Menschen" oder „taube Menschen". Frag, wenn du unsicher bist.</p>
+    <p class="small">Wir haben keine gehörlosen Menschen gefragt. Das ist kein Test mit ihnen.</p>
   </section>
 </main>
 
@@ -217,5 +271,26 @@ p{hyphens:auto}
 </footer>
 
 </div>
+<script>
+/* Anzeige-Modi: eine Wahl für alle Seiten */
+(function(){
+  var m = localStorage.getItem("er-mode") || "";
+  function apply(){
+    document.body.dataset.mode = m;
+    var bs = document.querySelectorAll("[data-mode-btn]");
+    for(var i=0;i<bs.length;i++)
+      bs[i].setAttribute("aria-pressed", String(bs[i].getAttribute("data-mode-btn")===m));
+  }
+  document.addEventListener("click", function(e){
+    var b = e.target.closest && e.target.closest("[data-mode-btn]");
+    if(!b) return;
+    var v = b.getAttribute("data-mode-btn");
+    m = (m===v) ? "" : v;
+    localStorage.setItem("er-mode", m);
+    apply();
+  });
+  apply();
+})();
+</script>
 </body>
 </html>
