@@ -49,8 +49,12 @@ p{margin:8px 0;max-width:62ch}
 .card{background:var(--win2);border:1px solid var(--light);border-radius:9px;padding:16px;
   transition:transform .15s ease,border-color .15s ease;overflow:hidden}
 .card:hover{transform:translateY(-3px);border-color:var(--accent)}
-.illu{display:block;width:100%;height:66px;margin:-4px 0 10px;border-radius:6px}
+.illu{display:block;width:100%;height:104px;margin:-6px 0 12px;border-radius:8px;overflow:hidden;background:#fdf6e3;border:1px solid rgba(34,32,58,.15)}
 .illu svg{width:100%;height:100%;display:block}
+
+
+
+
 .card h3{margin:8px 0 6px;font-size:17px}
 .card p{color:var(--muted);font-size:13px;min-height:38px}
 .tag{font:11px "Segoe UI",Arial,sans-serif;color:var(--blue);
@@ -129,6 +133,24 @@ body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
 .appearance button:hover{color:var(--text);border-color:var(--accent)}
 .appearance button[aria-pressed="true"]{background:var(--accent);color:#04121f;
  border-color:var(--accent);font-weight:600}
+
+/* Phantasievolles Layout: Sterne, nummerierte Bereiche, Bento-Karten */
+body{position:relative}
+
+.wrap{position:relative;z-index:1}
+
+.cards{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.cards .card:first-child{grid-column:span 2;grid-row:span 2}
+.cards .card:first-child 
+.cards .card:first-child h3{font-size:20px}
+.cards .card:first-child p{font-size:14px;min-height:56px}
+.card{border-top:2px solid var(--accent)}
+.card:nth-child(3n+2){border-top-color:var(--p)}
+.card:nth-child(3n+3){border-top-color:var(--r)}
+.joke .inner{background:linear-gradient(135deg,rgba(111,211,255,.06),rgba(154,108,255,.09));
+  text-align:center;font-size:16px}
+@media(max-width:700px){.cards .card:first-child{grid-column:span 1;grid-row:span 1}
+  .cards .card:first-child }
 @media(prefers-reduced-motion:reduce){*{transition:none}}
 </style>
 </head>
@@ -199,31 +221,151 @@ body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
       <p class="lead">Kurze Sätze. Klare Schritte. Du kannst hier spielen und lernen.</p>
       <p><span class="chip">Noch nicht mit echten Nutzern getestet.</span></p>
       <div class="cards">
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><g transform="translate(120,34)"><circle r="20" fill="#f5f0e6"/><path d="M-20 0 A20 20 0 0 1 20 0 Q0 8 -20 0Z" fill="#e8382f"/><path d="M0 -20 A20 20 0 0 1 0 20 Q-8 0 0 -20Z" fill="#e8382f"/><circle r="20" fill="none" stroke="#070b14" stroke-width="1"/></g><path d="M0 58 Q60 48 120 58 T240 58" fill="none" stroke="#6fd3ff" stroke-width="1.5"/></svg></div><span class="tag">Demo</span><h3>Boing Ball</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M0 84 Q120 70 240 84 V100 H0Z" fill="#cdeacd"/>
+    <g transform="translate(120,46)"><circle r="20" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-20 0 A20 20 0 0 1 20 0 Q0 8 -20 0Z" fill="#e8382f"/>
+    <path d="M0 -20 A20 20 0 0 1 0 20 Q-8 0 0 -20Z" fill="#e8382f"/>
+    <circle r="20" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-5" cy="-2" r="2.2" fill="#22203a"/><circle cx="5" cy="-2" r="2.2" fill="#22203a"/><path d="M-4 4 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <g transform="translate(38 66) scale(0.7)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g transform="translate(202 66) scale(0.7)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(120 84) scale(0.6)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Demo</span><h3>Boing Ball</h3>
           <p>Ein karierter Ball springt. Den Ton gibt es dazu. Läuft auch auf KolibriOS.</p>
           <a class="btn" href="boing-ball.html">Öffnen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><g fill="none" stroke="#6fd3ff" stroke-width="2"><path d="M10 33 q15 -22 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0"/></g><g fill="#9a6cff"><rect x="20" y="44" width="6" height="14"/><rect x="60" y="38" width="6" height="20"/><rect x="100" y="48" width="6" height="10"/><rect x="140" y="34" width="6" height="24"/><rect x="180" y="42" width="6" height="16"/></g></svg></div><span class="tag">Musik</span><h3>Musik wird Bild</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><g fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 42 v26 a8 8 0 1 1 -6 -8 V46 l24 -6 v22 a8 8 0 1 1 -6 -8 V36Z"/></g>
+    <circle cx="40" cy="52" r="2.2" fill="#22203a"/><circle cx="50" cy="52" r="2.2" fill="#22203a"/><path d="M41 58 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M150 34 v30 a8 8 0 1 1 -6 -8 V38 l26 -6 v24 a8 8 0 1 1 -6 -8 V28Z"/></g>
+    <circle cx="150" cy="46" r="2.2" fill="#22203a"/><circle cx="160" cy="46" r="2.2" fill="#22203a"/><path d="M151 52 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(105 80) scale(0.6)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(210 60) scale(0.5)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Musik</span><h3>Musik wird Bild</h3>
           <p>Mach kurze Musik. Das Bild läuft mit. Speichere ein Video.</p>
           <a class="btn" href="apps/cgi-music.html">Öffnen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><rect x="14" y="14" width="212" height="40" rx="4" fill="#0e1626" stroke="#24344f"/><g fill="#6fd3ff"><rect x="26" y="28" width="4" height="12"/><rect x="36" y="24" width="4" height="16"/><rect x="46" y="20" width="4" height="20"/><rect x="56" y="26" width="4" height="14"/><rect x="66" y="30" width="4" height="10"/></g><circle cx="180" cy="34" r="12" fill="none" stroke="#9a6cff" stroke-width="2"/><circle cx="180" cy="34" r="4" fill="#9a6cff"/><rect x="196" y="30" width="16" height="8" rx="2" fill="#e8382f"/></svg></div><span class="tag">Amiga</span><h3>Musikplayer</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><rect x="70" y="24" width="100" height="56" rx="9" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="120" cy="52" r="17" fill="#16233a" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="120" cy="52" r="7" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="88" cy="36" r="3" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="152" cy="36" r="3" fill="#3fa04a" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="115" cy="52" r="2.2" fill="#22203a"/><circle cx="125" cy="52" r="2.2" fill="#22203a"/><path d="M116 58 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(30 80) scale(0.6)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g transform="translate(210 80) scale(0.6)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">Amiga</span><h3>Musikplayer</h3>
           <p>MOD und 8SVX abspielen. Andere Formate erkennen.</p>
           <a class="btn" href="apps/amiga-player.html">Öffnen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><g fill="none" stroke="#6fd3ff" stroke-width="2"><circle cx="60" cy="33" r="8"/><circle cx="60" cy="33" r="18" opacity=".6"/><circle cx="60" cy="33" r="28" opacity=".3"/></g><g fill="#e8382f"><rect x="120" y="28" width="5" height="10"/><rect x="132" y="22" width="5" height="22"/><rect x="144" y="16" width="5" height="34"/><rect x="156" y="24" width="5" height="18"/><rect x="168" y="30" width="5" height="6"/></g><text x="196" y="40" fill="#9fb3d1" font-family="monospace" font-size="18">♪</text></svg></div><span class="tag">Paula</span><h3>Sound anhören</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M56 42 h18 l16 -14 v44 l-16 -14 h-18Z" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M100 38 q12 12 0 24 M112 30 q20 20 0 40 M124 22 q28 28 0 56" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke="#e8382f"/>
+    <g transform="translate(190 66) scale(0.75)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(150 30) scale(0.5)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Paula</span><h3>Sound anhören</h3>
           <p>Boing, Tonleiter, Akkord. Hörbar im Browser.</p>
           <a class="btn" href="apps/paula-sound.html">Anhören</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><g stroke="#9a6cff" stroke-width="1" fill="none" opacity=".8"><path d="M0 6 q60 -14 120 0 t120 0"/><path d="M0 15 q60 -14 120 0 t120 0"/><path d="M0 24 q60 -14 120 0 t120 0"/><path d="M0 33 q60 -14 120 0 t120 0"/><path d="M0 42 q60 -14 120 0 t120 0"/><path d="M0 51 q60 -14 120 0 t120 0"/><path d="M0 60 q60 -14 120 0 t120 0"/></g><circle cx="120" cy="33" r="6" fill="#e8382f"/><circle cx="120" cy="33" r="2" fill="#f5f0e6"/></svg></div><span class="tag">Demo</span><h3>Feldgenerator</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M0 70 Q60 40 120 70 T240 70 V100 H0Z" fill="#cdeacd"/>
+    <path d="M0 82 Q80 56 240 82" fill="none" stroke="#3fa04a" stroke-width="2"/>
+    <path d="M76 70 l14 -18 14 18Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="84" y="70" width="12" height="12" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(180 66) scale(0.7)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(120 30) scale(0.5)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Demo</span><h3>Feldgenerator</h3>
           <p>Verändere das Feld. Wechsle die Farben. Schau dir Mandelbrot an.</p>
           <a class="btn" href="field-generator.html">Öffnen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><rect x="16" y="12" width="100" height="42" rx="3" fill="#0e1626" stroke="#6fd3ff"/><rect x="124" y="12" width="100" height="42" rx="3" fill="#0e1626" stroke="#9a6cff"/><g fill="#6fd3ff"><rect x="24" y="20" width="40" height="3"/><rect x="24" y="28" width="60" height="3"/><rect x="24" y="36" width="30" height="3"/></g><g fill="#9a6cff"><rect x="132" y="20" width="50" height="3"/><rect x="132" y="28" width="35" height="3"/><rect x="132" y="36" width="60" height="3"/></g></svg></div><span class="tag">Studio</span><h3>Frei gestalten</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><rect x="46" y="24" width="84" height="58" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M56 70 l22 -28 18 20 12 -12 14 20Z" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="150" cy="40" r="9" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="176" cy="58" r="7" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(200 76) scale(0.55)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><circle cx="83" cy="36" r="2.2" fill="#22203a"/><circle cx="93" cy="36" r="2.2" fill="#22203a"/><path d="M84 42 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Studio</span><h3>Frei gestalten</h3>
           <p>Absolut freie Gestaltung. Wie bei OpenCode: du bestimmst.</p>
           <a class="btn" href="apps/studio.html">Öffnen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><g fill="#6fd3ff" font-family="monospace" font-size="14"><text x="18" y="28">&gt; prompt</text><text x="18" y="46" fill="#9a6cff">&gt; agent_</text></g><rect x="120" y="16" width="100" height="34" rx="3" fill="#0e1626" stroke="#24344f"/></svg></div><span class="tag">Studio</span><h3>Alle Prompts</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><rect x="22" y="20" width="196" height="62" rx="8" fill="#16233a" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="36" cy="32" r="3" fill="#e8382f"/><circle cx="47" cy="32" r="3" fill="#f2d000"/><circle cx="58" cy="32" r="3" fill="#3fa04a"/>
+    <path d="M40 50 l8 -5 -8 -5" fill="none" stroke="#6fd3ff" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="54" y="45" width="9" height="2" fill="#6fd3ff"/><rect x="54" y="54" width="48" height="3" fill="#9a6cff"/>
+    <g transform="translate(196 68) scale(0.5)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">Studio</span><h3>Alle Prompts</h3>
           <p>Jeder Prompt mit OpenCode-Werkzeugen. Kopieren, prüfen, speichern.</p>
           <a class="btn" href="apps/prompt-hub.html">Öffnen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><path d="M100 10 h30 l14 14 v32 h-44 Z" fill="#0e1626" stroke="#6fd3ff" stroke-width="1.5"/><path d="M130 10 v14 h14" fill="none" stroke="#6fd3ff" stroke-width="1.5"/><g fill="#9fb3d1"><rect x="108" y="32" width="28" height="2"/><rect x="108" y="38" width="20" height="2"/></g><text x="160" y="42" fill="#e8382f" font-family="monospace" font-size="20">1</text></svg></div><span class="tag">Eine Datei</span><h3>Standalone</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M92 16 h38 l18 18 v52 h-56Z" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M130 16 v18 h18" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M104 48 h32 M104 58 h24" stroke="#9fb3d1" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="114" cy="40" r="2.2" fill="#22203a"/><circle cx="124" cy="40" r="2.2" fill="#22203a"/><path d="M115 46 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(196 74) scale(0.6)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(60 46) scale(0.6)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Eine Datei</span><h3>Standalone</h3>
           <p>Alles in einer Datei. Läuft offline. Auch auf Windows.</p>
           <a class="btn" href="standalone.html">Öffnen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><rect x="80" y="12" width="80" height="32" rx="2" fill="#0e1626" stroke="#6fd3ff"/><rect x="92" y="48" width="56" height="6" fill="#9a6cff"/><path d="M104 44 h32" stroke="#9a6cff" stroke-width="2"/><path d="M92 22 q28 -8 56 0" fill="none" stroke="#6fd3ff" stroke-width="1"/></svg></div><span class="tag">Kurs</span><h3>Computer Chronik</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><rect x="58" y="18" width="124" height="56" rx="6" fill="#c9b83c" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="68" y="26" width="104" height="36" rx="3" fill="#16233a" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M84 40 q24 -10 48 0" fill="none" stroke="#6fd3ff" stroke-width="2"/>
+    <circle cx="115" cy="44" r="2.2" fill="#22203a"/><circle cx="125" cy="44" r="2.2" fill="#22203a"/><path d="M116 50 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="96" y="78" width="48" height="7" rx="3" fill="#eee8bc" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(208 70) scale(0.5)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">Kurs</span><h3>Computer Chronik</h3>
           <p>Von Zuse bis KI. Mit C64 und Amiga zum Ausprobieren.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/products/computer-history">Zum Quelltext</a></div>
       </div>
@@ -235,40 +377,187 @@ body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
     <div class="inner">
       <h2 id="lernen">Lektionen</h2>
       <div class="cards">
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><g fill="#6fd3ff"><rect x="96" y="14" width="22" height="22"/><rect x="122" y="14" width="22" height="22" opacity=".7"/><rect x="96" y="40" width="22" height="22" opacity=".7"/><rect x="122" y="40" width="22" height="22" opacity=".4"/></g></svg></div><span class="tag">Zeittafel</span><h3>Microsoft</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><g stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="92" y="24" width="24" height="24" fill="#6fd3ff"/><rect x="122" y="24" width="24" height="24" fill="#9a6cff"/>
+    <rect x="92" y="54" width="24" height="24" fill="#f2d000"/><rect x="122" y="54" width="24" height="24" fill="#e8382f"/></g>
+    <circle cx="99" cy="36" r="2.2" fill="#22203a"/><circle cx="109" cy="36" r="2.2" fill="#22203a"/><path d="M100 42 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="129" cy="66" r="2.2" fill="#22203a"/><circle cx="139" cy="66" r="2.2" fill="#22203a"/><path d="M130 72 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(44 70) scale(0.6)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g transform="translate(196 70) scale(0.6)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">Zeittafel</span><h3>Microsoft</h3>
           <p>Von BASIC über Windows bis Cloud und KI. 14 Jahre zum Anklicken.</p>
           <a class="btn" href="apps/microsoft-history.html">Ansehen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><g stroke="#6fd3ff" fill="none" stroke-width="1.5"><circle cx="60" cy="33" r="10"/><circle cx="120" cy="20" r="8"/><circle cx="180" cy="33" r="10"/><circle cx="120" cy="48" r="8"/><path d="M68 30 L112 22 M128 22 L172 30 M172 38 L128 46 M112 46 L68 38"/></g><g fill="#e8382f"><circle cx="60" cy="33" r="3"/><circle cx="180" cy="33" r="3"/></g></svg></div><span class="tag">Geschichte</span><h3>BOINC</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><g stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="34" y="36" width="34" height="28" rx="4" fill="#6fd3ff"/><rect x="103" y="20" width="34" height="28" rx="4" fill="#9a6cff"/>
+    <rect x="172" y="36" width="34" height="28" rx="4" fill="#f2d000"/></g>
+    <path d="M68 50 Q85 34 103 34 M137 34 Q155 34 172 50" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="46" cy="50" r="2.2" fill="#22203a"/><circle cx="56" cy="50" r="2.2" fill="#22203a"/><path d="M47 56 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="115" cy="34" r="2.2" fill="#22203a"/><circle cx="125" cy="34" r="2.2" fill="#22203a"/><path d="M116 40 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="184" cy="50" r="2.2" fill="#22203a"/><circle cx="194" cy="50" r="2.2" fill="#22203a"/><path d="M185 56 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(120 84) scale(0.5)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(120 64) scale(0.4)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Geschichte</span><h3>BOINC</h3>
           <p>Viele Rechner helfen der Forschung. So hat es begonnen.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/computer-history.md">Lesen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><path d="M90 20 L70 33 L90 46 M150 20 L170 33 L150 46 M132 14 L108 52" fill="none" stroke="#6fd3ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Kurs</span><h3>Code lernen</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M92 34 L68 50 L92 66 M148 34 L172 50 L148 66 M134 26 L106 74" fill="none" stroke="#6fd3ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(198 70) scale(0.6)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(52 50) scale(0.5)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Kurs</span><h3>Code lernen</h3>
           <p>18 Lektionen. Von der ersten Zeile bis AROS.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/learn/coding-course">Zum Kurs</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><circle cx="100" cy="26" r="10" fill="#f2d000"/><path d="M84 52 q16 -20 32 0Z" fill="#6fd3ff"/><circle cx="150" cy="30" r="12" fill="#e8382f"/><path d="M132 54 q18 -22 36 0Z" fill="#9a6cff"/><text x="180" y="42" fill="#9fb3d1" font-size="18">★</text></svg></div><span class="tag">Für Kids</span><h3>Crash Course</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><circle cx="86" cy="40" r="12" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="81" cy="40" r="2.2" fill="#22203a"/><circle cx="91" cy="40" r="2.2" fill="#22203a"/><path d="M82 46 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M70 78 q16 -24 32 0Z" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="154" cy="44" r="13" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="149" cy="44" r="2.2" fill="#22203a"/><circle cx="159" cy="44" r="2.2" fill="#22203a"/><path d="M150 50 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M136 82 q18 -26 36 0Z" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(120 88) scale(0.4)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(206 36) scale(0.5)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Für Kids</span><h3>Crash Course</h3>
           <p>Sechs kurze Lektionen. Mach deinen ersten Ball.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/learn/crash-course-kids">Los geht's</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><rect x="70" y="20" width="100" height="34" rx="3" fill="#c9b83c" stroke="#fffbe0"/><g fill="#4a4a3c"><rect x="78" y="28" width="8" height="4"/><rect x="90" y="28" width="8" height="4"/><rect x="102" y="28" width="8" height="4"/><rect x="114" y="28" width="8" height="4"/><rect x="78" y="38" width="8" height="4"/><rect x="90" y="38" width="8" height="4"/><rect x="102" y="38" width="8" height="4"/></g><rect x="128" y="38" width="30" height="4" fill="#eee8bc"/></svg></div><span class="tag">Nur Commodore</span><h3>Commodore Kurs</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><rect x="58" y="26" width="124" height="50" rx="5" fill="#c9b83c" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="66" y="32" width="108" height="28" rx="2" fill="#4a4a3c" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#c9b83c"><rect x="70" y="62" width="7" height="7" rx="1"/><rect x="80" y="62" width="7" height="7" rx="1"/><rect x="90" y="62" width="7" height="7" rx="1"/><rect x="100" y="62" width="7" height="7" rx="1"/><rect x="110" y="62" width="7" height="7" rx="1"/><rect x="120" y="62" width="7" height="7" rx="1"/><rect x="130" y="62" width="7" height="7" rx="1"/><rect x="140" y="62" width="7" height="7" rx="1"/><rect x="150" y="62" width="7" height="7" rx="1"/><rect x="160" y="62" width="7" height="7" rx="1"/></g>
+    <path d="M100 44 q20 -8 40 0" fill="none" stroke="#6fd3ff" stroke-width="2"/><circle cx="115" cy="44" r="2.2" fill="#22203a"/><circle cx="125" cy="44" r="2.2" fill="#22203a"/><path d="M116 50 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(210 72) scale(0.5)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">Nur Commodore</span><h3>Commodore Kurs</h3>
           <p>Sieben Lektionen. C64, VIC-20, PET, C128 und Amiga.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/learn/crash-course-commodore">Los geht's</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><path d="M120 16 q-30 -10 -60 0 v34 q30 -10 60 0 q30 -10 60 0 v-34 q-30 -10 -60 0Z" fill="#0e1626" stroke="#6fd3ff" stroke-width="1.5"/><path d="M120 16 v34" stroke="#9a6cff" stroke-width="1.5"/><g fill="#9fb3d1"><rect x="70" y="26" width="40" height="2"/><rect x="70" y="32" width="30" height="2"/><rect x="132" y="26" width="40" height="2"/><rect x="132" y="32" width="34" height="2"/></g></svg></div><span class="tag">Start</span><h3>Ohne Wissen</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M120 26 q-30 -10 -62 0 v50 q32 -10 62 0 q30 -10 62 0 v-50 q-32 -10 -62 0Z" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M120 26 v50" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M70 42 h38 M70 52 h30 M132 42 h38 M132 52 h32" stroke="#9fb3d1" stroke-width="2.5"/>
+    <circle cx="95" cy="36" r="2.2" fill="#22203a"/><circle cx="105" cy="36" r="2.2" fill="#22203a"/><path d="M96 42 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="145" cy="36" r="2.2" fill="#22203a"/><circle cx="155" cy="36" r="2.2" fill="#22203a"/><path d="M146 42 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(120 88) scale(0.45)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">Start</span><h3>Ohne Wissen</h3>
           <p>Vier kurze Lektionen. Für Erwachsene ohne Vorkenntnisse.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/learn/start-here">Zu den Lektionen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><path d="M120 16 q-30 -10 -60 0 v34 q30 -10 60 0 q30 -10 60 0 v-34 q-30 -10 -60 0Z" fill="#0e1626" stroke="#6fd3ff" stroke-width="1.5"/><path d="M120 16 v34" stroke="#9a6cff" stroke-width="1.5"/><g fill="#9fb3d1"><rect x="70" y="26" width="40" height="2"/><rect x="70" y="32" width="30" height="2"/><rect x="132" y="26" width="40" height="2"/><rect x="132" y="32" width="34" height="2"/></g></svg></div><span class="tag">Sinn</span><h3>Kontext</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M120 26 q-30 -10 -62 0 v50 q32 -10 62 0 q30 -10 62 0 v-50 q-32 -10 -62 0Z" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M120 26 v50" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M70 42 h38 M70 52 h30 M132 42 h38 M132 52 h32" stroke="#9fb3d1" stroke-width="2.5"/>
+    <circle cx="95" cy="36" r="2.2" fill="#22203a"/><circle cx="105" cy="36" r="2.2" fill="#22203a"/><path d="M96 42 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="145" cy="36" r="2.2" fill="#22203a"/><circle cx="155" cy="36" r="2.2" fill="#22203a"/><path d="M146 42 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(120 88) scale(0.45)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">Sinn</span><h3>Kontext</h3>
           <p>Worte bekommen Sinn durch die Lage. Auch bei KI.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/kontext.md">Lesen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><circle cx="120" cy="33" r="20" fill="none" stroke="#6fd3ff" stroke-width="1.5"/><path d="M100 33 h40 M120 13 v40 M104 22 q16 8 32 0 M104 44 q16 -8 32 0" fill="none" stroke="#9a6cff" stroke-width="1"/></svg></div><span class="tag">Web</span><h3>Ein Programm im Web</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><circle cx="120" cy="50" r="28" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M92 50 h56 M120 22 v56 M100 32 q20 12 40 0 M100 68 q20 -12 40 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="115" cy="42" r="2.2" fill="#22203a"/><circle cx="125" cy="42" r="2.2" fill="#22203a"/><path d="M116 48 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(40 74) scale(0.55)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g transform="translate(200 74) scale(0.55)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">Web</span><h3>Ein Programm im Web</h3>
           <p>Gästebuch und Suno. Einfach erklärt, ohne Fachwörter.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/cgi.md">Lesen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><circle cx="100" cy="26" r="12" fill="#e8382f"/><rect x="130" y="16" width="24" height="24" fill="#6fd3ff"/><path d="M170 44 L190 16 L210 44Z" fill="#9a6cff"/><rect x="76" y="44" width="40" height="4" fill="#f2d000"/></svg></div><span class="tag">Form</span><h3>Kunst und Design</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><rect x="60" y="22" width="80" height="58" rx="3" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="86" cy="42" r="9" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M100 64 l16 -22 14 22Z" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(180 66) scale(0.75)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(206 34) scale(0.5)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="34" r="5" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Form</span><h3>Kunst und Design</h3>
           <p>Farbe, Schrift, Anordnung. Zehn Regeln in kurzen Sätzen.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/art-design.md">Lesen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><g fill="none" stroke="#6fd3ff" stroke-width="2"><path d="M10 33 q15 -22 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0"/></g><g fill="#9a6cff"><rect x="20" y="44" width="6" height="14"/><rect x="60" y="38" width="6" height="20"/><rect x="100" y="48" width="6" height="10"/><rect x="140" y="34" width="6" height="24"/><rect x="180" y="42" width="6" height="16"/></g></svg></div><span class="tag">Klang</span><h3>Musik</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><g fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 42 v26 a8 8 0 1 1 -6 -8 V46 l24 -6 v22 a8 8 0 1 1 -6 -8 V36Z"/></g>
+    <circle cx="40" cy="52" r="2.2" fill="#22203a"/><circle cx="50" cy="52" r="2.2" fill="#22203a"/><path d="M41 58 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M150 34 v30 a8 8 0 1 1 -6 -8 V38 l26 -6 v24 a8 8 0 1 1 -6 -8 V28Z"/></g>
+    <circle cx="150" cy="46" r="2.2" fill="#22203a"/><circle cx="160" cy="46" r="2.2" fill="#22203a"/><path d="M151 52 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(105 80) scale(0.6)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(210 60) scale(0.5)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Klang</span><h3>Musik</h3>
           <p>Takt, Melodie und Klangfarbe. Einfach erklärt.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/musik.md">Lesen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><path d="M120 50 C90 34 84 18 100 14 C110 12 118 20 120 24 C122 20 130 12 140 14 C156 18 150 34 120 50Z" fill="#e8382f"/><path d="M104 32 h32 M120 26 v12" stroke="#f5f0e6" stroke-width="2"/></svg></div><span class="tag">Prüfen</span><h3>Gesundheit</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M120 74 C80 50 74 26 98 22 C112 20 120 30 120 36 C120 30 128 20 142 22 C166 26 160 50 120 74Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="115" cy="40" r="2.2" fill="#22203a"/><circle cx="125" cy="40" r="2.2" fill="#22203a"/><path d="M116 46 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M110 52 q10 8 20 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(200 72) scale(0.6)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(46 42) scale(0.6)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#3fa04a" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Prüfen</span><h3>Gesundheit</h3>
           <p>Wie prüfe ich einen Text über Medikamente? Sieben Schritte.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/gesundheit-pruefen.md">Lesen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><path d="M120 16 q-30 -10 -60 0 v34 q30 -10 60 0 q30 -10 60 0 v-34 q-30 -10 -60 0Z" fill="#0e1626" stroke="#6fd3ff" stroke-width="1.5"/><path d="M120 16 v34" stroke="#9a6cff" stroke-width="1.5"/><g fill="#9fb3d1"><rect x="70" y="26" width="40" height="2"/><rect x="70" y="32" width="30" height="2"/><rect x="132" y="26" width="40" height="2"/><rect x="132" y="32" width="34" height="2"/></g></svg></div><span class="tag">中文</span><h3>Chinesisch</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M120 26 q-30 -10 -62 0 v50 q32 -10 62 0 q30 -10 62 0 v-50 q-32 -10 -62 0Z" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M120 26 v50" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M70 42 h38 M70 52 h30 M132 42 h38 M132 52 h32" stroke="#9fb3d1" stroke-width="2.5"/>
+    <circle cx="95" cy="36" r="2.2" fill="#22203a"/><circle cx="105" cy="36" r="2.2" fill="#22203a"/><path d="M96 42 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="145" cy="36" r="2.2" fill="#22203a"/><circle cx="155" cy="36" r="2.2" fill="#22203a"/><path d="M146 42 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(120 88) scale(0.45)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">中文</span><h3>Chinesisch</h3>
           <p>Computergeschichte und Übungen. In einfachem Chinesisch.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/china-computer-history.md">Lesen</a></div>
       </div>
@@ -280,13 +569,49 @@ body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
     <div class="inner">
       <h2 id="amiga">MorphOS und AmigaOS 4.1</h2>
       <div class="cards">
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><rect x="64" y="18" width="112" height="36" rx="2" fill="#d8d8d8" stroke="#fff"/><rect x="64" y="18" width="112" height="8" fill="#2a4a8a"/><g fill="#6fd3ff"><rect x="74" y="32" width="14" height="14"/><rect x="94" y="32" width="14" height="14"/></g><rect x="116" y="32" width="50" height="14" fill="#0e1626"/></svg></div><span class="tag">MorphOS 3.21</span><h3>Der eine Weg</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><rect x="56" y="24" width="128" height="52" rx="4" fill="#d8d8d8" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="56" y="24" width="128" height="10" fill="#2a4a8a"/>
+    <rect x="66" y="42" width="20" height="20" rx="2" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="92" y="42" width="20" height="20" rx="2" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="122" y="42" width="50" height="20" rx="2" fill="#16233a" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="71" cy="52" r="2.2" fill="#22203a"/><circle cx="81" cy="52" r="2.2" fill="#22203a"/><path d="M72 58 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(206 74) scale(0.55)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">MorphOS 3.21</span><h3>Der eine Weg</h3>
           <p>Amiga-ähnlich auf PowerPC. Der Desktop heißt Ambient. Neu im November 2026.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/coding-course/20-morphos-os4.md">Lesen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><rect x="64" y="18" width="112" height="36" rx="2" fill="#d8d8d8" stroke="#fff"/><rect x="64" y="18" width="112" height="8" fill="#2a4a8a"/><g fill="#6fd3ff"><rect x="74" y="32" width="14" height="14"/><rect x="94" y="32" width="14" height="14"/></g><rect x="116" y="32" width="50" height="14" fill="#0e1626"/></svg></div><span class="tag">OS 4.1 FE Update 3</span><h3>Der andere Weg</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><rect x="56" y="24" width="128" height="52" rx="4" fill="#d8d8d8" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="56" y="24" width="128" height="10" fill="#2a4a8a"/>
+    <rect x="66" y="42" width="20" height="20" rx="2" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="92" y="42" width="20" height="20" rx="2" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="122" y="42" width="50" height="20" rx="2" fill="#16233a" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="71" cy="52" r="2.2" fill="#22203a"/><circle cx="81" cy="52" r="2.2" fill="#22203a"/><path d="M72 58 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(206 74) scale(0.55)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">OS 4.1 FE Update 3</span><h3>Der andere Weg</h3>
           <p>Von Hyperion. Workbench mit blauen Titelleisten. Update von Oktober 2025.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/coding-course/19-os4-design.md">Lesen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><rect x="80" y="12" width="80" height="32" rx="2" fill="#0e1626" stroke="#6fd3ff"/><rect x="92" y="48" width="56" height="6" fill="#9a6cff"/><path d="M104 44 h32" stroke="#9a6cff" stroke-width="2"/><path d="M92 22 q28 -8 56 0" fill="none" stroke="#6fd3ff" stroke-width="1"/></svg></div><span class="tag">Interne App</span><h3>AROS One im RAM</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><rect x="58" y="18" width="124" height="56" rx="6" fill="#c9b83c" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="68" y="26" width="104" height="36" rx="3" fill="#16233a" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M84 40 q24 -10 48 0" fill="none" stroke="#6fd3ff" stroke-width="2"/>
+    <circle cx="115" cy="44" r="2.2" fill="#22203a"/><circle cx="125" cy="44" r="2.2" fill="#22203a"/><path d="M116 50 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="96" y="78" width="48" height="7" rx="3" fill="#eee8bc" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(208 70) scale(0.5)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g></svg></div><span class="tag">Interne App</span><h3>AROS One im RAM</h3>
           <p>RAM-Boot als Nachbildung. Nichts wird auf die Platte geschrieben.</p>
           <a class="btn" href="apps/aros-one-ram.html">Starten</a></div>
       </div>
@@ -306,16 +631,55 @@ body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
     <div class="inner">
       <h2 id="mitmachen">Jeder kann helfen</h2>
       <div class="cards">
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><circle cx="120" cy="33" r="18" fill="none" stroke="#6fd3ff" stroke-width="2"/><text x="112" y="41" fill="#6fd3ff" font-family="monospace" font-size="22">?</text></svg></div><span class="tag">Fehler</span><h3>Melden</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M96 16 q22 -10 44 0 v18 q-22 -8 -44 0Z" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="112" y="32" font-family="sans-serif" font-size="16" font-weight="bold" fill="#22203a">?</text>
+    <g transform="translate(120 74) scale(0.85)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path d="M150 60 q10 -14 20 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Fehler</span><h3>Melden</h3>
           <p>Du hast etwas gesehen? Schreib ein Issue.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/issues/new/choose">Issue öffnen</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><circle cx="120" cy="33" r="18" fill="none" stroke="#6fd3ff" stroke-width="2"/><text x="112" y="41" fill="#6fd3ff" font-family="monospace" font-size="22">?</text></svg></div><span class="tag">Text</span><h3>Verbessern</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M96 16 q22 -10 44 0 v18 q-22 -8 -44 0Z" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="112" y="32" font-family="sans-serif" font-size="16" font-weight="bold" fill="#22203a">?</text>
+    <g transform="translate(120 74) scale(0.85)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path d="M150 60 q10 -14 20 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Text</span><h3>Verbessern</h3>
           <p>Kürzere Sätze. Einfachere Wörter. Jede Zeile hilft.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/CONTRIBUTING.md">So geht es</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><circle cx="120" cy="33" r="18" fill="none" stroke="#6fd3ff" stroke-width="2"/><text x="112" y="41" fill="#6fd3ff" font-family="monospace" font-size="22">?</text></svg></div><span class="tag">Sprache</span><h3>Übersetzen</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M96 16 q22 -10 44 0 v18 q-22 -8 -44 0Z" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="112" y="32" font-family="sans-serif" font-size="16" font-weight="bold" fill="#22203a">?</text>
+    <g transform="translate(120 74) scale(0.85)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path d="M150 60 q10 -14 20 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Sprache</span><h3>Übersetzen</h3>
           <p>De, en, es, fr, pt, it — oder eine neue Sprache.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/issues/new?template=uebersetzung.md">Text schicken</a></div>
-        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 66" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="66" fill="#16233a"/><path d="M90 20 L70 33 L90 46 M150 20 L170 33 L150 46 M132 14 L108 52" fill="none" stroke="#6fd3ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Code</span><h3>Bauen</h3>
+        <div class="card"><div class="illu" aria-hidden="true"><svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg"><rect width="240" height="100" fill="#fdf6e3"/><circle cx="30" cy="22" r="3" fill="#f2d000"/><circle cx="210" cy="30" r="2" fill="#9a6cff" opacity=".6"/><circle cx="185" cy="16" r="2" fill="#6fd3ff"/><path d="M92 34 L68 50 L92 66 M148 34 L172 50 L148 66 M134 26 L106 74" fill="none" stroke="#6fd3ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(198 70) scale(0.6)">
+  <path d="M0 -26 v-9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="0" cy="-37" r="4" fill="#f2d000" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-15" y="-26" width="30" height="26" rx="7" fill="#6fd3ff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="-21" width="22" height="11" rx="4" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="-5" cy="-16" r="2.2" fill="#22203a"/><circle cx="5" cy="-16" r="2.2" fill="#22203a"/><path d="M-4 -10 q4 4 8 0" fill="none" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="-11" y="6" width="22" height="16" rx="5" fill="#9a6cff" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M-11 12 h-9 M11 12 h9" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="-20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="12" r="3.5" fill="#f5f0e6" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g><path transform="translate(52 50) scale(0.5)" d="M0 6 C-10 -2 -12 -10 -5 -12 C-1 -13 0 -9 0 -7 C0 -9 1 -13 5 -12 C12 -10 10 -2 0 6Z" fill="#e8382f" stroke="#22203a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tag">Code</span><h3>Bauen</h3>
           <p>Demo, Bild, KolibriOS-Programm oder Prüfung.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read">Repository</a></div>
       </div>
