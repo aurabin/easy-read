@@ -46,6 +46,11 @@ The pun is German. All six languages are in [`../joke.md`](../joke.md).
 6. [Piracy and open software](amiga/06-piracy-and-open.md)
 7. [Die Poesie des Amiga-Teams](amiga/07-die-poesie.md)
 
+## Assembler-Versionen
+
+[`assembly/`](assembly/README.md) — echte 6502- und 68000-Quellen für
+C64 und Amiga, als Hommage an die Original-Boing-Demos.
+
 ## Design background
 
 [`design-history.md`](design-history.md) — what retro scene art teaches us about
