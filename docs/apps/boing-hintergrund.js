@@ -17,7 +17,7 @@ function create(canvas){
   var LW=320, LH=200, FLOOR=168, R=22;
   var ball={ay:0.35, ax:0.2, squash:0, bx:160, by:FLOOR-R, vx:1.7, vy:-7.5};
   var t=0, cap=0, raf=null, scaleX=1, scaleY=1;
-  var sound=false, audio=null, boingPending=false;
+  var sound=true, audio=null, boingPending=false;
   var trail=[];   // Partikel-Schwanz
   var burst=[];    // Partikel-Burst bei Aufprall
   var capTimer=null;
@@ -179,7 +179,7 @@ function create(canvas){
     }
   });
 
-  // Ton-Toggle per Tastatur (S)
+  // Ton-Toggle per Tastatur (S) — Default: an
   window.addEventListener("keydown",function(e){
     if(e.key==="s"||e.key==="S"){sound=!sound;}
   });
