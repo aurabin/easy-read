@@ -57,13 +57,16 @@ check("Easy Read 100/100", low.length===0, low.length?low.join(", "):`${lessons.
 
 // 7. Artefakte vorhanden
 const must = ["outreach/media/ALL-IN-ONE.html","outreach/media/All-In-One.PNG",
-  "site/index.html","tools/paula-ml.js","AGENTS.md"];
+  "outreach/media/standalone.html","site/index.html","tools/paula-ml.js","AGENTS.md"];
 const missing = must.filter(p=>!existsSync(p));
 check("Kern-Artefakte", missing.length===0, missing.join(", ")||`${must.length} Dateien`);
 
 // 8. Doppelte HTML-Artefakte erkennen
+const singles = ["ALL-IN-ONE.html","All-In-One.PNG","standalone.html"];
 const media = readdirSync("outreach/media").filter(f=>/^(all|standalone)/i.test(f));
-check("keine Media-Duplikate", media.length===2, media.join(", ")||"keine");
+check("keine Media-Duplikate",
+  media.length===singles.length && media.every(f=>singles.includes(f)),
+  media.join(", ")||"keine");
 
 console.log(out.join("\n"));
 console.log(fails===0 ? "\nSELF-ENGINEERING OK" : `\nSELF-ENGINEERING: ${fails} Problem(e)`);
