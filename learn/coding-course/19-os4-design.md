@@ -59,4 +59,6 @@ Ich habe OS 4.1 nicht selbst benutzt.
 Die Fakten stehen auf Wikipedia und amigaos.net.
 
 ---
+Weiter: [MorphOS und AmigaOS 4.1](20-morphos-os4.md).
+
 Lizenz dieses Kurses: AGPL-3.0 — siehe [LICENSE.md](LICENSE.md).
