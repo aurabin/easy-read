@@ -116,7 +116,7 @@ Die Demo nutzt ein Raster.
 
 ## Ehrlich
 
-Das ist eine Zusammenfassung.
+Das ist ein kurzer Überblick.
 Ich habe nicht selbst gezeichnet wie ein Künstler.
 Ich habe Regeln gelernt und aufgeschrieben.
 Die Quellen stehen unten.
@@ -124,14 +124,13 @@ Die Quellen stehen unten.
 ## Quellen
 
 ```text
-nngroup.org (Principles of Visual Design)
-interaction-design.org (Color Theory)
-figma.com (Typography)
-thegraphicdesignschool.com (Swiss Style)
-printmag.com (Swiss Style)
+nngroup.org (Design-Regeln)
+Farbkreis (einfach erklärt)
+figma.com (Schrift)
+printmag.com (Schweizer Stil)
 ```
 
 ## Weiterlesen
 
 - `retro/design-history.md` — Design aus der Retro-Scene.
-- `computer-history.md` — die ganze Chronik.
+- Die Chronik im Ordner — von Zuse bis KI.

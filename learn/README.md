@@ -25,6 +25,8 @@ Three ways to use this folder.
 | --- | --- | --- |
 | Start here (0+) | 4 | [`start-here/01-what-is-a-computer.md`](start-here/01-what-is-a-computer.md) |
 | Die Geschichte der Computer | 1 | [`computer-history.md`](computer-history.md) |
+| Kontext verstehen | 1 | [`kontext.md`](kontext.md) |
+| Kunst und Design | 1 | [`art-design.md`](art-design.md) |
 | Haiku OS (Verbindung zur Retro-Scene) | 1 | [`haiku.md`](haiku.md) |
 | Der erste Mikrochip (illustriert) | 3 | [`chips/README.md`](chips/README.md) |
 | AI Coding Course (kids and adults) | 6 | [`ai/README.md`](ai/README.md) |
