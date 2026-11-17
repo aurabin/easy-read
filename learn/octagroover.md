@@ -42,6 +42,13 @@ Das Modul kann man speichern.
 Der Loader liegt neben dem Bild.
 Er heißt `field-loader.html`.
 
+Es gibt auch eine Datei namens `standalone.html`.
+Sie ist ein Bild und eine Seite in einer Datei.
+Sie zeigt das Feld und startet die Demo.
+Sie spielt Ton ab.
+Der Ton ist meine Deutung des Moduls.
+Er ist nicht der originale Sound.
+
 Der Ton ist aus.
 Das Video hat keine Tonspur.
 Wir konnten das `.ml`-Modul hier nicht abspielen.
