@@ -110,12 +110,15 @@ const MLPaula = (() => {
     const pitches=[3591];
     for(let i=1;i<61;i++) pitches[i]=3591/Math.pow(2,(i-1)/12);
 
+    let lp=0;
+    const a1=Math.exp(-2*Math.PI*2600/sampleRate);
     for(let i=0;i<out.length;i++){
       if(i>=nextTick){
         for(const v of voices){
           if(!v.list) continue;
           v.spdCnt--; if(v.spdCnt>0) continue;
           v.spdCnt=v.spd;
+          v.life=0;
           const w=(v.list[2*v.pos]<<8)|(v.list[2*v.pos+1]);
           const partNum=(w>>8)|((w<<2)&0x300), trans=(w&31)-16;
           let check=0;
@@ -136,7 +139,7 @@ const MLPaula = (() => {
                 v.vol=ib? ((ib[58]<<8|ib[59])/64) || 0.6 : 0.6;
                 const sn=ib? ib[32] : 1;
                 v.samp=m.samples[sn-1]||m.samples[0]||null;
-                v.phase=0; v.active=1;
+                v.phase=0; v.active=1; v.env=0; v.life=tickLen*v.spd;
               }
             }
             break;
@@ -146,17 +149,19 @@ const MLPaula = (() => {
       }
       let mix=0;
       for(const v of voices){
-        if(!v.active||!v.samp) continue;
+        if(!v.active||!v.samp||v.life<=0) continue;
+        v.life--;
+        v.env = Math.min(1, v.env + 0.02);
         const rate=freq(v.period,v.note);
         v.phase += rate/sampleRate;
         if(v.phase>=1) v.phase-=1;
         const idx=Math.floor(v.phase*v.samp.length)%v.samp.length;
         let s=v.samp[idx]; if(s>=128)s-=256;
-        mix += (s/128)*v.vol*0.22;
-        v.active*=0.99992;
+        mix += (s/128)*v.vol*v.env*0.22;
       }
-      mix=Math.max(-1,Math.min(1,mix));
-      out[i]=Math.round(mix*32767);
+      lp += a1*(mix-lp);
+      const filtered=lp*0.9;
+      out[i]=Math.round(Math.max(-1,Math.min(1,filtered))*32767);
     }
     return out;
   }

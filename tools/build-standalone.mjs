@@ -74,7 +74,11 @@ document.getElementById("play").addEventListener("click",()=>{
   const bin=atob(modB64),bytes=new Uint8Array(bin.length);
   for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
   const pcm=MLPaula.render(bytes,22050,19);
-  const ctx=new AudioContext(),buf=ctx.createBuffer(1,pcm.length,22050),f32=buf.getChannelData(0);
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC){alert('Dieser Browser hat keine Web-Audio-Ausgabe.');return;}
+  const ctx=new AC();
+  if(ctx.state==='suspended')ctx.resume();
+  const buf=ctx.createBuffer(1,pcm.length,22050),f32=buf.getChannelData(0);
   for(let i=0;i<pcm.length;i++)f32[i]=pcm[i]/32768;
   const src=ctx.createBufferSource();src.buffer=buf;src.connect(ctx.destination);
   src.start();playing=src;
