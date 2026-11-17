@@ -36,14 +36,12 @@ Es ist 1920 mal 1080 Pixel groß.
 PNG speichert Bilder ohne Verlust.
 PNG kann aber keinen Ton speichern.
 
-In dem PNG stecken zwei Dateien.
+In dem PNG stecken drei Dateien.
 Die Demo mit dem Boing Ball läuft daraus.
 Das Modul kann man speichern.
-Der Loader liegt neben dem Bild.
-Er heißt `field-loader.html`.
+Der Paula-Code liegt ebenfalls drin.
 
-Es gibt auch eine Datei namens `standalone.html`.
-Sie ist ein Bild und eine Seite in einer Datei.
+Die Seite `ALL-IN-ONE.html` ist die zweite Datei.
 Sie zeigt das Feld und startet die Demo.
 Sie spielt Ton ab.
 Im Browser läuft ein Paula-Emulator.
