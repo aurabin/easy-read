@@ -76,7 +76,7 @@ Es gibt eine Vorlage für Rückmeldungen:
 
 - Die App ist kostenlos. Keine Abos. Keine Werbung im Kurs.
 - Es gibt keinen Spenden-Button mehr.
-- Monetarisierung ist nur als Dokumentation enthalten.
+- Wege, Geld zu verdienen, sind nur beschrieben.
 - Deine Daten bleiben bei dir. Nichts wird verkauft.
 - Du musst nichts unterschreiben.
 
