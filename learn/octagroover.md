@@ -37,7 +37,7 @@ PNG speichert Bilder ohne Verlust.
 PNG kann aber keinen Ton speichern.
 
 In dem PNG stecken zwei Dateien.
-Die Boing-Ball-Demo läuft daraus.
+Die Demo mit dem Boing Ball läuft daraus.
 Das Modul kann man speichern.
 Der Loader liegt neben dem Bild.
 Er heißt `field-loader.html`.
