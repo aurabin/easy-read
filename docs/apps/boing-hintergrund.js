@@ -1,10 +1,10 @@
 /* BOING BALL HINTERGRUND — weiterentwickelt.
  * Die originale Demo (echte Physik) als transparentes Feld VOR dem Inhalt.
- * Neu: Klick auf den Ball → extra Bounce + Partikel-Burst + Ton (Web Audio).
- *     Schwanz aus Partikeln hinter dem Ball, der langsam verblasst.
- *     BOING!-Caption beim Aufprall (wie im deaf-Modus).
- *     Stumm standardmäßig — Ton nur nach Klick auf den Ball.
- *     Ohne Rahmen. Ohne Start-Button. Schließen-Button oben rechts.
+ * Neu: Donner-Sound beim Aufprall, gelegentliche Blitze mit Flash,
+ *     Partikel-Schwanz hinter dem Ball, Partikel-Burst, Klick-Interaktion,
+ *     BOING!-Caption beim Aufprall (deaf-Modus).
+ * Stumm standardmäßig — Ton nur nach Klick auf den Ball oder per S-Taste.
+ * Ohne Rahmen. Ohne Start-Button. Schließen-Button oben rechts.
  * Exakte Werte: FLOOR=168, R=22, g=0.42, bounce=-Math.max(6.8,|vy|*0.9),
  *   squash beim Aufprall, Schatten schrumpft mit der Höhe.
  * Kein WAV, keine ROMs, keine Abhängigkeiten.
@@ -21,6 +21,9 @@ function create(canvas){
   var trail=[];   // Partikel-Schwanz
   var burst=[];    // Partikel-Burst bei Aufprall
   var capTimer=null;
+  // Donner + Blitze
+  var donnerTimer=0, donnerNext=4+Math.random()*6, donnerAktiv=0;
+  var blitzTimer=0, blitzNext=6+Math.random()*8, blitzDauer=0, blitzX=0;
 
   function groesse(){
     var r=canvas.getBoundingClientRect();
@@ -56,6 +59,27 @@ function create(canvas){
     ctx.restore();
   }
 
+  // Donner-Sound: tiefer, längerer Rausch-Ton mit langsamerem Abklang
+  function donnern(c){
+    try{
+      var t2=c.currentTime;
+      var buf=c.createBuffer(1,Math.floor(c.sampleRate*1.2),c.sampleRate);
+      var d=buf.getChannelData(0);
+      for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1);
+      var ns=c.createBufferSource();ns.buffer=buf;
+      var nf=c.createBiquadFilter();nf.type="lowpass";nf.frequency.value=400;
+      var ng=c.createGain();ng.gain.setValueAtTime(.18,t2);
+      ng.gain.exponentialRampToValueAtTime(.001,t2+1.1);
+      ns.connect(nf);nf.connect(ng);ng.connect(c.destination);
+      ns.start(t2);ns.stop(t2+1.2);
+      var o2=c.createOscillator(),g2=c.createGain();
+      o2.type="sine";o2.frequency.setValueAtTime(55,t2);
+      o2.frequency.exponentialRampToValueAtTime(30,t2+1.0);
+      g2.gain.setValueAtTime(.2,t2);g2.gain.exponentialRampToValueAtTime(.001,t2+1.2);
+      o2.connect(g2);g2.connect(c.destination);o2.start(t2);o2.stop(t2+1.3);
+    }catch(e){}
+  }
+
   function boingSound(){
     if(!sound||boingPending)return;
     try{
@@ -79,7 +103,6 @@ function create(canvas){
 
   function showCap(){
     cap=1;
-    // Burst-Partikel beim Aufprall
     var cx=ball.bx, cy=ball.by;
     for(var i=0;i<14;i++){
       var a=Math.random()*6.28, sp=1.5+Math.random()*3;
@@ -93,10 +116,8 @@ function create(canvas){
     ball.bx+=ball.vx;
     if(ball.bx<26){ball.bx=26;ball.vx=Math.abs(ball.vx);}
     if(ball.bx>LW-26){ball.bx=LW-26;ball.vx=-Math.abs(ball.vx);}
-    // Schwanz: Ball-Position merken
     trail.push({x:ball.bx,y:ball.by,life:1});
     if(trail.length>18)trail.shift();
-    // Physik wie Original
     ball.vy+=0.42; ball.by+=ball.vy;
     var hit=0;
     if(ball.by+R>=FLOOR){
@@ -105,14 +126,30 @@ function create(canvas){
     }
     if(hit){ showCap(); boingSound(); }
 
-    // Burst-Partikel aktualisieren
     for(var i=burst.length-1;i>=0;i--){
       var bp=burst[i];
       bp.x+=bp.vx; bp.y+=bp.vy; bp.vy+=0.35; bp.life-=0.035;
       if(bp.life<=0)burst.splice(i,1);
     }
-    // Trail verblasen
     for(var j=0;j<trail.length;j++) trail[j].life-=0.06;
+
+    // Donner-Timer: alle 7-13 Sekunden
+    donnerTimer+=0.016;
+    if(donnerTimer>=donnerNext){
+      donnerTimer=0;donnerNext=7+Math.random()*6;donnerAktiv=0.9;
+      if(sound)donnern(audio);
+    }
+    if(donnerAktiv>0)donnerAktiv-=0.018;
+    if(donnerAktiv<0)donnerAktiv=0;
+
+    // Blitz-Timer: alle 10-20 Sekunden
+    blitzTimer+=0.016;
+    if(blitzTimer>=blitzNext){
+      blitzTimer=0;blitzNext=10+Math.random()*10;blitzDauer=0.15;
+      blitzX=80+Math.random()*(LW-160);
+    }
+    if(blitzDauer>0)blitzDauer-=0.016;
+    if(blitzDauer<0)blitzDauer=0;
 
     ctx.save();ctx.scale(scaleX,scaleY);
     // Hintergrund
@@ -124,7 +161,7 @@ function create(canvas){
     for(var x2=-LW;x2<=LW*2;x2+=40){ctx.beginPath();ctx.moveTo(160,104);ctx.lineTo(x2,LH);ctx.stroke();}
     ctx.globalAlpha=1;
 
-    // Schwanz zeichnen (halbtransparent)
+    // Trail
     for(var ti=0;ti<trail.length;ti++){
       var tr=trail[ti];
       if(tr.life<=0)continue;
@@ -134,7 +171,7 @@ function create(canvas){
     }
     ctx.globalAlpha=1;
 
-    // Burst zeichnen
+    // Burst
     for(var bi=0;bi<burst.length;bi++){
       var bp=burst[bi];
       ctx.globalAlpha=bp.life;
@@ -142,6 +179,32 @@ function create(canvas){
       ctx.beginPath();ctx.arc(bp.x,bp.y,bp.size*bp.life,0,7);ctx.fill();
     }
     ctx.globalAlpha=1;
+
+    // Donner-Flash + Donner-Linie
+    if(donnerAktiv>0){
+      ctx.fillStyle="rgba(255,255,255,"+(donnerAktiv*.35)+")";
+      ctx.fillRect(0,0,LW,LH);
+      ctx.strokeStyle="rgba(200,200,255,"+(donnerAktiv*.7)+")";ctx.lineWidth=2;
+      ctx.beginPath();
+      var lx=40+Math.random()*(LW-80), ly=0;
+      ctx.moveTo(lx,ly);
+      while(ly<LH*.85){lx+=(Math.random()-.5)*30;ly+=15+Math.random()*20;ctx.lineTo(lx,ly);}
+      ctx.stroke();
+    }
+
+    // Blitz-Flash + Blitz-Linie
+    if(blitzDauer>0){
+      ctx.fillStyle="rgba(255,255,255,"+(blitzDauer*2.5)+")";
+      ctx.fillRect(0,0,LW,LH);
+      if(blitzDauer>0.05){
+        ctx.strokeStyle="rgba(255,255,255,"+(blitzDauer*4)+")";ctx.lineWidth=3;
+        ctx.beginPath();
+        var bx=blitzX, by=0;
+        ctx.moveTo(bx,by);
+        while(by<LH*.8){bx+=(Math.random()-.5)*24;by+=12+Math.random()*18;ctx.lineTo(bx,by);}
+        ctx.stroke();
+      }
+    }
 
     // Schatten
     var sq=ball.squash*0.20;
@@ -168,31 +231,23 @@ function create(canvas){
     if(Math.hypot(dx,dy)<=R+6){
       ball.vy=-Math.max(9,Math.abs(ball.vy)*1.3);
       ball.squash=1; showCap();
-      // Klick-Burst
       for(var i=0;i<18;i++){
         var a=Math.random()*6.28, sp=2+Math.random()*3;
         burst.push({x:ball.bx,y:ball.by,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-2,
           life:1, color:Math.random()>.5?"#6fd3ff":"#f5f0e6", size:2.5+Math.random()*2});
       }
-      if(!sound){ sound=true; boingSound(); }
-      else boingSound();
+      if(!audio)audio=new (window.AudioContext||window.webkitAudioContext)();
+      if(audio.state==="suspended")audio.resume();
+      if(sound)boingSound();
     }
   });
 
-  // Ton ist an. Browser brauchen eine Geste, um Audio zu starten.
-  function entsperren(){
-    try{
-      if(!audio)audio=new (window.AudioContext||window.webkitAudioContext)();
-      if(audio.state==="suspended")audio.resume();
-    }catch(e){}
-  }
-  window.addEventListener("click",entsperren,{once:true});
+  // Ton-Toggle per Tastatur (S)
   window.addEventListener("keydown",function(e){
-    entsperren();
+    if(!audio)audio=new (window.AudioContext||window.webkitAudioContext)();
+    if(audio.state==="suspended")audio.resume();
     if(e.key==="s"||e.key==="S"){sound=!sound;}
   });
-  // Klick auf den Ball entsperrt und spielt ab
-  canvas.addEventListener("click",function(){entsperren();});
 
   groesse();window.addEventListener("resize",groesse);frame();
   return {stop:function(){if(raf)cancelAnimationFrame(raf);window.removeEventListener("resize",groesse);}};
