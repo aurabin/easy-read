@@ -74,6 +74,48 @@ Sprechen Sie mit Ihrer Ärztin oder Ihrem Arzt.
 Oder mit der Apotheke.
 Das gilt für Lithium und für alles andere.
 
+## Auch Geschichten über Musik und Computer prüfen
+
+Zwei Behauptungen kamen zu uns.
+
+### „Das Video gibt es nur wegen dem Amiga"
+
+Viele Musikvideos um 1992 nutzten Computer.
+Der Amiga war damals beliebt.
+Für dieses Video finden wir keinen Beleg.
+Die Quellen sagen: Kevin Kerslake drehte es.
+Er schnitt Aufnahmen von Konzerten zusammen.
+Von einem Amiga steht dort nichts.
+Cobain wollte erst einen Trickfilm.
+Den gab er auf. Er war zu aufwendig.
+
+So können wir es sagen:
+Das Video ist ein Schnitt.
+Die Bilder stammen von Konzerten.
+Mehr wissen wir nicht.
+
+### „Jobs sagte: Der Mac wird nie farbig"
+
+Der erste Mac von 1984 war schwarz-weiß.
+Steve Jobs war lange gegen Farbe.
+Das ist gut belegt.
+Ein genaues Zitat finden wir nicht.
+Wir haben es nicht gefunden.
+Dafür fehlt uns der Beleg.
+Später kam der Mac II. Der war farbig.
+
+So können wir es sagen:
+Jobs war lange gegen Farbe.
+Das Zitat ist nicht belegt.
+
+## Warum das wichtig ist
+
+Eine gute Geschichte ist noch kein Beleg.
+Frag immer nach dem Beleg.
+Wenn keiner da ist, sag es ehrlich.
+Wir schreiben dann: „nicht belegt".
+Das ist besser als eine schöne Lüge.
+
 ## Ehrlich
 
 Ich bin kein Arzt.
@@ -97,6 +139,7 @@ PubMed 40770094
 Eyre-Watt 2021 (Trinkwasser)
 PubMed 22746245 (300 µg)
 BVL 2026 (Lithium in Lebensmitteln)
+wikipedia.org (Lithium, Musikvideo, Kevin Kerslake)
 ```
 
 ## Weiterlesen
