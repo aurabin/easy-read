@@ -13,6 +13,14 @@ OpenCode. It only changes how answers are written.
 > See `.opencode/skills/easy-read/references/co-design.md` for how to get
 > feedback, including if you have no contacts yet.
 
+## Online
+
+The live site is at <https://aurabin.github.io/easy-read/>.
+
+It has the demos and short links to the lessons. The files in `docs/` are
+generated from `site/` and `field-generator/`. Run
+`node field-generator/build-docs.mjs` after a change, then push.
+
 ## A joke to start
 
 | Language | The joke |

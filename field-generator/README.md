@@ -37,7 +37,8 @@ JavaScript takes over automatically. The badge shows `WASM` or `JS`.
 
 ## Deployment
 
-`docs/` is a generated copy for GitHub Pages. After every change run:
+`docs/` is a generated copy for GitHub Pages. It also contains the start page
+from `site/index.html`. After every change run:
 
 ```sh
 node field-generator/build-docs.mjs

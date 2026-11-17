@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Einfach lesen. Retro verstehen.</title>
+<meta name="description" content="Ein offenes Lernprojekt mit kurzen Sätzen. Demos, Lektionen und Spiele zum Ausprobieren.">
+<meta property="og:title" content="Einfach lesen. Retro verstehen.">
+<meta property="og:description" content="Kurze Sätze. Klare Schritte. Demos und Lektionen zum Ausprobieren.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://aurabin.github.io/easy-read/og-image.png">
+<meta property="og:url" content="https://aurabin.github.io/easy-read/">
+<style>
+:root{
+  --bg:#070b14; --panel:#0e1626; --ink:#eaf2ff; --muted:#9fb3d1;
+  --line:#24344f; --teal:#0f766e; --teal2:#12877c; --sky:#6fd3ff; --violet:#7a20d0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+a{color:var(--sky)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+.wrap{max-width:980px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(16px,4vw,32px) 56px}
+header{max-width:62ch}
+.eyebrow{
+  margin:0 0 10px; color:var(--sky); font-size:13px;
+  text-transform:uppercase; letter-spacing:.12em;
+}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 14px}
+.lead{font-size:clamp(17px,2.4vw,20px);color:var(--ink);margin:0 0 10px}
+.honest{color:var(--muted);font-size:14px;margin:0}
+section{margin-top:44px}
+h2{font-size:clamp(20px,3vw,26px);margin:0 0 18px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{
+  display:flex;flex-direction:column;gap:10px;
+  padding:22px;background:var(--panel);
+  border:1px solid var(--line);border-radius:14px;
+}
+.tag{
+  align-self:flex-start;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--sky);border:1px solid var(--line);border-radius:99px;padding:2px 10px;
+}
+.card h3{margin:0;font-size:19px}
+.card p{margin:0;color:var(--muted)}
+.btn{
+  display:inline-block;margin-top:auto;text-decoration:none;
+  border:1px solid var(--teal);border-radius:10px;
+  background:var(--teal);color:#fff;padding:10px 16px;text-align:center;
+  transition:transform .15s,border-color .15s;
+}
+.btn:hover{transform:translateY(-2px);border-color:var(--sky)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--sky)}
+.joke{
+  margin-top:44px;padding:20px 22px;background:var(--panel);
+  border:1px solid var(--line);border-left:4px solid var(--violet);border-radius:14px;
+}
+.joke h2{border:0;padding:0;margin:0 0 8px;font-size:20px}
+.joke p{margin:6px 0}
+.joke .small{color:var(--muted);font-size:14px}
+footer{border-top:1px solid var(--line);margin-top:48px;padding-top:20px;color:var(--muted);font-size:14px}
+footer p{margin:6px 0}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .btn{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Ein offenes Lernprojekt</p>
+  <h1>Einfach lesen. Retro verstehen.</h1>
+  <p class="lead">Kurze Sätze. Klare Schritte. Du kannst hier spielen und lernen.</p>
+  <p class="honest">Noch nicht mit echten Nutzern getestet.</p>
+</header>
+
+<main>
+  <section aria-labelledby="demos">
+    <h2 id="demos">Demos</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="tag">Amiga</span>
+        <h3>Boing Ball</h3>
+        <p>Ein karierter Ball springt. Den Ton gibt es dazu. Er läuft auch auf KolibriOS.</p>
+        <a class="btn" href="boing-ball.html">Demo öffnen</a>
+      </article>
+      <article class="card">
+        <span class="tag">Feld</span>
+        <h3>Feldgenerator</h3>
+        <p>Verändere das Feld. Wechsle die Farben. Schau dir Mandelbrot an.</p>
+        <a class="btn" href="field-generator.html">Demo öffnen</a>
+      </article>
+      <article class="card">
+        <span class="tag">Geschichte</span>
+        <h3>Computer Chronik</h3>
+        <p>Von Zuse bis KI. Mit C64 und Amiga zum Ausprobieren.</p>
+        <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/products/computer-history">Zum Quelltext</a>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="lernen">
+    <h2 id="lernen">Lernen</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="tag">Start</span>
+        <h3>Ohne Wissen</h3>
+        <p>Vier kurze Lektionen. Für Erwachsene ohne Vorkenntnisse.</p>
+        <a class="btn ghost" href="https://github.com/aurabin/easy-read/tree/master/learn/start-here">Zu den Lektionen</a>
+      </article>
+      <article class="card">
+        <span class="tag">Sinn</span>
+        <h3>Kontext</h3>
+        <p>Worte bekommen Sinn durch die Lage. Auch bei KI.</p>
+        <a class="btn ghost" href="https://github.com/aurabin/easy-read/blob/master/learn/kontext.md">Lesen</a>
+      </article>
+      <article class="card">
+        <span class="tag">Form</span>
+        <h3>Kunst und Design</h3>
+        <p>Farbe, Schrift, Anordnung. Zehn Regeln in kurzen Sätzen.</p>
+        <a class="btn ghost" href="https://github.com/aurabin/easy-read/blob/master/learn/art-design.md">Lesen</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="joke" aria-labelledby="witz">
+    <h2 id="witz">Ein Witz</h2>
+    <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!“</p>
+    <p class="small">Der Witz ist auf Deutsch. In sechs Sprachen:
+      <a href="https://github.com/aurabin/easy-read/blob/master/learn/joke.md">joke.md</a>.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Kostenlos. Offen. Ohne Anmeldung.</p>
+  <p>Code: MIT. Bilder und Texte: CC0 oder CC BY.</p>
+  <p><a href="share.html">Teilen</a> ·
+     <a href="https://github.com/aurabin/easy-read">Quelltext</a></p>
+</footer>
+
+</div>
+</body>
+</html>
