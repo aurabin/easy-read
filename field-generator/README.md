@@ -35,6 +35,16 @@ computes the angles (trig), WASM does the hot movement and wrap-around.
 It is loaded at startup; if loading fails (for example via `file://`),
 JavaScript takes over automatically. The badge shows `WASM` or `JS`.
 
+## Deployment
+
+`docs/` is a generated copy for GitHub Pages. After every change run:
+
+```sh
+node field-generator/build-docs.mjs
+```
+
+Never edit files in `docs/` directly — they are overwritten.
+
 ## Rebuild the packaged versions
 
 From the project folder:

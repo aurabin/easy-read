@@ -1,0 +1,5 @@
+config.json
+images/*.img
+images/*.part
+__pycache__/
+*.pyc

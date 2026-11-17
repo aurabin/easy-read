@@ -10,6 +10,7 @@
   #start h1{font-size:clamp(20px,4vw,32px);margin:0}
   #start p{color:#9fb3d1;max-width:40ch}
   button{cursor:pointer;font:inherit;border:1px solid #24344f;background:#17253d;color:#eaf2ff;border-radius:9px;padding:9px 16px}
+  .hidden{display:none!important}
   #wrap{height:100%;display:grid;place-content:center;justify-items:center;gap:10px}
   canvas{width:min(96vw,960px);height:auto;image-rendering:pixelated;border:1px solid #24344f;border-radius:6px}
   .bar{display:flex;gap:8px}
@@ -20,7 +21,7 @@
 <div id="start">
   <h1>Boing Ball</h1>
   <p>Die reine Amiga-Demo. 320×200, violettes Gitter, karierte Kugel.</p>
-  <button id="go" type="button">Press Enter to start</button>
+  <button id="go" type="button" autofocus>Press Enter to start</button>
   <small>Offen · selbst gezeichnet · nicht mit echten Nutzern getestet</small>
 </div>
 <div id="wrap" class="hidden">
@@ -104,6 +105,7 @@
   $("#sound").addEventListener("click",()=>{S.sound=!S.sound;const b=$("#sound");b.textContent="Sound: "+(S.sound?"on":"off");b.setAttribute("aria-pressed",String(S.sound));boing();});
   reduce.addEventListener("change",e=>{S.calm=e.matches;if(S.calm)cancelAnimationFrame(S.raf);else if(S.started&&!S.paused)loop();});
   draw();
+  $("#go").focus();
 })();
 </script>
 </body>

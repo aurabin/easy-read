@@ -322,10 +322,35 @@ function retroStep(){
   b.y=F-b.r-b.h;
   b.ay+=b.vx*.016;b.ax+=b.vh*.003;b.squash*=.86;
 }
+// ---- machine-code core (WebAssembly) with JavaScript fallback ----
+let WASM=null;
+async function loadWasm(){
+  try{
+    const res=await fetch("field.wasm"); if(!res.ok)return;
+    const bytes=await res.arrayBuffer();
+    const {instance}=await WebAssembly.instantiate(bytes,{});
+    WASM={ex:instance.exports, m:new Float32Array(instance.exports.mem.buffer)};
+  }catch(e){ WASM=null; }
+}
+function stepWasmParticles(){
+  const n=S.particles.length; if(!n||!WASM)return false;
+  const m=WASM.m, X=0,Y=256,PX=512,PY=768,VX=1024,VY=1280;
+  for(let i=0;i<n;i++){
+    const p=S.particles[i],a=angleAt(p.x,p.y);
+    const s=p.sp*S.strength*S.speed*(S.calm?.35:1)*1.7;
+    m[X+i]=p.x; m[Y+i]=p.y; m[VX+i]=Math.cos(a)*s; m[VY+i]=Math.sin(a)*s;
+  }
+  WASM.ex.advance(n,1,W,H);
+  for(let i=0;i<n;i++){
+    const p=S.particles[i];
+    p.px=m[PX+i]; p.py=m[PY+i]; p.x=m[X+i]; p.y=m[Y+i];
+  }
+  return true;
+}
 function step(){
   S.t+=.016;
   if(S.retro){retroStep();return;}
-  for(const p of S.particles){
+  if(!stepWasmParticles())for(const p of S.particles){
     const a=angleAt(p.x,p.y),s=p.sp*S.strength*S.speed*(S.calm?.35:1);
     p.px=p.x;p.py=p.y;p.x+=Math.cos(a)*s*1.7;p.y+=Math.sin(a)*s*1.7;
     if(p.x<-20){p.x=W+20;p.px=p.x;}if(p.x>W+20){p.x=-20;p.px=p.x;}
@@ -422,7 +447,7 @@ function run(){if(S.raf)cancelAnimationFrame(S.raf);if(S.calm){draw();return;}S.
 function updateLabels(){
   $("#vStrength").textContent=Number(S.strength).toFixed(1);
   $("#vCount").textContent=S.count;$("#vSpeed").textContent=Number(S.speed).toFixed(1);
-  $("#badge").textContent=S.retro?"BOING 1984":(S.palette.toUpperCase()+" · "+S.type.toUpperCase());
+  $("#badge").textContent=S.retro?"BOING 1984":(S.palette.toUpperCase()+" · "+S.type.toUpperCase()+" · "+(WASM?"WASM":"JS"));
 }
 function renderNodes(){
   const box=$("#nodes");box.innerHTML="";
@@ -505,6 +530,7 @@ cv.addEventListener("wheel",e=>{
   MB.scale=Math.max(.0005,Math.min(3,MB.scale*(e.deltaY>0?1.12:.89)));
   mbDirty=true;if(S.calm)draw();
 },{passive:false});
+loadWasm();
 updateLabels();
 if(S.calm){const mb=$("#motionBtn");mb.textContent="More motion";mb.setAttribute("aria-pressed","true");}
 })();
