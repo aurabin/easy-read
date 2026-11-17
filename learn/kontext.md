@@ -31,6 +31,30 @@ Im Witz heißt es: Ich gehe weg.
 Der Witz steht in [`joke.md`](joke.md).
 Die Pointe liegt im Kontext.
 
+## Ein Wort, zwei Welten
+
+Nimm das Wort „Lithium".
+
+In der Medizin ist es ein Medikament.
+Ärzte geben es bei starken Stimmungen.
+Es braucht Kontrolle durch Bluttests.
+
+In der Musik ist es ein Lied.
+Nirvana sang es im Jahr 1991.
+Es steht auf dem Album „Nevermind".
+Kurt Cobain schrieb es.
+
+Der Titel ist ein Witz mit Ernst.
+Er spielt auf das Medikament an.
+Das Lied handelt von einem Mann.
+Er verliert seine Freundin.
+Er sucht Halt in der Religion.
+
+Gleicher Name. Andere Welt.
+Frag immer: Wovon ist die Rede?
+
+Mehr zum Prüfen steht in unserer Lektion dazu.
+
 ## Kontext im Gespräch
 
 Du hörst nur den letzten Satz.
