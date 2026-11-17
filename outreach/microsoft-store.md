@@ -84,7 +84,6 @@ Dieses Projekt entstand mit OpenCode, dem offenen Werkzeug zum Coden.
 - Website: https://opencode.ai/
 - Quelltext: https://github.com/anomalyco/opencode
 - Lizenz: MIT. Open source.
-- Very special thanks to OpenCode AI.
 
 Die App ist kostenlos. Es gibt keine Werbung im Lernkurs.
 OpenCode hat dieses Projekt nicht offiziell unterstützt.
