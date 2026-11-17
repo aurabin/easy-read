@@ -10,7 +10,7 @@ var PRESETS = {
   "Musik wird Bild":   {bg:"#0a1226", colors:["#6fd3ff","#7a20d0","#f5f0e6"], mode:"wave", shape:"note", count:30, speed:1.6, size:7},
   "Musikplayer":       {bg:"#0b1020", colors:["#7a20d0","#6fd3ff"], mode:"pulse", shape:"square", count:28, speed:1.4, size:6},
   "Sound anhören":     {bg:"#07131a", colors:["#0f766e","#6fd3ff"], mode:"wave", shape:"circle", count:32, speed:1.8, size:5},
-  "Feldgenerator":     {bg:"#070b14", colors:["#7a20d0","#6fd3ff","#e8382f"], mode:"flow", shape:"circle", count:40, speed:1.2, size:4},
+  "Feldgenerator":     {bg:"#070b14", colors:["#7a20d0","#6fd3ff","#e8382f"], mode:"phyllo", shape:"circle", count:40, speed:1.2, size:4},
   "Frei gestalten":    {bg:"#101018", colors:["#e8382f","#f2d000","#6fd3ff","#7a20d0","#3fa04a"], mode:"scatter", shape:"diamond", count:34, speed:1.6, size:6},
   "Alle Prompts":      {bg:"#08110a", colors:["#3fa04a","#6fd3ff"], mode:"rain", shape:"text", glyph:">", count:30, speed:2.0, size:11},
   "Standalone":        {bg:"#0d0d16", colors:["#f5f0e6","#9fb3d1"], mode:"orbit", shape:"square", count:18, speed:1.0, size:6},
@@ -22,8 +22,8 @@ var PRESETS = {
   "Commodore Kurs":    {bg:"#171408", colors:["#e8e2d0","#c9b83c","#4a4a3c"], mode:"grid", shape:"square", count:26, speed:0.9, size:7},
   "Ohne Wissen":       {bg:"#0a1020", colors:["#6fd3ff","#f5f0e6"], mode:"pulse", shape:"circle", count:20, speed:0.9, size:6},
   "Kontext":           {bg:"#100a18", colors:["#7a20d0","#f5f0e6","#6fd3ff"], mode:"orbit", shape:"text", glyph:"?", count:22, speed:1.2, size:11},
-  "Ein Programm im Web":{bg:"#08131a", colors:["#6fd3ff","#0f766e"], mode:"globe", shape:"circle", count:34, speed:1.0, size:4},
-  "Kunst und Design":  {bg:"#140c14", colors:["#e8382f","#f2d000","#6fd3ff","#7a20d0","#3fa04a"], mode:"scatter", shape:"diamond", count:32, speed:1.5, size:8},
+  "Ein Programm im Web":{bg:"#08131a", colors:["#6fd3ff","#0f766e"], mode:"maeander", shape:"circle", count:34, speed:1.0, size:4},
+  "Kunst und Design":  {bg:"#140c14", colors:["#e8382f","#f2d000","#6fd3ff","#7a20d0","#3fa04a"], mode:"farn", shape:"diamond", count:32, speed:1.5, size:8},
   "Musik":             {bg:"#120a18", colors:["#7a20d0","#e8382f","#6fd3ff"], mode:"wave", shape:"note", count:28, speed:1.5, size:8},
   "Gesundheit":        {bg:"#1a0a0a", colors:["#e8382f","#3fa04a"], mode:"pulse", shape:"heart", count:22, speed:1.1, size:8},
   "中文":              {bg:"#1a0d0a", colors:["#e8382f","#f2d000"], mode:"rain", shape:"text", glyph:"电", count:26, speed:1.6, size:12},
@@ -148,6 +148,23 @@ function createField(canvas, title){
       } else if(m==="gear"){
         var ga=tick*.01+(i%8)*.785, gr=50+(i%3)*22;
         p.x=cx+Math.cos(ga)*gr;p.y=cy+Math.sin(ga)*gr;p.a=ga;
+      } else if(m==="phyllo"){
+        // Sonnenblume: goldener Winkel 137.5°, Samen in Spiralen
+        var g=(1+Math.sqrt(5))/2, ang=i*2.39996+tick*.002;
+        var rr=Math.sqrt((i+1)/preset.count)*Math.min(W,H)*.38;
+        p.x=cx+Math.cos(ang)*rr;p.y=cy+Math.sin(ang)*rr;
+      } else if(m==="farn"){
+        // L-System: eine Regel, immer wieder — Verzweigung
+        var lvl=0,k=i;
+        while(k>=Math.pow(2,lvl)){k-=Math.pow(2,lvl);lvl++;}
+        var w=-1+(i/preset.count)*2+tick*.002;
+        var len=Math.min(W,H)*.42*Math.pow(.72,lvl);
+        p.x=cx+Math.sin(w)*len;p.y=cy-Math.cos(w)*len;
+      } else if(m==="maeander"){
+        // Fluss: Wasser macht Schleifen
+        var y=i/preset.count*H;
+        p.x=cx+Math.sin(y*.02+tick*.01)*W*.35+Math.sin(y*.05)*18;
+        p.y=y;
       }
       drawShape(ctx,p);
     }

@@ -20,6 +20,7 @@ const files = [
   ["field-generator/jpg-loader.html", "jpg-loader.html"],
   ["site/index.html", "index.html"],
   ["site/store.html", "store.html"],
+  ["site/natur-muster.css", "natur-muster.css"],
   ["outreach/media/standalone.html", "standalone.html"],
   ["outreach/media/AROS-One-RAM.img", "media/AROS-One-RAM.img"],
   ["outreach/media/AROS-One-RAM.qcow2", "media/AROS-One-RAM.qcow2"],

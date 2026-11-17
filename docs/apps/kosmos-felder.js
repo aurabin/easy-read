@@ -159,8 +159,12 @@ function createKosmos(canvas, stufeIndex, eigene, wasWenn){
         if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
       }
       else if(m==="natur"){
-        p.y+=.8;if(p.y>H+10){p.y=-10;p.x=Math.random()*W;}
-        p.x+=Math.sin(tick*.03+p.phase)*.4;
+        // Farn/L-System: Bäume wachsen nach einer Regel
+        var lvl=0,k=i;
+        while(k>=Math.pow(2,lvl)){k-=Math.pow(2,lvl);lvl++;}
+        var w2=-1+(i/34)*2;
+        var len=Math.min(W,H)*.4*Math.pow(.72,lvl);
+        p.x=cx+Math.sin(w2)*len;p.y=cy-Math.cos(w2)*len;
       }
       else if(m==="erde"){
         // Erde rotiert in 24 h; Achse ist um 23,4° geneigt.
@@ -183,10 +187,11 @@ function createKosmos(canvas, stufeIndex, eigene, wasWenn){
       }
       else if(m==="spirale"){
         // Spiralgalaxie: 4 Arme, differentielle Rotation (innen schneller).
+        // Spiralgalaxie: Arme folgen dem goldenen Winkel (Phyllotaxis)
         var arm=i%4;
         var rad=14+(i/ps.length)*Math.min(W,H)*.34;
         var omega=(ww?0.002:0.02)/(1+rad/120); // Was-wenn: Wirbel löst sich auf
-        var winkel=arm*Math.PI/2+tick*omega+rad*0.012;
+        var winkel=i*2.39996+tick*omega+arm*.4;
         p.x=cx+Math.cos(winkel)*rad;
         p.y=cy+Math.sin(winkel)*rad*.6;
       }
