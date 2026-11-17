@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paula Sound — hörbar im Browser</title>
+<style>
+:root{--desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+ --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a;
+ --r:#e8382f;--o:#f08c00;--y:#f2d000;--g:#3fa04a;--b:#2f60b0;--p:#7a3fa0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:14px/1.5 Arial,sans-serif}
+body[data-theme="win31"]{--desk:#008080;--win:#c0c0c0;--title:#000080;--text:#000;
+ --muted:#000;--blue:#000080;--light:#fff;--dark:#808080;font-family:"MS Sans Serif",Tahoma,Arial,sans-serif}
+body[data-theme="win31"] .titlebar{background:linear-gradient(180deg,#000080,#1084d0)}
+body[data-theme="win31"] .window,body[data-theme="win31"] button{
+ border-top-color:#fff;border-left-color:#fff;border-right-color:#000;border-bottom-color:#000}
+a{color:var(--blue)}a:focus-visible,button:focus-visible{outline:2px dotted var(--blue);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding:18px 16px 60px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
+.stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
+.stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:16px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+ background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:14px 16px}
+h1{font-size:23px;margin:0 0 8px}h2{font-size:17px;margin:0 0 8px}
+p{margin:6px 0;max-width:62ch}
+.lead{color:var(--muted)}
+.btn,button{font:inherit;padding:7px 13px;color:var(--text);background:var(--win);
+ border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);cursor:pointer;
+ text-decoration:none;display:inline-block}
+.rows{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.warn{background:var(--y);border:2px solid var(--dark);padding:10px;color:#000}
+canvas{display:block;width:100%;height:120px;background:#070b14;border:2px solid var(--dark);margin-top:10px}
+.out{background:#0b1020;color:#7ef0a0;font:12px/1.5 monospace;padding:10px;height:110px;overflow:auto}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section class="window" aria-labelledby="top">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Paula Sound</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h1 id="top">Hörbarer Paula-Sound</h1>
+      <p class="lead">Der Ton entsteht im Browser aus unserer Paula-Engine.
+        Keine Audiodatei. Kein WAV. Klick auf einen Knopf und hör zu.</p>
+      <div class="rows" role="group" aria-label="Oberfläche">
+        <button type="button" data-theme-btn="os41">OS 4.1</button>
+        <button type="button" data-theme-btn="win31">Win 3.1</button>
+      </div>
+      <p class="warn"><strong>Ehrlich:</strong> Eigene Nachbildung des Paula-Chips.
+        PAL-Takt 3546895 Hertz. Nicht mit echten Nutzern getestet.</p>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="klang">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Klänge</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="klang">Was du hören kannst</h2>
+      <div class="rows">
+        <button type="button" data-sound="boing">Boing</button>
+        <button type="button" data-sound="scale">Tonleiter</button>
+        <button type="button" data-sound="chord">Akkord</button>
+        <button type="button" data-sound="bass">Bass</button>
+        <button type="button" data-sound="hat">Rauschen</button>
+        <button type="button" data-sound="stop">Stopp</button>
+      </div>
+      <canvas id="viz" width="960" height="180"></canvas>
+      <div class="out" id="log">Bereit. Knopf drücken.</div>
+    </div>
+  </section>
+
+  <section class="window joke" aria-labelledby="witz">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Ein Witz</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner" id="witz">
+      <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
+    </div>
+  </section>
+
+  <footer>Kostenlos. Offen. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<script>
+/* Eigene Paula-Engine — gleiche Logik wie tools/paula-engine.mjs */
+(function(){
+"use strict";
+const PAL=3546895;
+const $=s=>document.querySelector(s);
+const log=s=>{const o=$("#log");o.textContent+="\n"+s;o.scrollTop=o.scrollHeight;};
+
+document.querySelectorAll("[data-theme-btn]").forEach(b=>b.onclick=()=>{
+  document.body.dataset.theme=b.dataset.themeBtn;
+  document.querySelectorAll("[data-theme-btn]").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");
+});
+$('[data-theme-btn="os41"]').classList.add("on");
+
+class Voice{
+  constructor(smp){this.smp=smp||new Uint8Array(0);this.phase=0;this.period=0;
+    this.vol=0;this.pan=0;this.active=false;}
+  trigger(period,vol,pan,offset){this.period=period;this.vol=vol;this.pan=pan||0;
+    this.phase=offset||0;this.active=period>0&&vol>0;}
+  next(rate){
+    if(!this.active||this.period<=0||!this.smp.length)return [0,0];
+    this.phase+=(PAL/(this.period*2))/rate;
+    let pos=Math.floor(this.phase);
+    if(pos>=this.smp.length){this.active=false;return [0,0];}
+    const a=this.smp[pos],b=this.smp[Math.min(this.smp.length-1,pos+1)];
+    const f=this.phase-pos;
+    const raw=a+(b-a)*f;
+    const s=(raw>=128?raw-256:raw)/128;
+    const v=s*(this.vol/64)*0.22;
+    return [v*(this.pan<=0?1:1-this.pan),v*(this.pan>=0?1:1+this.pan)];
+  }
+}
+
+let ctx=null,playing=false;
+
+function sample(fn){
+  const s=new Uint8Array(256);
+  for(let i=0;i<256;i++)s[i]=fn(i/255)&255;
+  return s;
+}
+const sine=sample(t=>128+Math.round(127*Math.sin(t*2*Math.PI)));
+const saw=sample(t=>t*255);
+const noise=sample(()=>Math.random()*255);
+const half=sample(t=>t<0.5?255:0);
+
+// Periode aus Note (1..60), wie MusicLine
+const pitches=[3591];
+for(let i=1;i<61;i++)pitches[i]=3591/Math.pow(2,(i-1)/12);
+function period(note){return (note>0&&note<=60)?pitches[note]:0;}
+
+function makeVoices(kind){
+  const v=[new Voice(sine),new Voice(sine),new Voice(sine),new Voice(sine)];
+  if(kind==="boing"){
+    v[0]=new Voice(sine);v[0].trigger(300,60,-0.6,0);
+    v[1]=new Voice(saw);v[1].trigger(600,30,0.6,0);
+  }else if(kind==="scale"){
+    v[0].trigger(period(13),55,-0.8,0);
+    v[1].trigger(period(20),48,0.8,0);
+    v[2].trigger(period(25),40,0,0);
+  }else if(kind==="chord"){
+    v[0].trigger(period(13),50,-0.7,0);
+    v[1].trigger(period(17),45,0.7,0);
+    v[2].trigger(period(20),45,0,0);
+    v[3].trigger(period(25),35,0.3,0);
+  }else if(kind==="bass"){
+    v[0]=new Voice(saw);v[0].trigger(period(5),64,-0.4,0);
+    v[1]=new Voice(sine);v[1].trigger(period(5),50,0.4,0);
+  }else if(kind==="hat"){
+    v[0]=new Voice(noise);v[0].trigger(800,35,-0.5,0);
+    v[1]=new Voice(noise);v[1].trigger(1200,30,0.5,0);
+  }
+  return v;
+}
+
+function play(kind){
+  if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();
+  if(ctx.state==="suspended")ctx.resume();
+  stop();
+  let voices=makeVoices(kind);
+  const dur=kind==="scale"?2.2:1.2;
+  const sr=ctx.sampleRate,frames=Math.floor(sr*dur);
+  const buf=ctx.createBuffer(2,frames,sr);
+  const L=buf.getChannelData(0),R=buf.getChannelData(1);
+  let lpL=0,lpR=0;const a1=Math.exp(-2*Math.PI*2600/sr);
+  for(let i=0;i<frames;i++){
+    // Tonleiter: Noten im Verlauf aendern
+    if(kind==="scale"){
+      const step=Math.floor(i/frames*6);
+      const note=13+step*3;
+      if(voices[0].active)voices[0].period=period(note);
+    }
+    // Boing: Tonhoehe faellt
+    if(kind==="boing"&&voices[0].active){
+      voices[0].period=300+i/frames*500;
+    }
+    let ml=0,mr=0;
+    for(const v of voices){const [l,r]=v.next(sr);ml+=l;mr+=r;}
+    lpL+=a1*(ml-lpL);lpR+=a1*(mr-lpR);
+    L[i]=lpL*0.9;R[i]=lpR*0.9;
+  }
+  const src=ctx.createBufferSource();src.buffer=buf;
+  const g=ctx.createGain();g.gain.value=0.9;
+  src.connect(g);g.connect(ctx.destination);
+  src.onended=()=>{playing=false;log("Ende: "+kind);};
+  src.start();playing=true;
+  log("Spiele: "+kind+" ("+dur.toFixed(1)+" s, "+sr+" Hz)");
+  draw(voices,kind);
+}
+
+function stop(){
+  if(ctx&&playing){/* Sources enden selbst */}
+  playing=false;
+}
+
+/* Kleine Wellenform-Anzeige */
+const cv=$("#viz"),cx=cv.getContext("2d");
+let anim=null;
+function draw(voices,kind){
+  if(anim)cancelAnimationFrame(anim);
+  const t0=performance.now();
+  function frame(){
+    cx.fillStyle="#070b14";cx.fillRect(0,0,cv.width,cv.height);
+    cx.strokeStyle="#16233a";cx.lineWidth=1;
+    for(let x=0;x<cv.width;x+=40){cx.beginPath();cx.moveTo(x,0);cx.lineTo(x,cv.height);cx.stroke();}
+    const elapsed=(performance.now()-t0)/1000;
+    cx.strokeStyle="#6fd3ff";cx.lineWidth=2;cx.beginPath();
+    for(let x=0;x<cv.width;x++){
+      const ph=x/cv.width*2*Math.PI*4+elapsed*8;
+      const y=cv.height/2+Math.sin(ph)*50*Math.sin(elapsed*3);
+      if(x===0)cx.moveTo(x,y);else cx.lineTo(x,y);
+    }
+    cx.stroke();
+    cx.fillStyle="#9fb3d1";cx.font="14px monospace";
+    cx.fillText("Paula • "+kind+" • "+(playing?"läuft":"stopp"),12,20);
+    if(playing)anim=requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+document.querySelectorAll("[data-sound]").forEach(b=>b.onclick=()=>{
+  const k=b.dataset.sound;
+  if(k==="stop"){stop();log("Stopp.");return;}
+  play(k);
+});
+})();
+</script>
+</body>
+</html>

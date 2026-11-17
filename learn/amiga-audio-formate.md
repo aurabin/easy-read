@@ -15,7 +15,7 @@ Der Player muss sie verstehen.
 | --- | --- | --- |
 | MOD | Amiga | spielbar |
 | 8SVX | Amiga | spielbar |
-| MusicLine .ml | Amiga | nur in ALL-IN-ONE |
+| MusicLine .ml | Amiga | spielbar (GPL-2.0-Player) |
 | MED / OctaMED | Amiga | erkannt |
 | 16SV | Amiga | erkannt |
 | AHX / HVL | Amiga und PC | erkannt |
@@ -47,16 +47,27 @@ Manche Effekte fehlen.
 Ein echter Amiga kann mehr.
 Das sagen wir ehrlich.
 
+Wir haben auch eine eigene Paula-Engine gebaut.
+Sie nutzt den PAL-Takt von 3546895 Hertz.
+Sie rechnet die Tonhöhe aus der Periode.
+Sie kann links und rechts trennen.
+Sie glättet die Samples.
+Sie kennt Loops.
+Sie filtert hohe Töne weg.
+Das steht in `tools/paula-engine.mjs`.
+Zwanzig Prüfungen testen sie.
+
 ## Warum nicht alle
 
 Ein Player für alle Formate ist sehr viel Arbeit.
 Jedes Format hat eigene Regeln.
 Wir machen das in kleinen Schritten.
 
-Für .ml gibt es schon einen Player.
-Der liegt in ALL-IN-ONE.html.
+Für .ml gibt es einen eigenen Player.
+Der liegt in der Datei `paula-ml.js`.
 Er basiert auf GPL-2.0-Code.
-Darum haben wir ihn nicht kopiert.
+Darum liegt er als eigene Datei neben der App.
+Sein Lizenz-Hinweis bleibt erhalten.
 
 ## Was du tun kannst
 

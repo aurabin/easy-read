@@ -7,7 +7,8 @@ Keine Rechtsberatung.
 
 ## 1. siday-Player — GPL-2.0
 
-`tools/paula-ml.js` und der eingebettete Paula-Teil in
+`tools/paula-ml.js`, die Kopie `outreach/apps/paula-ml.js`
+(für den Amiga-Player) und der eingebettete Paula-Teil in
 `outreach/media/ALL-IN-ONE.html` basieren auf dem siday-Player.
 Der siday-Player steht unter GPL-2.0.
 Er folgt der ursprünglichen MusicLine-Editor-Wiedergabe

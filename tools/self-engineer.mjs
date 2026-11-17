@@ -100,6 +100,11 @@ const amiga = run(["tools/amiga-formats-test.mjs"]);
 check("Amiga-Formate", /AMIGA-FORMATE OK/.test(amiga) && !/FAIL/.test(amiga),
   amiga.trim().split("\n").pop());
 
+// 13. Paula-Engine (eigene Emulation)
+const paula = run(["tools/paula-engine-test.mjs"]);
+check("Paula-Engine", /PAULA-ENGINE OK/.test(paula) && !/FAIL/.test(paula),
+  paula.trim().split("\n").pop());
+
 console.log(out.join("\n"));
 console.log(fails===0 ? "\nSELF-ENGINEERING OK" : `\nSELF-ENGINEERING: ${fails} Problem(e)`);
 process.exit(fails===0?0:1);

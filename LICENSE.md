@@ -40,6 +40,7 @@ gelten die AGPL-Regeln. Lies die Datei vorher.
 Diese Dateien basieren auf dem siday-Player (GPL-2.0):
 
 - `tools/paula-ml.js`
+- `outreach/apps/paula-ml.js` (für den Amiga-Player)
 - `outreach/media/ALL-IN-ONE.html` (nur der eingebettete Paula-Teil)
 - die generierten Kopien in `docs/`
 

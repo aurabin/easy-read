@@ -100,7 +100,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
         <tr><th>Format</th><th>Status</th><th>Hinweis</th></tr>
         <tr><td>MOD (ProTracker, 4 Kanäle)</td><td class="yes">ja</td><td>Amiga · eigener Player mit Paula</td></tr>
         <tr><td>8SVX (IFF Sample)</td><td class="yes">ja</td><td>Amiga · direkt abspielbar</td></tr>
-        <tr><td>MusicLine .ml</td><td class="no">nein</td><td>Amiga · in ALL-IN-ONE.html nutzbar</td></tr>
+        <tr><td>MusicLine .ml</td><td class="yes">ja</td><td>Amiga · GPL-2.0-Player (eigene Datei)</td></tr>
         <tr><td>MED / OctaMED</td><td class="no">nein</td><td>Amiga · erkannt</td></tr>
         <tr><td>16SV (IFF Sample)</td><td class="no">nein</td><td>Amiga · erkannt</td></tr>
         <tr><td>AHX / HVL</td><td class="no">nein</td><td>Amiga/PC · erkannt</td></tr>
@@ -119,7 +119,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
         und Programme wie UADE können mehr.</p>
       <p><small>Erkennung: `tools/amiga-formats.mjs`, mit Tests.
         Aufklärung: `learn/amiga-audio-formate.md`.
-        .ml nutzt GPL-2.0-Code in ALL-IN-ONE.html — darum hier kein Kopie.</small></p>
+        .ml nutzt den GPL-2.0-Player in `paula-ml.js` — eigene Datei, eigener Lizenz-Hinweis.</small></p>
     </div>
   </section>
 
@@ -132,13 +132,14 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
 
   <footer>Kostenlos. Offen. Nicht mit echten Nutzern getestet.</footer>
 </div>
+<script src="paula-ml.js"></script>
 <script>
 /* Formaterkennung — dieselben Regeln wie tools/amiga-formats.mjs */
 function detect(bytes){
   const str=(o,n)=>String.fromCharCode(...bytes.slice(o,o+n));
   if(bytes.length<4)return {id:"unknown",name:"Unbekannt",playable:false,reason:"Datei zu kurz."};
   if(str(0,4)==="FORM"&&str(8,4)==="8SVX")return {id:"8svx",name:"8SVX (IFF Sample)",playable:true,reason:"Sample direkt abspielbar."};
-  if(str(0,8)==="MLEDMODL")return {id:"ml",name:"MusicLine Editor",playable:false,reason:"In ALL-IN-ONE.html nutzbar."};
+  if(str(0,8)==="MLEDMODL")return {id:"ml",name:"MusicLine Editor",playable:true,reason:"Abspielbar mit GPL-2.0-Player."};
   if(bytes.length>=1080){
     const tag=str(1080,4);
     if(["M.K.","M!K!","M&K!","4CHN","6CHN","8CHN","FLT4","FLT8","CD81","OKTA","16CN","32CN"].indexOf(tag)>=0)
@@ -280,10 +281,21 @@ function render8svx(b, sampleRate){
 
 function makeBuffer(res){
   const frames=res.outL.length;
-  const buf=ctx.createBuffer(2,frames,ctx.sampleRate);
+  const rate=res.rate||ctx.sampleRate;
+  const buf=ctx.createBuffer(2,frames,rate);
   buf.copyToChannel?buf.copyToChannel(res.outL,0):buf.getChannelData(0).set(res.outL);
   buf.copyToChannel?buf.copyToChannel(res.outR,1):buf.getChannelData(1).set(res.outR);
   return buf;
+}
+
+/* MusicLine .ml über den GPL-2.0-Player (paula-ml.js, eigene Datei). */
+function renderMl(b){
+  if(typeof MLPaula==="undefined")throw new Error("paula-ml.js fehlt.");
+  const rate=22050;
+  const pcm=MLPaula.render(b,rate,19);
+  const out=new Float32Array(pcm.length);
+  for(let i=0;i<pcm.length;i++)out[i]=pcm[i]/32768;
+  return {title:"MusicLine Modul",outL:out,outR:out,seconds:pcm.length/rate,rate:rate};
 }
 
 function play(from){
@@ -338,7 +350,9 @@ function load(file){
     }
     try{
       if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();
-      const res=fmt.id==="mod"?renderMod(bytes,ctx.sampleRate):render8svx(bytes,ctx.sampleRate);
+      const res=fmt.id==="mod"?renderMod(bytes,ctx.sampleRate)
+        :fmt.id==="ml"?renderMl(bytes)
+        :render8svx(bytes,ctx.sampleRate);
       buffer=makeBuffer(res);
       $("#info").innerHTML="<strong>"+fmt.name+"</strong><br>"+res.title+
         " · "+res.seconds.toFixed(1)+" s · "+ctx.sampleRate+" Hz";

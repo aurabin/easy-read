@@ -223,6 +223,11 @@ it can play. No WAV, no dependencies, no copied GPL code.
 - `outreach/apps/amiga-player.html` — the player.
 - `tools/amiga-formats.mjs` — format detection with origin and playable flag.
 - `tools/amiga-formats-test.mjs` — detection tests.
+- `tools/paula-engine.mjs` — our own Paula emulation (PAL clock, stereo pan,
+  sample interpolation, loops, low-pass). No copied code.
+- `tools/paula-engine-test.mjs` — 20 tests for the engine.
+- `outreach/apps/paula-sound.html` — hear the engine: boing, scale, chord,
+  bass, noise. Browser Web Audio, no audio file.
 - `learn/amiga-audio-formate.md` — plain-language explanation in German.
 
 MusicLine `.ml` stays in `ALL-IN-ONE.html` because that player uses GPL-2.0

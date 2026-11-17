@@ -113,7 +113,7 @@ export function detectAmigaFormat(bytes) {
 export const SUPPORTED = [
   { id: "mod", name: "MOD (ProTracker, 4 Kanaele)", playable: true, origin: "Amiga" },
   { id: "8svx", name: "8SVX (IFF Sample)", playable: true, origin: "Amiga" },
-  { id: "ml", name: "MusicLine .ml", playable: false, origin: "Amiga" },
+  { id: "ml", name: "MusicLine .ml", playable: true, origin: "Amiga" },
   { id: "med", name: "MED / OctaMED", playable: false, origin: "Amiga" },
   { id: "16sv", name: "16SV (IFF Sample)", playable: false, origin: "Amiga" },
   { id: "ahx", name: "AHX / HVL", playable: false, origin: "Amiga/PC" },
