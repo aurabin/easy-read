@@ -23,6 +23,7 @@ Three ways to use this folder.
 
 | Course | Lessons | Start here |
 | --- | --- | --- |
+| Ml.OctaGroover und unser Video | 1 | [`octagroover.md`](octagroover.md) |
 | Texte über Gesundheit prüfen | 1 | [`gesundheit-pruefen.md`](gesundheit-pruefen.md) |
 | Start here (0+) | 4 | [`start-here/01-what-is-a-computer.md`](start-here/01-what-is-a-computer.md) |
 | Die Geschichte der Computer | 1 | [`computer-history.md`](computer-history.md) |
