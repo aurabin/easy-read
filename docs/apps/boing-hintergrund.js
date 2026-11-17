@@ -17,7 +17,7 @@ function create(canvas){
   var LW=320, LH=200, FLOOR=168, R=22;
   var ball={ay:0.35, ax:0.2, squash:0, bx:160, by:FLOOR-R, vx:1.7, vy:-7.5};
   var t=0, cap=0, raf=null, scaleX=1, scaleY=1;
-  var sound=false, audio=null, boingPending=false;
+  var sound=true, audio=null, boingPending=false;
   var trail=[];   // Partikel-Schwanz
   var burst=[];    // Partikel-Burst bei Aufprall
   var capTimer=null;
@@ -278,12 +278,25 @@ function create(canvas){
         burst.push({x:ball.bx,y:ball.by,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-2,
           life:1, color:Math.random()>.5?"#6fd3ff":"#f5f0e6", size:2.5+Math.random()*2});
       }
+      if(!audio)audio=new (window.AudioContext||window.webkitAudioContext)();
+      if(audio.state==="suspended")audio.resume();
       if(sound)boingSound();
     }
   });
 
   // Ton-Toggle per Tastatur (S)
-
+  function entsperren(){
+    try{
+      if(!audio)audio=new (window.AudioContext||window.webkitAudioContext)();
+      if(audio.state==="suspended")audio.resume();
+      ladeDonner(audio);
+    }catch(e){}
+  }
+  window.addEventListener("pointerdown",entsperren);
+  window.addEventListener("keydown",function(e){
+    entsperren();
+    if(e.key==="s"||e.key==="S"){sound=!sound;}
+  });
 
   groesse();window.addEventListener("resize",groesse);
   tabAktiv=!document.hidden;
