@@ -2,6 +2,11 @@
 
 Read this at the start of every session. This is the durable memory of earlier work.
 
+**ALL premises (old and new): read [`PRAEMISSEN.md`](PRAEMISSEN.md) first.**
+It collects every rule from the owner, including the newer ones: no deleting
+without permission, no self-added features, poetic names, nature patterns,
+free app, Store paused, Peri Fractic beta, one field one game.
+
 ## Purpose and non-negotiable rules
 
 - Open learning system: Easy Read, retro computing, art, music, AI, money guidance.
