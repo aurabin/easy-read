@@ -23,10 +23,14 @@ ${PAULA.replace(/<\/script>/gi,"<\\/script>")}
 </script>
 <script>
 const modB64="${MOD.toString("base64")}";
+const MOD_NAME="Ml.OctaGroover";
 document.getElementById("frame").srcdoc=document.getElementById("demo").textContent;
 const link=document.getElementById("mod");
 link.href="data:application/octet-stream;base64,"+modB64;
+link.download=MOD_NAME;
+let playing=null;
 document.getElementById("play").addEventListener("click",()=>{
+  if(playing){ try{playing.stop()}catch(e){} playing=null; }
   const bin=atob(modB64), bytes=new Uint8Array(bin.length);
   for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
   const pcm=MLPaula.render(bytes,22050,19);
@@ -34,11 +38,16 @@ document.getElementById("play").addEventListener("click",()=>{
   const buf=ctx.createBuffer(1,pcm.length,22050);
   const f32=buf.getChannelData(0);
   for(let i=0;i<pcm.length;i++) f32[i]=pcm[i]/32768;
-  const src=ctx.createBufferSource();src.buffer=buf;src.connect(ctx.destination);src.start();
+  const src=ctx.createBufferSource();src.buffer=buf;src.connect(ctx.destination);
+  src.start(); playing=src;
 });
+// Der Ton hört auf, sobald weiter gescrollt wird.
+addEventListener("scroll",()=>{
+  if(playing){ try{playing.stop()}catch(e){} playing=null; }
+},{passive:true});
 </script></body></html>`;
 
 const out = Buffer.concat([PNG, Buffer.from("\n"+html,"utf8")]);
 writeFileSync("outreach/media/standalone.html", out);
-writeFileSync("outreach/media/all-in-one.png", out);
+writeFileSync("outreach/media/All-In-One.PNG", out);
 console.log("standalone:", (out.length/1024/1024).toFixed(2), "MB | Paula:", PAULA.length, "bytes");
