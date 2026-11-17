@@ -1,7 +1,7 @@
 // Tests ohne Zugangsdaten. Nichts wird gesendet, nichts geoeffnet.
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
-import { authUrl, configured, redirectUri, SCOPE } from "./oauth.mjs";
+import { authUrl, configured, redirectUri, SCOPE, clearState } from "./oauth.mjs";
 
 let ok = true;
 const check = (name, cond) => {
@@ -25,6 +25,7 @@ check("Auth-URL gebaut", url.startsWith("https://github.com/login/oauth/authoriz
 check("Auth-URL hat client_id", url.includes("client_id=testclient"));
 check("Auth-URL hat state", /state=/.test(url));
 check("Auth-URL hat scope", decodeURIComponent(url).includes("read:user"));
+clearState(); // keine Spuren im lokalen Ordner hinterlassen
 
 console.log(ok ? "GITHUB-LOGIN OK" : "GITHUB-LOGIN FAIL");
 process.exit(ok ? 0 : 1);

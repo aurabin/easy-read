@@ -1,7 +1,7 @@
 // Tests ohne echte Zugangsdaten. Es wird nichts gesendet und nichts geoeffnet.
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
-import { authUrl, configured, redirectUri, SCOPES } from "./oauth.mjs";
+import { authUrl, configured, redirectUri, SCOPES, clearState } from "./oauth.mjs";
 
 let ok = true;
 const check = (name, cond) => {
@@ -25,6 +25,7 @@ check("Auth-URL hat client_id", url.includes("test-client.apps.googleusercontent
 check("Auth-URL hat PKCE", url.includes("code_challenge_method=S256"));
 check("Auth-URL hat state", /state=/.test(url));
 check("Auth-URL hat gmail.send", decodeURIComponent(url).includes("gmail.send"));
+clearState(); // keine Spuren im lokalen Ordner hinterlassen
 
 console.log(ok ? "GOOGLE-LOGIN OK" : "GOOGLE-LOGIN FAIL");
 process.exit(ok ? 0 : 1);
