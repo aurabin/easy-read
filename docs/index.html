@@ -11,286 +11,136 @@
 <meta property="og:image" content="https://aurabin.github.io/easy-read/og-image.png">
 <meta property="og:url" content="https://aurabin.github.io/easy-read/">
 <style>
+/* AmigaOS 4.1 Workbench style */
 :root{
-  --bg:#070b14; --panel:#0e1626; --ink:#eaf2ff; --muted:#9fb3d1;
-  --line:#24344f; --teal:#0f766e; --teal2:#12877c; --sky:#6fd3ff;
-  --violet:#7a20d0; --red:#e8382f; --cream:#f5f0e6;
+  --desk:#8c8c8c; --win:#d9d9d9; --win2:#c4c4c4; --title:#5b82b8;
+  --text:#1f1f1f; --muted:#4c4c4c; --blue:#244f8a; --light:#ffffff; --dark:#5a5a5a;
+  --r:#e8382f; --o:#f08c00; --y:#f2d000; --g:#3fa04a; --b:#2f60b0; --p:#7a3fa0;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);
-  font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
-a{color:var(--sky)}
-a:focus-visible,button:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
-.wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;
-  padding:0 clamp(16px,4vw,32px) 56px}
-
-/* Hero with the Amiga grid and the checkered ball */
-.hero{position:relative;overflow:hidden;padding:clamp(40px,7vw,72px) 0 36px;
-  border-bottom:1px solid var(--line)}
-.grid{position:absolute;inset:0 0 auto 0;height:280px;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(122,32,208,.24) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(122,32,208,.24) 1px,transparent 1px);
-  background-size:32px 32px;
-  -webkit-mask-image:linear-gradient(180deg,#000,transparent);
-  mask-image:linear-gradient(180deg,#000,transparent)}
-.hero-in{position:relative;display:flex;gap:clamp(20px,4vw,44px);
-  align-items:center;flex-wrap:wrap}
-.ball{flex:0 0 auto;width:104px;height:104px;border-radius:50%;position:relative;
-  background-color:var(--cream);
-  background-image:
-    linear-gradient(45deg,var(--red) 25%,transparent 25%,transparent 75%,var(--red) 75%),
-    linear-gradient(45deg,var(--red) 25%,transparent 25%,transparent 75%,var(--red) 75%);
-  background-size:26px 26px;background-position:0 0,13px 13px;
-  box-shadow:0 0 0 2px rgba(255,255,255,.28),0 0 42px rgba(232,56,47,.42)}
-.ball:after{content:"";position:absolute;inset:0;border-radius:50%;
-  background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.5),transparent 46%,rgba(0,0,0,.4))}
-.eyebrow{margin:0 0 8px;color:var(--sky);
-  font:12px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace;
-  letter-spacing:.14em;text-transform:uppercase}
-h1{margin:0;font-size:clamp(30px,5.5vw,46px);line-height:1.12;letter-spacing:-.02em}
-.lead{margin:14px 0 8px;max-width:48ch;font-size:clamp(17px,2.2vw,19px)}
-.chip{display:inline-block;margin-top:10px;padding:4px 12px;
-  border:1px solid var(--line);border-radius:99px;font-size:13px;color:var(--muted)}
-
-section{margin-top:52px}
-.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;
-  padding-bottom:10px;border-bottom:1px solid var(--line)}
-.sec-num{color:var(--teal2);font:12px ui-monospace,SFMono-Regular,Consolas,monospace}
-h2{margin:0;font-size:clamp(20px,3vw,26px)}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.card{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px;
-  padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:14px}
-.card:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;
-  background:repeating-linear-gradient(90deg,var(--red) 0 12px,var(--cream) 12px 24px)}
-.card.work:before{background:repeating-linear-gradient(90deg,var(--teal2) 0 12px,var(--sky) 12px 24px)}
-.tag{align-self:flex-start;padding:2px 10px;border:1px solid var(--line);border-radius:99px;
-  color:var(--sky);font:11px ui-monospace,SFMono-Regular,Consolas,monospace;
-  letter-spacing:.1em;text-transform:uppercase}
-.card h3{margin:6px 0 0;font-size:20px}
-.card p{margin:0;color:var(--muted)}
-.btn{display:inline-block;margin-top:auto;padding:10px 16px;text-align:center;
-  text-decoration:none;color:#fff;background:var(--teal);
-  border:1px solid var(--teal);border-radius:8px;
-  transition:transform .15s,border-color .15s}
-.btn:hover{transform:translateY(-2px);border-color:var(--sky)}
-.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-.btn.ghost:hover{border-color:var(--sky)}
-
-.joke{position:relative;overflow:hidden;margin-top:52px;padding:22px 24px;
-  background:var(--panel);border:1px solid var(--line);
-  border-left:4px solid var(--violet);border-radius:14px}
-.joke .grid{height:100%;opacity:.3}
-.joke h2{position:relative;margin:0 0 8px;padding:0;border:0;font-size:20px}
-.joke p{position:relative;margin:6px 0}
-.joke .small{color:var(--muted);font-size:14px}
-
-footer{border-top:1px solid var(--line);margin-top:48px;padding-top:20px;
-  color:var(--muted);font-size:14px}
-footer p{margin:6px 0}
-.mark{display:inline-block;width:12px;height:12px;margin-right:8px;vertical-align:-1px;
-  border-radius:2px;background-color:var(--cream);
-  background-image:
-    linear-gradient(45deg,var(--red) 25%,transparent 25%,transparent 75%,var(--red) 75%),
-    linear-gradient(45deg,var(--red) 25%,transparent 25%,transparent 75%,var(--red) 75%);
-  background-size:8px 8px;background-position:0 0,4px 4px}
-/* Anzeige-Modi */
-.modes{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.modes button{cursor:pointer;padding:6px 11px;color:var(--muted);background:transparent;
-  border:1px solid var(--line);border-radius:99px;
-  font:12px ui-monospace,SFMono-Regular,Consolas,monospace}
-.modes button:hover{border-color:var(--sky)}
-.modes button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
-.modes button:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
-.sound-note{display:none;color:var(--sky);max-width:60ch;margin:16px 0 0}
-
-body[data-mode="cb"]{--red:#1d6fb8;--cream:#f7fbff;--violet:#3b5bdb;--sky:#ffd166;--teal:#0b7285;--teal2:#0b7285}
-body[data-mode="low"]{font-size:20px;--muted:#d6e4f7;--line:#7186a5;--sky:#bfe9ff}
-body[data-mode="low"] .grid{display:none}
-body[data-mode="low"] .card,body[data-mode="low"] .chip,body[data-mode="low"] .tag{border-width:2px}
-body[data-mode="low"] h1{font-size:clamp(34px,6vw,56px)}
-body[data-mode="low"] *:focus-visible{outline-width:4px}
-body[data-mode="deaf"] .sound-note{display:block}
-body[data-mode="deaf"] .ball{box-shadow:0 0 0 3px var(--cream),0 0 42px rgba(122,32,208,.5)}
-
-/* Detail: ruhige Typografie, klare Zustände */
-::selection{background:var(--violet);color:#fff}
-h1,h2,h3{text-wrap:balance}
-p{hyphens:auto}
-.sec-num{font-variant-numeric:tabular-nums}
-.card-icon{width:28px;height:28px;color:var(--sky);flex:0 0 auto}
-.btn:active{transform:translateY(0)}
-.joke .grid{opacity:.3}
-
-@media(max-width:640px){.hero-in{flex-direction:column;align-items:flex-start}.ball{width:84px;height:84px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
-@media(forced-colors:active){
-  .card,.chip,.joke,footer{border:1px solid CanvasText}
-  .grid,.stripe,.ball:after{display:none}
-  .btn{border:1px solid ButtonText}
-}
-@media print{
-  body{background:#fff;color:#111}
-  .grid,.ball,.stripe,.btn{display:none}
-  .wrap{max-width:none}
-  .card{background:#fff;border:1px solid #999;break-inside:avoid}
-  a{color:#000}
-  h1,h2,h3,p,.card p,.joke p{color:#111}
-}
+body{margin:0;background:var(--desk);color:var(--text);
+  font:14px/1.55 "Arial","Helvetica",sans-serif}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible{outline:2px dotted var(--blue);outline-offset:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px 70px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;
+  border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}
+.stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
+.stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
+.stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
+.window{background:var(--win);border-top:2px solid var(--light);
+  border-left:2px solid var(--light);border-right:2px solid var(--dark);
+  border-bottom:2px solid var(--dark);box-shadow:3px 3px 0 rgba(0,0,0,.28);
+  margin-bottom:18px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+  background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;
+  font-weight:bold;letter-spacing:.02em}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);
+  border-top:1px solid var(--light);border-left:1px solid var(--light);
+  border-right:1px solid var(--dark);border-bottom:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:18px}
+h1{font-size:clamp(24px,4vw,36px);margin:0 0 8px;line-height:1.15}
+h2{font-size:18px;margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid #a9a9a9}
+p{margin:6px 0;max-width:58ch}
+.lead{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--win2);border-top:2px solid var(--light);
+  border-left:2px solid var(--light);border-right:2px solid var(--dark);
+  border-bottom:2px solid var(--dark);padding:14px}
+.card h3{margin:6px 0;font-size:16px}
+.card p{color:var(--muted);font-size:13px}
+.tag{font:11px monospace;color:var(--blue);text-transform:uppercase;letter-spacing:.08em}
+.btn{display:inline-block;margin-top:10px;padding:5px 12px;text-decoration:none;
+  color:var(--text);background:var(--win);font-size:13px;
+  border-top:2px solid var(--light);border-left:2px solid var(--light);
+  border-right:2px solid var(--dark);border-bottom:2px solid var(--dark)}
+.btn:active{border-top-color:var(--dark);border-left-color:var(--dark);
+  border-right-color:var(--light);border-bottom-color:var(--light)}
+.chip{display:inline-block;padding:3px 9px;background:var(--win2);font-size:12px;
+  border:1px solid var(--dark)}
+.sec-num{font:11px monospace;color:var(--blue)}
+.joke{background:var(--win2)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
+/* Dock-Leiste */
+.dock{position:fixed;left:0;right:0;bottom:0;height:52px;display:flex;
+  justify-content:center;align-items:center;gap:10px;padding:6px;
+  background:linear-gradient(180deg,#bdbdbd,#8f8f8f);
+  border-top:2px solid var(--light)}
+.dock a{width:34px;height:34px;display:grid;place-content:center;
+  text-decoration:none;font-size:18px;background:var(--win);
+  border-top:2px solid var(--light);border-left:2px solid var(--light);
+  border-right:2px solid var(--dark);border-bottom:2px solid var(--dark)}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-<header class="hero">
-  <div class="grid" aria-hidden="true"></div>
-  <div class="hero-in">
-    <div class="ball" role="img" aria-label="Eine rot-weiß karierte Kugel."></div>
-    <div>
-      <p class="eyebrow">Ein offenes Lernprojekt</p>
-      <h1>Einfach lesen. Retro verstehen.</h1>
+  <section class="window" aria-labelledby="start">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Willkommen</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h1 id="start">Einfach lesen. Retro verstehen.</h1>
       <p class="lead">Kurze Sätze. Klare Schritte. Du kannst hier spielen und lernen.</p>
-      <span class="chip">Noch nicht mit echten Nutzern getestet.</span>
-      <div class="modes" role="group" aria-label="Anzeige-Modi">
-        <button type="button" data-mode-btn="cb" aria-pressed="false">Farbenblind</button>
-        <button type="button" data-mode-btn="low" aria-pressed="false">Sehbehindert</button>
-        <button type="button" data-mode-btn="deaf" aria-pressed="false">Gehörlos</button>
+      <p><span class="chip">Noch nicht mit echten Nutzern getestet.</span></p>
+      <div class="cards">
+        <div class="card"><span class="tag">Demo</span><h3>Boing Ball</h3>
+          <p>Ein karierter Ball springt. Den Ton gibt es dazu. Läuft auch auf KolibriOS.</p>
+          <a class="btn" href="boing-ball.html">Öffnen</a></div>
+        <div class="card"><span class="tag">Demo</span><h3>Feldgenerator</h3>
+          <p>Verändere das Feld. Wechsle die Farben. Schau dir Mandelbrot an.</p>
+          <a class="btn" href="field-generator.html">Öffnen</a></div>
+        <div class="card"><span class="tag">Kurs</span><h3>Computer Chronik</h3>
+          <p>Von Zuse bis KI. Mit C64 und Amiga zum Ausprobieren.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/products/computer-history">Zum Quelltext</a></div>
       </div>
     </div>
-  </div>
-</header>
+  </section>
 
-<main>
-  <section aria-labelledby="demos">
-    <div class="sec-head"><span class="sec-num">01</span><h2 id="demos">Demos</h2></div>
-    <div class="cards">
-      <article class="card">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg>
-        <span class="tag">Amiga</span>
-        <h3>Boing Ball</h3>
-        <p>Ein karierter Ball springt. Den Ton gibt es dazu. Er läuft auch auf KolibriOS.</p>
-        <a class="btn" href="boing-ball.html">Demo öffnen</a>
-      </article>
-      <article class="card">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18M7 3v18M12 3v18M17 3v18"/></svg>
-        <span class="tag">Feld</span>
-        <h3>Feldgenerator</h3>
-        <p>Verändere das Feld. Wechsle die Farben. Schau dir Mandelbrot an.</p>
-        <a class="btn" href="field-generator.html">Demo öffnen</a>
-      </article>
-      <article class="card">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <span class="tag">Geschichte</span>
-        <h3>Computer Chronik</h3>
-        <p>Von Zuse bis KI. Mit C64 und Amiga zum Ausprobieren.</p>
-        <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/products/computer-history">Zum Quelltext</a>
-      </article>
+  <section class="window" aria-labelledby="lernen">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Lernen</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="lernen">Lektionen</h2>
+      <div class="cards">
+        <div class="card"><span class="tag">Kurs</span><h3>Code lernen</h3>
+          <p>18 Lektionen. Von der ersten Zeile bis AROS.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/learn/coding-course">Zum Kurs</a></div>
+        <div class="card"><span class="tag">Start</span><h3>Ohne Wissen</h3>
+          <p>Vier kurze Lektionen. Für Erwachsene ohne Vorkenntnisse.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/learn/start-here">Zu den Lektionen</a></div>
+        <div class="card"><span class="tag">Sinn</span><h3>Kontext</h3>
+          <p>Worte bekommen Sinn durch die Lage. Auch bei KI.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/kontext.md">Lesen</a></div>
+        <div class="card"><span class="tag">Form</span><h3>Kunst und Design</h3>
+          <p>Farbe, Schrift, Anordnung. Zehn Regeln in kurzen Sätzen.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/art-design.md">Lesen</a></div>
+        <div class="card"><span class="tag">Klang</span><h3>Musik</h3>
+          <p>Takt, Melodie und Klangfarbe. Einfach erklärt.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/musik.md">Lesen</a></div>
+        <div class="card"><span class="tag">Prüfen</span><h3>Gesundheit</h3>
+          <p>Wie prüfe ich einen Text über Medikamente? Sieben Schritte.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/gesundheit-pruefen.md">Lesen</a></div>
+      </div>
     </div>
   </section>
 
-  <section aria-labelledby="lernen">
-    <div class="sec-head"><span class="sec-num">02</span><h2 id="lernen">Lernen</h2></div>
-    <div class="cards">
-      <article class="card work">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
-        <span class="tag">Prüfen</span>
-        <h3>Gesundheit</h3>
-        <p>Wie prüfe ich einen Text über Medikamente? Sieben Schritte.</p>
-        <a class="btn ghost" href="https://github.com/aurabin/easy-read/blob/master/learn/gesundheit-pruefen.md">Lesen</a>
-      </article>
-      <article class="card work">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-2-5-2-8-1v13c3-1 6-1 8 1 2-2 5-2 8-1V5c-3-1-6-1-8 1z"/><path d="M12 6v13"/></svg>
-        <span class="tag">Start</span>
-        <h3>Ohne Wissen</h3>
-        <p>Vier kurze Lektionen. Für Erwachsene ohne Vorkenntnisse.</p>
-        <a class="btn ghost" href="https://github.com/aurabin/easy-read/tree/master/learn/start-here">Zu den Lektionen</a>
-      </article>
-      <article class="card work">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg>
-        <span class="tag">Sinn</span>
-        <h3>Kontext</h3>
-        <p>Worte bekommen Sinn durch die Lage. Auch bei KI.</p>
-        <a class="btn ghost" href="https://github.com/aurabin/easy-read/blob/master/learn/kontext.md">Lesen</a>
-      </article>
-      <article class="card work">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8"/><circle cx="17" cy="7" r="4"/><path d="M7 13l4 8H3z"/></svg>
-        <span class="tag">Form</span>
-        <h3>Kunst und Design</h3>
-        <p>Farbe, Schrift, Anordnung. Zehn Regeln in kurzen Sätzen.</p>
-        <a class="btn ghost" href="https://github.com/aurabin/easy-read/blob/master/learn/art-design.md">Lesen</a>
-      </article>
-      <article class="card work">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
-        <span class="tag">Klang</span>
-        <h3>Musik</h3>
-        <p>Takt, Melodie und Klangfarbe. Einfach erklärt.</p>
-        <a class="btn ghost" href="https://github.com/aurabin/easy-read/blob/master/learn/musik.md">Lesen</a>
-      </article>
+  <section class="window joke" aria-labelledby="witz">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Ein Witz</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
+      <p><small>Der Witz ist auf Deutsch. Im Projekt steht er in sechs Sprachen.</small></p>
     </div>
   </section>
 
-  <section aria-labelledby="modi">
-    <div class="sec-head"><span class="sec-num">03</span><h2 id="modi">Anzeige-Modi</h2></div>
-    <div class="cards">
-      <article class="card work"><span class="tag">Farben</span><h3>Farbenblind</h3>
-        <p>Wir nutzen Muster und Form. Nicht nur Farbe. Rot wird Blau.</p></article>
-      <article class="card work"><span class="tag">Sehen</span><h3>Sehbehindert</h3>
-        <p>Größerer Text. Stärkere Linien. Weniger Dekoration.</p></article>
-      <article class="card work"><span class="tag">Hören</span><h3>Gehörlos</h3>
-        <p>Wichtiges steht auch als Text. Der Ton ist nur Extra.</p></article>
-    </div>
-    <p class="sound-note">Der Ton ist nur Extra. Alle Infos stehen auch hier als Text.</p>
-  </section>
-
-  <section class="joke" aria-labelledby="witz">
-    <div class="grid" aria-hidden="true"></div>
-    <span class="sec-num">04</span>
-    <h2 id="witz">Ein Witz</h2>
-    <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!“</p>
-    <p class="small">Der Witz ist auf Deutsch. In sechs Sprachen:
-      <a href="https://github.com/aurabin/easy-read/blob/master/learn/joke.md">joke.md</a>.</p>
-  </section>
-
-  <section class="joke" aria-labelledby="respekt">
-    <span class="sec-num">05</span>
-    <h2 id="respekt">Wörter mit Respekt</h2>
-    <p>Manche sagen „taubstumm". Das Wort ist alt.</p>
-    <p>Es klingt, als könnten gehörlose Menschen nicht sprechen. Das stimmt meistens nicht.</p>
-    <p>Viele sprechen. Viele nutzen Gebärden. Das ist ihre Sprache. Sie ist reich und lebendig.</p>
-    <p>Sag lieber „gehörlose Menschen" oder „taube Menschen". Frag, wenn du unsicher bist.</p>
-    <p class="small">Wir haben keine gehörlosen Menschen gefragt. Das ist kein Test mit ihnen.</p>
-  </section>
-</main>
-
-<footer>
-  <p><span class="mark" aria-hidden="true"></span>Kostenlos. Offen. Ohne Anmeldung.</p>
-  <p>Code: MIT. Bilder und Texte: CC0 oder CC BY.</p>
-  <p><a href="share.html">Teilen</a> ·
-     <a href="https://github.com/aurabin/easy-read">Quelltext</a></p>
-</footer>
-
+  <footer>Eine Datei. Offen. Noch nicht mit echten Nutzern getestet.</footer>
 </div>
-<script>
-/* Anzeige-Modi: eine Wahl für alle Seiten */
-(function(){
-  var m = localStorage.getItem("er-mode") || "";
-  function apply(){
-    document.body.dataset.mode = m;
-    var bs = document.querySelectorAll("[data-mode-btn]");
-    for(var i=0;i<bs.length;i++)
-      bs[i].setAttribute("aria-pressed", String(bs[i].getAttribute("data-mode-btn")===m));
-  }
-  document.addEventListener("click", function(e){
-    var b = e.target.closest && e.target.closest("[data-mode-btn]");
-    if(!b) return;
-    var v = b.getAttribute("data-mode-btn");
-    m = (m===v) ? "" : v;
-    localStorage.setItem("er-mode", m);
-    apply();
-  });
-  apply();
-})();
-</script>
+<nav class="dock" aria-label="Dock">
+  <a href="index.html" title="Start">▣</a>
+  <a href="field-generator.html" title="Feldgenerator">◈</a>
+  <a href="boing-ball.html" title="Boing Ball">●</a>
+  <a href="share.html" title="Teilen">✉</a>
+</nav>
 </body>
 </html>
