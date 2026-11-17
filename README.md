@@ -214,6 +214,13 @@ sent yet. It is written so that contact stays in writing: no calls, no camera.
 If you are in Germany, the doc lists first contacts with current addresses.
 The names and addresses are in `co-design.md`.
 
+## Functions and system fields
+
+[`learn/funktionen.md`](learn/funktionen.md) explains functions in Easy Read —
+from `y = f(x)` to the tiny formulas in our field generators. The shared module
+`outreach/apps/system-felder.js` gives every page one of seven system fields,
+in the spirit of sizecoding: small code, big pictures.
+
 ## Synthesis
 
 [`SYNTHESE.md`](SYNTHESE.md) ties all ideas together: from the first lessons

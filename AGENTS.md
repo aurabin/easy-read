@@ -50,6 +50,11 @@ Read this at the start of every session. This is the durable memory of earlier w
   Both are real browsers emulators. We credit them; we do not copy assets or
   code. Our own C64 page (`outreach/apps/c64-compat.html`) is a teaching tool,
   not a full emulator (no 6510/VIC-II/SID/ROMs).
+- Design reference for the sizecoding look: `https://blog.mathieuacher.com/SizeCodingArtBuild/`
+  — Mathieu Acher on "Encounter" (Outline 2024), a cinematic demo in 256 bytes,
+  WASM via CurlyWAS/microW8, wasm-opt -Oz. Small code, big pictures.
+  The same spirit as our C64 (64/256 bytes) and Amiga (400/656 bytes) demos.
+  We credit it; we do not copy its code.
 - `docs/` is **generated**. Never edit it directly. After any change in
   `field-generator/` or `site/`, run `node field-generator/build-docs.mjs`.
 - WASM particle kernel (`field.wasm`) with a JavaScript fallback.

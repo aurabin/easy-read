@@ -65,8 +65,10 @@ input,select{font:inherit;padding:7px;background:#0a1220;color:var(--ink);
 footer{text-align:center;color:var(--muted);font-size:12px;padding:16px}
 @media(prefers-reduced-motion:reduce){*{transition:none}}
 </style>
+<script src="system-felder.js" defer></script>
 </head>
 <body>
+<canvas data-systemfeld="2" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.06;pointer-events:none"></canvas>
 <div class="wrap">
   <div class="stripe" aria-hidden="true"></div>
   <h1>DAS GROSSE GANZE <span>ein Feld · ein Spiel</span></h1>

@@ -41,6 +41,7 @@ for (const f of liveApps) files.push([`outreach/apps/${f}`, `apps/${f}`]);
 files.push(["outreach/apps/paula-ml.js", "apps/paula-ml.js"]);
 files.push(["outreach/apps/spiel-felder.js", "apps/spiel-felder.js"]);
 files.push(["outreach/apps/kosmos-felder.js", "apps/kosmos-felder.js"]);
+files.push(["outreach/apps/system-felder.js", "apps/system-felder.js"]);
 
 for (const [from, to] of files) {
   mkdirSync(dirname(join(dst, to)), { recursive: true });
