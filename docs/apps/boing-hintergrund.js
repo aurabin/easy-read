@@ -133,23 +133,30 @@ function create(canvas){
     }
     for(var j=0;j<trail.length;j++) trail[j].life-=0.06;
 
-    // Donner-Timer: alle 7-13 Sekunden
-    donnerTimer+=0.016;
-    if(donnerTimer>=donnerNext){
-      donnerTimer=0;donnerNext=7+Math.random()*6;donnerAktiv=0.9;
-      if(sound)donnern(audio);
-    }
-    if(donnerAktiv>0)donnerAktiv-=0.018;
-    if(donnerAktiv<0)donnerAktiv=0;
-
-    // Blitz-Timer: alle 10-20 Sekunden
+    // Blitz-Timer: alle 10-20 Sekunden ein Blitz
     blitzTimer+=0.016;
     if(blitzTimer>=blitzNext){
-      blitzTimer=0;blitzNext=10+Math.random()*10;blitzDauer=0.15;
+      blitzTimer=0;blitzNext=10+Math.random()*10;
+      blitzDauer=0.15;
       blitzX=80+Math.random()*(LW-160);
+      // Blitz ausloesen -> Donner folgt nach natuerlicher Verzoegerung
+      donnerGeplant=true;
+      donnerVerzoegerung=0.4+Math.random()*1.2;
     }
     if(blitzDauer>0)blitzDauer-=0.016;
     if(blitzDauer<0)blitzDauer=0;
+
+    // Donner nach Verzoegerung (Licht ist schneller als Schall)
+    if(donnerGeplant){
+      donnerVerzoegerung-=0.016;
+      if(donnerVerzoegerung<=0){
+        donnerGeplant=false;
+        donnerAktiv=0.9;
+        if(sound)donnern(audio);
+      }
+    }
+    if(donnerAktiv>0)donnerAktiv-=0.018;
+    if(donnerAktiv<0)donnerAktiv=0;
 
     ctx.save();ctx.scale(scaleX,scaleY);
     // Hintergrund
