@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kosmos-Reise — vom Mikrokosmos zum Makrokosmos</title>
+<style>
+:root{--bg:#070b14;--panel:#0e1626;--ink:#eaf2ff;--muted:#9fb3d1;
+ --line:#24344f;--teal:#0f766e;--sky:#6fd3ff;--violet:#7a20d0;
+ --red:#e8382f;--cream:#f5f0e6;--yellow:#f2d000}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto 0;height:440px;pointer-events:none;
+ background-image:linear-gradient(rgba(122,32,208,.16) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(122,32,208,.16) 1px,transparent 1px);
+ background-size:32px 32px;-webkit-mask-image:linear-gradient(180deg,#000,transparent);
+ mask-image:linear-gradient(180deg,#000,transparent)}
+.wrap{position:relative;max-width:960px;margin:0 auto;padding:20px 16px 70px}
+.stripe{width:104px;height:4px;border-radius:2px;margin-bottom:16px;
+ background:repeating-linear-gradient(90deg,var(--red) 0 12px,var(--cream) 12px 24px)}
+h1{font-size:clamp(22px,4vw,34px);margin:0 0 4px;line-height:1.15}
+h1 span{color:var(--sky)}
+.lead{color:var(--muted);margin:0 0 16px;max-width:64ch}
+/* Stufen-Leiste */
+.stufen{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px}
+.stufe{flex:1;min-width:56px;text-align:center;padding:6px 3px;border:1px solid var(--line);
+ border-radius:6px;font:10px ui-monospace,monospace;color:var(--muted);background:var(--panel);
+ cursor:pointer}
+.stufe.aktiv{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:bold}
+.stufe.gemacht{border-color:var(--sky);color:var(--sky)}
+/* Feld */
+.feld-wrap{position:relative;height:300px;border:2px solid var(--line);border-radius:8px;
+ overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.feld-wrap canvas{width:100%;height:100%;display:block;image-rendering:pixelated}
+.feld-top{position:absolute;top:8px;left:10px;right:10px;display:flex;
+ justify-content:space-between;pointer-events:none}
+.feld-top b{font:600 15px ui-monospace,monospace;color:var(--sky);text-shadow:0 2px 4px #000}
+.feld-top span{font:11px ui-monospace,monospace;color:var(--cream);text-shadow:0 2px 4px #000}
+.feld-bottom{position:absolute;bottom:8px;left:10px;color:var(--muted);
+ font:11px ui-monospace,monospace;pointer-events:none}
+/* Erklaerung */
+.erklaerung{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--sky);
+ border-radius:6px;padding:14px;margin-top:14px}
+.erklaerung h2{margin:0 0 6px;color:var(--cream);font-size:18px}
+.erklaerung p{margin:6px 0}
+.lerne{margin:8px 0 0;padding-left:18px;color:var(--muted)}
+.lerne li{margin:3px 0}
+/* Navigation */
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
+button{cursor:pointer;font:inherit;color:var(--ink);background:var(--panel);
+ border:1px solid var(--line);border-radius:8px;padding:9px 16px;transition:border-color .15s,transform .15s}
+button:hover{border-color:var(--sky);transform:translateY(-2px)}
+button:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+button:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.weiter{background:var(--teal);border-color:var(--teal);color:#fff}
+/* Hinzufuegen */
+.add{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;margin-top:16px}
+.add h3{margin:0 0 10px;color:var(--yellow);font-size:15px}
+.add form{display:flex;gap:8px;flex-wrap:wrap;align-items:end}
+.add label{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+input,select{font:inherit;padding:7px;background:#0a1220;color:var(--ink);
+ border:1px solid var(--line);border-radius:5px}
+.objekte{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.obj{padding:4px 9px;border:1px solid var(--line);border-radius:99px;font-size:12px;
+ background:#0a1220;display:flex;gap:6px;align-items:center}
+.obj i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.obj button{padding:1px 6px;font-size:11px;border:0;background:transparent;color:var(--red)}
+.konfetti{position:fixed;width:8px;height:8px;pointer-events:none;z-index:99;animation:fall 1s forwards}
+@keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:16px}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stripe" aria-hidden="true"></div>
+  <h1>KOSMOS-REISE <span>SCHRITT FÜR SCHRITT</span></h1>
+  <p class="lead">Zehn Schritte vom Kleinsten zum Größten. Jeder Schritt ist ein
+    eigener Feldgenerator. Du kannst eigene Dinge hinzufügen.</p>
+
+  <div class="stufen" id="stufen"></div>
+
+  <div class="feld-wrap">
+    <canvas id="feld"></canvas>
+    <div class="feld-top"><b id="stufename">QUARKS</b><span id="groesse">10⁻¹⁸ m</span></div>
+    <div class="feld-bottom" id="feldinfo">Schritt 1 von 10</div>
+  </div>
+
+  <div class="erklaerung">
+    <h2 id="erk-titel">Was du siehst</h2>
+    <p id="erk-text"></p>
+    <ul class="lerne" id="erk-lerne"></ul>
+  </div>
+
+  <div class="nav">
+    <button id="zurueck" disabled>← Zurück</button>
+    <button id="weiter" class="weiter">Weiter →</button>
+    <button id="hoeren">Ton an</button>
+    <span id="fortschritt" style="color:var(--muted);font:12px ui-monospace,monospace"></span>
+  </div>
+
+  <div class="add">
+    <h3>+ ETWAS HINZUFÜGEN</h3>
+    <form id="addform">
+      <label>Name <input id="neu-name" maxlength="16" placeholder="z. B. mein Stern" required></label>
+      <label>Farbe <select id="neu-farbe">
+        <option value="#6fd3ff">Sky</option><option value="#f2d000">Gelb</option>
+        <option value="#e8382f">Rot</option><option value="#3fa04a">Grün</option>
+        <option value="#7a20d0">Violett</option><option value="#f5f0e6">Creme</option>
+      </select></label>
+      <label>Form <select id="neu-form">
+        <option value="kreis">Kreis</option><option value="stern">Stern</option>
+        <option value="dreieck">Dreieck</option><option value="viereck">Viereck</option>
+      </select></label>
+      <button type="submit">Hinzufügen</button>
+    </form>
+    <div class="objekte" id="objekte"></div>
+    <p style="color:var(--muted);font-size:12px;margin:8px 0 0">
+      Deine Dinge erscheinen im Feld und bleiben auf diesem Gerät.</p>
+  </div>
+
+  <footer>Kostenlos. Offen. Eigene Nachbildung im Boing-Ball-Stil. Kein WAV.
+    Nicht mit echten Kindern getestet.</footer>
+</div>
+<script src="kosmos-felder.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var STUFEN=window.KosmosFelder?KosmosFelder.STUFEN:[];
+var idx=0, feld=null, eigene={}, tonAn=false, actx=null;
+try{eigene=JSON.parse(localStorage.getItem("er-kosmos")||"{}")||{};}catch(e){eigene={}}
+
+/* Stufen-Leiste */
+var leiste=$("#stufen");
+STUFEN.forEach(function(s,i){
+  var b=document.createElement("button");b.className="stufe";b.textContent=(i+1)+". "+s.name;
+  b.onclick=function(){gehe(i)};leiste.appendChild(b);
+});
+
+function speichern(){try{localStorage.setItem("er-kosmos",JSON.stringify(eigene));}catch(e){}}
+function meine(){return eigene[idx]||[]}
+
+function ton(f){if(!tonAn)return;try{
+ if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();
+ if(actx.state==="suspended")actx.resume();
+ var o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime;
+ o.type="sine";o.frequency.setValueAtTime(330+idx*30,t);
+ o.frequency.exponentialRampToValueAtTime(660+idx*30,t+.15);
+ g.gain.setValueAtTime(.1,t);g.gain.exponentialRampToValueAtTime(.001,t+.28);
+ o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+.3);
+}catch(e){}}
+function konfetti(){var f=["#6fd3ff","#f2d000","#7a20d0","#e8382f","#f5f0e6"];
+ for(var i=0;i<18;i++){var k=document.createElement("div");k.className="konfetti";
+  k.style.left=(Math.random()*100)+"vw";k.style.top="-10px";k.style.background=f[i%f.length];
+  document.body.appendChild(k);setTimeout((function(el){return function(){el.remove()}})(k),1300);}}
+
+function zeige(){
+  var s=STUFEN[idx];
+  if(feld)feld.stop();
+  feld=KosmosFelder.create($("#feld"),idx,meine());
+  $("#stufename").textContent=s.name;
+  $("#stufename").style.color=s.farbe;
+  $("#groesse").textContent=s.groesse;
+  $("#feldinfo").textContent="Schritt "+(idx+1)+" von "+STUFEN.length+" · "+s.mod;
+  $("#erk-titel").textContent=s.name+" — "+s.groesse;
+  $("#erk-text").textContent=s.text;
+  var ul=$("#erk-lerne");ul.innerHTML="";
+  s.lerne.forEach(function(t){var li=document.createElement("li");li.textContent=t;ul.appendChild(li);});
+  $("#zurueck").disabled=idx===0;
+  $("#weiter").textContent=idx===STUFEN.length-1?"Nochmal von vorn ↻":"Weiter →";
+  $("#fortschritt").textContent=Math.round((idx+1)/STUFEN.length*100)+"% geschafft";
+  var bs=leiste.children;
+  for(var i=0;i<bs.length;i++){
+    bs[i].classList.toggle("aktiv",i===idx);
+    bs[i].classList.toggle("gemacht",i<idx);
+  }
+  objekteZeigen();
+}
+function gehe(i){idx=i;ton();konfetti();zeige();}
+$("#weiter").onclick=function(){gehe((idx+1)%STUFEN.length)};
+$("#zurueck").onclick=function(){if(idx>0)gehe(idx-1)};
+$("#hoeren").onclick=function(){tonAn=!tonAn;this.textContent=tonAn?"Ton aus":"Ton an"};
+
+function objekteZeigen(){
+  var box=$("#objekte");box.innerHTML="";
+  meine().forEach(function(o,i){
+    var d=document.createElement("div");d.className="obj";
+    d.innerHTML='<i style="background:'+o.farbe+'"></i><span>'+o.name+'</span>';
+    var x=document.createElement("button");x.type="button";x.textContent="×";
+    x.onclick=function(){eigene[idx].splice(i,1);speichern();zeige();};
+    d.appendChild(x);box.appendChild(d);
+  });
+  if(!meine().length){box.textContent="Noch keine eigenen Dinge auf dieser Stufe.";}
+}
+$("#addform").onsubmit=function(e){
+  e.preventDefault();
+  var n=$("#neu-name").value.trim();if(!n)return;
+  if(!eigene[idx])eigene[idx]=[];
+  eigene[idx].push({name:n,farbe:$("#neu-farbe").value,form:$("#neu-form").value});
+  speichern();$("#neu-name").value="";ton();konfetti();zeige();
+};
+
+zeige();
+})();
+</script>
+</body>
+</html>
