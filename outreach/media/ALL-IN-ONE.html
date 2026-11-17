@@ -139,7 +139,6 @@ const MLPaula = (() => {
           if(!v.list) continue;
           v.spdCnt--; if(v.spdCnt>0) continue;
           v.spdCnt=v.spd;
-          v.life=0;
           const w=(v.list[2*v.pos]<<8)|(v.list[2*v.pos+1]);
           const partNum=(w>>8)|((w<<2)&0x300), trans=(w&31)-16;
           let check=0;
@@ -160,9 +159,9 @@ const MLPaula = (() => {
                 v.vol=ib? ((ib[58]<<8|ib[59])/64) || 0.6 : 0.6;
                 const sn=ib? ib[32] : 1;
                 v.samp=m.samples[sn-1]||m.samples[0]||null;
-                v.phase=0; v.active=1; v.env=0; v.life=tickLen*v.spd;
+                v.phase=0; v.active=1; v.env=0; v.life=tickLen*v.spd*2;
               }
-            }
+            } else if(note===0){ v.life=0; }
             break;
           }
         }
