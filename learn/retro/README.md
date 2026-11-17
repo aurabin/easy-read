@@ -51,6 +51,11 @@ The pun is German. All six languages are in [`../joke.md`](../joke.md).
 [`assembly/`](assembly/README.md) — echte 6502- und 68000-Quellen für
 C64 und Amiga, als Hommage an die Original-Boing-Demos.
 
+## KolibriOS
+
+[`kolibrios/`](kolibrios/README.md) — was auf dem x86-System funktioniert
+und was nicht. Enthält einen nativen FASM-Entwurf.
+
 ## Design background
 
 [`design-history.md`](design-history.md) — what retro scene art teaches us about
