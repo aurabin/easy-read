@@ -37,22 +37,28 @@
   const cv = $("#cv"), g = cv.getContext("2d");
   const W = 320, H = 200;
   const reduce = matchMedia("(prefers-reduced-motion: reduce)");
-  const S = { t:0, started:false, paused:false, calm:reduce.matches, sound:false, audio:null, raf:null };
+  const S = { t:0, started:false, paused:false, calm:reduce.matches, sound:false, audio:null, raf:null, by:0, prevBy:null, prevDir:0 };
   const ball = { ay:0.35, ax:0.2, squash:0 };
 
   function boing(){
     if(!S.sound) return;
     try{
-      if(!S.audio) S.audio = new (window.AudioContext||window.webkitAudioContext)();
-      if(S.audio.state === "suspended") S.audio.resume();
-      const t = S.audio.currentTime, o = S.audio.createOscillator(), gn = S.audio.createGain();
-      o.type="sine"; o.frequency.setValueAtTime(210,t); o.frequency.exponentialRampToValueAtTime(70,t+.28);
-      gn.gain.setValueAtTime(.28,t); gn.gain.exponentialRampToValueAtTime(.001,t+.32);
-      o.connect(gn); gn.connect(S.audio.destination); o.start(t); o.stop(t+.34);
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if(!AC) return;
+      if(!S.audio) S.audio = new AC();
+      const c = S.audio;
+      const play = () => {
+        const t = c.currentTime, o = c.createOscillator(), gn = c.createGain();
+        o.type="sine"; o.frequency.setValueAtTime(220,t); o.frequency.exponentialRampToValueAtTime(70,t+.28);
+        gn.gain.setValueAtTime(.35,t); gn.gain.exponentialRampToValueAtTime(.001,t+.32);
+        o.connect(gn); gn.connect(c.destination); o.start(t); o.stop(t+.34);
+      };
+      if(c.state === "suspended") c.resume().then(play).catch(()=>{});
+      else play();
     }catch(e){}
   }
 
-  function sphere(x,y,r,cycle){
+  function sphere(x,y,rx,ry,cycle){
     const lat=8,lon=10;
     const rot=(px,py,pz)=>{const cy=Math.cos(ball.ay),sy=Math.sin(ball.ay),cx=Math.cos(ball.ax),sx=Math.sin(ball.ax);
       const x1=px*cy+pz*sy,z1=-px*sy+pz*cy;return{x:x1,y:py*cx-z1*sx,z:py*sx+z1*cx};};
@@ -60,7 +66,7 @@
     for(let i=0;i<lat;i++){const l1=-Math.PI/2+i*Math.PI/lat,l2=-Math.PI/2+(i+1)*Math.PI/lat;
       for(let j=0;j<lon;j++){const g1=j*2*Math.PI/lon,g2=(j+1)*2*Math.PI/lon;
         const c4=[[l1,g1],[l1,g2],[l2,g2],[l2,g1]];let d=0;
-        const pts=c4.map(([la,lo])=>{const cp=Math.cos(la);const p=rot(cp*Math.cos(lo),Math.sin(la),cp*Math.sin(lo));d+=p.z;return{x:p.x*r,y:-p.y*r};});
+        const pts=c4.map(([la,lo])=>{const cp=Math.cos(la);const p=rot(cp*Math.cos(lo),Math.sin(la),cp*Math.sin(lo));d+=p.z;return{x:p.x*rx,y:-p.y*ry};});
         d/=4;if(d<=.02)continue;quads.push({d,i,j,pts});}}
     quads.sort((a,b)=>a.d-b.d);
     g.save();g.translate(x,y);
@@ -83,9 +89,11 @@
     const x=160+Math.sin(t)*96;
     const y=100+Math.sin(t*2)*30;
     const r=22*(.92+.08*Math.sin(t*2+1));
+    S.by=y;
+    const sq=ball.squash*.18;
     g.fillStyle="rgba(0,0,0,.38)";
-    g.beginPath();g.ellipse(x+14,y-5,r*.9,r*.6,0,0,7);g.fill();
-    sphere(x,y,r,Math.floor(S.t*7)%2);
+    g.beginPath();g.ellipse(x+14,y-5,r*.9*(1+sq),r*.6*(1-sq),0,0,7);g.fill();
+    sphere(x,y,r*(1+sq),r*(1-sq),Math.floor(S.t*7)%2);
 
     g.fillStyle="#d8d8d8";g.fillRect(0,0,W,15);
     g.fillStyle="#1a1a1a";g.fillRect(0,0,W,3);
@@ -94,7 +102,18 @@
     g.fillStyle="#1a1a1a";g.font="8px monospace";g.fillText("Workbench",22,12);
   }
 
-  function loop(){ if(S.paused)return; S.t+=.016; ball.ay+=.03; ball.ax=.25; draw(); S.raf=requestAnimationFrame(loop); }
+  function loop(){
+    if(S.paused)return;
+    S.t+=.016; ball.ay+=.03; ball.ax=.25; ball.squash*=.86;
+    draw();
+    if(S.prevBy!==null){
+      const dir=S.by-S.prevBy;
+      if(S.prevDir>0 && dir<=0){ ball.squash=1; boing(); }
+      S.prevDir=dir;
+    }
+    S.prevBy=S.by;
+    S.raf=requestAnimationFrame(loop);
+  }
   function start(){ $("#start").classList.add("hidden"); $("#wrap").classList.remove("hidden"); S.started=true; draw(); if(!S.calm)loop(); }
   $("#go").addEventListener("click",start);
   window.addEventListener("keydown",e=>{ if(e.key==="Enter"){ if(!S.started)start(); else $("#pause").click(); } });
@@ -102,7 +121,7 @@
     S.paused=!S.paused;$("#pause").textContent=S.paused?"Play":"Pause";
     if(S.paused){cancelAnimationFrame(S.raf);}else{loop();}
   });
-  $("#sound").addEventListener("click",()=>{S.sound=!S.sound;const b=$("#sound");b.textContent="Sound: "+(S.sound?"on":"off");b.setAttribute("aria-pressed",String(S.sound));boing();});
+  $("#sound").addEventListener("click",()=>{S.sound=!S.sound;const b=$("#sound");b.textContent="Sound: "+(S.sound?"on":"off");b.setAttribute("aria-pressed",String(S.sound));if(S.sound&&(!S.started||S.paused||S.calm))boing();});
   reduce.addEventListener("change",e=>{S.calm=e.matches;if(S.calm)cancelAnimationFrame(S.raf);else if(S.started&&!S.paused)loop();});
   draw();
   $("#go").focus();

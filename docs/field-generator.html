@@ -224,12 +224,15 @@ let boingAudio=null;
 function boingSound(){
   if(!S.sound)return;
   try{
-    if(!boingAudio)boingAudio=new (window.AudioContext||window.webkitAudioContext)();
-    if(boingAudio.state==="suspended")boingAudio.resume();
-    const t=boingAudio.currentTime,o=boingAudio.createOscillator(),g=boingAudio.createGain();
-    o.type="sine";o.frequency.setValueAtTime(210,t);o.frequency.exponentialRampToValueAtTime(70,t+.28);
-    g.gain.setValueAtTime(.28,t);g.gain.exponentialRampToValueAtTime(.001,t+.32);
-    o.connect(g);g.connect(boingAudio.destination);o.start(t);o.stop(t+.34);
+    const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+    if(!boingAudio)boingAudio=new AC();
+    const c=boingAudio;
+    const play=()=>{const t=c.currentTime,o=c.createOscillator(),g=c.createGain();
+      o.type="sine";o.frequency.setValueAtTime(220,t);o.frequency.exponentialRampToValueAtTime(70,t+.28);
+      g.gain.setValueAtTime(.35,t);g.gain.exponentialRampToValueAtTime(.001,t+.32);
+      o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.34);};
+    if(c.state==="suspended")c.resume().then(play).catch(()=>{});
+    else play();
   }catch(e){}
 }
 function retroSphere(g,x,y,r,cycle){
@@ -516,7 +519,7 @@ $("#randomNodes").addEventListener("click",()=>{const n=2+Math.floor(Math.random
 $("#pause").addEventListener("click",()=>{S.paused=!S.paused;const b=$("#pause");b.textContent=S.paused?"Play":"Pause";b.classList.toggle("on",S.paused);if(!S.paused)run();else if(S.raf){cancelAnimationFrame(S.raf);S.raf=null;draw();}});
 $("#reset").addEventListener("click",()=>{S.t=0;seedParticles();seedBall();draw();});
 $("#motionBtn").addEventListener("click",()=>{S.calm=!S.calm;$("#motionBtn").setAttribute("aria-pressed",String(S.calm));$("#motionBtn").textContent=S.calm?"More motion":"Less motion";run();});
-$("#soundBtn").addEventListener("click",()=>{S.sound=!S.sound;const b=$("#soundBtn");b.textContent="Sound: "+(S.sound?"on":"off");b.setAttribute("aria-pressed",String(S.sound));b.classList.toggle("on",S.sound);if(S.sound)boingSound();});
+$("#soundBtn").addEventListener("click",()=>{S.sound=!S.sound;const b=$("#soundBtn");b.textContent="Sound: "+(S.sound?"on":"off");b.setAttribute("aria-pressed",String(S.sound));b.classList.toggle("on",S.sound);if(S.sound&&(!S.started||S.paused||S.calm))boingSound();});
 reduce.addEventListener("change",e=>{S.calm=e.matches;run();});
 $("#exportBtn").addEventListener("click",()=>{const a=document.createElement("a");a.download="virtual-field-art.png";a.href=cv.toDataURL("image/png");a.click();});
 $("#autoBtn").addEventListener("click",()=>{
