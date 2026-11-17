@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vektorfeld — nach der deutschen Wikipedia</title>
+<style>
+:root{--bg:#070b14;--panel:#0e1626;--ink:#eaf2ff;--muted:#9fb3d1;
+ --line:#24344f;--sky:#6fd3ff;--teal:#0f766e;--red:#e8382f;--yellow:#f2d000}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:clamp(22px,4vw,34px);margin:0 0 4px}
+h1 span{color:var(--sky)}
+.lead{color:var(--muted);margin:0 0 16px;max-width:68ch}
+#feld{width:100%;aspect-ratio:16/10;display:block;border:2px solid var(--line);border-radius:8px;
+ box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.steuer{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;align-items:center}
+button{cursor:pointer;font:inherit;color:var(--ink);background:var(--panel);
+ border:1px solid var(--line);border-radius:8px;padding:8px 14px}
+button:hover{border-color:var(--sky)}
+button.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.info{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--sky);
+ border-radius:6px;padding:14px;margin-top:12px}
+.info h2{margin:0 0 6px;color:var(--cream,#f5f0e6);font-size:18px}
+.info p{margin:5px 0}
+.formel{font:15px ui-monospace,monospace;color:var(--yellow)}
+.querelle{color:var(--muted);font-size:12px;margin-top:10px}
+.querelle a{color:var(--sky)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>VEKTORFELD <span>— jedem Punkt ein Pfeil</span></h1>
+  <p class="lead">Die deutsche Wikipedia sagt: Ein Vektorfeld ist eine Funktion,
+    die jedem Punkt eines Raumes einen Vektor zuordnet. Anschaulich wird an
+    jedem Punkt ein „Pfeil angebracht" — Richtung und Länge zeigen, wohin und
+    wie stark. Hier kannst du vier echte Felder ansehen.</p>
+
+  <canvas id="feld"></canvas>
+
+  <div class="steuer">
+    <button data-f="punktquelle" class="on">Punktquelle (Gradient)</button>
+    <button data-f="zentral">Zentralfeld (Gravitation)</button>
+    <button data-f="wirbel">Wirbelfeld (Badewanne)</button>
+    <button data-f="gleich">Gleichförmig (Strömung)</button>
+  </div>
+
+  <div class="info">
+    <h2 id="titel">Punktquelle</h2>
+    <p id="beschreibung"></p>
+    <p class="formel" id="formel"></p>
+  </div>
+
+  <p class="querelle">Quelle:
+    <a href="https://de.wikipedia.org/wiki/Vektorfeld" target="_blank" rel="noopener">de.wikipedia.org/wiki/Vektorfeld</a>
+    — „Vektorfelder im euklidischen Raum", Beispiele. Text unter CC BY-SA 4.0.
+    Unsere Zeichnung ist eine eigene Umsetzung.</p>
+
+  <footer>Kostenlos. Offen. Kein WAV. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<script>
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var c=$("#feld"),ctx=c.getContext("2d"),W,H,raf=null,t=0,mod="punktquelle";
+
+var TEXTE={
+ punktquelle:{t:"Punktquelle (Gradientenfeld)",
+  b:"Aus einem Punkt fließt es nach allen Seiten gleichmäßig heraus. Das ist das elektrische Feld um eine Punktladung. Die Pfeile zeigen nach außen.",
+  f:"v(x) = x / |x|³"},
+ zentral:{t:"Zentralfeld (Gravitation)",
+  b:"Alles zeigt zu einem Punkt hin — die Schwerkraft. Je näher, desto stärker. Das Gravitationsfeld ist so ein Zentralfeld.",
+  f:"v(x) = −x / |x|³"},
+ wirbel:{t:"Wirbelfeld (Badewanne)",
+  b:"Das Wasser dreht sich in Kreisen um den Abfluss. Oder das Magnetfeld um einen Draht mit Strom. Die Pfeile gehen im Kreis.",
+  f:"v(x,y) = (−y, x)"},
+ gleich:{t:"Gleichförmiges Feld",
+  b:"Überall zeigt der Pfeil in dieselbe Richtung und ist gleich lang. Wie eine ruhige Strömung oder ein gleichmäßiger Wind.",
+  f:"v(x,y) = (1, 0)"}
+};
+
+function groesse(){
+ var r=c.getBoundingClientRect();
+ W=c.width=Math.max(320,Math.floor(r.width));
+ H=c.height=Math.max(200,Math.floor(r.height));
+}
+function vektor(x,y){
+ var d=Math.hypot(x,y)||1;
+ switch(mod){
+  case "punktquelle": return [x/d, y/d];
+  case "zentral":     return [-x/d, -y/d];
+  case "wirbel":      return [-y/60, x/60];
+  case "gleich":      return [1, 0];
+ }
+ return [0,0];
+}
+function pfeil(x,y,dx,dy,farbe){
+ var l=Math.hypot(dx,dy)||1, ux=dx/l, uy=dy/l;
+ var laenge=Math.min(26, 8+l*6);
+ var ex=x+ux*laenge, ey=y+uy*laenge;
+ ctx.strokeStyle=farbe;ctx.lineWidth=1.4;
+ ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(ex,ey);ctx.stroke();
+ var w=4, a=Math.atan2(uy,ux);
+ ctx.beginPath();ctx.moveTo(ex,ey);
+ ctx.lineTo(ex-Math.cos(a-.5)*w, ey-Math.sin(a-.5)*w);
+ ctx.lineTo(ex-Math.cos(a+.5)*w, ey-Math.sin(a+.5)*w);
+ ctx.closePath();ctx.fillStyle=farbe;ctx.fill();
+}
+function zeichne(){
+ t+=.01;
+ ctx.fillStyle="#070b14";ctx.fillRect(0,0,W,H);
+ var s=34;
+ for(var y=s/2;y<H;y+=s){
+  for(var x=s/2;x<W;x+=s){
+   var v=vektor(x-W/2,y-H/2);
+   var laenge=Math.hypot(v[0],v[1]);
+   var farbe=laenge>1.1?"#e8382f":laenge>.7?"#f2d000":"#6fd3ff";
+   pfeil(x,y,v[0],v[1],farbe);
+  }
+ }
+ // Zentrum markieren
+ ctx.fillStyle=mod==="zentral"?"#e8382f":"#f2d000";
+ ctx.beginPath();ctx.arc(W/2,H/2,5,0,7);ctx.fill();
+ raf=requestAnimationFrame(zeichne);
+}
+document.querySelectorAll("[data-f]").forEach(function(b){
+ b.onclick=function(){
+  document.querySelectorAll("[data-f]").forEach(function(x){x.classList.remove("on")});
+  b.classList.add("on");mod=b.dataset.f;
+  var tx=TEXTE[mod];
+  $("#titel").textContent=tx.t;$("#beschreibung").textContent=tx.b;$("#formel").textContent=tx.f;
+ };
+});
+$("#titel").textContent=TEXTE.punktquelle.t;
+$("#beschreibung").textContent=TEXTE.punktquelle.b;
+$("#formel").textContent=TEXTE.punktquelle.f;
+groesse();window.addEventListener("resize",groesse);zeichne();
+})();
+</script>
+</body>
+</html>

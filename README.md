@@ -214,6 +214,15 @@ sent yet. It is written so that contact stays in writing: no calls, no camera.
 If you are in Germany, the doc lists first contacts with current addresses.
 The names and addresses are in `co-design.md`.
 
+## Vector field after Wikipedia
+
+[`outreach/apps/wiki-vektor-feld.html`](outreach/apps/wiki-vektor-feld.html) shows
+four real vector fields after the German Wikipedia article
+`de.wikipedia.org/wiki/Vektorfeld`: point source (gradient), central field
+(gravity), vortex field (bathtub), and uniform flow. Each point gets an arrow
+showing direction and strength. Our drawing is our own code; the definition is
+from Wikipedia (CC BY-SA 4.0).
+
 ## Functions and system fields
 
 [`learn/funktionen.md`](learn/funktionen.md) explains functions in Easy Read —
