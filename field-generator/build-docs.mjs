@@ -1,7 +1,7 @@
 // Generated deployment folder: copy the current sources into docs/.
 // Run after EVERY change in field-generator/ or site/.
 // Never edit files in docs/ directly.
-import { copyFileSync, mkdirSync } from "fs";
+import { copyFileSync, mkdirSync, readdirSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -20,7 +20,12 @@ const files = [
   ["field-generator/jpg-loader.html", "jpg-loader.html"],
   ["site/index.html", "index.html"],
 ];
+// Alle Apps aus outreach/apps/ automatisch mitnehmen.
+for (const f of readdirSync(join(root,"outreach/apps"))) {
+  if (f.endsWith(".html")) files.push([`outreach/apps/${f}`, `apps/${f}`]);
+}
 for (const [from, to] of files) {
+  mkdirSync(dirname(join(dst, to)), { recursive: true });
   copyFileSync(join(root, from), join(dst, to));
   console.log("synced", to);
 }
