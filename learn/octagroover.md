@@ -30,6 +30,12 @@ Es zeigt unsere wichtigsten Regeln.
 Der Dateiname schreibt `Ml.OctaGroover` genau groß und klein.
 Das meinen wir mit „case sensitive".
 
+Es gibt auch ein PNG vom Feldgenerator.
+Es liegt im Ordner `outreach/media/`.
+Es ist 1920 mal 1080 Pixel groß.
+PNG speichert Bilder ohne Verlust.
+PNG kann aber keinen Ton speichern.
+
 Der Ton ist aus.
 Das Video hat keine Tonspur.
 Wir konnten das `.ml`-Modul hier nicht abspielen.
