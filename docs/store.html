@@ -11,67 +11,68 @@
 <meta property="og:image" content="https://aurabin.github.io/easy-read/og-image.png">
 <meta property="og:url" content="https://aurabin.github.io/easy-read/">
 <style>
-/* AmigaOS 4.1 Workbench style */
+/* Nachtgitter — ruhiges, modernes Standard-Design */
 :root{
-  --desk:#8c8c8c; --win:#d9d9d9; --win2:#c4c4c4; --title:#5b82b8;
-  --text:#1f1f1f; --muted:#4c4c4c; --blue:#244f8a; --light:#ffffff; --dark:#5a5a5a;
-  --r:#e8382f; --o:#f08c00; --y:#f2d000; --g:#3fa04a; --b:#2f60b0; --p:#7a3fa0;
+  --desk:#070b14; --win:#0e1626; --win2:#131f36; --title:#16233a;
+  --text:#eaf2ff; --muted:#9fb3d1; --blue:#6fd3ff; --light:#24344f; --dark:#070b14;
+  --r:#e8382f; --o:#f08c00; --y:#f2d000; --g:#3fa04a; --b:#6fd3ff; --p:#9a6cff;
+  --accent:#6fd3ff;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--desk);color:var(--text);
-  font:14px/1.55 "Arial","Helvetica",sans-serif}
+  font:15px/1.6 "Segoe UI","Helvetica Neue",Arial,sans-serif}
 a{color:var(--blue)}
-a:focus-visible,button:focus-visible{outline:2px dotted var(--blue);outline-offset:2px}
-.wrap{max-width:1000px;margin:0 auto;padding:18px 16px 70px}
-.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;
-  border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:26px 18px 90px}
+.stripes{display:flex;height:6px;width:180px;margin:0 auto 26px;
+  border-radius:99px;overflow:hidden;box-shadow:none}
 .stripes i{flex:1}
 .stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
 .stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
 .stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
-.window{background:var(--win);border-top:2px solid var(--light);
-  border-left:2px solid var(--light);border-right:2px solid var(--dark);
-  border-bottom:2px solid var(--dark);box-shadow:3px 3px 0 rgba(0,0,0,.28);
-  margin-bottom:18px}
-.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
-  background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;
-  font-weight:bold;letter-spacing:.02em}
-.titlebar .gadget{width:14px;height:14px;background:var(--win2);
-  border-top:1px solid var(--light);border-left:1px solid var(--light);
-  border-right:1px solid var(--dark);border-bottom:1px solid var(--dark)}
+.window{background:var(--win);border:1px solid var(--light);border-radius:12px;
+  box-shadow:0 8px 28px rgba(0,0,0,.35);margin-bottom:22px;overflow:hidden}
+.titlebar{display:flex;align-items:center;gap:10px;height:38px;padding:0 16px;
+  background:var(--title);color:var(--blue);
+  font-weight:600;letter-spacing:.06em;font-size:12px;text-transform:uppercase;
+  border-bottom:1px solid var(--light)}
+.titlebar .gadget{width:10px;height:10px;border-radius:50%;background:var(--win2);
+  border:1px solid var(--light)}
 .titlebar .name{flex:1}
-.inner{padding:18px}
-h1{font-size:clamp(24px,4vw,36px);margin:0 0 8px;line-height:1.15}
-h2{font-size:18px;margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid #a9a9a9}
-p{margin:6px 0;max-width:58ch}
+.inner{padding:22px}
+h1{font-size:clamp(26px,4vw,40px);margin:0 0 10px;line-height:1.15;letter-spacing:-.02em}
+h2{font-size:19px;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--light)}
+p{margin:8px 0;max-width:62ch}
 .lead{color:var(--muted)}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
-.card{background:var(--win2);border-top:2px solid var(--light);
-  border-left:2px solid var(--light);border-right:2px solid var(--dark);
-  border-bottom:2px solid var(--dark);padding:14px}
-.card h3{margin:6px 0;font-size:16px}
-.card p{color:var(--muted);font-size:13px}
-.tag{font:11px monospace;color:var(--blue);text-transform:uppercase;letter-spacing:.08em}
-.btn{display:inline-block;margin-top:10px;padding:5px 12px;text-decoration:none;
-  color:var(--text);background:var(--win);font-size:13px;
-  border-top:2px solid var(--light);border-left:2px solid var(--light);
-  border-right:2px solid var(--dark);border-bottom:2px solid var(--dark)}
-.btn:active{border-top-color:var(--dark);border-left-color:var(--dark);
-  border-right-color:var(--light);border-bottom-color:var(--light)}
-.chip{display:inline-block;padding:3px 9px;background:var(--win2);font-size:12px;
-  border:1px solid var(--dark)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{background:var(--win2);border:1px solid var(--light);border-radius:9px;padding:16px;
+  transition:transform .15s ease,border-color .15s ease}
+.card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.card h3{margin:8px 0 6px;font-size:17px}
+.card p{color:var(--muted);font-size:13px;min-height:38px}
+.tag{font:11px "Segoe UI",Arial,sans-serif;color:var(--blue);
+  text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.btn{display:inline-block;margin-top:12px;padding:7px 14px;text-decoration:none;
+  color:#04121f;background:var(--accent);font-size:13px;font-weight:600;
+  border:0;border-radius:6px;transition:filter .15s ease}
+.btn:hover{filter:brightness(1.12);text-decoration:none}
+.btn:active{filter:brightness(.9)}
+.chip{display:inline-block;padding:4px 10px;background:var(--win2);font-size:12px;
+  border:1px solid var(--light);border-radius:99px;color:var(--muted)}
 .sec-num{font:11px monospace;color:var(--blue)}
-.joke{background:var(--win2)}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
+.joke{background:linear-gradient(135deg,var(--win2),var(--title))}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:14px}
 /* Dock-Leiste */
-.dock{position:fixed;left:0;right:0;bottom:0;height:52px;display:flex;
+.dock{position:fixed;left:0;right:0;bottom:0;height:56px;display:flex;
   justify-content:center;align-items:center;gap:10px;padding:6px;
-  background:linear-gradient(180deg,#bdbdbd,#8f8f8f);
-  border-top:2px solid var(--light)}
-.dock a{width:34px;height:34px;display:grid;place-content:center;
-  text-decoration:none;font-size:18px;background:var(--win);
-  border-top:2px solid var(--light);border-left:2px solid var(--light);
-  border-right:2px solid var(--dark);border-bottom:2px solid var(--dark)}
+  background:rgba(14,22,38,.92);backdrop-filter:blur(10px);
+  border-top:1px solid var(--light)}
+.dock a{width:38px;height:38px;display:grid;place-content:center;
+  text-decoration:none;font-size:18px;background:var(--win2);
+  border:1px solid var(--light);border-radius:9px;color:var(--text);
+  transition:transform .15s ease,border-color .15s ease}
+.dock a:hover{transform:translateY(-2px);border-color:var(--accent)}
 /* Weitere Oberflächen */
 body[data-theme="night"]{--desk:#070b14;--win:#0e1626;--win2:#17233d;
  --title:#3b5bdb;--text:#eaf2ff;--muted:#9fb3d1;--blue:#6fd3ff;
@@ -119,12 +120,13 @@ body[data-theme="pimiga"] .window{
   border-right-color:#707070;border-bottom-color:#707070;box-shadow:3px 3px 0 #2a4a8a}
 body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
   background:#2a4a8a;color:#fff}
-.appearance{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.appearance{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .appearance .rows{display:flex;gap:6px;flex-wrap:wrap}
-.appearance button{font:inherit;font-size:12px;padding:4px 9px;color:var(--text);
- background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
- border-right:2px solid var(--dark);border-bottom:2px solid var(--dark)}
-.appearance button[aria-pressed="true"]{background:var(--title);color:#fff}
+.appearance button{font:inherit;font-size:12px;padding:6px 12px;color:var(--muted);
+ background:var(--win2);border:1px solid var(--light);border-radius:99px;cursor:pointer}
+.appearance button:hover{color:var(--text);border-color:var(--accent)}
+.appearance button[aria-pressed="true"]{background:var(--accent);color:#04121f;
+ border-color:var(--accent);font-weight:600}
 @media(prefers-reduced-motion:reduce){*{transition:none}}
 </style>
 </head>
@@ -176,7 +178,8 @@ body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
     <div class="inner appearance">
       <strong id="appearance">Oberfläche:</strong>
       <div class="rows" role="group" aria-label="Appearance">
-        <button type="button" data-theme-btn="pimiga" aria-pressed="true">Pimiga</button>
+        <button type="button" data-theme-btn="nachtgitter" aria-pressed="true">Nachtgitter</button>
+        <button type="button" data-theme-btn="pimiga" aria-pressed="false">Pimiga</button>
         <button type="button" data-theme-btn="pet" aria-pressed="false">PET 2001</button>
         <button type="button" data-theme-btn="os41" aria-pressed="false">OS 4.1</button>
         <button type="button" data-theme-btn="night" aria-pressed="false">Nacht</button>
@@ -292,7 +295,7 @@ body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
     <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Ein Witz</span><span class="gadget" aria-hidden="true"></span></div>
     <div class="inner">
       <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
-      <p><small>Der Witz ist auf Deutsch. Im Projekt steht er in sechs Sprachen.</small></p>
+      <p><small>Der Witz ist auf Deutsch. Im Projekt steht er in mehreren Sprachen.</small></p>
     </div>
   </section>
 
@@ -329,7 +332,7 @@ body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
 <script>
 (function(){
   var t="win31";
-  try{ t=localStorage.getItem("er-theme")||"os41"; }catch(e){}
+  try{ t=localStorage.getItem("er-theme")||"nachtgitter"; }catch(e){}
   var q=new URLSearchParams(location.search).get("theme");
   if(q) t=q;
   function apply(){
