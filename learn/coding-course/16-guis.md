@@ -77,3 +77,4 @@ Nach dem Klick steht er im Text.
 
 ---
 Lizenz dieses Kurses: AGPL-3.0 — siehe [LICENSE.md](LICENSE.md).
+Weiter: [Linux](17-linux.md).
