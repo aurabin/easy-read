@@ -57,7 +57,9 @@ check("Easy Read 100/100", low.length===0, low.length?low.join(", "):`${lessons.
 
 // 7. Artefakte vorhanden
 const must = ["outreach/media/ALL-IN-ONE.html","outreach/media/All-In-One.PNG",
-  "outreach/media/standalone.html","site/index.html","tools/paula-ml.js","AGENTS.md"];
+  "outreach/media/standalone.html","outreach/apps/cgi-music.html",
+  "tools/cgi/handler.mjs","tools/cgi/server.mjs",
+  "site/index.html","tools/paula-ml.js","AGENTS.md"];
 const missing = must.filter(p=>!existsSync(p));
 check("Kern-Artefakte", missing.length===0, missing.join(", ")||`${must.length} Dateien`);
 
@@ -67,6 +69,11 @@ const media = readdirSync("outreach/media").filter(f=>/^(all|standalone)/i.test(
 check("keine Media-Duplikate",
   media.length===singles.length && media.every(f=>singles.includes(f)),
   media.join(", ")||"keine");
+
+// 9. CGI-Programm
+const cgi = run(["tools/cgi/test.mjs"]);
+check("CGI-Programm", /CGI OK/.test(cgi) && !/FAIL/.test(cgi),
+  cgi.trim().split("\n").pop());
 
 console.log(out.join("\n"));
 console.log(fails===0 ? "\nSELF-ENGINEERING OK" : `\nSELF-ENGINEERING: ${fails} Problem(e)`);

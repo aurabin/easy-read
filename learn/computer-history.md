@@ -162,12 +162,12 @@ Berners-Lee erfand es 1989 am CERN.
 | 2004 | Predictor@home wird das erste BOINC-Projekt. |
 | Heute | BOINC läuft auf Windows, Mac, Linux und Android. |
 
-BOINC ist ein langer Name.
-Er heißt: Berkeley Open Infrastructure for Network Computing.
+BOINC ist ein englischer Name.
+Er steht für ein offenes Netz zum Rechnen.
 Man spricht ihn „boink" aus. Das reimt sich auf „oink".
 
 BOINC entstand in Berkeley in Kalifornien.
-David P. Anderson leitete das Team.
+Ein Mann namens David Anderson leitete das Team.
 Er leitete auch SETI@home.
 
 Zuerst gab es nur SETI@home.
@@ -177,10 +177,10 @@ Manche Leute schummelten, um Punkte zu bekommen.
 Andere schickten falsche Ergebnisse.
 Darum bauten sie BOINC sicherer.
 
-BOINC bündelt viele Rechner zu einer starken Kraft.
-Die Rechner rechnen, wenn ihre Besitzer nichts tun.
-So hilft dein PC der Forschung, ohne dass du etwas zahlst.
-Freiwillige leihen ihre Rechner der Forschung.
+BOINC macht aus vielen Rechnern einen starken Rechner.
+Die Rechner arbeiten, wenn du sie nicht brauchst.
+So hilft dein PC der Forschung. Du zahlst nichts.
+Du leihst deinen Rechner einfach her.
 
 Es gibt viele Projekte. Hier sind einige:
 

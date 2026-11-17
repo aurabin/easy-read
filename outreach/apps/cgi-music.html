@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Musik wird Bild — Easy Read</title>
+<style>
+:root{--desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+ --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a;
+ --r:#e8382f;--o:#f08c00;--y:#f2d000;--g:#3fa04a;--b:#2f60b0;--p:#7a3fa0;
+ --fs:14px;--font:Arial,Helvetica,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:var(--fs)/1.5 var(--font)}
+body[data-theme="win31"]{--desk:#008080;--win:#c0c0c0;--title:#000080;--text:#000;
+ --muted:#000;--blue:#000080;--light:#fff;--dark:#808080;
+ font-family:"MS Sans Serif",Tahoma,Arial,sans-serif}
+body[data-theme="win31"] .titlebar{background:linear-gradient(180deg,#000080,#1084d0)}
+body[data-theme="win31"] .window,body[data-theme="win31"] button,
+body[data-theme="win31"] .btn,body[data-theme="win31"] .step{
+ border-top-color:#fff;border-left-color:#fff;border-right-color:#000;border-bottom-color:#000}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
+ outline:2px dotted var(--blue);outline-offset:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px 60px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
+.stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
+.stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:16px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+ background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:14px 16px}
+h1{font-size:24px;margin:0 0 8px}h2{font-size:17px;margin:0 0 10px}
+p{margin:6px 0;max-width:62ch}
+.lead{color:var(--muted)}
+.warn{background:var(--y);border:2px solid var(--dark);padding:10px;color:#000}
+.btn,button{font:inherit;padding:5px 12px;color:var(--text);background:var(--win);
+ border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);cursor:pointer;
+ text-decoration:none;display:inline-block}
+button.on{background:var(--title);color:#fff}
+.rows{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0}
+input,select{font:inherit;padding:5px;background:#fff;color:#111;
+ border-top:2px solid var(--dark);border-left:2px solid var(--dark);
+ border-right:2px solid var(--light);border-bottom:2px solid var(--light)}
+label{font-size:12px;display:block;margin-top:8px}
+.track{display:grid;grid-template-columns:110px repeat(16,1fr);gap:3px;margin-bottom:5px;align-items:center}
+.track .lbl{font-size:12px}
+.step{height:24px;padding:0;cursor:pointer;font-size:10px}
+.step.on{background:var(--title);color:#fff}
+.step.play{outline:2px solid var(--r)}
+canvas{display:block;width:100%;background:#070b14;border:2px solid var(--dark);margin-top:8px}
+#viz{height:300px}#cover{height:300px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.out{background:#0b1020;color:#7ef0a0;font:12px/1.5 monospace;padding:10px;height:120px;overflow:auto}
+textarea{width:100%;font:inherit;padding:6px;box-sizing:border-box}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}.track{grid-template-columns:70px repeat(16,1fr)}}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section class="window" aria-labelledby="top">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Musik wird Bild</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h1 id="top">Musik wird Bild</h1>
+      <p class="lead">Mach kurze Musik. Das Bild läuft mit dem Ton.
+        Am Ende speicherst du ein Bild oder ein Video.</p>
+      <p class="warn"><strong>Ehrlich:</strong> Das ist ein Nachbau im Browser.
+        Es ist nicht Suno. Suno gibt Programmen keinen offenen Weg.
+        Wir fragen nicht nach Geld und speichern keinen Schlüssel.
+        Noch nicht mit echten Nutzern getestet.</p>
+      <div class="rows" role="group" aria-label="Oberfläche">
+        <button type="button" data-theme-btn="os41">OS 4.1</button>
+        <button type="button" data-theme-btn="win31">Win 3.1</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="seq">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">1. Musik machen</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="seq">Klick dich einen Rhythmus</h2>
+      <p>Vier Reihen, sechzehn Felder. Klick auf ein Feld. Es geht an oder aus.</p>
+      <div id="grid"></div>
+      <div class="rows">
+        <button id="play" type="button">▶ Abspielen</button>
+        <button id="stop" type="button">■ Stopp</button>
+        <button id="random" type="button">Zufall</button>
+        <button id="clear" type="button">Leeren</button>
+        <label>Tempo <input id="tempo" type="range" min="60" max="200" value="120"></label>
+        <span id="bpm">120 BPM</span>
+      </div>
+      <p><small>Quelltext: MIT. Der Kurs bleibt AGPL-3.0. Kein WAV im Build.</small></p>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="vizhead">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">2. Das Bild</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="vizhead">Das Bild folgt dem Ton</h2>
+      <p>Das Bild ändert sich mit der Musik. Wähle eine Form.</p>
+      <div class="rows" role="group" aria-label="Bildform">
+        <button type="button" data-mode="welle" class="on">Welle</button>
+        <button type="button" data-mode="balken">Balken</button>
+        <button type="button" data-mode="feld">Feld</button>
+        <button type="button" data-mode="rauten">Rauten</button>
+      </div>
+      <canvas id="viz" width="960" height="360"></canvas>
+      <div class="rows">
+        <button id="rec" type="button">● Video aufnehmen</button>
+        <button id="recstop" type="button">■ Aufnahme stoppen</button>
+        <span id="recstat">Bereit. Du bekommst eine Video-Datei.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="coverhead">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">3. Dein Bild</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="coverhead">Ein Bild für dein Lied</h2>
+      <p>Schreib einen Titel. Klick auf eine Form. Dein Bild ist fertig.</p>
+      <label>Titel<input id="title" value="Mir reichts!" maxlength="40"></label>
+      <div class="rows" role="group" aria-label="Stil">
+        <button type="button" data-style="ball" class="on">Kariert</button>
+        <button type="button" data-style="feld">Feld</button>
+        <button type="button" data-style="welle">Welle</button>
+      </div>
+      <div class="rows">
+        <button id="drawcover" type="button">Cover zeichnen</button>
+        <button id="savepng" type="button">PNG speichern</button>
+      </div>
+      <canvas id="cover" width="640" height="640"></canvas>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="sunohead">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">4. Zu Suno</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="sunohead">Suno — ganz ehrlich</h2>
+      <p>Suno macht Musik mit KI. Aber Suno gibt Programmen keinen offenen Weg.
+        Wir zahlen nichts für Tricks. Der Satz bleibt bei dir.</p>
+      <label>Wie soll die Musik klingen?<input id="styleText" value="Retro, fröhlich, Amiga" maxlength="120"></label>
+      <label>Welche Stimmung?<input id="mood" value="hell, mutig" maxlength="120"></label>
+      <div class="rows">
+        <button id="mkprompt" type="button">Satz bauen</button>
+        <button id="copyprompt" type="button">Kopieren</button>
+        <button id="sendcgi" type="button">Senden</button>
+      </div>
+      <textarea id="prompt" rows="3" placeholder="Hier steht dein fertiger Satz"></textarea>
+      <div class="out" id="cgiout">Noch nichts gesendet.</div>
+      <p><label>Lied von Suno hier laden<input id="import" type="file" accept="audio/*"></label></p>
+      <p><small>Die Datei bleibt bei dir. Sie wird nicht hochgeladen.</small></p>
+    </div>
+  </section>
+
+  <section class="window joke" aria-labelledby="witz">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Ein Witz</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner" id="witz">
+      <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
+    </div>
+  </section>
+
+  <footer>Kostenlos. Offen. Eine Datei. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<script>
+(function(){
+"use strict";
+/* ---------- Oberfläche ---------- */
+document.querySelectorAll("[data-theme-btn]").forEach(function(b){
+  b.onclick=function(){
+    document.body.dataset.theme=b.dataset.themeBtn;
+    [].forEach.call(document.querySelectorAll("[data-theme-btn]"),function(x){x.classList.remove("on");});
+    b.classList.add("on");
+  };
+});
+
+/* ---------- Ton ---------- */
+var AudioCtx=window.AudioContext||window.webkitAudioContext;
+var ctx=null,master=null,analyser=null,recDest=null,mediaEl=null,mediaSrc=null;
+var timer=null,nextTime=0,step=0,playing=false;
+var tracks=[
+  {name:"Lead",wave:"square",notes:["C5","","E5","","G5","","E5","","C5","","E5","","G5","B5","C6",""]},
+  {name:"Bass",wave:"triangle",notes:["C3","","","","C3","","","","F3","","","","G3","","",""]},
+  {name:"Pad",wave:"sawtooth",notes:["C4","","","","","","","","A3","","","","","","",""]},
+  {name:"Drums",wave:"noise",notes:["KICK","","HAT","","KICK","","HAT","","KICK","","HAT","","KICK","HAT","",""]}
+];
+var options={};
+for(var m=36;m<=84;m++){
+  var names=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+  options[names[m%12]+(Math.floor(m/12)-1)]=440*Math.pow(2,(m-69)/12);
+}
+options.KICK=-1;options.HAT=-2;
+var noteList=Object.keys(options);
+
+function ensure(){
+  if(ctx)return;
+  ctx=new AudioCtx();
+  master=ctx.createGain();master.gain.value=0.18;
+  analyser=ctx.createAnalyser();analyser.fftSize=512;
+  recDest=ctx.createMediaStreamDestination();
+  master.connect(analyser);
+  analyser.connect(ctx.destination);
+  analyser.connect(recDest);
+}
+
+function noise(){
+  var b=ctx.createBuffer(1,ctx.sampleRate*0.2,ctx.sampleRate),d=b.getChannelData(0);
+  for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+  return b;
+}
+var noiseBuf=null;
+
+function tone(freq,time,dur,wave){
+  if(freq===-1){
+    var o=ctx.createOscillator(),g=ctx.createGain();
+    o.type="sine";o.frequency.setValueAtTime(140,time);
+    o.frequency.exponentialRampToValueAtTime(45,time+0.14);
+    g.gain.setValueAtTime(0.9,time);
+    g.gain.exponentialRampToValueAtTime(0.001,time+0.16);
+    o.connect(g);g.connect(master);o.start(time);o.stop(time+0.18);return;
+  }
+  if(freq===-2){
+    if(!noiseBuf)noiseBuf=noise();
+    var s=ctx.createBufferSource(),f=ctx.createBiquadFilter(),n=ctx.createGain();
+    s.buffer=noiseBuf;f.type="highpass";f.frequency.value=6000;
+    n.gain.setValueAtTime(0.25,time);
+    n.gain.exponentialRampToValueAtTime(0.001,time+0.05);
+    s.connect(f);f.connect(n);n.connect(master);s.start(time);s.stop(time+0.06);return;
+  }
+  var osc=ctx.createOscillator(),env=ctx.createGain();
+  osc.type=wave||"square";osc.frequency.value=freq;
+  env.gain.setValueAtTime(0.0001,time);
+  env.gain.exponentialRampToValueAtTime(0.6,time+0.01);
+  env.gain.exponentialRampToValueAtTime(0.001,time+dur);
+  osc.connect(env);env.connect(master);osc.start(time);osc.stop(time+dur+0.02);
+}
+
+/* ---------- Raster ---------- */
+var grid=document.getElementById("grid");
+function drawGrid(){
+  grid.innerHTML="";
+  tracks.forEach(function(t,ti){
+    var row=document.createElement("div");row.className="track";
+    var lbl=document.createElement("span");lbl.className="lbl";lbl.textContent=t.name;
+    row.appendChild(lbl);
+    var sel=document.createElement("select");
+    noteList.forEach(function(n){
+      var o=document.createElement("option");o.value=n;o.textContent=n;
+      if(n===(ti===3?"KICK":"C5"))o.selected=true;sel.appendChild(o);
+    });
+    sel.dataset.track=ti;sel.title="Ton für "+t.name;
+    row.insertBefore(sel,row.children[1]||null);
+    var row2=document.createElement("div");row2.className="track";
+    var lbl2=document.createElement("span");lbl2.className="lbl";lbl2.textContent="";
+    row2.appendChild(lbl2);
+    t.notes.forEach(function(n,si){
+      var b=document.createElement("button");b.type="button";b.className="step";
+      b.dataset.t=ti;b.dataset.s=si;
+      if(n)b.classList.add("on");
+      b.onclick=function(){
+        var cur=document.querySelector('select[data-track="'+ti+'"]').value;
+        t.notes[si]=t.notes[si]?"" : (ti===3?(si%2?"HAT":"KICK"):cur);
+        b.classList.toggle("on",!!t.notes[si]);
+        drawCover();
+      };
+      row2.appendChild(b);
+    });
+    grid.appendChild(row);grid.appendChild(row2);
+  });
+}
+drawGrid();
+
+function mark(){
+  [].forEach.call(document.querySelectorAll(".step"),function(b){
+    b.classList.toggle("play",Number(b.dataset.s)===step);
+  });
+}
+
+document.getElementById("play").onclick=function(){
+  ensure();
+  if(ctx.state==="suspended")ctx.resume();
+  if(playing)return;
+  playing=true;step=0;nextTime=ctx.currentTime+0.06;
+  var spb=60/Number(document.getElementById("tempo").value)/4;
+  timer=setInterval(function(){
+    while(nextTime<ctx.currentTime+0.15){
+      var at=nextTime;
+      tracks.forEach(function(t){
+        var n=t.notes[step];
+        if(n&&options[n]!==undefined)tone(options[n],at,spb*1.6,t.wave);
+      });
+      nextTime+=spb;step=(step+1)%16;
+    }
+  },25);
+  this.classList.add("on");
+};
+document.getElementById("stop").onclick=function(){
+  playing=false;clearInterval(timer);
+  document.getElementById("play").classList.remove("on");
+  mark();
+};
+document.getElementById("tempo").oninput=function(){
+  document.getElementById("bpm").textContent=this.value+" BPM";
+};
+document.getElementById("clear").onclick=function(){
+  tracks.forEach(function(t){t.notes=t.notes.map(function(){return "";});});
+  drawGrid();drawCover();
+};
+document.getElementById("random").onclick=function(){
+  tracks.forEach(function(t,ti){
+    t.notes=t.notes.map(function(_,i){
+      if(ti===3)return i%2?"HAT":"KICK";
+      return Math.random()<0.45?noteList[Math.floor(Math.random()*24)+12]:"";
+    });
+  });
+  drawGrid();drawCover();
+};
+
+/* ---------- Bild ---------- */
+var mode="welle",styleMode="ball";
+document.querySelectorAll("[data-mode]").forEach(function(b){
+  b.onclick=function(){
+    mode=b.dataset.mode;
+    [].forEach.call(document.querySelectorAll("[data-mode]"),function(x){x.classList.remove("on");});
+    b.classList.add("on");
+  };
+});
+document.querySelectorAll("[data-style]").forEach(function(b){
+  b.onclick=function(){
+    styleMode=b.dataset.style;
+    [].forEach.call(document.querySelectorAll("[data-style]"),function(x){x.classList.remove("on");});
+    b.classList.add("on");drawCover();
+  };
+});
+var viz=document.getElementById("viz"),vx=viz.getContext("2d");
+var tdata=null,fdata=null;
+function bg(c,w,h){
+  c.fillStyle="#070b14";c.fillRect(0,0,w,h);
+  c.strokeStyle="#16233a";c.lineWidth=1;
+  for(var x=0;x<w;x+=32){c.beginPath();c.moveTo(x,0);c.lineTo(x,h);c.stroke();}
+  for(var y=0;y<h;y+=32){c.beginPath();c.moveTo(0,y);c.lineTo(w,y);c.stroke();}
+}
+function drawViz(){
+  var w=viz.width,h=viz.height;bg(vx,w,h);
+  if(analyser){
+    if(!tdata||tdata.length!==analyser.fftSize){
+      tdata=new Uint8Array(analyser.fftSize);fdata=new Uint8Array(analyser.frequencyBinCount);
+    }
+    analyser.getByteTimeDomainData(tdata);
+    analyser.getByteFrequencyData(fdata);
+  }
+  var mid=h/2;
+  if(mode==="welle"){
+    vx.strokeStyle="#6fd3ff";vx.lineWidth=3;vx.beginPath();
+    for(var i=0;i<(tdata?tdata.length:512);i++){
+      var v=tdata?tdata[i]/128-1:0;
+      var x=i/(tdata?tdata.length:512)*w;
+      if(i===0)vx.moveTo(x,mid+v*mid*0.9);else vx.lineTo(x,mid+v*mid*0.9);
+    }
+    vx.stroke();
+  }else if(mode==="balken"){
+    var n=fdata?fdata.length:256,bw=w/n;
+    for(var j=0;j<n;j++){
+      var vv=fdata?fdata[j]/255:0;
+      vx.fillStyle="hsl("+(190+j/n*130)+",80%,"+(40+vv*30)+"%)";
+      var vb=Math.max(1,bw-2);
+      vx.fillRect(j*bw+1,h-vv*h,vb,vv*h);
+    }
+  }else if(mode==="feld"){
+    var vol=0;
+    if(fdata)for(var k=0;k<fdata.length;k++)vol+=fdata[k];
+    vol=(vol/(fdata?fdata.length:1))/255;
+    var r=30+vol*150;
+    vx.strokeStyle="#7a20d0";vx.lineWidth=2;
+    for(var ring=0;ring<6;ring++){
+      vx.beginPath();
+      vx.arc(w/2,mid,r*(ring+1)/6,Date.now()/900+ring,Date.now()/900+ring+5);
+      vx.stroke();
+    }
+    vx.fillStyle="#6fd3ff";vx.beginPath();vx.arc(w/2,mid,r/5,0,7);vx.fill();
+  }else{
+    var box=24;
+    for(var yy=0;yy<h;yy+=box)for(var xx=0;xx<w;xx+=box){
+      var on=((xx/box+yy/box)%2===0);
+      var pulse=fdata?fdata[(xx+yy)%fdata.length]/255:0;
+      vx.fillStyle=on?"rgba(15,118,110,"+(0.3+pulse)+")":"rgba(232,56,47,"+(0.15+pulse)+")";
+      vx.fillRect(xx,yy,box-2,box-2);
+    }
+  }
+  vx.fillStyle="#9fb3d1";vx.font="14px monospace";
+  vx.fillText("CGI • "+mode+" • "+(playing?" läuft":" stopp")+" • "+Date.now().toString().slice(-6),12,22);
+  requestAnimationFrame(drawViz);
+}
+requestAnimationFrame(drawViz);
+
+/* ---------- Cover ---------- */
+var cover=document.getElementById("cover"),cx=cover.getContext("2d");
+function drawCover(){
+  var w=cover.width,h=cover.height,title=document.getElementById("title").value||"Easy Read";
+  bg(cx,w,h);
+  if(styleMode==="ball"){
+    var R=150,n=8,size=R/n;
+    for(var y=-n;y<n;y++)for(var x=-n;x<n;x++){
+      var dx=x*size,dy=y*size;
+      if(dx*dx+dy*dy>R*R)continue;
+      cx.fillStyle=((x+y)%2===0)?"#f5f0e6":"#e8382f";
+      cx.fillRect(w/2+dx,h/2-size*4+dy,size+1,size+1);
+    }
+  }else if(styleMode==="feld"){
+    cx.strokeStyle="#6fd3ff";cx.lineWidth=2;
+    for(var i=1;i<=10;i++){
+      cx.beginPath();cx.arc(w/2,h/2-40,i*22,0,7);cx.stroke();
+    }
+  }else{
+    cx.strokeStyle="#f5f0e6";cx.lineWidth=5;cx.beginPath();
+    for(var p=0;p<w;p+=4){
+      var y2=h/2+Math.sin(p/40)*70+Math.sin(p/13)*18;
+      if(p===0)cx.moveTo(p,y2);else cx.lineTo(p,y2);
+    }
+    cx.stroke();
+  }
+  cx.fillStyle="#eaf2ff";cx.textAlign="center";
+  cx.font="bold 46px Arial";cx.fillText(title.slice(0,22),w/2,h-120);
+  cx.font="18px monospace";cx.fillStyle="#9fb3d1";
+  cx.fillText("EASY READ • CGI MUSIC",w/2,h-88);
+  cx.fillText("„Mir reichts! Ich geh schaukeln!",w/2,h-56);
+}
+document.getElementById("drawcover").onclick=drawCover;
+document.getElementById("savepng").onclick=function(){
+  download("cover.png",cover.toDataURL("image/png").split(",")[1],"image/png",true);
+};
+drawCover();
+
+function download(name,text,type,base64){
+  var data=base64?Uint8Array.from(atob(text),function(c){return c.charCodeAt(0);}):text;
+  var u=URL.createObjectURL(new Blob([data],{type:type}));
+  var a=document.createElement("a");a.href=u;a.download=name;a.click();
+  setTimeout(function(){URL.revokeObjectURL(u);},1000);
+}
+
+/* ---------- Video ---------- */
+var rec=null,chunks=[];
+document.getElementById("rec").onclick=function(){
+  ensure();
+  if(typeof MediaRecorder==="undefined"){
+    document.getElementById("recstat").textContent="MediaRecorder fehlt in diesem Browser.";return;
+  }
+  var stream=viz.captureStream(30);
+  recDest.stream.getAudioTracks().forEach(function(t){stream.addTrack(t);});
+  var type=MediaRecorder.isTypeSupported("video/webm;codecs=vp9,opus")
+    ?"video/webm;codecs=vp9,opus":"video/webm";
+  chunks=[];
+  try{rec=new MediaRecorder(stream,{mimeType:type});}catch(e){
+    document.getElementById("recstat").textContent="Aufnahme ging nicht: "+e.message;return;
+  }
+  rec.ondataavailable=function(e){if(e.data.size)chunks.push(e.data);};
+  rec.onstop=function(){
+    var b=new Blob(chunks,{type:"video/webm"});
+    var u=URL.createObjectURL(b),a=document.createElement("a");
+    a.href=u;a.download="cgi-music.webm";a.click();
+    setTimeout(function(){URL.revokeObjectURL(u);},1000);
+    document.getElementById("recstat").textContent="WebM gespeichert. Kein WAV.";
+  };
+  rec.start();
+  document.getElementById("recstat").textContent="Aufnahme läuft …";
+};
+document.getElementById("recstop").onclick=function(){
+  if(rec&&rec.state!=="inactive"){rec.stop();}
+};
+
+/* ---------- Suno-Brücke ---------- */
+var outEl=document.getElementById("cgiout");
+function clog(s){outEl.textContent+=("\n"+s);outEl.scrollTop=outEl.scrollHeight;}
+document.getElementById("mkprompt").onclick=function(){
+  var p="Instrumental, "+document.getElementById("styleText").value.trim()+
+    ", "+document.getElementById("mood").value.trim()+
+    ". Titel: "+document.getElementById("title").value.trim()+
+    ". Kurz, fröhlich, amiga-tauglich.";
+  document.getElementById("prompt").value=p;
+  clog("Satz ist fertig. Kopiere ihn nach suno.com.");
+};
+document.getElementById("copyprompt").onclick=function(){
+  var p=document.getElementById("prompt").value;
+  if(!p){clog("Erst den Satz bauen.");return;}
+  if(navigator.clipboard)navigator.clipboard.writeText(p).then(
+    function(){clog("Kopiert.");},function(){clog("Kopieren nicht erlaubt. Text markieren.");});
+  else clog("Bitte den Text selbst markieren.");
+};
+document.getElementById("sendcgi").onclick=function(){
+  var p=document.getElementById("prompt").value;
+  if(!p){clog("Erst den Satz bauen.");return;}
+  clog("Frage wird gesendet …");
+  fetch("suno",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},
+    body:"prompt="+encodeURIComponent(p)})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    clog("Antwort: "+(d.status||"da"));
+    clog(d.reason||d.hint||"Mehr gibt es dazu nicht.");
+    clog("Dein Satz: "+(d.prompt||p));
+  })
+  .catch(function(){
+    clog("Das Programm ist nicht erreichbar. Dein Satz bleibt bei dir.");
+    clog("Lokal testen: node tools/cgi/server.mjs");
+  });
+};
+document.getElementById("import").onchange=function(){
+  var f=this.files&&this.files[0];if(!f)return;
+  ensure();
+  if(mediaSrc){mediaSrc.disconnect();}
+  if(!mediaEl){mediaEl=new Audio();mediaSrc=ctx.createMediaElementSource(mediaEl);mediaSrc.connect(analyser);}
+  mediaEl.src=URL.createObjectURL(f);
+  mediaEl.play().then(function(){clog("Lied geladen: "+f.name+" — Bild folgt dem Ton.");})
+    .catch(function(){clog("Abspielen ging nicht. Andere Datei probieren.");});
+};
+
+/* Start */
+document.querySelector('[data-theme-btn="os41"]').classList.add("on");
+})();
+</script>
+</body>
+</html>
