@@ -51,12 +51,14 @@ Er liest die echten Samples aus dem Modul.
 Der Ton entsteht erst beim Abspielen.
 Es ist meine eigene Umsetzung, kein fertiger Player.
 
-Die Datei `All-In-One.PNG` ist Bild und Seite zugleich.
+Die Datei `All-In-One.PNG` trägt alle Dateien in sich.
 Der Name hat die genaue Schreibweise.
-Ziehe sie in den Browser.
-Dann laufen Bild, Demo, Modul und Ton.
+
+Öffne `ALL-IN-ONE.html` im Browser.
+Dort läuft alles ohne wirre Zeichen.
+Das Bild, die Demo, das Modul und der Ton.
 Der Ton stoppt, wenn du weiter scrollst.
-Ein Doppelklick öffnet nur den Bildbetrachter.
+Ein Doppelklick auf die PNG zeigt nur das Bild.
 
 Der Ton ist aus.
 Das Video hat keine Tonspur.
