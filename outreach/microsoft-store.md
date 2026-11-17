@@ -67,17 +67,17 @@ Bill Gates, Amiga, AROS, KolibriOS, Lernen.
 - Screenshots: Startseite, Timeline, Lektion 1, Lektion 23.
 - Die Timeline ist unter `apps/microsoft-history.html` erreichbar.
 
-## Unterstützung / Monetarisierung
+## Monetarisierung — nur als Entwurf
 
-Falls der Microsoft Store diese Version akzeptiert:
+Dieser Entwurf ist pausiert. Es gibt keinen Spenden-Button mehr.
 
-- Freiwillige Unterstützung: https://bunq.me/JMLealRuivo
 - Keine Werbung im Lernkurs.
 - Keine Datenverkäufe. Die App läuft offline.
-- Der Betrag liegt bei den Geldgebern. Es gibt keine Abos und keine Pflicht.
+- Keine Abos. Keine Pflicht.
 
-Hinweis im Store-Text: „Wenn dir der Kurs hilft, kannst du ihn hier
-freiwillig unterstützen: https://bunq.me/JMLealRuivo"
+Wege, Geld zu verdienen, stehen als Dokumentation in
+`learn/ai/features/money.md` und `learn/ai/adults/08-make-money.md`.
+Das ist ein Lerninhalt, kein Angebot.
 
 ## Online-Steuer-Feld
 

@@ -61,7 +61,8 @@ Der volle MIT-Text liegt nur in `products/computer-history/LICENSE.md`.
 ## 4. Geld und Werbung
 
 - Die App ist kostenlos. Keine Abos. Keine In-App-Käufe. Keine Werbung im Kurs.
-- Freiwilliger Spendenlink: `https://bunq.me/JMLealRuivo`.
+- Der frühere Spendenbutton wurde entfernt. Es gibt keinen aktiven Spendenlink mehr.
+- Die Store-Einreichung ist pausiert. Fokus auf die Beta für Peri Fractic.
 - `outreach/tester-pack.md` nennt einen Platzhalter `[Betrag]`.
   Das ist ein Entwurf. Dort steht noch kein Betrag.
 - `learn/ai/features/money.md` und `learn/ai/adults/08-make-money.md`

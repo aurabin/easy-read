@@ -49,11 +49,11 @@ The full file, with the explanation, is [`learn/joke.md`](learn/joke.md).
 | `/simple` | `.opencode/commands/simple.md` | Rewrite text in Easy Read |
 | `/steps` | `.opencode/commands/steps.md` | Turn a task into numbered steps |
 | `/define` | `.opencode/commands/define.md` | Explain a word with an example |
-| `/lang <code>` | `.opencode/commands/lang.md` | Set the language: en, de, es, fr, pt, it |
+| `/lang <code>` | `.opencode/commands/lang.md` | Set the language: en, de, es, fr, pt, it, zh |
 | `/learn <topic>` | `.opencode/commands/learn.md` | Learn language, science, art, music, retro computing, or AI coding |
 | `/joke` | `.opencode/commands/joke.md` | Tell the project joke in your language |
 | `easy-read` skill | `.opencode/skills/easy-read` | Rules, word list, checklist, checker |
-| `easy_read_check` tool | plugin | Score text and list problems, in 6 languages |
+| `easy_read_check` tool | plugin | Score text and list problems, in 7 languages |
 
 ## Use it
 

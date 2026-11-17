@@ -42,7 +42,7 @@ or two key words per section.
   them in the reader's language.
 - Use the local date, number, and money format.
 - When you check a draft, pass the language code to `easy_read_check`.
-- The checker covers en, de, es, fr, pt, it. For other languages, check by
+- The checker covers en, de, es, fr, pt, it, zh. For other languages, check by
   hand and say the automatic check did not run.
 
 ## When the reader wants to learn
