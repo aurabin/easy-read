@@ -12,6 +12,11 @@ Sie ist kostenlos und offen.
 Sie ist noch nicht fertig.
 Bitte teste sie nur, wenn du das verstehst.
 
+Die Store-Version ist pausiert.
+Der Grund: Das Projekt nennt andere Systeme wie AROS und Linux.
+Wir konzentrieren uns deshalb ganz auf diese Beta.
+Dies ist jetzt der Hauptweg.
+
 ## Was die App ist
 
 Ein Lernkurs in klarer Sprache.

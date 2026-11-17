@@ -1,6 +1,15 @@
 # Microsoft Store — Einreichungsentwurf
 
-Status: **Entwurf. Nicht eingereicht.**
+Status: **Pausiert. Nicht eingereicht.**
+
+**Grund:** Das Projekt enthält Verweise auf alternative Betriebssysteme
+(AROS, MorphOS, AmigaOS 4.1, KolibriOS, Linux). Eine Store-Version
+ohne diese Inhalte wäre ein anderes Projekt.
+Wir konzentrieren uns deshalb auf die WIP-Beta für Peri Fractic.
+Siehe `outreach/peri-fractic-beta.md`.
+
+Dieser Entwurf bleibt als Entwurf erhalten. Er ist keine Zusage
+und wird nicht weiterverfolgt.
 
 ## Name
 
