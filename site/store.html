@@ -17,9 +17,10 @@
  * "Blue was the first color ... the background ... rounded out by white, black, and orange."
  * 4-Bit Amiga-Palette auf Hex umgerechnet. */
 :root{
-  --desk:#4044a8; --win:#ffffff; --win2:#e6e6e6; --title:#000000;
-  --text:#000000; --muted:#333333; --blue:#2a2a8c; --light:#ffffff; --dark:#000000;
-  --r:#c0392b; --o:#ff5010; --y:#f2d000; --g:#2e7d32; --b:#4044a8; --p:#6c3483;
+  --desk:#33378a; --win:#ffffff; --win2:#e6e6e6; --title:#000000;
+  --text:#000000; --muted:#555555; --muted-desk:#e8e8f0; --blue:#2a2a8c;
+  --light:#ffffff; --dark:#000000;
+  --r:#c0392b; --o:#ff5010; --y:#f2d000; --g:#2e7d32; --b:#2a2e7a; --p:#6c3483;
   --accent:#ff5010;
 }
 *{box-sizing:border-box}
@@ -48,7 +49,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 h1{font-size:clamp(26px,4vw,40px);margin:0 0 10px;line-height:1.15;letter-spacing:-.02em}
 h2{font-size:19px;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--light)}
 p{margin:8px 0;max-width:62ch}
-.lead{color:var(--muted)}
+.lead{color:var(--muted-desk)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
 .card{background:var(--win2);border:1px solid var(--light);border-radius:9px;padding:16px;
   transition:transform .15s ease,border-color .15s ease;overflow:hidden}
@@ -69,10 +70,10 @@ p{margin:8px 0;max-width:62ch}
 .btn:hover{filter:brightness(1.12);text-decoration:none}
 .btn:active{filter:brightness(.9)}
 .chip{display:inline-block;padding:4px 10px;background:var(--win2);font-size:12px;
-  border:1px solid var(--light);border-radius:99px;color:var(--muted)}
+  border:1px solid var(--dark);border-radius:99px;color:var(--muted-desk)}
 .sec-num{font:11px monospace;color:var(--blue)}
 .joke{background:linear-gradient(135deg,var(--win2),var(--title))}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:14px}
+footer{text-align:center;color:var(--muted-desk);font-size:12px;padding:14px}
 /* Dock-Leiste */
 .dock{position:fixed;left:0;right:0;bottom:0;height:56px;display:flex;
   justify-content:center;align-items:center;gap:10px;padding:6px;
@@ -219,7 +220,7 @@ body::before{display:none}
  pointer-events:none}
 #hero .hero-text h2{margin:0 0 4px;font-size:clamp(20px,3vw,28px);color:#eaf2ff;
  text-shadow:0 2px 8px rgba(0,0,0,.9)}
-#hero .hero-text p{margin:0;color:#c9d8ef;font-size:13px;max-width:60ch;
+#hero .hero-text p{margin:0;color:var(--muted-desk);font-size:13px;max-width:60ch;
  text-shadow:0 1px 6px rgba(0,0,0,.9)}
 #hero .reise{position:absolute;top:12px;right:14px;display:flex;gap:5px;align-items:center;
  font:10px ui-monospace,monospace;color:var(--muted)}
