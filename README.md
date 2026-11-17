@@ -214,6 +214,20 @@ sent yet. It is written so that contact stays in writing: no calls, no camera.
 If you are in Germany, the doc lists first contacts with current addresses.
 The names and addresses are in `co-design.md`.
 
+## Amiga music
+
+A small browser player for Amiga music. It plays 4-channel MOD and 8SVX with
+its own Paula emulation. It detects 13 formats and says honestly which ones
+it can play. No WAV, no dependencies, no copied GPL code.
+
+- `outreach/apps/amiga-player.html` — the player.
+- `tools/amiga-formats.mjs` — format detection with origin and playable flag.
+- `tools/amiga-formats-test.mjs` — detection tests.
+- `learn/amiga-audio-formate.md` — plain-language explanation in German.
+
+MusicLine `.ml` stays in `ALL-IN-ONE.html` because that player uses GPL-2.0
+code. We do not copy it into the new player.
+
 ## Chinese
 
 The checker now supports `zh` as a seventh language. It counts characters and

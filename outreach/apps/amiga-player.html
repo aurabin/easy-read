@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amiga Music Player — MOD und 8SVX</title>
+<style>
+:root{--desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+ --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a;
+ --r:#e8382f;--o:#f08c00;--y:#f2d000;--g:#3fa04a;--b:#2f60b0;--p:#7a3fa0;
+ --fs:14px;--font:Arial,Helvetica,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:var(--fs)/1.5 var(--font)}
+body[data-theme="win31"]{--desk:#008080;--win:#c0c0c0;--title:#000080;--text:#000;
+ --muted:#000;--blue:#000080;--light:#fff;--dark:#808080;font-family:"MS Sans Serif",Tahoma,Arial,sans-serif}
+body[data-theme="win31"] .titlebar{background:linear-gradient(180deg,#000080,#1084d0)}
+body[data-theme="win31"] .window,body[data-theme="win31"] button,body[data-theme="win31"] .btn{
+ border-top-color:#fff;border-left-color:#fff;border-right-color:#000;border-bottom-color:#000}
+a{color:var(--blue)}a:focus-visible,button:focus-visible{outline:2px dotted var(--blue);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:18px 16px 60px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
+.stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
+.stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:16px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+ background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:14px 16px}
+h1{font-size:24px;margin:0 0 8px}h2{font-size:17px;margin:0 0 10px}
+p{margin:6px 0;max-width:64ch}
+.lead{color:var(--muted)}
+.warn{background:var(--y);border:2px solid var(--dark);padding:10px;color:#000}
+.btn,button{font:inherit;padding:6px 13px;color:var(--text);background:var(--win);
+ border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);cursor:pointer;
+ text-decoration:none;display:inline-block}
+button:disabled{opacity:.5;cursor:not-allowed}
+.rows{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:10px 0}
+#drop{border:2px dashed var(--dark);background:var(--win2);padding:26px;text-align:center;cursor:pointer}
+#drop.over{background:var(--title);color:#fff}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border:1px solid var(--dark);padding:5px 7px;text-align:left}
+th{background:var(--win2)}
+.yes{color:#1a7a1a;font-weight:bold}.no{color:#a00}
+.bar{height:12px;background:var(--win2);border:2px solid var(--dark);margin:10px 0}
+.bar i{display:block;height:100%;background:var(--title);width:0%}
+.info{background:var(--win2);border:2px solid var(--dark);padding:10px;min-height:46px}
+.out{background:#0b1020;color:#7ef0a0;font:12px/1.5 monospace;padding:10px;height:100px;overflow:auto}
+input[type=range]{width:180px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section class="window" aria-labelledby="top">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Amiga Music Player</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h1 id="top">Musik vom Amiga</h1>
+      <p class="lead">Lade eine Datei. Der Player erkennt das Format.
+        MOD und 8SVX spielt er selbst ab. Andere Formate zeigt er ehrlich an.</p>
+      <div class="rows" role="group" aria-label="Oberfläche">
+        <button type="button" data-theme-btn="os41">OS 4.1</button>
+        <button type="button" data-theme-btn="win31">Win 3.1</button>
+      </div>
+      <p class="warn"><strong>Ehrlich:</strong> Eigene Umsetzung. Kein Original-Player.
+        Nicht alle Effekte sind nachgebaut. Kein WAV im Build.
+        Nicht mit echten Nutzern getestet.</p>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="load">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Datei laden</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <div id="drop">Datei hierher ziehen oder klicken — alle Dateien willkommen</div>
+      <input id="file" type="file" style="display:none">
+      <div class="info" id="info">Noch keine Datei geladen. Der Player erkennt das Format automatisch.</div>
+      <div class="bar"><i id="progress"></i></div>
+      <div class="rows">
+        <button id="play" type="button" disabled>Abspielen</button>
+        <button id="pause" type="button" disabled>Pause</button>
+        <button id="stop" type="button" disabled>Stopp</button>
+        <label>Lautstärke <input id="vol" type="range" min="0" max="100" value="70"></label>
+      </div>
+      <div class="out" id="log">Bereit.</div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="formats">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Formate</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="formats">Was der Player kann</h2>
+      <table>
+        <tr><th>Format</th><th>Status</th><th>Hinweis</th></tr>
+        <tr><td>MOD (ProTracker, 4 Kanäle)</td><td class="yes">ja</td><td>Amiga · eigener Player mit Paula</td></tr>
+        <tr><td>8SVX (IFF Sample)</td><td class="yes">ja</td><td>Amiga · direkt abspielbar</td></tr>
+        <tr><td>MusicLine .ml</td><td class="no">nein</td><td>Amiga · in ALL-IN-ONE.html nutzbar</td></tr>
+        <tr><td>MED / OctaMED</td><td class="no">nein</td><td>Amiga · erkannt</td></tr>
+        <tr><td>16SV (IFF Sample)</td><td class="no">nein</td><td>Amiga · erkannt</td></tr>
+        <tr><td>AHX / HVL</td><td class="no">nein</td><td>Amiga/PC · erkannt</td></tr>
+        <tr><td>AMF</td><td class="no">nein</td><td>Amiga/PC · erkannt</td></tr>
+        <tr><td>DMF (XFish)</td><td class="no">nein</td><td>PC/Amiga · erkannt</td></tr>
+        <tr><td>XM (FastTracker 2)</td><td class="no">nein</td><td>PC/Amiga · erkannt</td></tr>
+        <tr><td>S3M (ScreamTracker 3)</td><td class="no">nein</td><td>PC/Amiga · erkannt</td></tr>
+        <tr><td>IT (Impulse Tracker)</td><td class="no">nein</td><td>PC/Amiga · erkannt</td></tr>
+        <tr><td>MTM (MultiTracker)</td><td class="no">nein</td><td>PC/Amiga · erkannt</td></tr>
+        <tr><td>UMX (Ultravox)</td><td class="no">nein</td><td>PC-Container · erkannt</td></tr>
+      </table>
+      <p><strong>Aufklärung:</strong> „erkannt" heißt nur, dass der Player das
+        Format benennen kann. Es heißt <em>nicht</em>, dass er es abspielt.
+        Viele Formate kamen später auf dem PC und liefen auch auf dem Amiga.
+        Unser Player ist eine eigene, kleine Umsetzung. Ein echter Amiga
+        und Programme wie UADE können mehr.</p>
+      <p><small>Erkennung: `tools/amiga-formats.mjs`, mit Tests.
+        Aufklärung: `learn/amiga-audio-formate.md`.
+        .ml nutzt GPL-2.0-Code in ALL-IN-ONE.html — darum hier kein Kopie.</small></p>
+    </div>
+  </section>
+
+  <section class="window joke" aria-labelledby="witz">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Ein Witz</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner" id="witz">
+      <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
+    </div>
+  </section>
+
+  <footer>Kostenlos. Offen. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<script>
+/* Formaterkennung — dieselben Regeln wie tools/amiga-formats.mjs */
+function detect(bytes){
+  const str=(o,n)=>String.fromCharCode(...bytes.slice(o,o+n));
+  if(bytes.length<4)return {id:"unknown",name:"Unbekannt",playable:false,reason:"Datei zu kurz."};
+  if(str(0,4)==="FORM"&&str(8,4)==="8SVX")return {id:"8svx",name:"8SVX (IFF Sample)",playable:true,reason:"Sample direkt abspielbar."};
+  if(str(0,8)==="MLEDMODL")return {id:"ml",name:"MusicLine Editor",playable:false,reason:"In ALL-IN-ONE.html nutzbar."};
+  if(bytes.length>=1080){
+    const tag=str(1080,4);
+    if(["M.K.","M!K!","M&K!","4CHN","6CHN","8CHN","FLT4","FLT8","CD81","OKTA","16CN","32CN"].indexOf(tag)>=0)
+      return {id:"mod",name:"ProTracker MOD",playable:tag.indexOf("8")<0&&tag!=="OKTA"&&tag.indexOf("16")<0&&tag.indexOf("32")<0,reason:"Klassisches Amiga-Format."};
+  }
+  if(["MED2",".MED.","MED3","MED4","MMD0"].indexOf(str(0,4))>=0||str(0,6)===".MED.")
+    return {id:"med",name:"MED / OctaMED",playable:false,reason:"Erkannt, kein Player."};
+  if(str(0,17)==="Extended Module: ")return {id:"xm",name:"XM",playable:false,reason:"Erkannt, kein Player."};
+  if(str(0,4)==="SCRM"&&bytes[0x2c]===0x1a)return {id:"s3m",name:"S3M",playable:false,reason:"Erkannt, kein Player."};
+  if(str(0,4)==="IMPM")return {id:"it",name:"IT",playable:false,reason:"Erkannt, kein Player."};
+  if(["THX.","AHX ","HVL "].indexOf(str(0,4))>=0)return {id:"ahx",name:"AHX / HVL",playable:false,reason:"Erkannt, kein Player."};
+  if(str(0,4)==="FORM"&&str(8,4)==="16SV")return {id:"16sv",name:"16SV (IFF Sample)",playable:false,reason:"Erkannt, kein Player."};
+  if(str(0,3)==="DMF"&&bytes[3]<3)return {id:"dmf",name:"DMF (XFish)",playable:false,reason:"Erkannt, kein Player."};
+  if(str(0,3)==="MTM")return {id:"mtm",name:"MTM (MultiTracker)",playable:false,reason:"Erkannt, kein Player."};
+  if(["UMX0","UMX1","UMX2","UMX3"].indexOf(str(0,4))>=0)return {id:"umx",name:"UMX (Ultravox)",playable:false,reason:"Erkannt, kein Player."};
+  if(str(0,3)==="AMF"||str(0,8)==="AMF-PACK")return {id:"amf",name:"AMF",playable:false,reason:"Erkannt, kein Player."};
+  return {id:"unknown",name:"Unbekanntes Format",playable:false,reason:"Kein bekanntes Amiga- oder Tracker-Format."};
+}
+
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const log=s=>{const o=$("#log");o.textContent+="\n"+s;o.scrollTop=o.scrollHeight;};
+let ctx=null, buffer=null, source=null, bytes=null, fmt=null, offset=0, startedAt=0;
+const PAULA=7093789.2; // PAL clock
+
+document.querySelectorAll("[data-theme-btn]").forEach(b=>b.onclick=()=>{
+  document.body.dataset.theme=b.dataset.themeBtn;
+  document.querySelectorAll("[data-theme-btn]").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");
+});
+$('[data-theme-btn="os41"]').classList.add("on");
+
+/* --- MOD-Parser: rendert PCM in einen AudioBuffer --- */
+function renderMod(b, sampleRate){
+  const str=(o,n)=>String.fromCharCode(...b.slice(o,o+n));
+  const u16=arr=>{const o=arr;return (b[o]<<8)|b[o+1];};
+  const title=str(0,20).replace(/\0+$/,"").trim();
+  const samples=[];
+  for(let i=0;i<31;i++){
+    const o=20+i*30;
+    samples.push({name:str(o,22).replace(/\0+$/,"").trim(),
+      len:u16(o+22)*2, fine:b[o+24]&15, vol:b[o+25]&127,
+      rep:u16(o+26)*2, replen:u16(o+28)*2, data:null});
+  }
+  let p=1084;
+  for(const s of samples){
+    if(s.len>0){s.data=b.slice(p,p+s.len);p+=s.len;}
+  }
+  const songLen=Math.min(128,b[950]||1);
+  const order=Array.from(b.slice(952,952+songLen));
+  const maxPat=Math.max(...order,0);
+  const patterns=[];
+  for(let i=0;i<=maxPat;i++){
+    patterns.push(b.slice(p+i*1024,p+(i+1)*1024));
+  }
+  const rowDur=0.12; // 50 Hz / Speed 6
+  const seconds=Math.min(300,songLen*64*rowDur+1);
+  const frames=Math.floor(seconds*sampleRate);
+  const outL=new Float32Array(frames), outR=new Float32Array(frames);
+  const chans=[0,1,2,3].map(()=>({pos:0,period:0,vol:0,sample:null,active:false,offset:0}));
+  let orderPos=0,row=0,pattern=order[0]||0;
+  let rowIdx=0; // naechste Row-Zeit in Samples
+  const samplesPerRow=rowDur*sampleRate;
+
+  for(let frame=0;frame<frames;frame++){
+    if(frame>=rowIdx && orderPos<songLen){
+      const pat=patterns[pattern]||new Uint8Array(1024);
+      for(let c=0;c<4;c++){
+        const o=row*16+c*4;
+        const smpIdx=((pat[o]&0xf0)>>4)|(pat[o+1]&0xf0);
+        const period=(pat[o+2]<<8)|pat[o+3];
+        const cmd=pat[o]&0x0f, arg=pat[o+1]&0x0f;
+        const ch=chans[c];
+        if(smpIdx>0 && smpIdx<=31 && period>0){
+          const s=samples[smpIdx-1];
+          if(s.data){
+            ch.sample=s;ch.pos=s.fine||0;ch.period=period;ch.vol=s.vol;ch.active=true;ch.offset=0;
+          }
+        } else if(period>0 && ch.active){
+          ch.period=period; // Portamento-artig: nur Periode aendern
+        }
+        switch(cmd){
+          case 0x0: break; // Arpeggio (nicht implementiert)
+          case 0x1: ch.period=Math.max(100,ch.period-arg); break; // Portamento up
+          case 0x2: ch.period=ch.period+arg; break;                // Portamento down
+          case 0x9: ch.offset=arg*256; break;                       // Sample Offset
+          case 0xA: ch.vol=Math.max(0,Math.min(64,ch.vol+(arg&0xf)-(arg>>4))); break;
+          case 0xC: ch.vol=Math.min(64,arg); break;                 // Set Volume
+          case 0xE: if((arg>>4)===0xC)ch.active=false; break;       // Note Cut
+          default: break; // Bx, Dx und Ex sind vereinfacht
+        }
+      }
+      row++;
+      if(row>=64){row=0;orderPos++;if(orderPos<songLen)pattern=order[orderPos]||0;}
+      rowIdx+=samplesPerRow;
+    }
+    let ml=0,mr=0;
+    for(let c=0;c<4;c++){
+      const ch=chans[c];
+      if(!ch.active||!ch.sample||ch.period<=0||!ch.sample.data)continue;
+      const s=ch.sample;
+      ch.pos+=PAULA/(2*ch.period*sampleRate);
+      let idx=Math.floor(ch.pos)+ch.offset;
+      const repEnd=s.rep+s.replen;
+      if(s.replen>0&&idx>=repEnd)idx=s.rep+((idx-s.rep)%s.replen);
+      if(idx>=s.len){ch.active=false;continue;}
+      const v=(s.data[idx]/128)*(ch.vol/64);
+      if(c===0||c===3)ml+=v;else mr+=v;
+    }
+    outL[frame]=ml*0.24;outR[frame]=mr*0.24;
+  }
+  return {title,outL,outR,seconds};
+}
+
+/* --- 8SVX: IFF BODY lesen --- */
+function render8svx(b, sampleRate){
+  let off=12, body=null, rate=8000;
+  while(off+8<=b.length){
+    const id=String.fromCharCode(...b.slice(off,off+4));
+    const len=(b[off+4]<<24|b[off+5]<<16|b[off+6]<<8|b[off+7])>>>0;
+    if(id==="VHDR"&&off+8+20<=b.length){
+      const r=(b[off+8]<<24|b[off+9]<<16|b[off+10]<<8|b[off+11])>>>0;
+      if(r>0&&r<200000)rate=r;
+    }
+    if(id==="BODY")body=b.slice(off+8,Math.min(b.length,off+8+len));
+    off+=8+len+(len&1);
+  }
+  if(!body)throw new Error("Kein BODY-Chunk.");
+  const seconds=Math.min(120,body.length/rate+0.5);
+  const frames=Math.floor(seconds*sampleRate);
+  const out=new Float32Array(frames);
+  for(let i=0;i<frames;i++){
+    const src=Math.floor(i*rate/sampleRate);
+    out[i]=((body[src]||0)/128)*0.5;
+  }
+  return {title:"8SVX Sample",outL:out,outR:out,seconds};
+}
+
+function makeBuffer(res){
+  const frames=res.outL.length;
+  const buf=ctx.createBuffer(2,frames,ctx.sampleRate);
+  buf.copyToChannel?buf.copyToChannel(res.outL,0):buf.getChannelData(0).set(res.outL);
+  buf.copyToChannel?buf.copyToChannel(res.outR,1):buf.getChannelData(1).set(res.outR);
+  return buf;
+}
+
+function play(from){
+  if(!buffer)return;
+  stop();
+  source=ctx.createBufferSource();source.buffer=buffer;
+  const g=ctx.createGain();g.gain.value=Number($("#vol").value)/100;
+  source.connect(g);g.connect(ctx.destination);
+  offset=from||0;startedAt=ctx.currentTime-offset;
+  source.onended=()=>{if(source){stop();log("Ende.");}};
+  source.start(0,offset);
+  $("#play").disabled=true;$("#pause").disabled=false;$("#stop").disabled=false;
+  $("#pause").textContent="Pause";
+}
+function stop(){
+  if(source){try{source.stop();}catch(e){}source=null;}
+  $("#play").disabled=false;$("#pause").disabled=true;$("#stop").disabled=true;
+}
+function tick(){
+  if(source&&buffer){
+    const pos=ctx.currentTime-startedAt;
+    $("#progress").style.width=(Math.max(0,Math.min(100,pos/buffer.duration*100))).toFixed(1)+"%";
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+$("#play").onclick=()=>{
+  if(!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();}
+  if(ctx.state==="suspended")ctx.resume();
+  play(0);
+};
+$("#pause").onclick=()=>{
+  if(!source)return;
+  const pos=ctx.currentTime-startedAt;
+  stop();play(pos);$("#pause").textContent="Pause";
+};
+$("#stop").onclick=()=>{stop();offset=0;$("#progress").style.width="0%";};
+$("#vol").oninput=function(){ /* gilt fuer naechsten Start */ void this.value; };
+
+function load(file){
+  const r=new FileReader();
+  r.onload=()=>{
+    bytes=new Uint8Array(r.result);
+    fmt=detect(bytes);
+    $("#info").innerHTML="<strong>"+fmt.name+"</strong><br>"+fmt.reason;
+    log("Format: "+fmt.name);
+    if(!fmt.playable){
+      $("#play").disabled=true;stop();
+      log("Nicht abspielbar: "+fmt.reason);
+      return;
+    }
+    try{
+      if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();
+      const res=fmt.id==="mod"?renderMod(bytes,ctx.sampleRate):render8svx(bytes,ctx.sampleRate);
+      buffer=makeBuffer(res);
+      $("#info").innerHTML="<strong>"+fmt.name+"</strong><br>"+res.title+
+        " · "+res.seconds.toFixed(1)+" s · "+ctx.sampleRate+" Hz";
+      $("#play").disabled=false;
+      log("Bereit: "+res.title+" ("+res.seconds.toFixed(1)+" s)");
+    }catch(e){
+      buffer=null;$("#play").disabled=true;
+      log("Fehler beim Rendern: "+e.message);
+    }
+  };
+  r.readAsArrayBuffer(file);
+}
+
+const drop=$("#drop");
+drop.onclick=()=>$("#file").click();
+$("#file").onchange=e=>{if(e.target.files[0])load(e.target.files[0]);};
+["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over");}));
+["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("over");}));
+drop.addEventListener("drop",e=>{if(e.dataTransfer.files[0])load(e.dataTransfer.files[0]);});
+})();
+</script>
+</body>
+</html>

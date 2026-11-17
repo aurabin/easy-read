@@ -95,6 +95,11 @@ const gh = run(["tools/github/test.mjs"]);
 check("GitHub-Login", /GITHUB-LOGIN OK/.test(gh) && !/FAIL/.test(gh),
   gh.trim().split("\n").pop());
 
+// 12. Amiga-Formaterkennung
+const amiga = run(["tools/amiga-formats-test.mjs"]);
+check("Amiga-Formate", /AMIGA-FORMATE OK/.test(amiga) && !/FAIL/.test(amiga),
+  amiga.trim().split("\n").pop());
+
 console.log(out.join("\n"));
 console.log(fails===0 ? "\nSELF-ENGINEERING OK" : `\nSELF-ENGINEERING: ${fails} Problem(e)`);
 process.exit(fails===0?0:1);

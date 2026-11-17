@@ -200,7 +200,7 @@
     S.paused=!S.paused;$("#pause").textContent=S.paused?"Play":"Pause";
     if(S.paused){cancelAnimationFrame(S.raf);}else{loop();}
   });
-  $("#sound").addEventListener("click",()=>{S.sound=!S.sound;const b=$("#sound");b.textContent="Sound: "+(S.sound?"on":"off");b.setAttribute("aria-pressed",String(S.sound));if(S.sound&&(!S.started||S.paused||S.calm))boing();});
+  $("#sound").addEventListener("click",()=>{S.sound=!S.sound;const b=$("#sound");b.textContent="Sound: "+(S.sound?"on":"off");b.setAttribute("aria-pressed",String(S.sound));});
   reduce.addEventListener("change",e=>{S.calm=e.matches;if(S.calm)cancelAnimationFrame(S.raf);else if(S.started&&!S.paused)loop();});
   draw();
   $("#go").focus();
