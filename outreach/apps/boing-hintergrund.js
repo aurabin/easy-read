@@ -60,24 +60,39 @@ function create(canvas){
   }
 
   // Donner-Sound: tiefer, längerer Rausch-Ton mit langsamerem Abklang
+  // + hörbarer Knall (Crack) und Bass-Boom. Lauter als vorher.
   function donnern(c){
+    if(!c)return;
     try{
+      if(c.state==="suspended") c.resume();
       var t2=c.currentTime;
-      var buf=c.createBuffer(1,Math.floor(c.sampleRate*1.2),c.sampleRate);
+      // 1) Knall (Crack) — kurzer, heller Impuls
+      var buf1=c.createBuffer(1,Math.floor(c.sampleRate*.08),c.sampleRate);
+      var d1=buf1.getChannelData(0);
+      for(var i=0;i<d1.length;i++)d1[i]=(Math.random()*2-1)*(1-i/d1.length);
+      var ns1=c.createBufferSource();ns1.buffer=buf1;
+      var nf1=c.createBiquadFilter();nf1.type="highpass";nf1.frequency.value=1200;
+      var ng1=c.createGain();ng1.gain.setValueAtTime(.4,t2);
+      ng1.gain.exponentialRampToValueAtTime(.001,t2+.12);
+      ns1.connect(nf1);nf1.connect(ng1);ng1.connect(c.destination);
+      ns1.start(t2);ns1.stop(t2+.1);
+      // 2) Rauschen (Donner-Grollen) — lauter und länger
+      var buf=c.createBuffer(1,Math.floor(c.sampleRate*1.6),c.sampleRate);
       var d=buf.getChannelData(0);
       for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1);
       var ns=c.createBufferSource();ns.buffer=buf;
-      var nf=c.createBiquadFilter();nf.type="lowpass";nf.frequency.value=400;
-      var ng=c.createGain();ng.gain.setValueAtTime(.18,t2);
-      ng.gain.exponentialRampToValueAtTime(.001,t2+1.1);
+      var nf=c.createBiquadFilter();nf.type="lowpass";nf.frequency.value=600;
+      var ng=c.createGain();ng.gain.setValueAtTime(.35,t2+.05);
+      ng.gain.exponentialRampToValueAtTime(.001,t2+1.5);
       ns.connect(nf);nf.connect(ng);ng.connect(c.destination);
-      ns.start(t2);ns.stop(t2+1.2);
+      ns.start(t2);ns.stop(t2+1.6);
+      // 3) Bass-Boom — tiefer, langer Ton
       var o2=c.createOscillator(),g2=c.createGain();
-      o2.type="sine";o2.frequency.setValueAtTime(55,t2);
-      o2.frequency.exponentialRampToValueAtTime(30,t2+1.0);
-      g2.gain.setValueAtTime(.2,t2);g2.gain.exponentialRampToValueAtTime(.001,t2+1.2);
-      o2.connect(g2);g2.connect(c.destination);o2.start(t2);o2.stop(t2+1.3);
-    }catch(e){}
+      o2.type="sine";o2.frequency.setValueAtTime(65,t2);
+      o2.frequency.exponentialRampToValueAtTime(28,t2+1.4);
+      g2.gain.setValueAtTime(.3,t2);g2.gain.exponentialRampToValueAtTime(.001,t2+1.5);
+      o2.connect(g2);g2.connect(c.destination);o2.start(t2);o2.stop(t2+1.6);
+    }catch(e){ console.log("Donner-Fehler:",e.message); }
   }
 
   function boingSound(){
@@ -187,16 +202,30 @@ function create(canvas){
     }
     ctx.globalAlpha=1;
 
-    // Donner-Flash + Donner-Linie
+    // Donner-Flash + Donner-Linie — deutlicher
     if(donnerAktiv>0){
-      ctx.fillStyle="rgba(255,255,255,"+(donnerAktiv*.35)+")";
+      ctx.fillStyle="rgba(255,255,255,"+(donnerAktiv*.6)+")";
       ctx.fillRect(0,0,LW,LH);
-      ctx.strokeStyle="rgba(200,200,255,"+(donnerAktiv*.7)+")";ctx.lineWidth=2;
+      ctx.strokeStyle="rgba(180,180,255,"+(Math.min(1,donnerAktiv*1.2))+")";ctx.lineWidth=3;
       ctx.beginPath();
       var lx=40+Math.random()*(LW-80), ly=0;
       ctx.moveTo(lx,ly);
       while(ly<LH*.85){lx+=(Math.random()-.5)*30;ly+=15+Math.random()*20;ctx.lineTo(lx,ly);}
       ctx.stroke();
+    }
+
+    // Blitz-Flash + Blitz-Linie — deutlicher
+    if(blitzDauer>0){
+      ctx.fillStyle="rgba(255,255,255,"+(blitzDauer*4)+")";
+      ctx.fillRect(0,0,LW,LH);
+      if(blitzDauer>0.05){
+        ctx.strokeStyle="rgba(255,255,255,"+(Math.min(1,blitzDauer*6))+")";ctx.lineWidth=3;
+        ctx.beginPath();
+        var bx=blitzX, by=0;
+        ctx.moveTo(bx,by);
+        while(by<LH*.8){bx+=(Math.random()-.5)*24;by+=12+Math.random()*18;ctx.lineTo(bx,by);}
+        ctx.stroke();
+      }
     }
 
     // Blitz-Flash + Blitz-Linie
