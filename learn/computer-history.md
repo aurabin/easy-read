@@ -153,7 +153,50 @@ Das Web ist ein Dienst auf dem Internet.
 Berners-Lee erfand es 1989 am CERN.
 1991 ging die erste Website öffentlich online.
 
-## 7. Software und Daten
+## 7. BOINC — viele Rechner, ein Ziel
+
+| Jahr | Was war? |
+| --- | --- |
+| 1999 | SETI@home beginnt. Freiwillige suchen nach Funksignalen. |
+| 2002 | BOINC startet im Februar. Die erste Version kommt im April. |
+| 2004 | Predictor@home wird das erste BOINC-Projekt. |
+| Heute | BOINC läuft auf Windows, Mac, Linux und Android. |
+
+BOINC ist ein langer Name.
+Er heißt: Berkeley Open Infrastructure for Network Computing.
+Man spricht ihn „boink" aus. Das reimt sich auf „oink".
+
+BOINC entstand in Berkeley in Kalifornien.
+David P. Anderson leitete das Team.
+Er leitete auch SETI@home.
+
+Zuerst gab es nur SETI@home.
+Der alte Client war für ein Projekt gemacht.
+Er war nicht sicher genug.
+Manche Leute schummelten, um Punkte zu bekommen.
+Andere schickten falsche Ergebnisse.
+Darum bauten sie BOINC sicherer.
+
+BOINC bündelt viele Rechner zu einer starken Kraft.
+Die Rechner rechnen, wenn ihre Besitzer nichts tun.
+So hilft dein PC der Forschung, ohne dass du etwas zahlst.
+Freiwillige leihen ihre Rechner der Forschung.
+
+Es gibt viele Projekte. Hier sind einige:
+
+- Rosetta@home — Eiweiße und Krankheiten.
+- Einstein@home — Signale aus dem All.
+- LHC@home — Physik der kleinen Teilchen.
+- Ein Klima-Projekt — Wetter und Klima berechnen.
+- PrimeGrid — große Primzahlen.
+
+BOINC ist freie Software.
+Der Code steht unter der LGPL-Lizenz.
+Das Guinness-Buch nennt BOINC das größte Rechennetz der Welt.
+
+Noch nicht mit echten Nutzern getestet. Das sagen wir ehrlich.
+
+## 8. Software und Daten
 
 | Jahr | Was war? |
 | --- | --- |
@@ -172,7 +215,7 @@ GNU und Linux brachten freie Software.
 Heute läuft Linux auf Servern, Telefonen und Superrechnern.
 Unser Projekt ist offen. Das steht in `LICENSE.md`.
 
-## 8. Spiele, Grafik und Scene
+## 9. Spiele, Grafik und Scene
 
 | Jahr | Was war? |
 | --- | --- |
@@ -192,7 +235,7 @@ Die Gestaltung dahinter steht in `design-history.md`.
 Dort sind Bilder analysiert und Designregeln erklärt.
 Die Poesie des Teams steht im Amiga-Ordner.
 
-## 9. Künstliche Intelligenz
+## 10. Künstliche Intelligenz
 
 | Jahr | Was war? |
 | --- | --- |
@@ -214,7 +257,7 @@ Heute kann KI Text, Code und Bilder entwerfen.
 Sie macht Entwürfe. Sie ist kein Mensch. Sie kann irren.
 Unser AI-Kurs lehrt das in `learn/ai/`.
 
-## 10. Offen, zugänglich, verantwortbar
+## 11. Offen, zugänglich, verantwortbar
 
 Rechte und Regeln sind Teil der Geschichte.
 Kopierschutz führte zu Cracktros. Daraus wurde Kunst.
@@ -269,7 +312,8 @@ Computer History Museum (Alto, Hollerith, System/360)
 Britannica (Z3, Personal Computer)
 Deutsches Museum / Google Arts (Zuse)
 IBM (Geschichte des PC)
-Wikipedia (Z3, Demoscene, KI)
+Wikipedia (Z3, Demoscene, KI, BOINC, SETI@home)
+BOINC (boinc.berkeley.edu)
 Live Science (Computer History)
 The First Website (Internet)
 99designs (Design der 80er)
