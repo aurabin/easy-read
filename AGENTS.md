@@ -105,6 +105,14 @@ Last commit: `4bd8011 Add image analysis section to art and design lesson`.
 If the session tools (FASM, Node) live under `%TEMP%/opencode`, they may disappear
 after a reset — reinstall or check before relying on them.
 
+## Self-engineering
+
+Run `node tools/self-engineer.mjs` (or the `/self-engineer` command) at the start
+and the end of a work session. It checks tests, links, WASM, deployment sync,
+secrecy, Easy Read 100/100 and the core artifacts, then repairs `docs/` itself.
+Fix every FAIL before you finish. Index files with paths and tables are excluded
+from the 100/100 rule.
+
 ## Build constraints
 
 - **No WAV in any build.** Do not create `.wav` files as an intermediate or a

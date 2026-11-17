@@ -161,13 +161,13 @@ addEventListener("scroll",stop,{passive:true});
 // Automatischer Start. Browser mit Autoplay-Sperre behalten den Button.
 if(!play()) document.getElementById("play").textContent="Ton starten";
 // Die Demo im Rahmen ebenfalls automatisch starten.
-addEventListener("load",()=>{
+const frame=document.getElementById("frame");
+frame.onload=()=>{
   try{
-    const f=document.getElementById("frame");
-    const g=f.contentDocument&&f.contentDocument.getElementById("go");
+    const g=frame.contentDocument&&frame.contentDocument.getElementById("go");
     if(g)g.click();
   }catch(e){}
-});
+};
 </script></body></html>`;
 writeFileSync("outreach/media/ALL-IN-ONE.html", html);
 
