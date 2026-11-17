@@ -11,12 +11,12 @@
 <meta property="og:image" content="https://aurabin.github.io/easy-read/og-image.png">
 <meta property="og:url" content="https://aurabin.github.io/easy-read/">
 <style>
-/* Nachtgitter — ruhiges, modernes Standard-Design */
+/* Amiga 1000 — cremiges Gehaeuse, brauner Monitor, blauer Hintergrund */
 :root{
-  --desk:#070b14; --win:#0e1626; --win2:#131f36; --title:#16233a;
-  --text:#eaf2ff; --muted:#9fb3d1; --blue:#6fd3ff; --light:#24344f; --dark:#070b14;
-  --r:#e8382f; --o:#f08c00; --y:#f2d000; --g:#3fa04a; --b:#6fd3ff; --p:#9a6cff;
-  --accent:#6fd3ff;
+  --desk:#1f3a6e; --win:#e8e2d0; --win2:#d8d0b8; --title:#6b5d4f;
+  --text:#2a2620; --muted:#5c5346; --blue:#2a4a8a; --light:#fffaf0; --dark:#8a7f6a;
+  --r:#c0392b; --o:#d35400; --y:#b7950b; --g:#2e7d32; --b:#2a4a8a; --p:#6c3483;
+  --accent:#2a4a8a;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--desk);color:var(--text);
@@ -134,8 +134,26 @@ body[data-theme="pimiga"] .appearance button[aria-pressed="true"]{
 .appearance button[aria-pressed="true"]{background:var(--accent);color:#04121f;
  border-color:var(--accent);font-weight:600}
 
-/* Phantasievolles Layout: Sterne, nummerierte Bereiche, Bento-Karten */
-body{position:relative}
+/* Amiga 1000: brauner Monitor-Rahmen, geprägte Oberfläche */
+.window{background:var(--win);border:2px solid var(--dark);border-radius:6px;
+  box-shadow:inset 1px 1px 0 var(--light),inset -1px -1px 0 #a99e88,4px 5px 0 rgba(0,0,0,.3)}
+.titlebar{background:linear-gradient(180deg,#7a6b5a,var(--title));color:var(--light);
+  text-transform:none;letter-spacing:.04em;border-bottom:2px solid var(--dark)}
+.titlebar .name::before{content:""}
+.card{background:var(--win2);border:1px solid var(--dark);border-radius:4px;
+  box-shadow:inset 1px 1px 0 var(--light),inset -1px -1px 0 #bdb29a}
+.btn{background:var(--blue);color:#fff;border-radius:3px;border:1px solid #14284f;
+  box-shadow:inset 1px 1px 0 rgba(255,255,255,.25)}
+.btn:hover{filter:brightness(1.1)}
+.illu{border:1px solid var(--dark);border-radius:4px}
+body{position:relative;
+  background-color:var(--desk);
+  background-image:
+    radial-gradient(circle at 20% 10%,rgba(255,255,255,.08),transparent 50%),
+    radial-gradient(circle at 80% 80%,rgba(0,0,0,.15),transparent 60%);
+  font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif}
+body::before{display:none}
+.joke .inner{background:var(--win2);text-align:center;font-size:16px}
 
 .wrap{position:relative;z-index:1}
 
@@ -144,11 +162,8 @@ body{position:relative}
 .cards .card:first-child 
 .cards .card:first-child h3{font-size:20px}
 .cards .card:first-child p{font-size:14px;min-height:56px}
-.card{border-top:2px solid var(--accent)}
-.card:nth-child(3n+2){border-top-color:var(--p)}
-.card:nth-child(3n+3){border-top-color:var(--r)}
-.joke .inner{background:linear-gradient(135deg,rgba(111,211,255,.06),rgba(154,108,255,.09));
-  text-align:center;font-size:16px}
+.card{border-top:2px solid var(--dark)}
+.joke .inner{background:var(--win2);text-align:center;font-size:16px}
 @media(max-width:700px){.cards .card:first-child{grid-column:span 1;grid-row:span 1}
   .cards .card:first-child }
 @media(prefers-reduced-motion:reduce){*{transition:none}}
@@ -202,7 +217,8 @@ body{position:relative}
     <div class="inner appearance">
       <strong id="appearance">Oberfläche:</strong>
       <div class="rows" role="group" aria-label="Appearance">
-        <button type="button" data-theme-btn="nachtgitter" aria-pressed="true">Nachtgitter</button>
+        <button type="button" data-theme-btn="amiga1000" aria-pressed="true">Amiga 1000</button>
+        <button type="button" data-theme-btn="nachtgitter" aria-pressed="false">Nachtgitter</button>
         <button type="button" data-theme-btn="pimiga" aria-pressed="false">Pimiga</button>
         <button type="button" data-theme-btn="pet" aria-pressed="false">PET 2001</button>
         <button type="button" data-theme-btn="os41" aria-pressed="false">OS 4.1</button>
@@ -697,8 +713,8 @@ body{position:relative}
 </nav>
 <script>
 (function(){
-  var t="nachtgitter";
-  try{ t=localStorage.getItem("er-theme")||"nachtgitter"; }catch(e){}
+  var t="amiga1000";
+  try{ t=localStorage.getItem("er-theme")||"amiga1000"; }catch(e){}
   var q=new URLSearchParams(location.search).get("theme");
   if(q) t=q;
   function apply(){
