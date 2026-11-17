@@ -82,6 +82,19 @@ body[data-theme="light"]{--desk:#e8e8e8;--win:#ffffff;--win2:#f0f0f0;
 body[data-theme="classic"]{--desk:#3a5f9a;--win:#c0c0c0;--win2:#adadad;
  --title:#d8892f;--text:#1f1f1f;--muted:#333333;--blue:#1a3a7a;
  --light:#e8e8e8;--dark:#606060}
+/* Windows 3.1 — Standard in der Store-Version */
+body[data-theme="win31"]{--desk:#008080;--win:#c0c0c0;--win2:#c0c0c0;
+ --title:#000080;--text:#000000;--muted:#000000;--blue:#000080;
+ --light:#ffffff;--dark:#808080}
+body[data-theme="win31"]{font-family:"MS Sans Serif",Tahoma,Arial,sans-serif;font-size:13px}
+body[data-theme="win31"] .titlebar{
+ background:linear-gradient(180deg,#000080,#1084d0);color:#fff}
+body[data-theme="win31"] .btn,body[data-theme="win31"] button{
+ border-top-color:#ffffff;border-left-color:#ffffff;
+ border-right-color:#000000;border-bottom-color:#000000}
+body[data-theme="win31"] .window{
+ border-top-color:#ffffff;border-left-color:#ffffff;
+ border-right-color:#000000;border-bottom-color:#000000;box-shadow:2px 2px 0 #000}
 .appearance{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .appearance .rows{display:flex;gap:6px;flex-wrap:wrap}
 .appearance button{font:inherit;font-size:12px;padding:4px 9px;color:var(--text);
@@ -105,6 +118,15 @@ body[data-theme="classic"]{--desk:#3a5f9a;--win:#c0c0c0;--win2:#adadad;
     </div>
   </section>
 
+  <section class="window" aria-labelledby="dank">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Dank</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <strong id="dank">Diese App habe ich auf Windows gebaut.</strong>
+      <p>Ich danke OpenCode. Ich danke Microsoft.</p>
+      <p>OpenCode half beim Schreiben. Windows war mein Platz zum Bauen.</p>
+    </div>
+  </section>
+
   <section class="window" aria-labelledby="appearance">
     <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Appearance</span><span class="gadget" aria-hidden="true"></span></div>
     <div class="inner appearance">
@@ -114,6 +136,7 @@ body[data-theme="classic"]{--desk:#3a5f9a;--win:#c0c0c0;--win2:#adadad;
         <button type="button" data-theme-btn="night" aria-pressed="false">Nacht</button>
         <button type="button" data-theme-btn="light" aria-pressed="false">Hell</button>
         <button type="button" data-theme-btn="classic" aria-pressed="false">Klassisch</button>
+        <button type="button" data-theme-btn="win31" aria-pressed="false">Win 3.1</button>
       </div>
     </div>
   </section>
@@ -131,6 +154,9 @@ body[data-theme="classic"]{--desk:#3a5f9a;--win:#c0c0c0;--win2:#adadad;
         <div class="card"><span class="tag">Demo</span><h3>Feldgenerator</h3>
           <p>Verändere das Feld. Wechsle die Farben. Schau dir Mandelbrot an.</p>
           <a class="btn" href="field-generator.html">Öffnen</a></div>
+        <div class="card"><span class="tag">Studio</span><h3>All-In-One</h3>
+          <p>Dateien, Konsole, Agent und freie Gestaltung. OpenCode-Style.</p>
+          <a class="btn" href="apps/studio.html">Öffnen</a></div>
         <div class="card"><span class="tag">Kurs</span><h3>Computer Chronik</h3>
           <p>Von Zuse bis KI. Mit C64 und Amiga zum Ausprobieren.</p>
           <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/products/computer-history">Zum Quelltext</a></div>
@@ -182,9 +208,6 @@ body[data-theme="classic"]{--desk:#3a5f9a;--win:#c0c0c0;--win2:#adadad;
         <div class="card"><span class="tag">Interne App</span><h3>AROS One im RAM</h3>
           <p>RAM-Boot als Nachbildung. Nichts wird auf die Platte geschrieben.</p>
           <a class="btn" href="apps/aros-one-ram.html">Starten</a></div>
-        <div class="card"><span class="tag">Interne App</span><h3>Screen Recorder</h3>
-          <p>Bildschirm aufnehmen. Im Browser, auf Windows, Linux, macOS und Android.</p>
-          <a class="btn" href="apps/screen-recorder.html">Starten</a></div>
       </div>
     </div>
   </section>
@@ -194,6 +217,28 @@ body[data-theme="classic"]{--desk:#3a5f9a;--win:#c0c0c0;--win2:#adadad;
     <div class="inner">
       <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
       <p><small>Der Witz ist auf Deutsch. Im Projekt steht er in sechs Sprachen.</small></p>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="mitmachen">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Mitmachen</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="mitmachen">Jeder kann helfen</h2>
+      <div class="cards">
+        <div class="card"><span class="tag">Fehler</span><h3>Melden</h3>
+          <p>Du hast etwas gesehen? Schreib ein Issue.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/issues/new/choose">Issue öffnen</a></div>
+        <div class="card"><span class="tag">Text</span><h3>Verbessern</h3>
+          <p>Kürzere Sätze. Einfachere Wörter. Jede Zeile hilft.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/CONTRIBUTING.md">So geht es</a></div>
+        <div class="card"><span class="tag">Sprache</span><h3>Übersetzen</h3>
+          <p>De, en, es, fr, pt, it — oder eine neue Sprache.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/issues/new?template=uebersetzung.md">Text schicken</a></div>
+        <div class="card"><span class="tag">Code</span><h3>Bauen</h3>
+          <p>Demo, Bild, KolibriOS-Programm oder Prüfung.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read">Repository</a></div>
+      </div>
+      <p><small>Alles schriftlich. Kein Video, kein Anruf, kein Treffen.</small></p>
     </div>
   </section>
 
@@ -209,6 +254,8 @@ body[data-theme="classic"]{--desk:#3a5f9a;--win:#c0c0c0;--win2:#adadad;
 (function(){
   var t="os41";
   try{ t=localStorage.getItem("er-theme")||"os41"; }catch(e){}
+  var q=new URLSearchParams(location.search).get("theme");
+  if(q) t=q;
   function apply(){
     document.body.dataset.theme=t;
     var bs=document.querySelectorAll("[data-theme-btn]");

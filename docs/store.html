@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Easy Read Coding Course — Store</title>
+<meta name="description" content="Ein offenes Lernprojekt mit kurzen Sätzen. Demos, Lektionen und Spiele zum Ausprobieren.">
+<meta property="og:title" content="Einfach lesen. Retro verstehen.">
+<meta property="og:description" content="Kurze Sätze. Klare Schritte. Demos und Lektionen zum Ausprobieren.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://aurabin.github.io/easy-read/og-image.png">
+<meta property="og:url" content="https://aurabin.github.io/easy-read/">
+<style>
+/* AmigaOS 4.1 Workbench style */
+:root{
+  --desk:#8c8c8c; --win:#d9d9d9; --win2:#c4c4c4; --title:#5b82b8;
+  --text:#1f1f1f; --muted:#4c4c4c; --blue:#244f8a; --light:#ffffff; --dark:#5a5a5a;
+  --r:#e8382f; --o:#f08c00; --y:#f2d000; --g:#3fa04a; --b:#2f60b0; --p:#7a3fa0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);
+  font:14px/1.55 "Arial","Helvetica",sans-serif}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible{outline:2px dotted var(--blue);outline-offset:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px 70px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;
+  border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}
+.stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
+.stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
+.stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
+.window{background:var(--win);border-top:2px solid var(--light);
+  border-left:2px solid var(--light);border-right:2px solid var(--dark);
+  border-bottom:2px solid var(--dark);box-shadow:3px 3px 0 rgba(0,0,0,.28);
+  margin-bottom:18px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+  background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;
+  font-weight:bold;letter-spacing:.02em}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);
+  border-top:1px solid var(--light);border-left:1px solid var(--light);
+  border-right:1px solid var(--dark);border-bottom:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:18px}
+h1{font-size:clamp(24px,4vw,36px);margin:0 0 8px;line-height:1.15}
+h2{font-size:18px;margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid #a9a9a9}
+p{margin:6px 0;max-width:58ch}
+.lead{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--win2);border-top:2px solid var(--light);
+  border-left:2px solid var(--light);border-right:2px solid var(--dark);
+  border-bottom:2px solid var(--dark);padding:14px}
+.card h3{margin:6px 0;font-size:16px}
+.card p{color:var(--muted);font-size:13px}
+.tag{font:11px monospace;color:var(--blue);text-transform:uppercase;letter-spacing:.08em}
+.btn{display:inline-block;margin-top:10px;padding:5px 12px;text-decoration:none;
+  color:var(--text);background:var(--win);font-size:13px;
+  border-top:2px solid var(--light);border-left:2px solid var(--light);
+  border-right:2px solid var(--dark);border-bottom:2px solid var(--dark)}
+.btn:active{border-top-color:var(--dark);border-left-color:var(--dark);
+  border-right-color:var(--light);border-bottom-color:var(--light)}
+.chip{display:inline-block;padding:3px 9px;background:var(--win2);font-size:12px;
+  border:1px solid var(--dark)}
+.sec-num{font:11px monospace;color:var(--blue)}
+.joke{background:var(--win2)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
+/* Dock-Leiste */
+.dock{position:fixed;left:0;right:0;bottom:0;height:52px;display:flex;
+  justify-content:center;align-items:center;gap:10px;padding:6px;
+  background:linear-gradient(180deg,#bdbdbd,#8f8f8f);
+  border-top:2px solid var(--light)}
+.dock a{width:34px;height:34px;display:grid;place-content:center;
+  text-decoration:none;font-size:18px;background:var(--win);
+  border-top:2px solid var(--light);border-left:2px solid var(--light);
+  border-right:2px solid var(--dark);border-bottom:2px solid var(--dark)}
+/* Weitere Oberflächen */
+body[data-theme="night"]{--desk:#070b14;--win:#0e1626;--win2:#17233d;
+ --title:#3b5bdb;--text:#eaf2ff;--muted:#9fb3d1;--blue:#6fd3ff;
+ --light:#2a3a5a;--dark:#050810}
+body[data-theme="light"]{--desk:#e8e8e8;--win:#ffffff;--win2:#f0f0f0;
+ --title:#6a8fc0;--text:#1f1f1f;--muted:#444444;--blue:#1a4a8a;
+ --light:#ffffff;--dark:#999999}
+body[data-theme="classic"]{--desk:#3a5f9a;--win:#c0c0c0;--win2:#adadad;
+ --title:#d8892f;--text:#1f1f1f;--muted:#333333;--blue:#1a3a7a;
+ --light:#e8e8e8;--dark:#606060}
+/* Windows 3.1 — Standard in der Store-Version */
+body[data-theme="win31"]{--desk:#008080;--win:#c0c0c0;--win2:#c0c0c0;
+ --title:#000080;--text:#000000;--muted:#000000;--blue:#000080;
+ --light:#ffffff;--dark:#808080}
+body[data-theme="win31"]{font-family:"MS Sans Serif",Tahoma,Arial,sans-serif;font-size:13px}
+body[data-theme="win31"] .titlebar{
+ background:linear-gradient(180deg,#000080,#1084d0);color:#fff}
+body[data-theme="win31"] .btn,body[data-theme="win31"] button{
+ border-top-color:#ffffff;border-left-color:#ffffff;
+ border-right-color:#000000;border-bottom-color:#000000}
+body[data-theme="win31"] .window{
+ border-top-color:#ffffff;border-left-color:#ffffff;
+ border-right-color:#000000;border-bottom-color:#000000;box-shadow:2px 2px 0 #000}
+.appearance{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.appearance .rows{display:flex;gap:6px;flex-wrap:wrap}
+.appearance button{font:inherit;font-size:12px;padding:4px 9px;color:var(--text);
+ background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark)}
+.appearance button[aria-pressed="true"]{background:var(--title);color:#fff}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section class="window" aria-labelledby="support">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Kostenlos</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner appearance">
+      <strong id="support">Diese App ist kostenlos. Für immer.</strong>
+      <div class="rows" role="group" aria-label="Unterstützung">
+        <a class="btn" href="https://bunq.me/JMLealRuivo">Unterstützen (freiwillig)</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="dank">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Dank</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <strong id="dank">Diese App habe ich auf Windows gebaut.</strong>
+      <p>Ich danke OpenCode. Ich danke Microsoft.</p>
+      <p>OpenCode half beim Schreiben. Windows war mein Platz zum Bauen.</p>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="appearance">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Appearance</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner appearance">
+      <strong id="appearance">Oberfläche:</strong>
+      <div class="rows" role="group" aria-label="Appearance">
+        <button type="button" data-theme-btn="os41" aria-pressed="true">OS 4.1</button>
+        <button type="button" data-theme-btn="night" aria-pressed="false">Nacht</button>
+        <button type="button" data-theme-btn="light" aria-pressed="false">Hell</button>
+        <button type="button" data-theme-btn="classic" aria-pressed="false">Klassisch</button>
+        <button type="button" data-theme-btn="win31" aria-pressed="false">Win 3.1</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="start">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Willkommen</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h1 id="start">Einfach lesen. Retro verstehen.</h1>
+      <p class="lead">Kurze Sätze. Klare Schritte. Du kannst hier spielen und lernen.</p>
+      <p><span class="chip">Noch nicht mit echten Nutzern getestet.</span></p>
+      <div class="cards">
+        <div class="card"><span class="tag">Demo</span><h3>Boing Ball</h3>
+          <p>Ein karierter Ball springt. Den Ton gibt es dazu. Läuft auch auf KolibriOS.</p>
+          <a class="btn" href="boing-ball.html">Öffnen</a></div>
+        <div class="card"><span class="tag">Demo</span><h3>Feldgenerator</h3>
+          <p>Verändere das Feld. Wechsle die Farben. Schau dir Mandelbrot an.</p>
+          <a class="btn" href="field-generator.html">Öffnen</a></div>
+        <div class="card"><span class="tag">Studio</span><h3>All-In-One</h3>
+          <p>Dateien, Konsole, Agent und freie Gestaltung. OpenCode-Style.</p>
+          <a class="btn" href="apps/studio.html">Öffnen</a></div>
+        <div class="card"><span class="tag">Kurs</span><h3>Computer Chronik</h3>
+          <p>Von Zuse bis KI. Mit C64 und Amiga zum Ausprobieren.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/products/computer-history">Zum Quelltext</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="lernen">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Lernen</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="lernen">Lektionen</h2>
+      <div class="cards">
+        <div class="card"><span class="tag">Zeittafel</span><h3>Microsoft</h3>
+          <p>Von BASIC über Windows bis Cloud und KI. 14 Jahre zum Anklicken.</p>
+          <a class="btn" href="apps/microsoft-history.html">Ansehen</a></div>
+        <div class="card"><span class="tag">Kurs</span><h3>Code lernen</h3>
+          <p>18 Lektionen. Von der ersten Zeile bis AROS.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/learn/coding-course">Zum Kurs</a></div>
+        <div class="card"><span class="tag">Start</span><h3>Ohne Wissen</h3>
+          <p>Vier kurze Lektionen. Für Erwachsene ohne Vorkenntnisse.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/tree/master/learn/start-here">Zu den Lektionen</a></div>
+        <div class="card"><span class="tag">Sinn</span><h3>Kontext</h3>
+          <p>Worte bekommen Sinn durch die Lage. Auch bei KI.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/kontext.md">Lesen</a></div>
+        <div class="card"><span class="tag">Form</span><h3>Kunst und Design</h3>
+          <p>Farbe, Schrift, Anordnung. Zehn Regeln in kurzen Sätzen.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/art-design.md">Lesen</a></div>
+        <div class="card"><span class="tag">Klang</span><h3>Musik</h3>
+          <p>Takt, Melodie und Klangfarbe. Einfach erklärt.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/musik.md">Lesen</a></div>
+        <div class="card"><span class="tag">Prüfen</span><h3>Gesundheit</h3>
+          <p>Wie prüfe ich einen Text über Medikamente? Sieben Schritte.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/gesundheit-pruefen.md">Lesen</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="amiga">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Amiga — zwei Wege weiter</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="amiga">MorphOS und AmigaOS 4.1</h2>
+      <div class="cards">
+        <div class="card"><span class="tag">MorphOS 3.21</span><h3>Der eine Weg</h3>
+          <p>Amiga-ähnlich auf PowerPC. Der Desktop heißt Ambient. Neu im November 2026.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/coding-course/20-morphos-os4.md">Lesen</a></div>
+        <div class="card"><span class="tag">OS 4.1 FE Update 3</span><h3>Der andere Weg</h3>
+          <p>Von Hyperion. Workbench mit blauen Titelleisten. Update von Oktober 2025.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/learn/coding-course/19-os4-design.md">Lesen</a></div>
+        <div class="card"><span class="tag">Interne App</span><h3>AROS One im RAM</h3>
+          <p>RAM-Boot als Nachbildung. Nichts wird auf die Platte geschrieben.</p>
+          <a class="btn" href="apps/aros-one-ram.html">Starten</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="window joke" aria-labelledby="witz">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Ein Witz</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
+      <p><small>Der Witz ist auf Deutsch. Im Projekt steht er in sechs Sprachen.</small></p>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="mitmachen">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Mitmachen</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="mitmachen">Jeder kann helfen</h2>
+      <div class="cards">
+        <div class="card"><span class="tag">Fehler</span><h3>Melden</h3>
+          <p>Du hast etwas gesehen? Schreib ein Issue.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/issues/new/choose">Issue öffnen</a></div>
+        <div class="card"><span class="tag">Text</span><h3>Verbessern</h3>
+          <p>Kürzere Sätze. Einfachere Wörter. Jede Zeile hilft.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/blob/master/CONTRIBUTING.md">So geht es</a></div>
+        <div class="card"><span class="tag">Sprache</span><h3>Übersetzen</h3>
+          <p>De, en, es, fr, pt, it — oder eine neue Sprache.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read/issues/new?template=uebersetzung.md">Text schicken</a></div>
+        <div class="card"><span class="tag">Code</span><h3>Bauen</h3>
+          <p>Demo, Bild, KolibriOS-Programm oder Prüfung.</p>
+          <a class="btn" href="https://github.com/aurabin/easy-read">Repository</a></div>
+      </div>
+      <p><small>Alles schriftlich. Kein Video, kein Anruf, kein Treffen.</small></p>
+    </div>
+  </section>
+
+  <footer>Kostenlos. Offen. Noch nicht mit echten Nutzern getestet.</footer>
+</div>
+<nav class="dock" aria-label="Dock">
+  <a href="index.html" title="Start">▣</a>
+  <a href="field-generator.html" title="Feldgenerator">◈</a>
+  <a href="boing-ball.html" title="Boing Ball">●</a>
+  <a href="share.html" title="Teilen">✉</a>
+</nav>
+<script>
+(function(){
+  var t="win31";
+  try{ t=localStorage.getItem("er-theme")||"os41"; }catch(e){}
+  var q=new URLSearchParams(location.search).get("theme");
+  if(q) t=q;
+  function apply(){
+    document.body.dataset.theme=t;
+    var bs=document.querySelectorAll("[data-theme-btn]");
+    for(var i=0;i<bs.length;i++)
+      bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-theme-btn")===t));
+  }
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest("[data-theme-btn]");
+    if(!b)return;
+    t=b.getAttribute("data-theme-btn");
+    try{localStorage.setItem("er-theme",t);}catch(e){}
+    apply();
+  });
+  apply();
+})();
+</script>
+</body>
+</html>

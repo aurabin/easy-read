@@ -1,7 +1,7 @@
 // Generated deployment folder: copy the current sources into docs/.
-// Run after EVERY change in field-generator/ or site/.
+// Run after EVERY change in field-generator/, site/ or outreach/apps/.
 // Never edit files in docs/ directly.
-import { copyFileSync, mkdirSync, readdirSync } from "fs";
+import { copyFileSync, mkdirSync, readdirSync, unlinkSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -19,13 +19,23 @@ const files = [
   ["field-generator/field-demo-standalone.html", "field-demo-standalone.html"],
   ["field-generator/jpg-loader.html", "jpg-loader.html"],
   ["site/index.html", "index.html"],
+  ["site/store.html", "store.html"],
   ["outreach/media/AROS-One-RAM.img", "media/AROS-One-RAM.img"],
   ["outreach/media/AROS-One-RAM.qcow2", "media/AROS-One-RAM.qcow2"],
 ];
-// Alle Apps aus outreach/apps/ automatisch mitnehmen.
-for (const f of readdirSync(join(root,"outreach/apps"))) {
-  if (f.endsWith(".html")) files.push([`outreach/apps/${f}`, `apps/${f}`]);
+
+// Apps: copy all, remove stale copies that no longer have a source.
+const liveApps = readdirSync(join(root,"outreach/apps")).filter(f=>f.endsWith(".html"));
+const appDir = join(dst,"apps");
+mkdirSync(appDir, { recursive: true });
+for (const f of readdirSync(appDir)) {
+  if (f.endsWith(".html") && !liveApps.includes(f)) {
+    unlinkSync(join(appDir,f));
+    console.log("removed stale apps/"+f);
+  }
 }
+for (const f of liveApps) files.push([`outreach/apps/${f}`, `apps/${f}`]);
+
 for (const [from, to] of files) {
   mkdirSync(dirname(join(dst, to)), { recursive: true });
   copyFileSync(join(root, from), join(dst, to));

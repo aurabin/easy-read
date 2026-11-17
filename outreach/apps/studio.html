@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All-In-One Studio — OpenCode-Style</title>
+<style>
+:root{
+  --desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+  --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a;
+  --fs:14px;--radius:2px;--font:Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);
+  font:var(--fs)/1.5 var(--font)}
+.wrap{max-width:980px;margin:0 auto;padding:18px 16px 50px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:#e8382f}.stripes i:nth-child(2){background:#f08c00}
+.stripes i:nth-child(3){background:#f2d000}.stripes i:nth-child(4){background:#3fa04a}
+.stripes i:nth-child(5){background:#2f60b0}.stripes i:nth-child(6){background:#7a3fa0}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+  border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+  box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:16px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+  background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:14px}
+h1{font-size:24px;margin:0 0 6px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tabs button{font:inherit;padding:5px 12px;color:var(--text);background:var(--win);
+ border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);cursor:pointer}
+.tabs button.on{background:var(--title);color:#fff}
+.panel{display:none}.panel.on{display:block}
+.cols{display:grid;grid-template-columns:180px 1fr;gap:10px}
+.list{background:var(--win2);border:2px solid var(--dark);padding:6px;max-height:280px;overflow:auto}
+.list div{padding:4px;cursor:pointer}
+.list div:hover{background:var(--title);color:#fff}
+textarea,input,select{font:inherit;width:100%;padding:6px;margin-bottom:8px;background:#fff;color:#111;
+ border-top:2px solid var(--dark);border-left:2px solid var(--dark);
+ border-right:2px solid var(--light);border-bottom:2px solid var(--light)}
+textarea{height:240px;font-family:monospace}
+button.act{font:inherit;padding:5px 12px;color:var(--text);background:var(--win);
+ border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);cursor:pointer}
+.out{background:#0b1020;color:#7ef0a0;font:12px/1.5 monospace;padding:10px;height:230px;overflow:auto}
+.chat{background:var(--win2);border:2px solid var(--dark);padding:10px;height:180px;overflow:auto}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+label{font-size:12px;display:block}
+.warn{background:#f2d000;border:2px solid var(--dark);padding:10px}
+footer{text-align:center;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body><div class="wrap">
+<div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<section class="window"><div class="titlebar"><span class="gadget"></span><span class="name">All-In-One Studio</span><span class="gadget"></span></div>
+<div class="inner">
+<h1>OpenCode-Style im Browser</h1>
+<p class="warn"><strong>Simulation.</strong> Es ist kein echter OpenCode-Agent. Es führt keine Befehle auf deinem Rechner aus. Alles bleibt lokal.</p>
+<div class="tabs" role="tablist">
+  <button class="on" data-tab="files" type="button">Dateien</button>
+  <button data-tab="console" type="button">Konsole</button>
+  <button data-tab="agent" type="button">Agent</button>
+  <button data-tab="design" type="button">Design</button>
+</div>
+
+<div class="panel on" id="files">
+  <div class="cols">
+    <div class="list" id="filelist"></div>
+    <div>
+      <p><strong id="fname">Datei wählen</strong></p>
+      <textarea id="editor" spellcheck="false"></textarea>
+      <p><button class="act" id="savefile" type="button">Lokal speichern</button>
+      <button class="act" id="resetfile" type="button">Zurücksetzen</button></p>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="console">
+  <p><input id="cmd" placeholder="help eingeben und Enter drücken"></p>
+  <div class="out" id="out">All-In-One Konsole. Tippe help.</div>
+</div>
+
+<div class="panel" id="agent">
+  <div class="chat" id="chat">Agent: Frag mich zu Witz, Design, WASM oder Fehlern.</div>
+  <p><input id="ask" placeholder="Frage in kurzen Sätzen"></p>
+  <p><button class="act" id="send" type="button">Fragen</button></p>
+</div>
+
+<div class="panel" id="design">
+  <p>Absolut freie Gestaltung. Ändere Werte. Sieh sofort die Wirkung.</p>
+  <div class="grid2">
+    <label>Hintergrund <input type="color" id="c-desk" value="#8c8c8c"></label>
+    <label>Fenster <input type="color" id="c-win" value="#d9d9d9"></label>
+    <label>Titelleiste <input type="color" id="c-title" value="#5b82b8"></label>
+    <label>Text <input type="color" id="c-text" value="#1f1f1f"></label>
+    <label>Akzent <input type="color" id="c-blue" value="#244f8a"></label>
+    <label>Schriftgröße <input type="range" id="c-fs" min="10" max="24" value="14"></label>
+    <label>Ecken <input type="range" id="c-rad" min="0" max="18" value="2"></label>
+    <label>Schrift <select id="c-font">
+      <option>Arial,Helvetica,sans-serif</option>
+      <option>Georgia,serif</option>
+      <option>Courier New,monospace</option>
+    </select></label>
+  </div>
+  <p><textarea id="css" placeholder="Eigenes CSS hier einfügen — wirkt sofort"></textarea></p>
+  <p><button class="act" id="exportcss" type="button">CSS speichern</button>
+  <button class="act" id="resetdesign" type="button">Zurücksetzen</button></p>
+</div>
+</div></section>
+<section class="window"><div class="titlebar"><span class="gadget"></span><span class="name">Dank</span><span class="gadget"></span></div>
+<div class="inner">
+<p><strong>Diese App habe ich auf Windows gebaut.</strong></p>
+<p>Ich danke OpenCode. Ich danke Microsoft.</p>
+<p>OpenCode half beim Schreiben. Windows war mein Platz zum Bauen.</p>
+<p><small>Kostenlos. Offen. Nicht mit echten Nutzern getestet.</small></p>
+</div></section>
+<footer>Kostenlos. Offen. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<style id="custom"></style>
+<script>
+(function(){
+  var files={
+    "README.md":"# Easy Read Projekt\n\nKurze Sätze. Klare Schritte.\nOffen. Kostenlos.\n",
+    "joke.md":"Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!\n",
+    "field.wat":"(module (memory 2) (func (export \"advance\") ...))\n",
+    "self-engineer.txt":"Pass: Tests, Links, WASM, docs, Geheimnis, Lesbarkeit.\n"
+  };
+  var fname="", editor=document.getElementById("editor"),
+      list=document.getElementById("filelist");
+  Object.keys(files).forEach(function(n){
+    var d=document.createElement("div");d.textContent=n;
+    d.onclick=function(){
+      fname=n;document.getElementById("fname").textContent=n;
+      editor.value=localStorage.getItem("studio:"+n)||files[n];
+      [].forEach.call(list.children,function(x){x.style.background=""});
+      d.style.background="var(--title)";d.style.color="#fff";
+    };
+    list.appendChild(d);
+  });
+  document.getElementById("savefile").onclick=function(){
+    if(fname){localStorage.setItem("studio:"+fname,editor.value);alert("Lokal gespeichert.");}
+  };
+  document.getElementById("resetfile").onclick=function(){
+    if(fname){localStorage.removeItem("studio:"+fname);editor.value=files[fname];}
+  };
+  document.querySelectorAll("[data-tab]").forEach(function(b){
+    b.onclick=function(){
+      document.querySelectorAll("[data-tab]").forEach(function(x){x.classList.remove("on")});
+      document.querySelectorAll(".panel").forEach(function(x){x.classList.remove("on")});
+      b.classList.add("on");
+      document.getElementById(b.dataset.tab).classList.add("on");
+    };
+  });
+  var out=document.getElementById("out"),cmd=document.getElementById("cmd");
+  function log(s){out.textContent+="\n"+s;out.scrollTop=out.scrollHeight;}
+  function run(line){
+    log("> "+line);
+    var a=line.trim().split(/\s+/),c=a[0];
+    if(c==="help")log("help | ls | cat DATEI | check | clear");
+    else if(c==="ls")log(Object.keys(files).join("  "));
+    else if(c==="cat")log(files[a[1]]||"Datei nicht gefunden.");
+    else if(c==="check")log("SELF-ENGINEERING OK (Simulation)");
+    else if(c==="clear")out.textContent="";
+    else log("Unbekannt: "+c+". Tippe help.");
+  }
+  cmd.onkeydown=function(e){if(e.key==="Enter"){run(cmd.value);cmd.value="";}};
+  var chat=document.getElementById("chat"),ask=document.getElementById("ask");
+  function say(s){chat.textContent+="\nAgent: "+s;chat.scrollTop=chat.scrollHeight;}
+  function answer(q){
+    q=q.toLowerCase();
+    if(q.indexOf("witz")>=0)say("Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!");
+    else if(q.indexOf("design")>=0){say("Öffne das Register Design. Dort kannst du alle Farben und Schriften frei ändern.");}
+    else if(q.indexOf("wasm")>=0)say("WASM ist der schnelle Kern. JavaScript ist der zweite Weg für alte Geräte.");
+    else if(q.indexOf("fehler")>=0)say("Sag mir, was du gesehen hast. Ein Issue reicht. Kein Video nötig.");
+    else say("Kurze Sätze. Ein Schritt nach dem anderen. Frag zu Witz, Design, WASM oder Fehlern.");
+  }
+  document.getElementById("send").onclick=function(){var q=ask.value.trim();if(!q)return;chat.textContent+="\nDu: "+q;answer(q);ask.value="";};
+  var root=document.documentElement;
+  function theme(){
+    root.style.setProperty("--desk",document.getElementById("c-desk").value);
+    root.style.setProperty("--win",document.getElementById("c-win").value);
+    root.style.setProperty("--title",document.getElementById("c-title").value);
+    root.style.setProperty("--text",document.getElementById("c-text").value);
+    root.style.setProperty("--blue",document.getElementById("c-blue").value);
+    root.style.setProperty("--fs",document.getElementById("c-fs").value+"px");
+    root.style.setProperty("--radius",document.getElementById("c-rad").value+"px");
+    root.style.setProperty("--font",document.getElementById("c-font").value);
+  }
+  document.querySelectorAll("#design input, #design select").forEach(function(i){i.oninput=theme;});
+  document.getElementById("css").oninput=function(){
+    document.getElementById("custom").textContent=this.value;
+  };
+  function download(name,text,type){
+    var u=URL.createObjectURL(new Blob([text],{type:type||"text/plain"}));
+    var a=document.createElement("a");a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);
+  }
+  document.getElementById("exportcss").onclick=function(){
+    download("mein-design.css",document.getElementById("css").value,"text/css");
+  };
+  document.getElementById("resetdesign").onclick=function(){
+    document.getElementById("css").value="";document.getElementById("custom").textContent="";
+    ["c-desk","c-win","c-title","c-text","c-blue"].forEach(function(id,i){
+      document.getElementById(id).value=["#8c8c8c","#d9d9d9","#5b82b8","#1f1f1f","#244f8a"][i];});
+    document.getElementById("c-fs").value=14;document.getElementById("c-rad").value=2;
+    document.getElementById("c-font").value="Arial,Helvetica,sans-serif";theme();
+  };
+})();
+</script>
+</body></html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erinnerungen und Ideen</title>
+<style>
+:root{--desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+ --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a;
+ --r:#e8382f;--o:#f08c00;--y:#f2d000;--g:#3fa04a;--b:#2f60b0;--p:#7a3fa0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:14px/1.5 Arial,Helvetica,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:18px 16px 60px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
+.stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
+.stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:18px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+ background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:16px}
+h1{font-size:26px;margin:0 0 8px}
+input,textarea{width:100%;font:inherit;padding:6px;margin-bottom:8px;
+ border-top:2px solid var(--dark);border-left:2px solid var(--dark);
+ border-right:2px solid var(--light);border-bottom:2px solid var(--light);background:#fff}
+button{font:inherit;padding:5px 12px;color:var(--text);background:var(--win);
+ border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);cursor:pointer}
+a{color:var(--blue)}
+.card{background:var(--win2);border:2px solid var(--dark);padding:10px;margin-bottom:8px}
+.card b{color:var(--blue)}
+.card small{color:var(--muted)}
+.warn{background:#f2d000;border:2px solid var(--dark);padding:10px}
+footer{text-align:center;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body><div class="wrap">
+<div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<section class="window"><div class="titlebar"><span class="gadget"></span><span class="name">Erinnerungen und Ideen</span><span class="gadget"></span></div>
+<div class="inner">
+<h1>Deine Geschichte zählt</h1>
+<p class="warn"><strong>Bitte ohne fremde Namen und ohne Fotos von anderen.</strong>
+Alles bleibt zuerst bei dir. Du entscheidest, ob du es teilst.</p>
+<p><input id="title" placeholder="Titel, zum Beispiel: Mein erster C64"></p>
+<p><input id="year" placeholder="Jahr (optional)"></p>
+<p><textarea id="text" rows="4" placeholder="Deine Erinnerung oder Idee in kurzen Sätzen"></textarea></p>
+<p><button id="add" type="button">Zur Wand hinzufügen</button>
+<button id="send" type="button">Als Issue teilen</button>
+<button id="clear" type="button">Wand leeren</button></p>
+<div id="wall"></div>
+</div></section>
+<section class="window"><div class="titlebar"><span class="gadget"></span><span class="name">Vorlage</span><span class="gadget"></span></div>
+<div class="inner">
+<p><a href="https://github.com/aurabin/easy-read/issues/new?template=erinnerung.md" target="_blank" rel="noopener">Erinnerung auf GitHub teilen</a></p>
+<p><small>Lese auch `CONTRIBUTING.md`. Kein Video. Kein Anruf.</small></p>
+</div></section>
+<footer>Kostenlos. Offen. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<script>
+(function(){
+  var key="er-memories", wall=document.getElementById("wall");
+  function load(){try{return JSON.parse(localStorage.getItem(key)||"[]")}catch(e){return []}}
+  function save(a){try{localStorage.setItem(key,JSON.stringify(a))}catch(e){}}
+  function draw(){
+    var a=load();wall.innerHTML="";
+    a.forEach(function(m,i){
+      var d=document.createElement("div");d.className="card";
+      d.innerHTML="<b>"+m.title+"</b> <small>"+(m.year||"")+"</small><br>"+m.text;
+      wall.appendChild(d);
+    });
+    if(!a.length)wall.textContent="Noch keine Erinnerung auf der Wand.";
+  }
+  document.getElementById("add").onclick=function(){
+    var t=document.getElementById("title").value.trim();
+    var x=document.getElementById("text").value.trim();
+    if(!t||!x){alert("Bitte Titel und Text schreiben.");return;}
+    var a=load();a.push({title:t,year:document.getElementById("year").value.trim(),text:x});
+    save(a);draw();
+  };
+  document.getElementById("clear").onclick=function(){save([]);draw()};
+  document.getElementById("send").onclick=function(){
+    var t=document.getElementById("title").value.trim();
+    var x=document.getElementById("text").value.trim();
+    if(!t||!x){alert("Erst Titel und Text schreiben.");return;}
+    var body="## Meine Erinnerung\n\n"+x+"\n\n## Jahr\n\n"+
+      document.getElementById("year").value.trim()+"\n";
+    var url="https://github.com/aurabin/easy-read/issues/new?"+
+      "template=erinnerung.md&title="+encodeURIComponent("[Erinnerung] "+t)+
+      "&body="+encodeURIComponent(body);
+    window.open(url,"_blank","noopener");
+  };
+  draw();
+})();
+</script>
+</body></html>
