@@ -103,13 +103,7 @@ function create(canvas){
       if(!AC)return;
       if(!audio)audio=new AC();
       var c=audio;
-      var play=function(){
-        var t=c.currentTime,o=c.createOscillator(),gn=c.createGain();
-        o.type="sine";o.frequency.setValueAtTime(220,t);
-        o.frequency.exponentialRampToValueAtTime(70,t+.28);
-        gn.gain.setValueAtTime(.35,t);gn.gain.exponentialRampToValueAtTime(.001,t+.32);
-        o.connect(gn);gn.connect(c.destination);o.start(t);o.stop(t+.34);
-      };
+      var play=function(){ donnern(c); };
       if(c.state==="suspended"){
         boingPending=true;
         c.resume().then(function(){boingPending=false;play();}).catch(function(){boingPending=false;});
