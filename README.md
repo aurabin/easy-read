@@ -214,6 +214,13 @@ sent yet. It is written so that contact stays in writing: no calls, no camera.
 If you are in Germany, the doc lists first contacts with current addresses.
 The names and addresses are in `co-design.md`.
 
+## Synthesis
+
+[`SYNTHESE.md`](SYNTHESE.md) ties all ideas together: from the first lessons
+through the demos and the Boing Ball style to the 28 games and the step-by-step
+cosmos journey. One red thread — learn by doing, from the smallest particle to
+the universe.
+
 ## Freedom status
 
 [`FREIHEIT.md`](FREIHEIT.md) — German — and [`FREEDOM.md`](FREEDOM.md) — English —
