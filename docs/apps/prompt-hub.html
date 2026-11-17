@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alle Prompts — mit OpenCode-Werkzeugen</title>
+<style>
+:root{--desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+ --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a;
+ --r:#e8382f;--o:#f08c00;--y:#f2d000;--g:#3fa04a;--b:#2f60b0;--p:#7a3fa0;
+ --fs:14px;--font:Arial,Helvetica,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:var(--fs)/1.5 var(--font)}
+body[data-theme="win31"]{--desk:#008080;--win:#c0c0c0;--title:#000080;--text:#000;
+ --muted:#000;--blue:#000080;--light:#fff;--dark:#808080;
+ font-family:"MS Sans Serif",Tahoma,Arial,sans-serif}
+body[data-theme="win31"] .titlebar{background:linear-gradient(180deg,#000080,#1084d0)}
+body[data-theme="win31"] .window,body[data-theme="win31"] button,
+body[data-theme="win31"] .btn,body[data-theme="win31"] .tool{
+ border-top-color:#fff;border-left-color:#fff;border-right-color:#000;border-bottom-color:#000}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible{
+ outline:2px dotted var(--blue);outline-offset:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px 60px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:var(--r)}.stripes i:nth-child(2){background:var(--o)}
+.stripes i:nth-child(3){background:var(--y)}.stripes i:nth-child(4){background:var(--g)}
+.stripes i:nth-child(5){background:var(--b)}.stripes i:nth-child(6){background:var(--p)}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:16px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+ background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:14px 16px}
+h1{font-size:24px;margin:0 0 8px}h2{font-size:17px;margin:0 0 10px}
+p{margin:6px 0;max-width:64ch}
+.lead{color:var(--muted)}
+.warn{background:var(--y);border:2px solid var(--dark);padding:10px;color:#000}
+.btn,button,.tool{font:inherit;padding:5px 11px;color:var(--text);background:var(--win);
+ border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);cursor:pointer;
+ text-decoration:none;display:inline-block}
+button.on{background:var(--title);color:#fff}
+.rows{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0}
+textarea,input,select{font:inherit;padding:6px;background:#fff;color:#111;
+ border-top:2px solid var(--dark);border-left:2px solid var(--dark);
+ border-right:2px solid var(--light);border-bottom:2px solid var(--light)}
+textarea{width:100%;box-sizing:border-box}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.card{background:var(--win2);border:2px solid var(--dark);padding:12px}
+.card h3{margin:0 0 6px;font-size:15px}
+.card p{margin:0;color:var(--muted);font-size:13px}
+.tag{font:11px monospace;color:var(--blue);text-transform:uppercase}
+.out{background:#0b1020;color:#7ef0a0;font:12px/1.5 monospace;padding:10px;height:130px;overflow:auto}
+.chat{background:var(--win2);border:2px solid var(--dark);padding:10px;height:140px;overflow:auto}
+.cols{display:grid;grid-template-columns:190px 1fr;gap:10px}
+.list{background:var(--win2);border:2px solid var(--dark);padding:6px;max-height:300px;overflow:auto}
+.list div{padding:4px;cursor:pointer}
+.list div:hover{background:var(--title);color:#fff}
+label{font-size:12px;display:block;margin-top:8px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
+@media(max-width:700px){.cols{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section class="window" aria-labelledby="free">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Kostenlos</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <strong id="free">Alle Prompts. Für alle. Kostenlos.</strong>
+      <p class="lead">Jeder Prompt hat jetzt dieselben Werkzeuge wie OpenCode.
+        Du kannst ihn speichern, prüfen, kopieren und an das Programm senden.</p>
+      <p class="warn"><strong>Ehrlich:</strong> Das ist ein Nachbau im Browser.
+        Kein echter OpenCode-Agent. Es führt keine Befehle auf deinem Rechner aus.
+        Alles bleibt bei dir. Nicht mit echten Nutzern getestet.</p>
+      <div class="rows" role="group" aria-label="Oberfläche">
+        <button type="button" data-theme-btn="os41">OS 4.1</button>
+        <button type="button" data-theme-btn="win31">Win 3.1</button>
+        <a class="btn" href="https://bunq.me/JMLealRuivo">Unterstützen (freiwillig)</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="dank">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Dank</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <p><strong>Diese App habe ich auf Windows gebaut.</strong></p>
+      <p>Ich danke OpenCode. Ich danke Microsoft.</p>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="lib">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">1. Alle Prompts</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="lib">Wähle einen Prompt</h2>
+      <div class="grid" id="cards"></div>
+      <p><label>Dein Prompt<textarea id="prompt" rows="4" placeholder="Wähle oben einen Prompt oder schreib deinen eigenen"></textarea></label></p>
+      <div class="rows">
+        <button id="copy" type="button">Kopieren</button>
+        <button id="save" type="button">Als Datei speichern</button>
+        <button id="check" type="button">Sprache prüfen</button>
+        <button id="sendcgi" type="button">An das Programm senden</button>
+        <button id="ask" type="button">Agent fragen</button>
+      </div>
+      <div class="out" id="out">Bereit. Wähle einen Prompt.</div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="agenthead">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">2. Agent</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="agenthead">Frag den Agenten</h2>
+      <div class="chat" id="chat">Agent: Frag mich zu Prompts, Code, Easy Read oder dem Witz.</div>
+      <p><input id="question" placeholder="Frage in kurzen Sätzen"></p>
+      <p><button id="send" type="button">Fragen</button></p>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="fileshead">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">3. Dateien</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="fileshead">Deine gespeicherten Prompts</h2>
+      <div class="cols">
+        <div class="list" id="filelist"></div>
+        <div>
+          <p><strong id="fname">Datei wählen</strong></p>
+          <textarea id="editor" rows="8" spellcheck="false"></textarea>
+          <div class="rows">
+            <button id="openfile" type="button">Öffnen</button>
+            <button id="delfile" type="button">Löschen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" aria-labelledby="consolehead">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">4. Konsole</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner">
+      <h2 id="consolehead">Kleine Konsole</h2>
+      <p><input id="cmd" placeholder="help eingeben und Enter drücken"></p>
+      <div class="out" id="console">Tippe help.</div>
+    </div>
+  </section>
+
+  <section class="window joke" aria-labelledby="witz">
+    <div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">Ein Witz</span><span class="gadget" aria-hidden="true"></span></div>
+    <div class="inner" id="witz">
+      <p>„Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"</p>
+    </div>
+  </section>
+
+  <footer>Kostenlos. Offen. Nicht mit echten Nutzern getestet.</footer>
+</div>
+<style id="custom"></style>
+<script>
+(function(){
+"use strict";
+var prompts=[
+ {n:"KI erklären",t:"Erklär {THEMA} in kurzen Sätzen. Ein Beispiel. Eine Aufgabe. Eine Frage zurück."},
+ {n:"Code schreiben",t:"Schreib ein kleines Programm für {ZWECK}. Kurze Zeilen. Ein Schritt pro Zeile. Erklär jede Zeile."},
+ {n:"Text vereinfachen",t:"Mach diesen Text leichter: {TEXT}. Kurze Sätze. Alltagswörter. Ein Gedanke pro Satz."},
+ {n:"Suno-Musik",t:"Instrumental, Retro, fröhlich, Amiga. Kurz. Titel: {TITEL}."},
+ {n:"Fehler finden",t:"Hier ist mein Fehler: {FEHLER}. Sag mir die Zeile. Sag mir einen Schritt. Nicht mehr."},
+ {n:"Bild beschreiben",t:"Beschreib dieses Bild in drei Sätzen. Sag zuerst, was du siehst."},
+ {n:"Geschichte",t:"Erzähl mir die Geschichte von {THEMA}. Kurze Sätze. Nur belegte Fakten."},
+ {n:"Der Witz",t:"Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!"}
+];
+var KEY="prompt-hub:", promptEl=document.getElementById("prompt"), out=document.getElementById("out");
+function log(s){out.textContent+=("\n"+s);out.scrollTop=out.scrollHeight;}
+function download(name,text,type){
+  var u=URL.createObjectURL(new Blob([text],{type:type||"text/plain"}));
+  var a=document.createElement("a");a.href=u;a.download=name;a.click();
+  setTimeout(function(){URL.revokeObjectURL(u);},1000);
+}
+
+/* Oberfläche */
+document.querySelectorAll("[data-theme-btn]").forEach(function(b){
+  b.onclick=function(){
+    document.body.dataset.theme=b.dataset.themeBtn;
+    [].forEach.call(document.querySelectorAll("[data-theme-btn]"),function(x){x.classList.remove("on");});
+    b.classList.add("on");
+  };
+});
+document.querySelector('[data-theme-btn="os41"]').classList.add("on");
+
+/* Karten */
+var cards=document.getElementById("cards");
+prompts.forEach(function(p,i){
+  var d=document.createElement("div");d.className="card";
+  d.innerHTML='<span class="tag">Prompt '+(i+1)+'</span><h3>'+p.n+'</h3><p>'+
+    p.t.slice(0,70)+'…</p>';
+  var b=document.createElement("button");b.type="button";b.textContent="Einfügen";
+  b.style.marginTop="8px";
+  b.onclick=function(){promptEl.value=p.t;log("Prompt geladen: "+p.n);};
+  d.appendChild(b);cards.appendChild(d);
+});
+
+/* Werkzeuge für jeden Prompt */
+document.getElementById("copy").onclick=function(){
+  var p=promptEl.value;if(!p){log("Erst einen Prompt wählen.");return;}
+  if(navigator.clipboard)navigator.clipboard.writeText(p).then(
+    function(){log("Kopiert.");},function(){log("Bitte selbst markieren.");});
+  else log("Bitte den Text selbst markieren.");
+};
+document.getElementById("save").onclick=function(){
+  var p=promptEl.value;if(!p){log("Erst einen Prompt wählen.");return;}
+  var n=prompt("Dateiname?","prompt-"+(names().length+1)+".txt");
+  if(!n)return;
+  var a=names();if(a.indexOf(n)<0)a.push(n);
+  saveNames(a);localStorage.setItem(KEY+n,p);draw();sel=n;
+  document.getElementById("fname").textContent=n;editor.value=p;
+  download(n,p,"text/plain");log("Gespeichert und heruntergeladen: "+n);
+};
+document.getElementById("check").onclick=function(){
+  var p=promptEl.value;if(!p){log("Erst einen Prompt wählen.");return;}
+  var words=p.split(/\s+/).filter(Boolean).length;
+  var hard=(p.match(/\b[A-Za-zÄÖÜäöüß]{12,}\b/g)||[]);
+  log("Wörter: "+words);
+  log("Lange Wörter: "+(hard.length?hard.join(", "):"keine"));
+  log("Kurze Sätze? "+(p.split(/[.!?]/).filter(Boolean).every(function(s){return s.split(/\s+/).length<=12;})?"ja":"nein"));
+};
+document.getElementById("sendcgi").onclick=function(){
+  var p=promptEl.value;if(!p){log("Erst einen Prompt wählen.");return;}
+  log("Sende …");
+  fetch("suno",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},
+    body:"prompt="+encodeURIComponent(p)})
+  .then(function(r){return r.json();})
+  .then(function(d){log("Antwort: "+(d.status||"da"));log(d.reason||d.hint||"Prompt bleibt bei dir.");})
+  .catch(function(){log("Programm nicht erreichbar. Dein Prompt bleibt bei dir.");});
+};
+document.getElementById("ask").onclick=function(){
+  var p=promptEl.value;if(!p){log("Erst einen Prompt wählen.");return;}
+  chat.textContent+="\nDu: "+p.slice(0,120);answer(p);
+};
+
+/* Agent */
+var chat=document.getElementById("chat"),question=document.getElementById("question");
+function say(s){chat.textContent+="\nAgent: "+s;chat.scrollTop=chat.scrollHeight;}
+function answer(q){
+  q=q.toLowerCase();
+  if(q.indexOf("witz")>=0)say("Mir reichts! Ich geh schaukeln! Meine Freunde gehen rutschen!");
+  else if(q.indexOf("prompt")>=0||q.indexOf("eingabe")>=0)say("Wähle oben einen Prompt. Ändere die Wörter in Klammern. Dann speichere ihn.");
+  else if(q.indexOf("code")>=0)say("Nimm den Prompt Code schreiben. Sag mir den Zweck. Ich helfe Schritt für Schritt.");
+  else if(q.indexOf("easy")>=0||q.indexOf("lesen")>=0)say("Klicke auf Sprache prüfen. Kurze Sätze. Alltagswörter. Ein Gedanke pro Satz.");
+  else if(q.indexOf("suno")>=0)say("Suno gibt Programmen keinen offenen Weg. Kopiere den Prompt nach suno.com.");
+  else say("Kurze Sätze. Ein Schritt nach dem anderen. Frag mich zu Prompts, Code, Easy Read oder dem Witz.");
+}
+document.getElementById("send").onclick=function(){
+  var q=question.value.trim();if(!q)return;chat.textContent+="\nDu: "+q;answer(q);question.value="";
+};
+question.onkeydown=function(e){if(e.key==="Enter")document.getElementById("send").click();};
+
+/* Dateien */
+var list=document.getElementById("filelist"),editor=document.getElementById("editor"),sel="";
+function names(){
+  try{return JSON.parse(localStorage.getItem(KEY+"list")||"[]");}catch(e){return [];}
+}
+function saveNames(a){try{localStorage.setItem(KEY+"list",JSON.stringify(a));}catch(e){}}
+function draw(){
+  var a=names();list.innerHTML="";
+  a.forEach(function(n){
+    var d=document.createElement("div");d.textContent=n;
+    d.onclick=function(){sel=n;document.getElementById("fname").textContent=n;
+      editor.value=localStorage.getItem(KEY+n)||"";};
+    list.appendChild(d);
+  });
+  if(!a.length)list.textContent="Noch keine Datei.";
+}
+document.getElementById("openfile").onclick=function(){
+  if(!sel){log("Erst eine Datei wählen.");return;}
+  promptEl.value=editor.value;log("Geöffnet: "+sel);
+};
+document.getElementById("delfile").onclick=function(){
+  if(!sel){log("Erst eine Datei wählen.");return;}
+  localStorage.removeItem(KEY+sel);
+  saveNames(names().filter(function(n){return n!==sel;}));
+  sel="";editor.value="";document.getElementById("fname").textContent="Datei wählen";draw();log("Gelöscht.");
+};
+draw();
+
+/* Konsole */
+var cons=document.getElementById("console"),cmd=document.getElementById("cmd");
+function clog(s){cons.textContent+="\n"+s;cons.scrollTop=cons.scrollHeight;}
+cmd.onkeydown=function(e){
+  if(e.key!=="Enter")return;
+  var a=cmd.value.trim().split(/\s+/),c=a[0];cmd.value="";clog("> "+a.join(" "));
+  if(c==="help")clog("help | ls | cat NAME | check | clear");
+  else if(c==="ls")clog(names().join("  ")||"leer");
+  else if(c==="cat")clog(localStorage.getItem(KEY+a[1])||"nicht gefunden");
+  else if(c==="check")clog("SELF-ENGINEERING OK (Simulation)");
+  else if(c==="clear")cons.textContent="";
+  else clog("Unbekannt. Tippe help.");
+};
+})();
+</script>
+</body>
+</html>
