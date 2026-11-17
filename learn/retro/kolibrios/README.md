@@ -51,6 +51,17 @@ Im Ordner `package/` liegt alles Nutzbare:
 - `.TXT`-Dateien — die ersten Lektionen
 - `README.TXT` — die Anleitung
 
+## Prüfung aller Dateien
+
+Alle 154 Dateien wurden einzeln geprüft:
+
+- 98 Dateien laufen auf KolibriOS.
+- 29 gehen teilweise (SVG statt PNG).
+- 27 gehen nicht (HTML, WASM, Node, 6502, 68000).
+- 0 sind unklar.
+
+Die Liste steht in [`audit.md`](audit.md).
+
 ## Quellen
 
 ```text
