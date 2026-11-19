@@ -23,7 +23,7 @@ The same prompt, in six languages.
 
 | Language | The prompt |
 | --- | --- |
-| Deutsch | Erzeuge einen virtuellen Feldgenerator mit eine Commodore Amiga Boing Ball Demo. |
+| Deutsch | Erzeuge einen virtuellen Feldgenerator mit einer Commodore Amiga Boing Ball Demo. |
 | English | Create a virtual field generator with a Commodore Amiga Boing Ball demo. |
 | Español | Crea un generador virtual de campos con una demo de la Boing Ball del Commodore Amiga. |
 | Français | Crée un générateur de champs virtuel avec une démo Boing Ball du Commodore Amiga. |
