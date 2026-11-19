@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AROS Playground</title>
+<style>
+  :root{--bg:#070b14;--panel:#0e1626;--ink:#eaf2ff;--muted:#9fb3d1;
+    --line:#24344f;--teal:#0f766e;--sky:#6fd3ff;--red:#e8382f;--cream:#f5f0e6}
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+    font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:24px 16px 48px}
+  header{text-align:center;margin-bottom:28px}
+  h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px}
+  .stripe{width:104px;height:4px;margin:0 auto 16px;border-radius:2px;
+    background:repeating-linear-gradient(90deg,var(--red) 0 12px,var(--cream) 12px 24px)}
+  .lead{color:var(--muted);max-width:60ch;margin:0 auto 18px}
+  .cat-cta{display:inline-block;padding:8px;border:2px solid var(--line);
+    border-radius:12px;background:var(--panel);text-decoration:none;
+    transition:border-color .15s,transform .15s}
+  .cat-cta:hover{border-color:var(--sky);transform:translateY(-2px)}
+  .cat-cta canvas{display:block;width:360px;max-width:100%;height:auto;
+    image-rendering:pixelated}
+  .note{color:var(--muted);max-width:60ch;margin:10px auto 18px;font-size:14px}
+  .repo-link{display:inline-block;padding:12px 20px;background:var(--teal);
+    color:#fff;border:2px solid var(--teal);border-radius:10px;
+    font-size:18px;text-decoration:none}
+  .repo-link:hover{border-color:var(--sky)}
+  a:focus-visible,iframe:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+  section{margin-top:30px}
+  h2{font-size:22px;margin:0 0 10px;color:var(--sky)}
+  .frame{display:block;width:100%;height:640px;border:1px solid var(--line);
+    border-radius:10px;background:var(--panel)}
+  .frame.tall{height:720px}
+  small{display:block;color:var(--muted);margin-top:8px}
+  @media(max-width:600px){.frame,.frame.tall{height:560px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="stripe" aria-hidden="true"></div>
+    <h1>AROS Playground</h1>
+    <p class="lead">A virtual field generator and the original Amiga Boing Ball demo. Both run in your browser.</p>
+
+    <a class="cat-cta" href="https://github.com/aurabin/AROS_Playground"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Klick me. Open AROS Playground on GitHub.">
+      <canvas id="cat-eye" width="360" height="150" role="img"
+        aria-label="A drawn cat's eye. The words Klick me are written below it in an Amiga pixel font."></canvas>
+    </a>
+    <p class="note">The eye is drawn by hand. It is inspired by the AROS cat eye. The letters use an eight by eight Amiga pixel font.</p>
+
+    <a class="repo-link" href="https://github.com/aurabin/AROS_Playground" target="_blank" rel="noopener noreferrer">AROS Playground on GitHub</a>
+    <small>Open source · drawn by hand · not yet tested with real users</small>
+  </header>
+
+  <section>
+    <h2>Amiga Boing Ball demo</h2>
+    <iframe class="frame" src="boing-ball.html" title="Original Amiga Boing Ball demo" loading="lazy"></iframe>
+    <small>This is the same Boing Ball demo from field-generator/boing-ball.html.</small>
+  </section>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var c=document.getElementById("cat-eye");
+  if(!c) return;
+  var g=c.getContext("2d");
+  var W=c.width,H=c.height;
+  var bg="#0e1626", cream="#f5f0e6", violet="#7a20d0", sky="#6fd3ff", ink="#070b14";
+
+  g.fillStyle=bg; g.fillRect(0,0,W,H);
+
+  // A fine grid in the back, like the Amiga Workbench weave.
+  g.fillStyle="#24344f";
+  for(var x=6;x<W;x+=12) for(var y=6;y<H;y+=12) g.fillRect(x,y,1,1);
+
+  // The cat eye: an almond shape with a vertical slit pupil.
+  var cx=W/2, cy=62;
+  g.beginPath();
+  g.moveTo(cx-64,cy);
+  g.bezierCurveTo(cx-34,cy-42, cx+34,cy-42, cx+64,cy);
+  g.bezierCurveTo(cx+34,cy+42, cx-34,cy+42, cx-64,cy);
+  g.closePath();
+  g.fillStyle=cream; g.fill();
+  g.lineWidth=5; g.strokeStyle=violet; g.stroke();
+
+  // Iris and cat pupil.
+  g.beginPath(); g.arc(cx,cy,26,0,Math.PI*2);
+  g.fillStyle=sky; g.fill();
+  g.lineWidth=3; g.strokeStyle="#24344f"; g.stroke();
+  g.beginPath(); g.ellipse(cx,cy,6,21,0,0,Math.PI*2);
+  g.fillStyle=ink; g.fill();
+  g.beginPath(); g.arc(cx-9,cy-10,4,0,Math.PI*2);
+  g.fillStyle=cream; g.fill();
+
+  // Small cat ears above the eye.
+  g.fillStyle=violet;
+  g.beginPath();
+  g.moveTo(cx-52,cy-24); g.lineTo(cx-44,cy-52); g.lineTo(cx-24,cy-34);
+  g.closePath(); g.fill();
+  g.beginPath();
+  g.moveTo(cx+52,cy-24); g.lineTo(cx+44,cy-52); g.lineTo(cx+24,cy-34);
+  g.closePath(); g.fill();
+
+  // Eight by eight bitmap letters, in the spirit of the Amiga Topaz font.
+  var font={
+    "K":["10000010","10000100","10001000","10010000","11100000","10010000","10001000","10000100"],
+    "l":["00110000","00010000","00010000","00010000","00010000","00010000","00010000","00111000"],
+    "i":["00100000","00000000","00100000","00100000","00100000","00100000","00100000","00100000"],
+    "c":["00111000","01000100","01000000","01000000","01000000","01000000","01000100","00111000"],
+    "k":["10000000","10000000","10000100","10001000","10110000","10010000","10001000","10000100"],
+    "m":["00000000","11011000","10100100","10100100","10100100","10100100","10100100","10100100"],
+    "e":["00111000","01000100","01000100","01111100","01000000","01000000","01000100","00111000"],
+    " ":["00000000","00000000","00000000","00000000","00000000","00000000","00000000","00000000"]
+  };
+  var text="Klick me", scale=4, step=9*scale, startX=(W-text.length*step)/2, top=110;
+  for(var n=0;n<text.length;n++){
+    var rows=font[text.charAt(n)]||font[" "];
+    for(var r=0;r<8;r++) for(var col=0;col<8;col++){
+      if(rows[r].charAt(col)==="1"){
+        g.fillStyle=ink;
+        g.fillRect(startX+n*step+col*scale+1, top+r*scale+1, scale, scale);
+        g.fillStyle=cream;
+        g.fillRect(startX+n*step+col*scale, top+r*scale, scale, scale);
+      }
+    }
+  }
+})();
+</script>
+
+
+</body>
+</html>

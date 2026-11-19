@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What do I do now?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      background: #070b14;
+      color: #eaf2ff;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 24px;
+      line-height: 1.5;
+    }
+    h1 { font-size: 28px; }
+    button {
+      display: block;
+      width: 100%;
+      font-size: 20px;
+      padding: 16px;
+      margin: 12px 0;
+      background: #0e1626;
+      color: #eaf2ff;
+      border: 2px solid #24344f;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+    }
+    button:hover, button:focus { border-color: #6fd3ff; outline: 3px solid #6fd3ff; }
+    .step {
+      background: #0e1626;
+      border-left: 6px solid #6fd3ff;
+      padding: 16px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    .note { color: #9fb3d1; font-size: 16px; margin-top: 32px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <h1>What do I do now?</h1>
+  <p>Pick the one that fits best. You only need one small step.</p>
+
+  <div id="start">
+    <button onclick="pick('full')">My head feels full</button>
+    <button onclick="pick('tired')">I have no energy</button>
+    <button onclick="pick('lost')">I don't know where to start</button>
+  </div>
+
+  <div id="result" class="hidden">
+    <div class="step" id="step"></div>
+    <button onclick="another()">Give me another small step</button>
+    <button onclick="reset()">Start over</button>
+  </div>
+
+  <p class="note">
+    This tool is a small helper, not a doctor or a therapist.
+    If you feel unsafe or in crisis, please contact someone you trust or your local emergency number right away.
+  </p>
+
+<script>
+  const steps = {
+    full: [
+      "Write down everything in your head on paper. Just dump it. Don't sort it.",
+      "Close all tabs you don't need right now.",
+      "Drink a glass of water.",
+      "Put your phone in another room for 10 minutes."
+    ],
+    tired: [
+      "Stand up and stretch for one minute.",
+      "Go outside, or open a window, for two minutes of fresh air.",
+      "Eat something small, like a piece of fruit.",
+      "Lie down and rest your eyes for five minutes. You don't have to sleep."
+    ],
+    lost: [
+      "Write down the one thing that bothers you most today.",
+      "Set a timer for 5 minutes and do only the first tiny part of that thing.",
+      "Ask yourself: what would make tomorrow a little easier? Write one answer.",
+      "Message one person and say: I'm having a hard time today."
+    ]
+  };
+
+  let current = null;
+  let index = 0;
+
+  function show() {
+    document.getElementById('step').textContent = steps[current][index];
+  }
+
+  function pick(kind) {
+    current = kind;
+    index = 0;
+    document.getElementById('start').classList.add('hidden');
+    document.getElementById('result').classList.remove('hidden');
+    show();
+  }
+
+  function another() {
+    index = (index + 1) % steps[current].length;
+    show();
+  }
+
+  function reset() {
+    document.getElementById('result').classList.add('hidden');
+    document.getElementById('start').classList.remove('hidden');
+  }
+</script>
+</body>
+</html>
