@@ -188,3 +188,63 @@ The tree was already dirty at the start of this session. I did not commit or cha
 - The coding course stays AGPL-3.0. Keep the footer in every lesson.
 - The course table in `learn/coding-course/README.md` ends at lesson 15. Lessons 16 to 26 are missing there. Not changed — no instruction given.
 - Always say "not yet tested with real users" for project and AROS claims.
+
+## 16. RAM disk rebuilt (20 Nov 2026)
+
+- After a reset, `R:`, the ImDisk service, the boot task and the whole `C:\Users\icaro\Setup` folder were gone. TEMP/TMP were back at their old values.
+- The user asked for a safe rebuild. Choice: full setup with a persistent link for `%TEMP%\opencode`.
+- New folder: `C:\Users\icaro\Setup\ramdisk`. It holds `ramdisk-setup.ps1`, `ramdisk-create.ps1`, `ramdisk-rollback.ps1`, `temp-original.txt`, `ramdisk.log`, `README.md` and the verified installer files.
+- Official ImDisk downloads were checked by SHA256 and Authenticode signature. Hashes are pinned in `ramdisk-setup.ps1`.
+- The disk is **virtual-memory backed** (`imdisk -a -t vm -s 4G`). It does not lock 4 GB of physical RAM. It is still volatile: all files vanish at shutdown.
+- `R:\Temp` is machine and user TEMP/TMP. `R:\Build` is a scratch build folder with a README. `R:\Temp\opencode` is a junction to `C:\Users\icaro\AppData\Local\Temp\opencode`, so session tools survive a reset.
+- If creation fails, `ramdisk-create.ps1` writes the old TEMP/TMP values back. `ramdisk-rollback.ps1` can undo the change; it only removes `R:` when `-RemoveDrive` is passed.
+- Verified now: `R:` is 4 GB and writable, ImDisk service runs, machine/user TEMP/TMP are `R:\Temp`, junction exists, boot task `ER RAM Temp Disk` is Ready with trigger `At startup` as SYSTEM.
+- Not verified: no reboot was done. The boot task has never actually run. Node.js was missing at this point.
+
+## 17. Node.js installed (20 Nov 2026)
+
+- The user asked for Node.js to enable fast offline compilation.
+- Installed Node.js **v26.13.1 LTS (Lithium)**, x64, from `https://nodejs.org/dist/v26.13.1/node-v26.13.1-x64.msi`.
+- SHA256 from the official `SHASUMS256.txt`: `0398ced8446e119478c724d1aa37c5afd6aa1a76fceab12787eb9714c5ed8b45`. Local file matched.
+- Authenticode signature valid. Signer: OpenJS Foundation.
+- Installer in `C:\Users\icaro\Setup\nodejs\installer`. Silent install, exit code 0.
+- Verified: `node -v` = v26.13.1, `npm -v` = 11.20.0, `where node` finds `C:\Program Files\nodejs\node.exe`.
+- `tools/self-engineer.mjs` now starts, but stops at check 4 with `spawnSync git ENOENT`. `git.exe` is not installed.
+- These checks pass without Git: checker tests (29), local links (229, 0 broken), WASM kernel, CGI, Google login, GitHub login, Amiga formats, Paula engine.
+- `wat2wasm` was also missing at that point.
+
+## 18. Git and WABT installed, full check green (20 Nov 2026)
+
+- User said "Install". Installed Git for Windows **2.56.1** and WABT **1.0.42**.
+- Git: official release asset `Git-2.56.1-64-bit.exe`. SHA256 `c330c72e10b408cc39994bfefdb63542b0d93d21699325c3e0bd874af8a5a559`. Authenticode valid, signer Johannes Schindelin. Silent install, exit 0.
+- WABT: official release `wabt-1.0.42-windows-x64.tar.gz`. SHA256 `62f1eb2b51aa57cf0f0b8ba333bf2c72a049930aa9c5de01dcad271c4fe48c88`, matched the release `.sha256` file. Extracted to `C:\Users\icaro\Setup\wabt`.
+- Machine environment variable `WAT2WASM` now points to `C:\Users\icaro\Setup\wabt\wabt-1.0.42\bin\wat2wasm.exe`, so `field-generator/build-wasm.mjs` works without edits.
+- Verified: `git --version` = 2.56.1.windows.1, `wat2wasm --version` = 1.0.42.
+- `node tools/self-engineer.mjs` now passes all 13 checks: `SELF-ENGINEERING OK`.
+- Offline rebuild test in `R:\Build\field.wasm` produced the same SHA256 as the committed `field-generator/field.wasm` (`60b964ab26abee3dde96378e18255b064a5ce859bc846a689338f01c90510c80`). No project file was changed.
+- Still not verified: no reboot was done. The `ER RAM Temp Disk` boot task has not run yet. Not tested with real users.
+
+## 19. Offline AI and the other PC (20 Nov 2026, in progress)
+
+- User asked for "AI Offline Capability". Chose a local model for OpenCode. OpenCode V2 auto-discovers a local Ollama at `127.0.0.1:11434`; no config edit is needed.
+- User then asked for private network capability. Chose **LAN now, internet later**. Plan: `OLLAMA_HOST=0.0.0.0:11434` plus a Windows Firewall rule `ER Ollama LAN` allowing TCP 11434 only from `192.168.0.0/24` to local IP `192.168.0.137`. Script is at `C:\Users\icaro\Setup\ollama\ollama-lan.ps1`. Not run yet.
+- Ollama was not installed. Official `OllamaSetup.exe` is 1,857,663,944 bytes (about 1.86 GB). Two `Invoke-WebRequest` attempts timed out and left unsigned partial files. Switched to `curl.exe -L -C - --retry 10`, resumable. Verified by Authenticode before install.
+- Hardware for model choice: 47.9 GB RAM, 38.9 GB free, Xeon E5-2683 v3 (14 cores / 28 threads), NVIDIA Quadro K4000 with 3 GB VRAM. The Quadro is compute capability 3.0, below Ollama's 5.0 GPU minimum. Inference will be **CPU only**. Choose a small coding model.
+- The other PC is `192.168.0.40`, name `QBITXEONWOZI489`, NetBIOS workgroup `WORKGROUP`, reachable by ping. SMB ports 139 and 445 are open but `net view` and UNC access return **Access denied**. No saved credentials. Both PCs have a local account named `icaro`, but they are different identities.
+- Analysis of the other PC (read-only script `C:\Users\icaro\Setup\opencode-analyze-other-pc.ps1`): no `opencode` in PATH, no OpenCode install folder, no running OpenCode process, Node.js missing. Only `C:\Users\icaro\.config\opencode\service.json` (64 bytes) exists. It can reach this PC on port 445; port 11434 is closed as expected. So there is **no OpenCode client installed on the other PC**.
+- User said they would restart both PCs. They did not: this PC last booted `20:10:36`, before the RAM disk was made at `20:49:05`. Only the OpenCode server restarted. The `ER RAM Temp Disk` boot task is still untested.
+- `R:` still holds the original 20:49 ready marker. Nothing was lost.
+
+## 20. Tools, OneDrive and RAM disk restored (22 Nov 2026)
+
+- After another reset, `node`, `git`, the RAM disk and `C:\Users\icaro\Setup` were gone again.
+- OneDrive placeholders in the project folder could not be read. Error: "Der Clouddateianbieter wird nicht ausgeführt". A OneDrive restart followed by `OneDrive.exe /reset` made the files readable again. No project file was changed by that.
+- Installed portable Node.js **v24.22.3** at `%TEMP%\opencode\node-v24.22.3-win-x64`. The global PATH was not changed.
+- Installed Git for Windows **2.56.1** with winget.
+- `node tools/self-engineer.mjs` now passes all 13 checks: `SELF-ENGINEERING OK`.
+- Rebuilt `C:\Users\icaro\Setup\ramdisk` with `ramdisk-setup.ps1`, `ramdisk-create.ps1`, `ramdisk-rollback.ps1`, `temp-original.txt`, `README.md`, log and the verified installer.
+- The ImDisk installer SHA256 matched `11D3423F3971B4D7A2BBDA538E47998BE901199546B36455315F22D3FC8B8A04`. The Authenticode signature was valid. Silent install exited 0.
+- `R:` is 4 GB NTFS and virtual-memory backed. Machine and user TEMP/TMP are `R:\Temp`. `R:\Build` and the `R:\Temp\opencode` junction exist. Write test passed.
+- Boot task `\ER RAM Temp Disk` is Ready, enabled and set to run as SYSTEM at startup. Last result 267011 means it has never run.
+- Not verified: no reboot since this rebuild. Not tested with real users.
+- The public start page loaded with no console errors. All browser tabs were closed again.
