@@ -32,10 +32,11 @@ Wer das Modul weiterverwendet, muss die Rechte selbst prüfen.
 ## 3. AROS One — APL
 
 AROS ist ein freies Betriebssystem der AROS-Community.
-Quelle: aros.org.
+Quelle: aros.org und die offizielle AROS-One-Seite.
 Lizenz: AROS Public License (APL).
-Das Artefakt `AROS-One-RAM.img` und `.qcow2` ist eine Nachbildung,
-kein echtes AROS-Abbild.
+Die echte Ausgabe AROS One 1.3 (64 Bit, ABIv11) wird auf `outreach/apps/aros-one.html` beschrieben.
+Die älteren Dateien `AROS-One-RAM.img` und `.qcow2` sind eine Nachbildung,
+kein echtes AROS-Abbild. Sie bleiben als historische Simulation gekennzeichnet.
 Die Quelle wird genannt. Eine ausdrückliche Namenserlaubnis liegt nicht vor.
 
 ## 4. Kickstart und Workbench — urheberrechtlich geschützt

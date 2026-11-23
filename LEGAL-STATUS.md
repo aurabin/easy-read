@@ -54,7 +54,8 @@ Der volle MIT-Text liegt nur in `products/computer-history/LICENSE.md`.
 | Kickstart-ROMs, Workbench | Urheberrechtlich geschützt. Nicht enthalten. Nur Dateiname lokal gespeichert. | `learn/retro/amiga/02-install-the-emulator.md`, `PERMISSIONS.md` |
 | `Ml.OctaGroover` | Von John Carehag und Christian Cyréus. Über Aminet. **Lizenz nicht dokumentiert.** | `learn/octagroover.md` |
 | Paula-Player | Basiert auf siday player, **GPL-2.0**. | `tools/paula-ml.js` |
-| AROS One | Von der AROS-Community. APL-Lizenz. Quelle aros.org. | `learn/coding-course/18-aros.md`, `aros-one-ram.html` |
+| AROS One | Echte Ausgabe 1.3 (64 Bit) von der AROS-Community. APL-Lizenz. Quelle: offizielle AROS-One-Seite und aros.org. | `learn/coding-course/18-aros.md`, `outreach/apps/aros-one.html` |
+| AROS One (Nachbildung) | Historische Simulation. Kein echtes AROS-Abbild. | `outreach/apps/aros-one-ram.html`, `outreach/media/AROS-One-RAM.*` |
 | FASM 1.73.32 | Werkzeug zum Assemblieren. | `learn/retro/kolibrios/README.md` |
 | Marken: Commodore, Amiga, Microsoft, Windows, Hyperion, Cloanto, OpenCode, Suno | Namen werden benutzt. Nur für Commodore/Amiga gibt es einen klaren Hinweis. | `PERMISSIONS.md`, diverse Seiten |
 
@@ -140,8 +141,8 @@ Herkunft und Autoren sind genannt. Die Lizenz fehlt.
 Quelle und Autoren stehen schon. Das ist ein guter Anfang.
 
 ### 8. AROS-One-Name — niedrig
-Das Artefakt heißt „AROS One im RAM".
-Die Quelle ist genannt.Eine ausdrückliche Erlaubnis für den Namen fehlt.
+Die echte Ausgabe heißt „AROS One 1.3". Die alte Seite heißt „AROS One im RAM".
+Die Quelle ist genannt. Eine ausdrückliche Erlaubnis für den Namen fehlt.
 **Empfehlung:** Quellenangabe behalten. Bei Veröffentlichung nachfragen.
 
 ### 9. Boing-Ball-Nachbau — niedrig

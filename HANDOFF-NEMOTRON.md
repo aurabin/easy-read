@@ -44,6 +44,8 @@ Goal: really set up and run real AROS on this Windows computer.
 What I found:
 
 - The files `docs/media/AROS-One-RAM.img` and `.qcow2` are a SIMULATION. They are not real AROS. Do not treat them as real.
+- Real AROS One 1.3 (64 Bit, ABIv11) is now described in `outreach/apps/aros-one.html`. It comes from the official AROS One page. The ZIP is kept outside the repo in `C:\Users\icaro\Setup\aros-one\`.
+- ZIP SHA-256: `E8E0E98ED9D5B3949974199249952BB0985294BA8779C753AE8BDEF068961351`. ISO SHA-256: `E0ADDB07B910ADD52BD580AA370EBE1B861AE37FBA4F8F8DF12D2DCD1DC80473`. ISO name: `AROS One 64Bit.iso`. Valid ISO 9660 with El Torito. QEMU started with it; desktop not checked.
 - `aros.org` has a TLS certificate error on this computer. SourceForge works.
 - A real, fresh AROS nightly build exists, dated 18 November 2026.
 

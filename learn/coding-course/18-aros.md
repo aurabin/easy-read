@@ -81,7 +81,8 @@ alte Ideen, neue Hardware, offener Quelltext.
 
 ## Ehrlich
 
-Ich habe AROS nicht selbst gestartet.
+Ich habe AROS One 1.3 mit QEMU gestartet.
+Der Rechner blieb aktiv. Den Desktop habe ich nicht geprüft.
 Ich habe die Website und das Repository gelesen.
 Nicht mit echten Nutzern getestet.
 
