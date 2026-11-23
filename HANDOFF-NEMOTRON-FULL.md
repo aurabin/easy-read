@@ -368,3 +368,21 @@ newer x86_64 1.3 package if it can be recovered.
 - Say "echte Abbilder" for AROS One. Say "archiviertes Abbild" for Tiny AROS.
 - Say "64 Bit ist nicht verfügbar" for Tiny AROS.
 - Never say "accessible" or "user-tested". Say "not yet tested with real users".
+
+### WSL source build — failed, 23 November 2026
+
+- The build in section 21 was retried with `make -j16 bootiso` in
+  `/root/arosbuilds/build-pc-x86_64`.
+- Result: failure. Marker `/root/arosbuilds/build-bootiso.exit` says
+  `BUILD_FAIL`. The log is `/root/arosbuilds/build-bootiso.log`, 19,266 lines.
+- GRUB 2.16 `configure` failed with "C compiler cannot create executables".
+  The details in `config.log` show that `x86_64-aros-ld` could not find
+  `-lutility`, `-loop`, `-lexec`, `-lautoinit` and `-llibinit`.
+  No AROS target libraries existed in `bin/pc-x86_64` at that time.
+- The build ended with `make: *** [Makefile:380: bootiso] Error 10`.
+- No ISO was produced. Some source-asset downloads also returned 403, 404
+  or an SSL error. The GRUB tarball itself did download.
+- No nightly ISO was used as a replacement. The source-build attempt failed.
+  Never describe it as a successful source build.
+- A possible next attempt: run a full `make` first, then `make bootiso`,
+  with fewer parallel jobs so the target libraries exist before GRUB configure.

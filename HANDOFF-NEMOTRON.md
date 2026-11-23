@@ -138,3 +138,17 @@ The user chose "Both, if obtainable".
   `outreach/apps/tiny-aros.html`. Start and store cards link to them.
   The quiz list has 29 entries. Legal notes and handoff files are updated.
   Lesson 18 is changed, so remember the coding course is AGPL-3.0.
+
+## Source build result (23 November 2026)
+
+- `make -j16 bootiso` ran again in `/root/arosbuilds/build-pc-x86_64`.
+- It failed. The marker says `BUILD_FAIL`.
+- The log has 19,266 lines: `/root/arosbuilds/build-bootiso.log`.
+- Cause: GRUB 2.16 `configure` could not link. The AROS cross-linker reported
+  missing `-lutility`, `-loop`, `-lexec`, `-lautoinit` and `-llibinit`.
+  No AROS target libraries had been built at that point.
+- The last line is `make: *** [Makefile:380: bootiso] Error 10`.
+- No ISO was produced. Some asset downloads also failed with 403, 404
+  and an SSL error.
+- No nightly ISO was substituted. Do not claim a source build succeeded.
+- A next try could be a full `make` before `make bootiso`, with fewer jobs.
