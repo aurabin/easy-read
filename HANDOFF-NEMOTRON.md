@@ -91,3 +91,50 @@ Do not poll them. Wait for the completion notices.
 - Browser tabs from the Console work are still open. The reader said to leave them.
 - Git changes from before this session were not committed by me. The tree was already dirty.
 - The AROS lesson files 18, 25 and 26 exist but are not committed.
+
+## Update 23 November 2026 — Tiny AROS
+
+The user chose "Both, if obtainable".
+
+- Tiny AROS is a distribution based on AROS. The old official site
+  `www.tinyaros.it` is now a domain-for-sale page. The Flazio pages
+  return 404. Archived pages are in the Wayback Machine.
+- A real archived i386 Live CD is available from ArchiveOS:
+  `https://sourceforge.net/projects/archiveos/files/t/tiny-aros/AROS-Live-CD.zip`
+  ArchiveOS page: `https://archiveos.org/tiny-aros/`
+  ArchiveOS MD5 for the ZIP: `5e898dbdcb5f134b1aec7bcb6a819691`.
+  Local folder: `C:\Users\icaro\Setup\tinyaros\`.
+- The 64-bit package is NOT obtainable. The archived official page listed
+  two Google Drive files: `1W7xdP8WmO8l3kMz-BzddqIsb90vmRlqe` (Core Base)
+  and `1klGPsEfhjmHOxTdz5HuTuKV_Nzt6J_4i` (Core). Both return 404.
+  The 32-bit core link is also dead. Only old game packs still exist.
+  The maintainer wrote in November 2026 that he is still waiting for a
+  new 64-bit base build.
+- Do not claim a 64-bit Tiny AROS image exists here. Write "nicht verfügbar".
+- New page: `outreach/apps/tiny-aros.html`. It labels the image as archived.
+  It credits ArchiveOS, SourceForge, AROS and the Wayback Machine.
+
+## Update 23 November 2026 — AROS One i386
+
+- The official AROS One site is `https://sites.google.com/view/arosone`.
+- The real 32-bit release is AROS One v2.9, ABIv0. It is not v1.3.
+- Official label: `ArosOne-v2.9-ISO-DVD-32Bit`.
+- Google Drive ID: `1tqDJHBljqkiBQToifoclAywV_oKvUD8y`.
+- Local folder: `C:\Users\icaro\Setup\aros-one\`.
+- ZIP `AROS-One-v2.9-ISO-DVD-32Bit.zip`
+  size `1995761955`, MD5 `9465cb253652e0d2853d69efe7a18703`,
+  SHA-256 `819F5EC5919C68514A3E9C2D1A01E96C95C1B4CC3BD0F505F4C8CF714885B00D`.
+- ISO `ArosOne-ISO-v2.9-x86_32Bit.iso`
+  size `4275406848`, MD5 `3a1898c3f403f291e5ba937629b5f088`,
+  SHA-256 `234C97B242232A442C1014810FCB0660B0E2B624D75308469CB0BAC4FE79F657`.
+- It is a valid ISO 9660 DVD with El Torito x86. QEMU started it with
+  `qemu-system-i386 -accel tcg -m 1024 -cdrom "ArosOne-ISO-v2.9-x86_32Bit.iso" -boot d`.
+  A graphical screen appeared. The desktop was not checked. Not tested with real users.
+- Tiny AROS verification is complete. ZIP size `304302899`,
+  SHA-256 `AF9D5339065DC8160F0DEA7B0864E30D2F58555CBABD1BDFF7903A6E52DF9FFD`.
+  ISO size `650272768`, SHA-256
+  `e1c7eba915d32869376eef37a9b724985f7a65ffa987ecd12c24dd034e25d9c8`.
+- Both pages are updated: `outreach/apps/aros-one.html` and
+  `outreach/apps/tiny-aros.html`. Start and store cards link to them.
+  The quiz list has 29 entries. Legal notes and handoff files are updated.
+  Lesson 18 is changed, so remember the coding course is AGPL-3.0.

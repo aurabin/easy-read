@@ -250,3 +250,121 @@ The tree was already dirty at the start of this session. I did not commit or cha
 - Boot task `\ER RAM Temp Disk` is Ready, enabled and set to run as SYSTEM at startup. Last result 267011 means it has never run.
 - Not verified: no reboot since this rebuild. Not tested with real users.
 - The public start page loaded with no console errors. All browser tabs were closed again.
+
+## 21. Tiny AROS integration (23 November 2026)
+
+The user chose "Both, if obtainable": the archived i386 Live CD and the
+newer x86_64 1.3 package if it can be recovered.
+
+### What was found
+
+- Tiny AROS is a real distribution based on AROS.
+- The old official domain `www.tinyaros.it` is now for sale.
+- `https://tinyaros.flazio.com/` and `https://tinyarosdistro.flazio.com/`
+  return HTTP 404.
+- The Wayback Machine has the old distro page. Archived snapshot:
+  `https://web.archive.org/web/20260410220021id_/https://tinyarosdistro.flazio.com/`
+- That page names two builds: `TinyAros 32 bit - v3.5` and
+  `TinyAros X86_64v11 - 1.3`. It says to install a base core first,
+  then overwrite it with the TinyAros core package.
+- The 32-bit base link on that page is an AXRT AROS i386 boot ISO:
+  `https://www.axrt.org/download/aros/v0/AROS-20250313-1-pc-i386-boot-iso.zip`
+- The 32-bit core link was
+  `https://drive.google.com/file/d/13VO5A_jO-VJQpHuw8ZFL8cAZlWN4txGs/view?usp=sharing`.
+  It returns 404.
+- The 64-bit base link was
+  `https://drive.google.com/file/d/1W7xdP8WmO8l3kMz-BzddqIsb90vmRlqe/view?usp=sharing`.
+  It returns 404.
+- The 64-bit core link was
+  `https://drive.google.com/file/d/1klGPsEfhjmHOxTdz5HuTuKV_Nzt6J_4i/view?usp=sharing`.
+  It returns 404.
+- All other core and development-tool links tested from that page are dead.
+  Only old Games Pack 1 to 5 files still exist on Google Drive.
+- AROSWorld forum post 339, dated 15 November 2026, says the maintainer
+  is still waiting before releasing the 64-bit distribution.
+  Source:
+  `https://arosworld.org/infusions/forum/viewthread.php?thread_id=1105&rowstart=320`
+
+### What is obtainable
+
+- ArchiveOS keeps a real Tiny AROS Live CD for i386:
+  `https://archiveos.org/tiny-aros/`
+  `https://sourceforge.net/projects/archiveos/files/t/tiny-aros/AROS-Live-CD.zip`
+- ArchiveOS lists the ZIP as "Tiny AROS LiveCD i386 297MB.iso.zip".
+- ArchiveOS gives MD5 `5e898dbdcb5f134b1aec7bcb6a819691` for the ZIP.
+- Local folder: `C:\Users\icaro\Setup\tinyaros\`.
+
+### Honest wording
+
+- Say "archiviertes 32-Bit-Abbild". Do not call it the current release.
+- Say the 64-bit package is "nicht verfügbar", not "coming soon".
+- AROS base licence is APL. Extra programs in the image have licences that
+  were not checked one by one. Say that plainly.
+- Not tested with real users.
+
+### WSL source build, still running at this point
+
+- Ubuntu 22.04 runs as WSL version 1. Hardware virtualisation is disabled.
+- AROS source is cloned at `/root/arosbuilds/AROS`.
+- Build tree: `/root/arosbuilds/build-pc-x86_64`.
+- Command: `make -j16 bootiso`.
+- Log: `/root/arosbuilds/build-bootiso.log`.
+- Exit marker: `/root/arosbuilds/build-bootiso.exit`
+  (`BUILD_OK` or `BUILD_FAIL`).
+- Check the marker and any `*.iso` in the build tree before claiming success.
+
+## 22. AROS One i386 and Tiny AROS integration (23 November 2026)
+
+### AROS One 32-bit
+
+- The official site is `https://sites.google.com/view/arosone`.
+- It lists `AROS One ABIv11 64Bit v1.3` and `AROS One ABIv0 32Bit v2.9`.
+- The 32-bit download is therefore version 2.9, not 1.3.
+- Official label: `ArosOne-v2.9-ISO-DVD-32Bit`.
+- Google Drive ID: `1tqDJHBljqkiBQToifoclAywV_oKvUD8y`.
+- Direct download used:
+  `https://drive.usercontent.google.com/download?id=1tqDJHBljqkiBQToifoclAywV_oKvUD8y&export=download&confirm=t`
+- Local folder: `C:\Users\icaro\Setup\aros-one\`.
+- ZIP `AROS-One-v2.9-ISO-DVD-32Bit.zip`
+  size `1995761955`, MD5 `9465cb253652e0d2853d69efe7a18703`,
+  SHA-256 `819F5EC5919C68514A3E9C2D1A01E96C95C1B4CC3BD0F505F4C8CF714885B00D`.
+- ISO `ArosOne-ISO-v2.9-x86_32Bit.iso`
+  size `4275406848`, MD5 `3a1898c3f403f291e5ba937629b5f088`,
+  SHA-256 `234C97B242232A442C1014810FCB0660B0E2B624D75308469CB0BAC4FE79F657`.
+- ZIP integrity passed. `isoinfo` reports ISO 9660 and El Torito arch 0 (x86).
+- QEMU command:
+  `qemu-system-i386 -accel tcg -m 1024 -cdrom "ArosOne-ISO-v2.9-x86_32Bit.iso" -boot d`
+- QEMU showed a graphical screen with many blue tones. The desktop was not
+  checked. Not tested with real users.
+
+### Tiny AROS verification
+
+- ZIP `AROS-Live-CD.zip` size `304302899`,
+  MD5 `5e898dbdcb5f134b1aec7bcb6a819691`,
+  SHA-256 `AF9D5339065DC8160F0DEA7B0864E30D2F58555CBABD1BDFF7903A6E52DF9FFD`.
+- ISO `AROS Live CD.iso` size `650272768`,
+  MD5 `66ac57abcccc9d251a5d97b4eecc8221`,
+  SHA-256 `e1c7eba915d32869376eef37a9b724985f7a65ffa987ecd12c24dd034e25d9c8`.
+- `isoinfo` reports system id `AROS-i386-pc`, volume id `AROS Live CD`,
+  ISO 9660 and El Torito arch 0 (x86).
+- QEMU command:
+  `qemu-system-i386 -accel tcg -m 512 -cdrom "AROS Live CD.iso" -boot d`
+- QEMU reached GRUB and then showed a graphical screen. The desktop was not
+  checked. Not tested with real users.
+
+### Files changed
+
+- `outreach/apps/aros-one.html` now describes both 64-bit 1.3 and 32-bit 2.9.
+- `outreach/apps/tiny-aros.html` is new and labels the image as archived.
+- `site/index.html` and `site/store.html` have updated AROS One cards and
+  a Tiny AROS card.
+- `outreach/apps/alle-spiele.html` has 29 entries and includes Tiny AROS.
+- `LEGAL-STATUS.md`, `THIRD-PARTY-NOTICES.md` and both handoff files are updated.
+- `learn/coding-course/18-aros.md` links to the two pages and names all three
+  QEMU boot checks. This file is inside the AGPL-3.0 coding course.
+
+### Honest wording
+
+- Say "echte Abbilder" for AROS One. Say "archiviertes Abbild" for Tiny AROS.
+- Say "64 Bit ist nicht verfügbar" for Tiny AROS.
+- Never say "accessible" or "user-tested". Say "not yet tested with real users".

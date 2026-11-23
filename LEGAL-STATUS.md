@@ -1,13 +1,13 @@
 # Rechtlicher Status — vollständige Bestandsaufnahme
 
-Stand: 17. November 2026.
+Stand: 23. November 2026.
 
 **Update:** Ein Teil ist jetzt abgesichert. Neu angelegt wurden
 `LICENSE.md`, `THIRD-PARTY-NOTICES.md`, `IMPRESSUM.md` und `DATENSCHUTZ.md`.
 Der Markenhinweis steht auf der Startseite. Das Gästebuch weist auf die
 lokale Speicherung hin. Die Punkte 1, 5, 6, 7, 9 und 10 sind damit
-dokumentiert. Die Punkte 2, 3, 4 und 8 brauchen weiterhin deine Entscheidung
-oder eine Beratung. Impressum und Datenschutz haben Platzhalter.
+dokumentiert. Die Punkte 2, 3, 4, 8 und 12 brauchen weiterhin deine
+Entscheidung oder eine Beratung. Impressum und Datenschutz haben Platzhalter.
 
 **Wichtig zuerst:** Das ist keine Rechtsberatung.
 Ich bin kein Anwalt.
@@ -19,7 +19,7 @@ Sie zeigt, was geklärt ist und was offen bleibt.
 
 Das Projekt ist überwiegend offen lizenziert.
 Der Kurs ist bewusst AGPL-3.0.
-Es gibt aber **elf offene Punkte**.
+Es gibt aber **zwölf offene Punkte**.
 Zwei davon sind dringend: die GPL-2.0-Abstammung im Code und das fehlende Impressum.
 Der Store-Entwurf ist nicht eingereicht.
 Nichts ist mit echten Nutzern getestet.
@@ -54,8 +54,9 @@ Der volle MIT-Text liegt nur in `products/computer-history/LICENSE.md`.
 | Kickstart-ROMs, Workbench | Urheberrechtlich geschützt. Nicht enthalten. Nur Dateiname lokal gespeichert. | `learn/retro/amiga/02-install-the-emulator.md`, `PERMISSIONS.md` |
 | `Ml.OctaGroover` | Von John Carehag und Christian Cyréus. Über Aminet. **Lizenz nicht dokumentiert.** | `learn/octagroover.md` |
 | Paula-Player | Basiert auf siday player, **GPL-2.0**. | `tools/paula-ml.js` |
-| AROS One | Echte Ausgabe 1.3 (64 Bit) von der AROS-Community. APL-Lizenz. Quelle: offizielle AROS-One-Seite und aros.org. | `learn/coding-course/18-aros.md`, `outreach/apps/aros-one.html` |
+| AROS One | Echte Ausgaben 1.3 (64 Bit) und 2.9 (32 Bit) von der AROS-Community. APL-Lizenz. Quelle: offizielle AROS-One-Seite und aros.org. | `learn/coding-course/18-aros.md`, `outreach/apps/aros-one.html` |
 | AROS One (Nachbildung) | Historische Simulation. Kein echtes AROS-Abbild. | `outreach/apps/aros-one-ram.html`, `outreach/media/AROS-One-RAM.*` |
+| Tiny AROS | Archiviertes 32-Bit-Live-CD-Abbild von ArchiveOS. APL für die AROS-Basis. Lizenzen der Zusatzprogramme nicht einzeln geprüft. | `learn/coding-course/18-aros.md`, `outreach/apps/tiny-aros.html` |
 | FASM 1.73.32 | Werkzeug zum Assemblieren. | `learn/retro/kolibrios/README.md` |
 | Marken: Commodore, Amiga, Microsoft, Windows, Hyperion, Cloanto, OpenCode, Suno | Namen werden benutzt. Nur für Commodore/Amiga gibt es einen klaren Hinweis. | `PERMISSIONS.md`, diverse Seiten |
 
@@ -90,7 +91,7 @@ Das sollte klarer unterschieden werden.
 
 Es gibt **keine Datenschutzerklärung und kein Impressum**.
 
-## 6. Die elf offenen Punkte
+## 6. Die zwölf offenen Punkte
 
 Ich bewerte jedes Risiko mit niedrig, mittel oder hoch.
 Das ist meine Einschätzung, keine juristische Bewertung.
@@ -141,7 +142,7 @@ Herkunft und Autoren sind genannt. Die Lizenz fehlt.
 Quelle und Autoren stehen schon. Das ist ein guter Anfang.
 
 ### 8. AROS-One-Name — niedrig
-Die echte Ausgabe heißt „AROS One 1.3". Die alte Seite heißt „AROS One im RAM".
+Die echten Ausgaben heißen „AROS One 1.3" und „AROS One v2.9". Die alte Seite heißt „AROS One im RAM".
 Die Quelle ist genannt. Eine ausdrückliche Erlaubnis für den Namen fehlt.
 **Empfehlung:** Quellenangabe behalten. Bei Veröffentlichung nachfragen.
 
@@ -165,6 +166,15 @@ Datenschutzerklärung schreiben. Gästebuch kenntlich machen.
 **Empfehlung:** Belege ergänzen oder „nicht belegt" schreiben.
 Das Projekt macht das schon an anderen Stellen vorbildlich.
 
+### 12. Tiny AROS — Zusatzlizenzen nicht einzeln geprüft — mittel
+Das archivierte 32-Bit-Abbild kommt von ArchiveOS.
+Die AROS-Basis steht unter APL.
+Das Abbild enthält weitere Programme.
+Deren Lizenzen habe ich nicht einzeln geprüft.
+Die alten Download-Seiten sind verschwunden.
+**Empfehlung:** Quelle nennen. Die Lizenzen der Zusatzprogramme klären,
+bevor das Abbild weitergegeben wird.
+
 ## 7. Was ich empfehle — in dieser Reihenfolge
 
 1. **Root-`LICENSE.md` anlegen.** Kostet wenig, hilft allen.
@@ -181,6 +191,7 @@ Das Projekt macht das schon an anderen Stellen vorbildlich.
 - Ob die Store-App AGPL-konform ist.
 - Ob Impressum und Datenschutzerklärung in deinem Land ausreichen.
 - Ob ein Markenname eine Erlaubnis braucht.
+- Ob die Zusatzlizenzen im Tiny-AROS-Abbild eine Weitergabe erlauben.
 - Ob der Spendenlink steuerlich gemeldet werden muss.
 
 Das braucht eine qualifizierte Beratung.
@@ -206,4 +217,5 @@ Prüfen, Quelle nennen, nicht belegt sagen.
 - `learn/retro/amiga/06-piracy-and-open.md`
 - `learn/cgi.md`, `tools/cgi/handler.mjs`, `tools/cgi/server.mjs`
 - `outreach/microsoft-store.md`, `outreach/tester-pack.md`
+- `outreach/apps/aros-one.html`, `outreach/apps/tiny-aros.html`
 - `site/index.html`, `.gitignore`

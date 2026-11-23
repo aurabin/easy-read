@@ -72,6 +72,10 @@ Sie unterscheiden sich in Aussehen und Programmen.
 3. Starte sie auf einem PC oder im Emulator.
 4. Sieh dir den Workbench an.
 
+Die echten Abbilder stehen auf zwei Seiten.
+Eine Seite heißt [AROS One](../../outreach/apps/aros-one.html).
+Die andere Seite heißt [Tiny AROS](../../outreach/apps/tiny-aros.html).
+
 ## Was das mit uns zu tun hat
 
 Unser Amiga-Kurs zeigt die alte Maschine.
@@ -81,9 +85,10 @@ alte Ideen, neue Hardware, offener Quelltext.
 
 ## Ehrlich
 
-Ich habe AROS One 1.3 mit QEMU gestartet.
-Der Rechner blieb aktiv. Den Desktop habe ich nicht geprüft.
-Ich habe die Website und das Repository gelesen.
+Ich habe AROS One 1.3 und AROS One v2.9 mit QEMU gestartet.
+Ich habe auch die alte CD von Tiny AROS mit QEMU gestartet.
+Der Rechner blieb aktiv. Die Desktops habe ich nicht geprüft.
+Ich habe die Websites und das Repository gelesen.
 Nicht mit echten Nutzern getestet.
 
 ## Weiterlesen
