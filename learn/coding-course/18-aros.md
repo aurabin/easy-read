@@ -84,6 +84,14 @@ Die Seite zu KolibriOS zeigt kleine Programme.
 AROS zeigt einen dritten Weg:
 alte Ideen, neue Hardware, offener Quelltext.
 
+## OpenCode und AROS
+
+OpenCode ist ein Werkzeug zum Programmieren.
+Wir benutzen es auf unserem Rechner.
+Es läuft nicht in AROS.
+Die Gründe stehen auf einer Seite.
+Sie heißt [OpenCode und AROS](../../outreach/apps/opencode-aros.html).
+
 ## Ehrlich
 
 Ich habe AROS One 1.3 und AROS One v2.9 mit QEMU gestartet.

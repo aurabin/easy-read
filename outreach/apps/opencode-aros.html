@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenCode und AROS — was geht</title>
+<style>
+:root{--desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+ --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:14px/1.5 Arial,Helvetica,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:18px 16px 60px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:#e8382f}.stripes i:nth-child(2){background:#f08c00}
+.stripes i:nth-child(3){background:#f2d000}.stripes i:nth-child(4){background:#3fa04a}
+.stripes i:nth-child(5){background:#2f60b0}.stripes i:nth-child(6){background:#7a3fa0}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:18px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+ background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:16px}
+a{color:var(--blue)}
+code{background:var(--win2);padding:2px 4px;display:block;white-space:pre-wrap;margin:8px 0}
+footer{text-align:center;color:var(--muted);font-size:12px}
+.note{background:var(--win2);border:1px solid var(--dark);padding:8px;margin-top:12px}
+</style>
+</head>
+<body><div class="wrap">
+<div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<section class="window"><div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">OpenCode und AROS — was geht</span><span class="gadget" aria-hidden="true"></span></div>
+<div class="inner">
+<h1>OpenCode und AROS</h1>
+<p>OpenCode ist ein Werkzeug zum Programmieren.</p>
+<p><strong>OpenCode läuft nicht in AROS.</strong></p>
+<p>Ich habe das geprüft. Hier sind die Gründe.</p>
+
+<h2>Die Gründe</h2>
+<ul>
+ <li>OpenCode kommt als Programm für Linux, macOS und Windows.</li>
+ <li>Es gibt kein Programm für AROS.</li>
+ <li>Die Installation über npm braucht Node.js.</li>
+ <li>AROS hat kein Node.js.</li>
+ <li>Ein Linux-Programm läuft nicht in AROS.</li>
+ <li>AROS spricht Amiga. Es spricht nicht Linux.</li>
+</ul>
+
+<h2>Ein Versuch aus der Community</h2>
+<p>Es gibt ein Projekt namens <code>aros-web</code>.</p>
+<p>Dort arbeitet eine Person an Node für AROS.</p>
+<p>Das Projekt braucht einen eigenen Quellbaum.</p>
+<p>Es braucht auch einen geänderten Chromium-Browser.</p>
+<p>Die Seite sagt: Bauen, Starten und Testen sind verschiedene Dinge.</p>
+<p>Ein lauffähiges OpenCode ist dort nicht belegt.</p>
+
+<h2>Was OpenCode braucht</h2>
+<ul>
+ <li>Einen Dienst im Hintergrund.</li>
+ <li>Eine Datenbank namens SQLite.</li>
+ <li>Netzwerk und verschlüsselte Verbindung.</li>
+ <li>Ein modernes Terminal mit vielen Farben.</li>
+</ul>
+<p>Das gibt es so nicht in AROS.</p>
+
+<h2>Was wir tun</h2>
+<p>Wir benutzen OpenCode auf dem Rechner daneben.</p>
+<p>Dort läuft Linux in WSL.</p>
+<p>Damit habe ich AROS gebaut.</p>
+<p>Damit habe ich diese Seiten geschrieben.</p>
+<p>AROS läuft dann im Emulator oder auf dem Rechner.</p>
+
+<h2>Quellen</h2>
+<p><a href="https://opencode.ai/docs/">Dokumentation von OpenCode öffnen</a></p>
+<p><a href="https://www.aros.org/documentation/faq.html">FAQ von AROS öffnen</a></p>
+<p><a href="https://www.aros.org/introduction/ports.html">Ports von AROS öffnen</a></p>
+<p><a href="https://github.com/terminills/aros-web">Projekt aros-web öffnen</a></p>
+
+<div class="note">
+<p><strong>Ehrlich:</strong> Ich habe OpenCode nicht in AROS gestartet.</p>
+<p>Ein Port für AROS ist mir nicht bekannt.</p>
+<p>Diese Behauptung ist nicht belegt.</p>
+<p>Nicht mit echten Nutzern getestet.</p>
+</div>
+</div></section>
+<footer>OpenCode ist ein Werkzeug von anomalyco. AROS ist vom AROS-Projekt. Wir nennen die Quellen.</footer>
+</div>
+</body></html>

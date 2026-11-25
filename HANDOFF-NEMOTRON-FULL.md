@@ -402,3 +402,26 @@ newer x86_64 1.3 package if it can be recovered.
 - The wrapper that ran the build was killed twice by tool timeouts and once
   by a server restart. The final run was detached with `nohup setsid` from
   `/root/arosbuilds/run-build.sh`. This is why the build survived.
+
+## 24. OpenCode and AROS (25 November 2026)
+
+- User asked to integrate OpenCode into AROS. I clarified the request and the
+  user chose "try to run OpenCode inside AROS".
+- Result: not feasible as a direct install. No fake port was attempted.
+- OpenCode 2 binaries are published for Linux x64 (glibc and musl), macOS and
+  Windows. The npm install route needs Node.js. No AROS binary is published.
+  A Linux ELF binary cannot run on AROS: AROS implements the AmigaOS API,
+  not the Linux ABI.
+- Official AROS FAQ lists Python, Regina, Lua and Hollywood as native
+  languages. There is no official Node.js. The local source tree at
+  `5d55abdc` has no `node` or `nodejs` component.
+- Experimental `terminills/aros-web` provides a Node 22 library for AROS.
+  It needs an ADT tree, a matching SDK and patched Chromium 124. Its README
+  says compile, hosted, QEMU and hardware results are different. It does not
+  claim to run OpenCode.
+- OpenCode also needs a background HTTP service, SQLite, TLS/network and a
+  truecolor terminal. These are not available in current AROS.
+- Any claim of OpenCode running inside AROS is "nicht belegt".
+- New page `outreach/apps/opencode-aros.html` explains this in Easy Read.
+  Start and store cards link to it. Lesson 18 links to it.
+  The quiz list now has 31 entries. No secret or API key is in the project.

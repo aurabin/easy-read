@@ -136,7 +136,7 @@ The user chose "Both, if obtainable".
   `e1c7eba915d32869376eef37a9b724985f7a65ffa987ecd12c24dd034e25d9c8`.
 - Both pages are updated: `outreach/apps/aros-one.html` and
   `outreach/apps/tiny-aros.html`. Start and store cards link to them.
-  The quiz list has 29 entries. Legal notes and handoff files are updated.
+  The quiz list now has 31 entries. Legal notes and handoff files are updated.
   Lesson 18 is changed, so remember the coding course is AGPL-3.0.
 
 ## Source build (23 November 2026)
@@ -159,3 +159,16 @@ The user chose "Both, if obtainable".
 - QEMU showed the Wanderer desktop with RAM Disk, AROS Live CD and
   Install AROS icons. I checked the desktop. Not tested with real users.
 - New page: `outreach/apps/aros-source.html`. Cards and quiz link to it.
+
+## OpenCode and AROS (25 November 2026)
+
+- New page `outreach/apps/opencode-aros.html`.
+- It says plainly that OpenCode does not run in AROS.
+- OpenCode 2 ships binaries for Linux, macOS and Windows. The npm route needs
+  Node.js. AROS has no official Node.js. `arch/all-unix` is not a Node port.
+- The experimental `terminills/aros-web` project has a Node 22 library for AROS.
+  It needs a special ADT tree and patched Chromium. No OpenCode port is claimed.
+- We use OpenCode on the host (Linux in WSL) to build AROS and write the site.
+- No key, secret, or API credential is stored in the project.
+- Say "nicht belegt" for any claim of OpenCode running inside AROS.
+- The quiz list now has 31 entries. Start and store pages link to the page.
