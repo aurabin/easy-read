@@ -164,14 +164,15 @@ var spiele=[
  {tag:"OS 4.1 FE Update 3",titel:"Der andere Weg",art:"quiz",beschr:"AmigaOS-Fragen",fragen:[{f:"Wer macht AmigaOS 4.1?",a:["Hyperion","Commodore","Apple"],r:0,e:"Hyperion entwickelt AmigaOS 4.1. Die Workbench ist blau."}]},
  {tag:"AROS One",titel:"AROS One 1.3 und 2.9",art:"quiz",beschr:"Echte Ausgaben",fragen:[{f:"Was ist AROS One?",a:["Eine AROS-Ausgabe","Ein Spiel","Ein ROM"],r:0,e:"AROS One ist eine Ausgabe von AROS. Hier liegen Abbilder für 64 Bit und 32 Bit."}]},
  {tag:"Tiny AROS",titel:"Tiny AROS",art:"quiz",beschr:"Archiviertes Abbild",fragen:[{f:"Was ist Tiny AROS?",a:["Eine AROS-Ausgabe","Ein Spiel","Ein ROM"],r:0,e:"Tiny AROS ist eine Ausgabe von AROS. Hier liegt ein archiviertes 32-Bit-Abbild."}]},
- {tag:"Fehler",titel:"Melden",art:"quiz",beschr:"Feedback-Fragen",fragen:[{f:"Wie meldet man einen Fehler?",a:["Per Issue","Mit dem Telefon","Mit einem Video"],r:0,e:"Schriftlich! Ein Issue auf GitHub reicht. Kein Anruf nötig."}]},
+   {tag:"AROS Quelle",titel:"AROS selbst gebaut",art:"quiz",beschr:"Aus dem Quelltext",fragen:[{f:"Woher kommt dieses AROS-Abbild?",a:["Aus dem Quelltext gebaut","Aus einem Laden","Aus einem ROM"],r:0,e:"Ich habe AROS aus dem Quelltext gebaut. Die ISO liegt auf diesem Rechner."}]},
+{tag:"Fehler",titel:"Melden",art:"quiz",beschr:"Feedback-Fragen",fragen:[{f:"Wie meldet man einen Fehler?",a:["Per Issue","Mit dem Telefon","Mit einem Video"],r:0,e:"Schriftlich! Ein Issue auf GitHub reicht. Kein Anruf nötig."}]},
  {tag:"Text",titel:"Verbessern",art:"quiz",beschr:"Text-Fragen",fragen:[{f:"Was hilft bei schweren Texten?",a:["Kurze Sätze","Lange Wörter","Viele Seiten"],r:0,e:"Kurze Sätze. Alltagswörter. Ein Gedanke pro Absatz."}]},
  {tag:"Sprache",titel:"Übersetzen",art:"quiz",beschr:"Sprach-Fragen",fragen:[{f:"In wie vielen Sprachen ist der Witz?",a:["6","2","20"],r:0,e:"Der Witz ist in sechs Sprachen. Deutsch, Englisch, Spanisch, Französisch, Portugiesisch, Italienisch."}]},
  {tag:"Code",titel:"Bauen",art:"quiz",beschr:"Bau-Fragen",fragen:[{f:"Was baut man im Kurs?",a:["Demos und Spiele","Autos","Häuser"],r:0,e:"Du baust Demos, Spiele und kleine Programme."}]}
 ];
 
 $("#showgames").onclick=function(){
- grid.style.display="grid";cap.textContent="29 SPIELE BEREIT.";
+ grid.style.display="grid";cap.textContent="30 SPIELE BEREIT.";
  this.textContent="SPIELE DA";
  window.scrollTo({top:grid.offsetTop-20,behavior:"smooth"});
 };

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AROS aus Quelle — selbst gebaut</title>
+<style>
+:root{--desk:#8c8c8c;--win:#d9d9d9;--win2:#c4c4c4;--title:#5b82b8;
+ --text:#1f1f1f;--muted:#4c4c4c;--blue:#244f8a;--light:#fff;--dark:#5a5a5a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:14px/1.5 Arial,Helvetica,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:18px 16px 60px}
+.stripes{display:flex;height:10px;width:168px;margin-bottom:14px;border:1px solid #fff;box-shadow:1px 1px 0 var(--dark)}
+.stripes i{flex:1}.stripes i:nth-child(1){background:#e8382f}.stripes i:nth-child(2){background:#f08c00}
+.stripes i:nth-child(3){background:#f2d000}.stripes i:nth-child(4){background:#3fa04a}
+.stripes i:nth-child(5){background:#2f60b0}.stripes i:nth-child(6){background:#7a3fa0}
+.window{background:var(--win);border-top:2px solid var(--light);border-left:2px solid var(--light);
+ border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);
+ box-shadow:3px 3px 0 rgba(0,0,0,.28);margin-bottom:18px}
+.titlebar{display:flex;align-items:center;gap:8px;height:26px;padding:0 6px;
+ background:linear-gradient(180deg,#7ea0cd,var(--title));color:#fff;font-weight:bold}
+.titlebar .gadget{width:14px;height:14px;background:var(--win2);border:1px solid var(--dark)}
+.titlebar .name{flex:1}
+.inner{padding:16px}
+a{color:var(--blue)}
+code{background:var(--win2);padding:2px 4px;display:block;white-space:pre-wrap;margin:8px 0}
+footer{text-align:center;color:var(--muted);font-size:12px}
+.note{background:var(--win2);border:1px solid var(--dark);padding:8px;margin-top:12px}
+</style>
+</head>
+<body><div class="wrap">
+<div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<section class="window"><div class="titlebar"><span class="gadget" aria-hidden="true"></span><span class="name">AROS aus Quelle — selbst gebaut</span><span class="gadget" aria-hidden="true"></span></div>
+<div class="inner">
+<h1>AROS selbst gebaut</h1>
+<p>Ich habe AROS aus dem Quelltext gebaut.</p>
+<p>Das ist kein fertiger Download.</p>
+<p>Das ist auch keine Nachbildung.</p>
+
+<h2>Was ich benutzt habe</h2>
+<ul>
+ <li>Den Quelltext vom AROS-Projekt.</li>
+ <li>Den Stand <code>5d55abdc</code>.</li>
+ <li>WSL mit Ubuntu 22.04 auf diesem Rechner.</li>
+ <li>Das Ziel <code>pc-x86_64</code>. Das heißt 64 Bit x86.</li>
+</ul>
+
+<h2>So habe ich gebaut</h2>
+<p>Zuerst habe ich die Kataloge aus dem Quelltext geholt.</p>
+<code>git submodule update --init --recursive</code>
+<p>Dann habe ich AROS eingestellt.</p>
+<code>../AROS/configure --target=pc-x86_64 --enable-ccache --enable-build-type=nightly</code>
+<p>Dann habe ich AROS gebaut.</p>
+<code>make -j16</code>
+<p>Zum Schluss habe ich die CD gebaut.</p>
+<code>make -j16 bootiso</code>
+
+<h2>Das Abbild</h2>
+<ul>
+ <li>ISO: <code>aros-pc-x86_64.iso</code></li>
+ <li>Größe: 723.238.912 Bytes</li>
+ <li>Die ISO heißt im Innern „AROS Live CD".</li>
+ <li>Systemkennung: <code>AROS-X86_64-PC</code></li>
+ <li>Sie ist eine ISO-9660-CD mit El Torito für x86.</li>
+</ul>
+
+<h2>Herkunft und Lizenz</h2>
+<p>AROS kommt vom AROS-Projekt.</p>
+<p>Die Lizenz heißt AROS Public License, kurz APL.</p>
+<p><a href="https://github.com/aros-development-team/AROS">Quelltext von AROS öffnen</a></p>
+<p><a href="https://www.aros.org/">Website von AROS öffnen</a></p>
+
+<h2>Prüfen</h2>
+<p>Die ISO hat diese MD5-Prüfsumme:</p>
+<code>f8820450eb76f3bc59a99a0aa2181aa0</code>
+<p>Die ISO hat diese SHA-256-Prüfsumme:</p>
+<code>846e83448187506f171b851949f29270cf37aed084501c067161b9e2c917d9a0</code>
+<p>Die Datei liegt auf diesem Rechner unter:</p>
+<code>C:\Users\icaro\Setup\aros-source\</code>
+
+<h2>Starten</h2>
+<p>Die ISO läuft nicht im Browser. Du brauchst QEMU.</p>
+<p>Starte die ISO mit diesem Befehl:</p>
+<code>qemu-system-x86_64 -accel tcg -m 2048 -cdrom "aros-pc-x86_64.iso" -boot d</code>
+<p>Auf diesem Rechner ist QEMU installiert unter</p>
+<code>C:\Users\icaro\Tools\QEMU\qemu-system-x86_64.exe</code>
+
+<div class="note">
+<p><strong>Ehrlich:</strong> Der Bau aus dem Quelltext hat funktioniert.</p>
+<p>Die ISO hat die richtigen Prüfsummen.</p>
+<p>QEMU hat die ISO gestartet.</p>
+<p>Ich habe den Desktop gesehen. Er heißt Wanderer.</p>
+<p>Dort standen RAM Disk, AROS Live CD und Install AROS.</p>
+<p>Nicht mit echten Nutzern getestet.</p>
+</div>
+</div></section>
+<footer>AROS basiert auf dem Quelltext des AROS-Projekts. Lizenz: APL.</footer>
+</div>
+</body></html>

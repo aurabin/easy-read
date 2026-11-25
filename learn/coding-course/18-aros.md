@@ -72,9 +72,10 @@ Sie unterscheiden sich in Aussehen und Programmen.
 3. Starte sie auf einem PC oder im Emulator.
 4. Sieh dir den Workbench an.
 
-Die echten Abbilder stehen auf zwei Seiten.
+Die echten Abbilder stehen auf drei Seiten.
 Eine Seite heißt [AROS One](../../outreach/apps/aros-one.html).
-Die andere Seite heißt [Tiny AROS](../../outreach/apps/tiny-aros.html).
+Eine Seite heißt [Tiny AROS](../../outreach/apps/tiny-aros.html).
+Die dritte Seite heißt [AROS aus Quelle](../../outreach/apps/aros-source.html).
 
 ## Was das mit uns zu tun hat
 
@@ -87,8 +88,10 @@ alte Ideen, neue Hardware, offener Quelltext.
 
 Ich habe AROS One 1.3 und AROS One v2.9 mit QEMU gestartet.
 Ich habe auch die alte CD von Tiny AROS mit QEMU gestartet.
-Der Rechner blieb aktiv. Die Desktops habe ich nicht geprüft.
-Ich habe die Websites und das Repository gelesen.
+Ich habe AROS aus dem Quelltext gebaut.
+Dieses Abbild habe ich mit QEMU gestartet.
+Dort habe ich den Desktop gesehen.
+Die anderen Desktops habe ich nicht geprüft.
 Nicht mit echten Nutzern getestet.
 
 ## Weiterlesen

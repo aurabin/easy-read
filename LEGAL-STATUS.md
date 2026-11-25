@@ -57,6 +57,7 @@ Der volle MIT-Text liegt nur in `products/computer-history/LICENSE.md`.
 | AROS One | Echte Ausgaben 1.3 (64 Bit) und 2.9 (32 Bit) von der AROS-Community. APL-Lizenz. Quelle: offizielle AROS-One-Seite und aros.org. | `learn/coding-course/18-aros.md`, `outreach/apps/aros-one.html` |
 | AROS One (Nachbildung) | Historische Simulation. Kein echtes AROS-Abbild. | `outreach/apps/aros-one-ram.html`, `outreach/media/AROS-One-RAM.*` |
 | Tiny AROS | Archiviertes 32-Bit-Live-CD-Abbild von ArchiveOS. APL für die AROS-Basis. Lizenzen der Zusatzprogramme nicht einzeln geprüft. | `learn/coding-course/18-aros.md`, `outreach/apps/tiny-aros.html` |
+| AROS aus Quelle | Selbst gebaut aus dem AROS-Quelltext, Stand `5d55abdc`. APL-Lizenz. Kein Download einer fertigen Ausgabe. | `learn/coding-course/18-aros.md`, `outreach/apps/aros-source.html` |
 | FASM 1.73.32 | Werkzeug zum Assemblieren. | `learn/retro/kolibrios/README.md` |
 | Marken: Commodore, Amiga, Microsoft, Windows, Hyperion, Cloanto, OpenCode, Suno | Namen werden benutzt. Nur für Commodore/Amiga gibt es einen klaren Hinweis. | `PERMISSIONS.md`, diverse Seiten |
 

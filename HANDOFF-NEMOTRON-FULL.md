@@ -369,20 +369,36 @@ newer x86_64 1.3 package if it can be recovered.
 - Say "64 Bit ist nicht verfügbar" for Tiny AROS.
 - Never say "accessible" or "user-tested". Say "not yet tested with real users".
 
-### WSL source build — failed, 23 November 2026
+### WSL source build — succeeded, 23 November 2026
 
-- The build in section 21 was retried with `make -j16 bootiso` in
-  `/root/arosbuilds/build-pc-x86_64`.
-- Result: failure. Marker `/root/arosbuilds/build-bootiso.exit` says
-  `BUILD_FAIL`. The log is `/root/arosbuilds/build-bootiso.log`, 19,266 lines.
-- GRUB 2.16 `configure` failed with "C compiler cannot create executables".
-  The details in `config.log` show that `x86_64-aros-ld` could not find
-  `-lutility`, `-loop`, `-lexec`, `-lautoinit` and `-llibinit`.
-  No AROS target libraries existed in `bin/pc-x86_64` at that time.
-- The build ended with `make: *** [Makefile:380: bootiso] Error 10`.
-- No ISO was produced. Some source-asset downloads also returned 403, 404
-  or an SSL error. The GRUB tarball itself did download.
-- No nightly ISO was used as a replacement. The source-build attempt failed.
-  Never describe it as a successful source build.
-- A possible next attempt: run a full `make` first, then `make bootiso`,
-  with fewer parallel jobs so the target libraries exist before GRUB configure.
+- First attempt: `make -j16 bootiso` only. It failed at GRUB 2.16 `configure`.
+  `x86_64-aros-ld` could not find `-lutility`, `-loop`, `-lexec`,
+  `-lautoinit` and `-llibinit`. No AROS target libraries had been built.
+- Fix 1: follow the AROS nightly script order. Run the full `make -j16`
+  first, then `make -j16 bootiso`.
+- Second attempt: full `make -j16`. It failed in `rom/security` because the
+  78 catalog submodules were missing. Fix 2:
+  `cd /root/arosbuilds/AROS && git submodule update --init --recursive`.
+- Final run: full `make -j16` then `make -j16 bootiso`. Both markers say
+  `BUILD_OK`. Logs: `/root/arosbuilds/full-build.log` (13,808 lines) and
+  `/root/arosbuilds/build-bootiso.log`.
+- Build tree `/root/arosbuilds/build-pc-x86_64`. Source `/root/arosbuilds/AROS`
+  at commit `5d55abdcb84d819a9e42eb4f6174ac6707c67516`.
+- Configure line:
+  `/root/arosbuilds/AROS/configure --target=pc-x86_64 --enable-ccache --enable-build-type=nightly`
+- ISO `aros-pc-x86_64.iso`, size `723238912`,
+  MD5 `f8820450eb76f3bc59a99a0aa2181aa0`,
+  SHA-256 `846e83448187506f171b851949f29270cf37aed084501c067161b9e2c917d9a0`.
+  It is in `/root/arosbuilds/build-pc-x86_64/distfiles/` and copied to
+  `C:\Users\icaro\Setup\aros-source\`.
+- `isoinfo`: ISO 9660, system id `AROS-X86_64-PC`, volume id `AROS Live CD`,
+  El Torito arch 0 (x86), bootable.
+- QEMU command:
+  `qemu-system-x86_64 -accel tcg -m 2048 -cdrom "aros-pc-x86_64.iso" -boot d`
+- QEMU reached the Wanderer desktop. Icons: RAM Disk, AROS Live CD,
+  Install AROS. The desktop was checked by me. Not tested with real users.
+- New page `outreach/apps/aros-source.html`. Start and store cards link to it.
+  The quiz list has 30 entries. Legal notes are updated.
+- The wrapper that ran the build was killed twice by tool timeouts and once
+  by a server restart. The final run was detached with `nohup setsid` from
+  `/root/arosbuilds/run-build.sh`. This is why the build survived.

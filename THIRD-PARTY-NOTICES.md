@@ -82,3 +82,14 @@ Ein Hinweis dazu steht in `LICENSE.md` und auf den Seiten.
 Diese Liste ist nicht vollständig.
 Neue Fremdinhalte müssen hier ergänzt werden.
 Offene Punkte stehen in `LEGAL-STATUS.md`.
+
+## 10. AROS aus Quelle — APL
+
+Ich habe AROS aus dem Quelltext gebaut.
+Der Stand war `5d55abdc`.
+Die Quelle liegt auf GitHub im Repository `aros-development-team/AROS`.
+Die Lizenz der AROS-Basis ist die AROS Public License, kurz APL.
+Das gebaute Abbild liegt auf diesem Rechner unter
+`C:\Users\icaro\Setup\aros-source\`.
+Es ist kein Download einer fertigen Ausgabe.
+Die Seite `outreach/apps/aros-source.html` nennt die Prüfsummen und den Quelltext.
